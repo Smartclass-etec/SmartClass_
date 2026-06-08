@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Turmas - Professor | SmartClass</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { display: flex; background: #f0f2f5; font-family: 'Poppins', sans-serif; }
+        
+        .sidebar { width: 240px; height: 100vh; background: #00796b; color: white; position: fixed; padding-top: 25px; }
+        .sidebar h2 { text-align: center; margin-bottom: 25px; font-size: 20px; }
+        .sidebar a { display: block; padding: 12px 22px; color: white; text-decoration: none; font-size: 13px; transition: 0.3s; }
+        .sidebar a:hover, .sidebar a.active { background: #004d47; border-left: 4px solid #ffd700; }
+        
+        .content { margin-left: 240px; padding: 20px; flex: 1; }
+        .welcome-card { background: linear-gradient(135deg, #00796b, #004d47); border-radius: 16px; padding: 15px 20px; color: white; margin-bottom: 20px; }
+        .welcome-card h2 { font-size: 18px; }
+        .welcome-card p { font-size: 12px; opacity: 0.9; }
+        
+        .page-header { margin-bottom: 25px; }
+        .page-header h1 { color: #00796b; font-size: 24px; display: flex; align-items: center; gap: 10px; }
+        .page-header p { color: #666; font-size: 13px; margin-top: 5px; }
+        
+        .selectors { display: flex; gap: 20px; margin-bottom: 25px; flex-wrap: wrap; background: white; padding: 15px 20px; border-radius: 16px; }
+        .select-group { display: flex; align-items: center; gap: 10px; }
+        .select-group label { font-weight: 600; color: #00796b; font-size: 13px; }
+        .select-group select { padding: 8px 15px; border-radius: 30px; border: 1px solid #e0e0e0; background: white; font-family: 'Poppins', sans-serif; }
+        
+        .turmas-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(380px, 1fr)); gap: 20px; margin-bottom: 25px; }
+        .turma-card { background: white; border-radius: 20px; overflow: hidden; box-shadow: 0 2px 10px rgba(0,0,0,0.05); transition: 0.3s; }
+        .turma-card:hover { transform: translateY(-3px); box-shadow: 0 10px 25px rgba(0,121,107,0.1); }
+        .turma-header { background: linear-gradient(135deg, #00796b, #004d47); padding: 15px 20px; color: white; display: flex; justify-content: space-between; align-items: center; }
+        .turma-header h3 { font-size: 16px; display: flex; align-items: center; gap: 8px; }
+        .turma-badge { background: rgba(255,255,255,0.2); padding: 4px 12px; border-radius: 30px; font-size: 11px; }
+        .turma-body { padding: 15px; }
+        .turma-section { margin-bottom: 20px; }
+        .turma-section h4 { color: #00796b; font-size: 13px; margin-bottom: 10px; display: flex; align-items: center; gap: 8px; border-bottom: 1px solid #eef2f6; padding-bottom: 8px; }
+        .professores-list, .alunos-list { max-height: 150px; overflow-y: auto; }
+        .professor-item, .aluno-item-card { display: flex; align-items: center; gap: 10px; padding: 8px 10px; background: #f8f9fa; border-radius: 10px; margin-bottom: 6px; }
+        .professor-item i, .aluno-item-card i { font-size: 20px; color: #00796b; }
+        .professor-info, .aluno-info-card { flex: 1; }
+        .professor-name, .aluno-name-card { font-size: 12px; font-weight: 600; }
+        .professor-email, .aluno-email-card { font-size: 10px; color: #666; }
+        .btn-chat { background: #e8f5e9; border: none; padding: 5px 12px; border-radius: 20px; cursor: pointer; font-size: 11px; color: #00796b; transition: 0.2s; }
+        .btn-chat:hover { background: #00796b; color: white; }
+        .btn-add { background: #e3f2fd; border: none; padding: 5px 12px; border-radius: 20px; cursor: pointer; font-size: 11px; color: #1565c0; transition: 0.2s; }
+        .btn-add:hover { background: #1565c0; color: white; }
+        
+        .modal-chat {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+        }
+        .chat-container {
+            background: white;
+            border-radius: 24px;
+            width: 90%;
+            max-width: 500px;
+            height: 600px;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            animation: fadeIn 0.3s ease;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        .chat-header {
+            background: linear-gradient(135deg, #00796b, #004d47);
+            padding: 15px 20px;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .chat-header h3 { font-size: 16px; display: flex; align-items: center; gap: 8px; }
+        .chat-close { font-size: 24px; cursor: pointer; opacity: 0.8; }
+        .chat-close:hover { opacity: 1; }
+        .chat-messages {
+            flex: 1;
+            padding: 15px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            background: #f8f9fa;
+        }
+        .message {
+            max-width: 80%;
+            padding: 10px 14px;
+            border-radius: 18px;
+            font-size: 13px;
+        }
+        .message.sent {
+            background: #00796b;
+            color: white;
+            align-self: flex-end;
+            border-bottom-right-radius: 4px;
+        }
+        .message.received {
+            background: white;
+            color: #333;
+            align-self: flex-start;
+            border-bottom-left-radius: 4px;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+        }
+        .message-info { font-size: 10px; margin-top: 4px; opacity: 0.7; }
+        .chat-input-area {
+            display: flex;
+            gap: 10px;
+            padding: 15px;
+            background: white;
+            border-top: 1px solid #eef2f6;
+        }
+        .chat-input-area input {
+            flex: 1;
+            padding: 10px 15px;
+            border: 1px solid #e0e0e0;
+            border-radius: 30px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 13px;
+        }
+        .chat-input-area button {
+            background: #00796b;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            color: white;
+            cursor: pointer;
+        }
+        .empty-state { text-align: center; padding: 40px; color: #999; font-size: 12px; }
+        
+        .custom-notification {
+            position: fixed; top: 20px; right: -300px; padding: 8px 16px; border-radius: 8px;
+            color: white; font-size: 12px; transition: right 0.3s; z-index: 10000;
+        }
+        .custom-notification.show { right: 20px; }
+        .custom-notification.success { background: #00796b; }
+        .custom-notification.error { background: #f44336; }
+        
+        @media (max-width: 900px) { .turmas-grid { grid-template-columns: 1fr; } .sidebar { width: 200px; } .content { margin-left: 200px; } }
+    </style>
+</head>
+<body>
+
+<div class="sidebar">
+    
+</div>
+
+<div class="content">
+    <div class="welcome-card">
+        <h2>📋 Gerenciamento de Turmas</h2>
+        <p>Visualize professores e alunos por turma</p>
+    </div>
+    
+    <div class="selectors">
+        <div class="select-group"><label>Série:</label><select id="serieSelect"></select></div>
+        <div class="select-group"><label>Turma:</label><select id="turmaSelect"></select></div>
+    </div>
+    
+    <div class="turmas-grid" id="turmasGrid"></div>
+</div>
+<div class="theme-toggle" style="padding: 15px 25px; border-top: 1px solid rgba(255,255,255,0.2);">
+    <label class="switch">
+        <input type="checkbox" id="darkModeToggle">
+        <span class="slider"></span>
+        <span style="margin-left: 10px; font-size: 12px;">Modo Escuro</span>
+    </label>
+</div>
+<div id="chatModal" class="modal-chat">
+    <div class="chat-container">
+        <div class="chat-header">
+            <h3><i class="fas fa-comments"></i> <span id="chatTitle">Chat com Professor</span></h3>
+            <span class="chat-close" onclick="fecharChat()">&times;</span>
+        </div>
+        <div class="chat-messages" id="chatMessages"></div>
+        <div class="chat-input-area">
+            <input type="text" id="chatInput" placeholder="Digite sua mensagem..." onkeypress="if(event.key==='Enter') enviarMensagem()">
+            <button onclick="enviarMensagem()"><i class="fas fa-paper-plane"></i></button>
+        </div>
+    </div>
+</div>
+
+<script>
+    const user = JSON.parse(localStorage.getItem("loggedUser"));
+    if(!user) window.location.href = "login_professor.html";
+    
+    let currentChatProfessor = null;
+    let currentChatTurma = null;
+    
+    const turmasPorSerie = {
+        "9ano": { nome: "9º Ano", turmas: ["9A", "9B", "9C"] },
+        "1anoEM": { nome: "1º Ano EM", turmas: ["1A", "1B", "1C"] },
+        "2anoEM": { nome: "2º Ano EM", turmas: ["2A", "2B", "2C"] },
+        "3anoEM": { nome: "3º Ano EM", turmas: ["3A", "3B", "3C"] }
+    };
+    
+    function getProfessores() {
+        const users = JSON.parse(localStorage.getItem("users") || "[]");
+        const professores = users.filter(u => u.tipo === "professor" || (u.identifier && u.identifier.length === 11));
+        return professores;
+    }
+    
+    function getAlunosDaTurma(serie, turma) {
+        const chave = `alunos_turma_${serie}_${turma}`;
+        return JSON.parse(localStorage.getItem(chave) || '[]');
+    }
+    
+    function getProfessoresDaTurma(serie, turma) {
+        const chave = `professores_turma_${serie}_${turma}`;
+        return JSON.parse(localStorage.getItem(chave) || '[]');
+    }
+    
+    function adicionarProfessorNaTurma(professor, serie, turma) {
+        const chave = `professores_turma_${serie}_${turma}`;
+        const professores = JSON.parse(localStorage.getItem(chave) || '[]');
+        if (!professores.some(p => p.email === professor.email)) {
+            professores.push({ nome: professor.name, email: professor.email, data: new Date().toISOString() });
+            localStorage.setItem(chave, JSON.stringify(professores));
+            showNotification(`Professor ${professor.name} adicionado à turma!`, "success");
+            return true;
+        }
+        return false;
+    }
+    
+    function registrarProfessorAtual(serie, turma) {
+        if(user && user.name) {
+            const professor = { name: user.name, email: user.identifier || user.email };
+            adicionarProfessorNaTurma(professor, serie, turma);
+        }
+    }
+    
+    function renderTurmas() {
+        const serie = document.getElementById('serieSelect').value;
+        const turma = document.getElementById('turmaSelect').value;
+        
+        registrarProfessorAtual(serie, turma);
+        
+        const professores = getProfessoresDaTurma(serie, turma);
+        const alunos = getAlunosDaTurma(serie, turma);
+        const todosProfessores = getProfessores();
+        
+        console.log(`Buscando alunos da turma: ${serie}_${turma}`);
+        console.log('Alunos encontrados:', alunos);
+        
+        const professoresNaoAdicionados = todosProfessores.filter(p => !professores.some(prof => prof.email === (p.identifier || p.email)));
+        
+        const grid = document.getElementById('turmasGrid');
+        grid.innerHTML = `
+            <div class="turma-card">
+                <div class="turma-header">
+                    <h3><i class="fas fa-chalkboard-user"></i> Professores da Turma</h3>
+                    <span class="turma-badge">${professores.length} docentes</span>
+                </div>
+                <div class="turma-body">
+                    <div class="turma-section">
+                        <h4><i class="fas fa-user-tie"></i> Professores Registrados</h4>
+                        <div class="professores-list">
+                            ${professores.length === 0 ? '<div class="empty-state">Nenhum professor registrado</div>' : 
+                                professores.map(p => `
+                                    <div class="professor-item">
+                                        <i class="fas fa-chalkboard-user"></i>
+                                        <div class="professor-info">
+                                            <div class="professor-name">${p.nome}</div>
+                                            <div class="professor-email">${p.email}</div>
+                                        </div>
+                                        <button class="btn-chat" onclick="abrirChat('${p.email}', '${p.nome}', '${serie}', '${turma}')"><i class="fas fa-comment-dots"></i> Chat</button>
+                                    </div>
+                                `).join('')}
+                        </div>
+                    </div>
+                    <div class="turma-section">
+                        <h4><i class="fas fa-plus-circle"></i> Adicionar Professor</h4>
+                        <div class="professores-list">
+                            ${professoresNaoAdicionados.length === 0 ? '<div class="empty-state">Todos os professores já estão adicionados</div>' : 
+                                professoresNaoAdicionados.map(p => `
+                                    <div class="professor-item">
+                                        <i class="fas fa-user-plus"></i>
+                                        <div class="professor-info">
+                                            <div class="professor-name">${p.name}</div>
+                                            <div class="professor-email">${p.identifier || p.email}</div>
+                                        </div>
+                                        <button class="btn-add" onclick="adicionarProfessor('${p.identifier || p.email}', '${p.name}', '${serie}', '${turma}')"><i class="fas fa-user-plus"></i> Adicionar</button>
+                                    </div>
+                                `).join('')}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="turma-card">
+                <div class="turma-header">
+                    <h3><i class="fas fa-users"></i> Alunos da Turma</h3>
+                    <span class="turma-badge">${alunos.length} alunos</span>
+                </div>
+                <div class="turma-body">
+                    <div class="turma-section">
+                        <h4><i class="fas fa-user-graduate"></i> Alunos Matriculados</h4>
+                        <div class="alunos-list">
+                            ${alunos.length === 0 ? '<div class="empty-state">Nenhum aluno cadastrado ainda.<br>Os alunos aparecerão aqui quando se cadastrarem.</div>' : 
+                                alunos.map(a => `
+                                    <div class="aluno-item-card">
+                                        <i class="fas fa-user-circle"></i>
+                                        <div class="aluno-info-card">
+                                            <div class="aluno-name-card">${a.nome}</div>
+                                            <div class="aluno-email-card">${a.email}</div>
+                                        </div>
+                                    </div>
+                                `).join('')}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+    }
+    
+    function adicionarProfessor(email, nome, serie, turma) {
+        const chave = `professores_turma_${serie}_${turma}`;
+        const professores = JSON.parse(localStorage.getItem(chave) || '[]');
+        if (!professores.some(p => p.email === email)) {
+            professores.push({ nome: nome, email: email, data: new Date().toISOString() });
+            localStorage.setItem(chave, JSON.stringify(professores));
+            showNotification(`Professor ${nome} adicionado à turma!`, "success");
+            renderTurmas();
+        }
+    }
+    
+    function abrirChat(email, nome, serie, turma) {
+        currentChatProfessor = { email, nome };
+        currentChatTurma = { serie, turma };
+        document.getElementById('chatTitle').innerHTML = `<i class="fas fa-comments"></i> Chat com ${nome}`;
+        carregarMensagens();
+        document.getElementById('chatModal').style.display = 'flex';
+    }
+    
+    function fecharChat() {
+        document.getElementById('chatModal').style.display = 'none';
+        currentChatProfessor = null;
+    }
+    
+    function getChatKey() {
+        if (!currentChatProfessor || !user) return null;
+        const emails = [user.identifier || user.email, currentChatProfessor.email].sort();
+        return `chat_${emails[0]}_${emails[1]}`;
+    }
+    
+    function carregarMensagens() {
+        const key = getChatKey();
+        const messages = JSON.parse(localStorage.getItem(key) || '[]');
+        const container = document.getElementById('chatMessages');
+        const currentUserEmail = user.identifier || user.email;
+        
+        container.innerHTML = messages.map(msg => `
+            <div class="message ${msg.sender === currentUserEmail ? 'sent' : 'received'}">
+                <div>${msg.text}</div>
+                <div class="message-info">${new Date(msg.timestamp).toLocaleTimeString()}</div>
+            </div>
+        `).join('');
+        
+        container.scrollTop = container.scrollHeight;
+    }
+    
+    function enviarMensagem() {
+        const input = document.getElementById('chatInput');
+        let text = input.value.trim();
+        if (!text || !currentChatProfessor) return;
+        
+        // LIMITE DE 500 CARACTERES
+        if (text.length > 500) {
+            text = text.substring(0, 500);
+            input.value = text;
+        }
+        
+        // resto do código continua igual
+        const key = getChatKey();
+        // ...
+        }
+    
+    function showNotification(msg, type) {
+        const notif = document.createElement('div');
+        notif.className = `custom-notification ${type}`;
+        notif.innerHTML = `<i class="fas ${type === 'success' ? 'fa-check-circle' : 'fa-exclamation-circle'}"></i> ${msg}`;
+        document.body.appendChild(notif);
+        setTimeout(() => notif.classList.add('show'), 10);
+        setTimeout(() => { notif.classList.remove('show'); setTimeout(() => notif.remove(), 300); }, 2500);
+    }
+    
+    function carregarSelectores() {
+        const serieSelect = document.getElementById('serieSelect');
+        serieSelect.innerHTML = Object.keys(turmasPorSerie).map(key => 
+            `<option value="${key}">${turmasPorSerie[key].nome}</option>`
+        ).join('');
+        
+        const turmaSelect = document.getElementById('turmaSelect');
+        function atualizarTurmas() {
+            const serie = serieSelect.value;
+            const turmas = turmasPorSerie[serie]?.turmas || [];
+            turmaSelect.innerHTML = turmas.map(t => `<option value="${t}">${t}</option>`).join('');
+            renderTurmas();
+        }
+        
+        serieSelect.addEventListener('change', atualizarTurmas);
+        turmaSelect.addEventListener('change', () => renderTurmas());
+        atualizarTurmas();
+    }
+    
+    function sair() { localStorage.clear(); window.location.href = "index.html"; }
+    
+    document.addEventListener('DOMContentLoaded', () => {
+        carregarSelectores();
+    });
+    
+    window.abrirChat = abrirChat;
+    window.fecharChat = fecharChat;
+    window.enviarMensagem = enviarMensagem;
+    window.adicionarProfessor = adicionarProfessor;
+</script>
+
+    
+    <script src="js/darkmode.js"></script>
+    <script src="js/sidebar.js"></script>
+    <script src="js/validacoes.js"></script>
+    <script src="js/notifications.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>

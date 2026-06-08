@@ -1,0 +1,394 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+/* ===== FUNDO ANIMADO ===== */
+
+.background {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    z-index: -3;
+}
+
+.bg {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    animation: fade 20s infinite;
+}
+
+.bg1 {
+    background-image: url("../png/bg1.png");
+}
+
+.bg2 {
+    background-image: url("../png/bg2.png");
+    animation-delay: 10s;
+}
+
+.overlay-verde {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: #52997e;
+    opacity: 0.85;
+}
+
+@keyframes fade {
+    0% { opacity: 1; }
+    45% { opacity: 1; }
+    50% { opacity: 0; }
+    95% { opacity: 0; }
+    100% { opacity: 1; }
+}
+
+/* ===== CONTAINER ===== */
+
+.container {
+    background: white;
+    border-radius: 20px;
+    position: relative;
+    overflow: hidden;
+    width: 900px;
+    max-width: 100%;
+    min-height: 550px;
+    box-shadow: 0 25px 60px rgba(0,0,0,0.4);
+}
+
+/* ===== TRANSIÇÃO ===== */
+
+.form-container {
+    position: absolute;
+    top: 0;
+    height: 100%;
+    width: 50%;
+    transition: all 0.6s ease-in-out;
+}
+
+.sign-in-container {
+    left: 0;
+    z-index: 2;
+}
+
+.sign-up-container {
+    left: 0;
+    opacity: 0;
+    z-index: 1;
+}
+
+.container.right-panel-active .sign-in-container {
+    transform: translateX(100%);
+    opacity: 0;
+}
+
+.container.right-panel-active .sign-up-container {
+    transform: translateX(100%);
+    opacity: 1;
+    z-index: 5;
+}
+
+/* ===== FORM ===== */
+
+form {
+    background: white;
+    display: flex;
+    flex-direction: column;
+    padding: 40px 60px; /* menos padding em cima */
+    height: 100%;
+    justify-content: flex-start; /* começa mais em cima */
+    align-items: center;
+    padding-top: 50px;
+}
+
+h1 {
+    margin-bottom: 25px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    color: #00796b;
+}
+
+.overlay-panel h1 {
+    color: white;
+}
+
+/* ===== INPUTS ===== */
+
+.input-group {
+    position: relative;
+    width: 100%;
+    margin-bottom: 15px;
+}
+
+.input-group i {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #00796b;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 12px 45px 12px 40px;
+    border-radius: 12px;
+    border: 1px solid #cde5e2;
+    background: #f8fefe;
+    transition: 0.3s ease;
+    font-size: 14px;
+}
+
+.input-group input:focus {
+    outline: none;
+    border-color: #00796b;
+    box-shadow: 0 0 8px rgba(0,121,107,0.4);
+    background: #ffffff;
+}
+
+/* ===== OLHO DA SENHA ===== */
+
+.toggle-password {
+    position: absolute;
+    right: -1px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #00796b;
+    font-size: 14px;
+    transition: 0.3s;
+}
+
+.toggle-password:hover {
+    color: #004d47;
+}
+
+/* ===== BOTÕES ===== */
+
+button {
+    border-radius: 30px;
+    border: none;
+    padding: 13px 50px;
+    background: linear-gradient(135deg, #00796b, #004d47);
+    color: white;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: all 0.3s ease;
+}
+
+button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+}
+
+button.ghost {
+    background: transparent;
+    border: 2px solid white;
+}
+
+/* ===== OVERLAY ===== */
+
+.overlay-container {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 50%;
+    height: 100%;
+    overflow: hidden;
+    transition: transform 0.6s ease-in-out;
+}
+
+.container.right-panel-active .overlay-container {
+    transform: translateX(-100%);
+}
+
+.overlay {
+    background: linear-gradient(135deg, #057c45, #00796b);
+    color: white;
+    position: relative;
+    left: -100%;
+    height: 100%;
+    width: 200%;
+    display: flex;
+    transition: transform 0.6s ease-in-out;
+}
+
+.container.right-panel-active .overlay {
+    transform: translateX(50%);
+}
+
+.overlay-panel {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 40px;
+    text-align: center;
+}
+
+/* ===== DETALHES BONITOS NO LOGIN ===== */
+
+form p.subtitle {
+    font-size: 14px;
+    color: #777;
+    margin-bottom: 20px;
+}
+
+.title-line {
+    width: 40px;
+    height: 4px;
+    background: linear-gradient(90deg, #00796b, #004d47);
+    border-radius: 5px;
+    margin: 10px auto 20px auto;
+}
+
+.divider {
+    display: flex;
+    align-items: center;
+    margin: 20px 0;
+    color: #999;
+    font-size: 13px;
+}
+
+.divider::before,
+.divider::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: #ddd;
+    margin: 0 10px;
+}
+
+.social-icons {
+    display: flex;
+    gap: 15px;
+    margin-top: 5px;   /* diminui espaço acima */
+}
+
+.social-icons i {
+    background: #f1f1f1;
+    padding: 10px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.social-icons i:hover {
+    background: #00796b;
+    color: white;
+    transform: translateY(-3px);
+}
+
+/* sombra interna suave */
+form {
+    box-shadow: inset 0 0 30px rgba(0,0,0,0.03);
+}
+
+.divider {
+    margin: 15px 0 8px 0; /* menos espaço */
+}
+
+form h1 {
+    position: relative;
+}
+
+form h1::after {
+    content: "";
+    width: 60px;
+    height: 4px;
+    background: linear-gradient(135deg, #00796b, #004d47);
+    display: block;
+    margin: 8px auto 0 auto;
+    border-radius: 10px;
+}
+
+/* ===== TELA DE CARREGAMENTO ===== */
+
+#loading-screen{
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: #00796b;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    z-index: 9999;
+    color: white;
+    font-size: 18px;
+
+    bottom: 0;
+    transition: transform 0.8s ease;
+}
+
+
+/* ===== NOTIFICAÇÃO ===== */
+
+/* ===== NOTIFICAÇÃO ===== */
+
+.notification{
+    position: fixed;
+    top: -80px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 16px 28px;
+    border-radius: 10px;
+    font-size: 15px;
+    z-index: 9999;
+    transition: 0.4s;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+    color: white;
+    background: #e53935;
+}
+
+/* notificação aparece */
+
+.notification.show{
+    top: 20px;
+}
+
+/* sucesso */
+
+.notification.success{
+    background: linear-gradient(135deg,#00796b,#004d47);
+    font-size: 17px;
+    padding: 18px 35px;
+}
+
+/* ===== BOLINHA DE LOADING ===== */
+
+.loader{
+    width: 60px;
+    height: 60px;
+    border: 6px solid rgba(255,255,255,0.3);
+    border-top: 6px solid white;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-bottom: 20px;
+}
+
+@keyframes spin{
+    0%{
+        transform: rotate(0deg);
+    }
+
+    100%{
+        transform: rotate(360deg);
+    }
+}
+

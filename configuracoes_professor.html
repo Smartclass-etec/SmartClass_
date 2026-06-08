@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Configurações - Professor | SmartClass</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { display: flex; background: #f0f2f5; font-family: 'Poppins', sans-serif; transition: background 0.3s ease; }
+        
+        .sidebar { width: 240px; height: 100vh; background: #00796b; color: white; position: fixed; padding-top: 25px; transition: background 0.3s ease; }
+        .sidebar h2 { text-align: center; margin-bottom: 25px; font-size: 20px; }
+        .sidebar a { display: block; padding: 12px 22px; color: white; text-decoration: none; font-size: 13px; transition: 0.3s; }
+        .sidebar a:hover, .sidebar a.active { background: #004d47; border-left: 4px solid #ffd700; }
+        
+        .content { margin-left: 240px; padding: 25px; flex: 1; transition: background 0.3s ease; }
+        .page-header { margin-bottom: 25px; }
+        .page-header h1 { color: #00796b; font-size: 24px; display: flex; align-items: center; gap: 12px; transition: color 0.3s ease; }
+        .page-header p { color: #666; font-size: 13px; margin-top: 5px; transition: color 0.3s ease; }
+        
+        .config-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(400px, 1fr)); gap: 25px; }
+        .config-card { background: white; border-radius: 20px; padding: 20px; border: 1px solid #eef2f6; transition: all 0.3s ease; }
+        .config-card:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(0,121,107,0.08); }
+        .config-card h3 { color: #00796b; font-size: 16px; margin-bottom: 15px; display: flex; align-items: center; gap: 10px; border-bottom: 2px solid #eef2f6; padding-bottom: 10px; transition: color 0.3s ease; }
+        .config-card h3 i { font-size: 18px; }
+        
+        .preferencia-item { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid #eef2f6; }
+        .preferencia-item:last-child { border-bottom: none; }
+        .preferencia-info h4 { font-size: 13px; font-weight: 600; color: #333; transition: color 0.3s ease; }
+        .preferencia-info p { font-size: 11px; color: #888; margin-top: 2px; transition: color 0.3s ease; }
+        
+        .switch { position: relative; display: inline-block; width: 50px; height: 24px; }
+        .switch input { opacity: 0; width: 0; height: 0; }
+        .slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #ccc; transition: 0.3s; border-radius: 24px; }
+        .slider:before { position: absolute; content: ""; height: 18px; width: 18px; left: 3px; bottom: 3px; background-color: white; transition: 0.3s; border-radius: 50%; }
+        input:checked + .slider { background-color: #00796b; }
+        input:checked + .slider:before { transform: translateX(26px); }
+        
+        .btn-group-config { margin-top: 15px; display: flex; gap: 10px; flex-wrap: wrap; }
+        .btn-config { background: #e8f5e9; border: none; padding: 10px 16px; border-radius: 30px; font-size: 12px; cursor: pointer; color: #00796b; transition: 0.2s; font-family: 'Poppins', sans-serif; }
+        .btn-config:hover { background: #00796b; color: white; transform: translateY(-2px); }
+        .btn-danger-config { background: #ffebee; color: #c62828; }
+        .btn-danger-config:hover { background: #c62828; color: white; }
+        
+        .stat-item-config { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; }
+        .stat-label { font-size: 13px; color: #555; }
+        .stat-value { font-size: 18px; font-weight: 700; color: #00796b; }
+        
+        .custom-notification { position: fixed; top: 20px; right: -300px; padding: 12px 20px; border-radius: 10px; color: white; font-size: 13px; transition: right 0.3s; z-index: 10000; display: flex; align-items: center; gap: 10px; }
+        .custom-notification.show { right: 20px; }
+        .custom-notification.success { background: #00796b; }
+        .custom-notification.error { background: #f44336; }
+        .custom-notification.info { background: #2196f3; }
+        
+        /* Modo Escuro */
+        body.dark-mode { background: #0f172a; }
+        body.dark-mode .sidebar { background: #0f172a; border-right: 1px solid #1e293b; }
+        body.dark-mode .sidebar a:hover { background: #1e293b; }
+        body.dark-mode .sidebar a.active { background: #1e293b; border-left-color: #fbbf24; }
+        body.dark-mode .content { background: #0f172a; }
+        body.dark-mode .config-card { background: #1e293b; border-color: #334155; }
+        body.dark-mode .config-card h3 { color: #fbbf24; border-bottom-color: #334155; }
+        body.dark-mode .page-header h1 { color: #fbbf24; }
+        body.dark-mode .page-header p { color: #94a3b8; }
+        body.dark-mode .preferencia-item { border-bottom-color: #334155; }
+        body.dark-mode .preferencia-info h4 { color: #f1f5f9; }
+        body.dark-mode .preferencia-info p { color: #94a3b8; }
+        body.dark-mode .stat-label { color: #94a3b8; }
+        body.dark-mode .stat-value { color: #fbbf24; }
+        
+        @media (max-width: 900px) { .sidebar { width: 200px; } .content { margin-left: 200px; } .config-grid { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+
+<div class="sidebar">
+
+</div>
+
+<div class="content">
+    <div class="page-header">
+        <h1><i class="fas fa-cog"></i> Configurações do Sistema</h1>
+        <p>Gerencie preferências e personalize sua experiência</p>
+    </div>
+    
+    <div class="config-grid">
+        <!-- Card: Aparência (sem botão compactar) -->
+        <div class="config-card">
+            <h3><i class="fas fa-moon"></i> Aparência</h3>
+            <div class="preferencia-item">
+                <div class="preferencia-info">
+                    <h4>Modo Escuro</h4>
+                    <p>Ative o modo escuro para reduzir o cansaço visual</p>
+                </div>
+                <label class="switch">
+                    <input type="checkbox" id="darkModeToggle">
+                    <span class="slider"></span>
+                </label>
+            </div>
+        </div>
+        
+        <!-- Card: Backup e Restauração -->
+        <div class="config-card">
+            <h3><i class="fas fa-database"></i> Backup e Restauração</h3>
+            <div class="preferencia-item">
+                <div class="preferencia-info">
+                    <h4>Exportar Dados</h4>
+                    <p>Baixe um arquivo com todos os seus dados</p>
+                </div>
+                <button class="btn-config" onclick="exportarDados()"><i class="fas fa-download"></i> Exportar</button>
+            </div>
+            <div class="preferencia-item">
+                <div class="preferencia-info">
+                    <h4>Importar Dados</h4>
+                    <p>Restaurar dados a partir de um arquivo de backup</p>
+                </div>
+                <button class="btn-config" onclick="importarDados()"><i class="fas fa-upload"></i> Importar</button>
+            </div>
+            <div class="preferencia-item">
+                <div class="preferencia-info">
+                    <h4>Resetar Sistema</h4>
+                    <p>Limpa todas as configurações e dados (exceto usuários)</p>
+                </div>
+                <button class="btn-config btn-danger-config" onclick="resetarSistema()"><i class="fas fa-trash-alt"></i> Resetar</button>
+            </div>
+        </div>
+        
+        <!-- Card: Estatísticas do Sistema -->
+        <div class="config-card">
+            <h3><i class="fas fa-chart-bar"></i> Estatísticas</h3>
+            <div class="stat-item-config">
+                <span class="stat-label">Total de Turmas:</span>
+                <span class="stat-value" id="totalTurmas">0</span>
+            </div>
+            <div class="stat-item-config">
+                <span class="stat-label">Total de Alunos:</span>
+                <span class="stat-value" id="totalAlunos">0</span>
+            </div>
+            <div class="stat-item-config">
+                <span class="stat-label">Atividades Criadas:</span>
+                <span class="stat-value" id="totalAtividades">0</span>
+            </div>
+            <div class="stat-item-config">
+                <span class="stat-label">Correções Pendentes:</span>
+                <span class="stat-value" id="correcoesPendentes">0</span>
+            </div>
+            <div class="btn-group-config">
+                <button class="btn-config" onclick="atualizarEstatisticas()"><i class="fas fa-sync-alt"></i> Atualizar</button>
+            </div>
+        </div>
+        
+        <!-- Card: Limpeza de Dados -->
+        <div class="config-card">
+            <h3><i class="fas fa-eraser"></i> Limpeza de Dados</h3>
+            <div class="preferencia-item">
+                <div class="preferencia-info">
+                    <h4>Limpar Registros de Presença</h4>
+                    <p>Remove todas as faltas e presenças registradas</p>
+                </div>
+                <button class="btn-config btn-danger-config" onclick="limparRegistrosPresenca()"><i class="fas fa-trash-alt"></i> Limpar</button>
+            </div>
+            <div class="preferencia-item">
+                <div class="preferencia-info">
+                    <h4>Limpar Chat</h4>
+                    <p>Remove todas as conversas do sistema</p>
+                </div>
+                <button class="btn-config btn-danger-config" onclick="limparChat()"><i class="fas fa-comment-slash"></i> Limpar</button>
+            </div>
+            <div class="preferencia-item">
+                <div class="preferencia-info">
+                    <h4>Limpar Cache Local</h4>
+                    <p>Remove preferências e configurações temporárias</p>
+                </div>
+                <button class="btn-config" onclick="limparCache()"><i class="fas fa-broom"></i> Limpar</button>
+            </div>
+        </div>
+        
+        <!-- Card: Sobre -->
+        <div class="config-card">
+            <h3><i class="fas fa-info-circle"></i> Sobre o SmartClass</h3>
+            <div class="preferencia-item">
+                <div class="preferencia-info">
+                    <h4>Versão</h4>
+                    <p>SmartClass v2.0.0 - Atualização 2026</p>
+                </div>
+            </div>
+            <div class="preferencia-item">
+                <div class="preferencia-info">
+                    <h4>Desenvolvido por</h4>
+                    <p>Equipe SmartClass - Plataforma Educacional</p>
+                </div>
+            </div>
+            <div class="preferencia-item">
+                <div class="preferencia-info">
+                    <h4>Licença</h4>
+                    <p>Uso educacional - Todos os direitos reservados</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    const user = JSON.parse(localStorage.getItem("loggedUser"));
+    if(!user) window.location.href = "login_professor.html";
+    
+    // ==================== DARK MODE ====================
+    function aplicarDarkMode() {
+        const darkMode = localStorage.getItem("darkMode") === "enabled";
+        if (darkMode) {
+            document.body.classList.add("dark-mode");
+            if(document.getElementById('darkModeToggle')) {
+                document.getElementById('darkModeToggle').checked = true;
+            }
+        } else {
+            document.body.classList.remove("dark-mode");
+            if(document.getElementById('darkModeToggle')) {
+                document.getElementById('darkModeToggle').checked = false;
+            }
+        }
+    }
+    
+    function alternarDarkMode() {
+        const isChecked = document.getElementById('darkModeToggle').checked;
+        if (isChecked) {
+            document.body.classList.add("dark-mode");
+            localStorage.setItem("darkMode", "enabled");
+            showNotification("Modo escuro ativado!", "success");
+        } else {
+            document.body.classList.remove("dark-mode");
+            localStorage.setItem("darkMode", "disabled");
+            showNotification("Modo claro ativado!", "success");
+        }
+    }
+    
+    // ==================== BACKUP E RESTAURAÇÃO ====================
+    function exportarDados() {
+        const dados = {
+            atividades: localStorage.getItem("atividades_professor") || "[]",
+            usuarios: localStorage.getItem("users") || "[]",
+            preferencias: {
+                darkMode: localStorage.getItem("darkMode")
+            },
+            dataExportacao: new Date().toISOString()
+        };
+        
+        const dadosStr = JSON.stringify(dados, null, 2);
+        const blob = new Blob([dadosStr], { type: "application/json" });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = `smartclass_backup_${new Date().toISOString().split('T')[0]}.json`;
+        a.click();
+        URL.revokeObjectURL(url);
+        showNotification("Backup exportado com sucesso!", "success");
+    }
+    
+    function importarDados() {
+        const input = document.createElement("input");
+        input.type = "file";
+        input.accept = "application/json";
+        input.onchange = function(e) {
+            const file = e.target.files[0];
+            const reader = new FileReader();
+            reader.onload = function(event) {
+                try {
+                    const dados = JSON.parse(event.target.result);
+                    if (dados.atividades) localStorage.setItem("atividades_professor", dados.atividades);
+                    if (dados.usuarios) localStorage.setItem("users", dados.usuarios);
+                    if (dados.preferencias) {
+                        if (dados.preferencias.darkMode) localStorage.setItem("darkMode", dados.preferencias.darkMode);
+                    }
+                    showNotification("Dados importados com sucesso! Recarregue a página.", "success");
+                    setTimeout(() => location.reload(), 1500);
+                } catch(err) {
+                    showNotification("Erro ao importar arquivo!", "error");
+                }
+            };
+            reader.readAsText(file);
+        };
+        input.click();
+    }
+    
+    function resetarSistema() {
+        if(confirm("⚠️ ATENÇÃO! Isso vai apagar TODOS os dados do sistema (exceto usuários cadastrados).\n\nContinuar?")) {
+            const usuarios = localStorage.getItem("users");
+            localStorage.clear();
+            if(usuarios) localStorage.setItem("users", usuarios);
+            showNotification("Sistema resetado! Recarregando...", "success");
+            setTimeout(() => location.reload(), 1500);
+        }
+    }
+    
+    // ==================== LIMPEZA DE DADOS ====================
+    function limparRegistrosPresenca() {
+        if(confirm("⚠️ ATENÇÃO! Isso vai apagar TODOS os registros de presença/falta de TODOS os alunos.\n\nContinuar?")) {
+            for(let i = 0; i < localStorage.length; i++) {
+                const key = localStorage.key(i);
+                if(key && (key.startsWith('absences_') || key.startsWith('daily_') || key.startsWith('registros_'))) {
+                    localStorage.removeItem(key);
+                }
+            }
+            showNotification("✅ Todos os registros de presença foram limpos!", "success");
+            atualizarEstatisticas();
+        }
+    }
+    
+    function limparChat() {
+        if(confirm("⚠️ Isso vai apagar TODAS as conversas do chat.\n\nContinuar?")) {
+            for(let i = 0; i < localStorage.length; i++) {
+                const key = localStorage.key(i);
+                if(key && key.startsWith('chat_')) {
+                    localStorage.removeItem(key);
+                }
+            }
+            showNotification("✅ Todas as conversas foram limpas!", "success");
+        }
+    }
+    
+    function limparCache() {
+        if(confirm("Limpar preferências e configurações temporárias?")) {
+            const darkMode = localStorage.getItem("darkMode");
+            const users = localStorage.getItem("users");
+            const loggedUser = localStorage.getItem("loggedUser");
+            const tipoUsuario = localStorage.getItem("tipoUsuario");
+            
+            localStorage.clear();
+            
+            if(darkMode) localStorage.setItem("darkMode", darkMode);
+            if(users) localStorage.setItem("users", users);
+            if(loggedUser) localStorage.setItem("loggedUser", loggedUser);
+            if(tipoUsuario) localStorage.setItem("tipoUsuario", tipoUsuario);
+            
+            showNotification("Cache limpo! Recarregando...", "success");
+            setTimeout(() => location.reload(), 1500);
+        }
+    }
+    
+    // ==================== ESTATÍSTICAS ====================
+    function atualizarEstatisticas() {
+        const atividades = JSON.parse(localStorage.getItem("atividades_professor") || "[]");
+        
+        // Total de turmas (contar chaves de alunos)
+        let turmas = new Set();
+        for(let i = 0; i < localStorage.length; i++) {
+            const key = localStorage.key(i);
+            if(key && key.startsWith('alunos_turma_')) {
+                turmas.add(key);
+            }
+        }
+        
+        // Total de alunos
+        let totalAlunos = 0;
+        for(let i = 0; i < localStorage.length; i++) {
+            const key = localStorage.key(i);
+            if(key && key.startsWith('alunos_turma_')) {
+                const alunos = JSON.parse(localStorage.getItem(key) || "[]");
+                totalAlunos += alunos.length;
+            }
+        }
+        
+        // Correções pendentes
+        let correcoesPendentes = 0;
+        atividades.forEach(a => {
+            if(a.entregas) {
+                correcoesPendentes += a.entregas.filter(e => e.status === "entregue").length;
+            }
+        });
+        
+        document.getElementById('totalTurmas').textContent = turmas.size;
+        document.getElementById('totalAlunos').textContent = totalAlunos;
+        document.getElementById('totalAtividades').textContent = atividades.length;
+        document.getElementById('correcoesPendentes').textContent = correcoesPendentes;
+    }
+    
+    // ==================== NOTIFICAÇÕES ====================
+    function showNotification(msg, type) {
+    if (window.notificationSystem) {
+        window.notificationSystem.show(msg, type === 'success' ? 'success' : 'error');
+    }
+}
+    
+    function sair() { 
+        localStorage.clear(); 
+        window.location.href = "index.html"; 
+    }
+    
+    // ==================== INICIALIZAÇÃO ====================
+    document.addEventListener('DOMContentLoaded', () => {
+        // Dark mode
+        aplicarDarkMode();
+        const darkToggle = document.getElementById('darkModeToggle');
+        if(darkToggle) {
+            darkToggle.addEventListener('change', alternarDarkMode);
+        }
+        
+        // Estatísticas
+        atualizarEstatisticas();
+    });
+</script>
+
+    <script src="js/darkmode.js"></script>
+    <script src="js/sidebar.js"></script>
+    <script src="js/validacoes.js"></script>
+    <script src="js/notifications.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>

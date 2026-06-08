@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>SmartClass · Plataforma Educacional</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #00796b, #1f5e4a);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* scroll personalizado */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #fbbf24;
+            border-radius: 10px;
+        }
+
+        /* container de rolagem */
+        .scroll-container {
+            width: 100%;
+            max-height: 100vh;
+            overflow-y: auto;
+            scroll-behavior: smooth;
+            position: relative;
+        }
+
+        /* seção hero: centralização PERFEITA (vertical + horizontal) */
+        .hero-section {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        /* CARD DE SELEÇÃO — INTERFACE ORIGINAL INTOCADA, APENAS CENTRALIZADA */
+        .selection-container {
+            background: rgba(255, 255, 255, 0.98);
+            border-radius: 30px;
+            padding: 50px 40px;
+            text-align: center;
+            max-width: 500px;
+            width: 90%;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.3);
+            animation: fadeInUp 0.6s ease-out;
+            transition: transform 0.3s ease, box-shadow 0.3s;
+        }
+
+        .selection-container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 35px 65px rgba(0, 0, 0, 0.4);
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .logo i {
+            font-size: 60px;
+            color: #00796b;
+        }
+
+        .logo h1 {
+            font-size: 28px;
+            background: linear-gradient(135deg, #00796b, #037965);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-top: 10px;
+        }
+
+        .logo p {
+            color: #666;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+
+        .selection-title {
+            margin: 30px 0;
+        }
+
+        .selection-title h2 {
+            color: #00796b;
+            font-size: 22px;
+        }
+
+        .selection-title p {
+            color: #666;
+            font-size: 14px;
+            margin-top: 8px;
+        }
+
+        .options {
+            display: flex;
+            gap: 25px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .option-card {
+            flex: 1;
+            min-width: 180px;
+            padding: 30px 20px;
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .option-card:hover {
+            transform: translateY(-10px);
+            border-color: #00796b;
+            box-shadow: 0 15px 30px rgba(0, 121, 107, 0.2);
+        }
+
+        .option-card i {
+            font-size: 50px;
+            margin-bottom: 15px;
+            color: #00796b;
+        }
+
+        .option-card h3 {
+            font-size: 20px;
+            margin-bottom: 8px;
+            color: #333;
+        }
+
+        .option-card p {
+            font-size: 12px;
+            color: #666;
+        }
+
+        /* ========== RODAPÉ PROFISSIONAL (BASEADO NA MÁSCARA TCC + DOCUMENTO ÉTICA) ========== */
+        .professional-footer {
+            background: #0a2c27;
+            color: #e2e8f0;
+            padding: 55px 35px 45px;
+            transition: opacity 0.5s cubic-bezier(0.2, 0.9, 0.4, 1.1), visibility 0.5s;
+            opacity: 0;
+            visibility: hidden;
+            border-radius: 45px 45px 0 0;
+            margin-top: 10px;
+            box-shadow: 0 -12px 30px rgba(0, 0, 0, 0.2);
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .professional-footer.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .footer-grid {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-bottom: 45px;
+        }
+
+        .footer-card h3 {
+            font-size: 20px;
+            font-weight: 600;
+            color: #fbbf24;
+            margin-bottom: 18px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .footer-card h3:after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: #fbbf24;
+            border-radius: 3px;
+        }
+
+        .footer-card p, .footer-card li {
+            font-size: 13.5px;
+            line-height: 1.55;
+            margin-bottom: 12px;
+            color: #cbd5e6;
+        }
+
+        .footer-card ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .footer-card li i {
+            width: 22px;
+            color: #fbbf24;
+            margin-right: 10px;
+        }
+
+        .tag-ethic {
+            background: rgba(251, 191, 36, 0.12);
+            padding: 4px 12px;
+            border-radius: 30px;
+            font-size: 11px;
+            display: inline-block;
+            margin-right: 6px;
+            margin-bottom: 6px;
+            color: #ffde9c;
+        }
+
+        .swot-item {
+            margin-bottom: 10px;
+        }
+        .swot-label {
+            font-weight: 600;
+            color: #fcd34d;
+            display: inline-block;
+            margin-right: 6px;
+        }
+
+        .footer-divider {
+            border-top: 1px solid rgba(251, 191, 36, 0.2);
+            margin: 20px 0 25px;
+        }
+
+        .footer-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            font-size: 12.5px;
+        }
+
+        .footer-links a {
+            color: #cbd5e6;
+            text-decoration: none;
+            margin-left: 24px;
+            transition: color 0.2s;
+        }
+
+        .footer-links a:hover {
+            color: #fbbf24;
+        }
+
+        .academic-badge {
+            background: #154e46;
+            padding: 10px 18px;
+            border-radius: 60px;
+            font-size: 12px;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        @media (max-width: 750px) {
+            .selection-container {
+                padding: 35px 25px;
+            }
+            .professional-footer {
+                padding: 40px 20px;
+            }
+            .footer-bottom {
+                flex-direction: column;
+                text-align: center;
+            }
+            .footer-links a {
+                margin: 0 12px;
+            }
+        }
+
+        /* overlay de transição (original mantido) */
+        .transition-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #037965;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            z-index: 10000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+        }
+        .transition-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        .loader {
+            width: 55px;
+            height: 55px;
+            border: 5px solid rgba(255,255,255,0.3);
+            border-top: 5px solid #fbbf24;
+            border-radius: 50%;
+            animation: spin 0.9s linear infinite;
+            margin-bottom: 18px;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        .fade-out-card {
+            opacity: 0;
+            transform: scale(0.95);
+            pointer-events: none;
+            transition: all 0.4s ease;
+        }
+    </style>
+</head>
+<body>
+<div class="scroll-container" id="scrollContainer">
+    <!-- SEÇÃO CENTRAL: INTERFACE DE SELEÇÃO PERFEITAMENTE CENTRALIZADA (100% ORIGINAL) -->
+    <div class="hero-section" id="heroBlock">
+        <div class="selection-container" id="selectionContainer">
+            <div class="logo">
+                <i class="fas fa-graduation-cap"></i>
+                <h1>SmartClass</h1>
+                <p>Plataforma Educacional</p>
+            </div>
+            <div class="selection-title">
+                <h2>Bem-vindo!</h2>
+                <p>Selecione como você deseja acessar</p>
+            </div>
+            <div class="options">
+                <div class="option-card student" onclick="selecionarTipo('aluno')">
+                    <i class="fas fa-user-graduate"></i>
+                    <h3>Sou Aluno</h3>
+                    <p>Acompanhe suas faltas e desempenho</p>
+                </div>
+                <div class="option-card teacher" onclick="selecionarTipo('professor')">
+                    <i class="fas fa-chalkboard-user"></i>
+                    <h3>Sou Professor</h3>
+                    <p>Gerencie turmas e frequência</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- RODAPÉ PROFISSIONAL INSTITUCIONAL (Informações do TCC + Máscara + Ética) -->
+    <div class="professional-footer" id="infoFooter">
+        <div class="footer-grid">
+            <!-- BLOCO 1: Missão, Visão, Valores (extraído da máscara TCC) -->
+            <div class="footer-card">
+                <h3><i class="fas fa-bullseye"></i> Missão, Visão & Valores</h3>
+                <p><strong style="color:#fbbf24;">Missão</strong> — Democratizar o acesso à educação de qualidade, oferecendo gravação de aulas que assegura continuidade do aprendizado e promove ambiente escolar seguro.</p>
+                <p><strong style="color:#fbbf24;">Visão</strong> — Ser referência global na integração entre acessibilidade educacional e segurança escolar, estabelecendo novo padrão de excelência pedagógica.</p>
+                <p><strong style="color:#fbbf24;">Valores</strong> — Acessibilidade inclusiva, integridade, transparência, inovação responsável e colaboração com a comunidade escolar.</p>
+                <div class="academic-badge">
+                    <i class="fas fa-file-alt"></i> Baseado no TCC "SmartClass" · ETEC Mauá · Curso Técnico em Informática (2025)
+                </div>
+            </div>
+
+            <!-- BLOCO 2: Análise SWOT + Dualidade (conforme documento MÁSCARA) -->
+            <div class="footer-card">
+                <h3><i class="fas fa-chart-line"></i> Análise SWOT & Diferencial</h3>
+                <div class="swot-item"><span class="swot-label">✅ Forças:</span> Dualidade de valor (acessibilidade + segurança), evidência em vídeo, reposição integral de conteúdo.</div>
+                <div class="swot-item"><span class="swot-label">⚠️ Fraquezas:</span> Custos de infraestrutura, resistência cultural, conformidade com LGPD.</div>
+                <div class="swot-item"><span class="swot-label">📈 Oportunidades:</span> Crescimento do ensino híbrido, demanda por segurança escolar, financiamentos públicos.</div>
+                <div class="swot-item"><span class="swot-label">⚡ Ameaças:</span> Regulamentação severa, concorrência, riscos de imagem com vazamento de dados.</div>
+                <p><i class="fas fa-gem" style="color:#fbbf24;"></i> <strong>Diferencial competitivo:</strong> plataforma que une continuidade pedagógica e monitoramento ético, respeitando a LGPD e promovendo transparência total.</p>
+            </div>
+
+            <!-- BLOCO 3: Ética, LGPD e Pesquisa de Campo (resultados + metodologia) -->
+            <div class="footer-card">
+                <h3><i class="fas fa-balance-scale"></i> Ética, LGPD & Pesquisa</h3>
+                <p>Metodologia <strong>mista (qualitativa + quantitativa)</strong> com pesquisa de campo via Google Forms. A comunidade escolar demonstrou que a gravação de aulas reduz a evasão e inibe conflitos quando há consentimento claro e transparência.</p>
+                <p><i class="fas fa-chart-simple"></i> <strong>Resultado principal</strong> — mais de 70% dos participantes consideram a SmartClass uma ferramenta essencial para equidade e proteção, desde que a privacidade seja garantida.</p>
+                <div style="margin-top: 12px;">
+                    <span class="tag-ethic">🔒 Privacidade (LGPD)</span>
+                    <span class="tag-ethic">📜 Consentimento Informado</span>
+                    <span class="tag-ethic">⚖️ Finalidade Específica</span>
+                    <span class="tag-ethic">🔐 Criptografia e Logs</span>
+                    <span class="tag-ethic">🛡️ Ambiente Seguro</span>
+                </div>
+                <p style="margin-top: 10px;"><i class="fas fa-microphone-alt"></i> "A tecnologia deve ser aliada da ética e da segurança educacional" — conforme documento Ética e Moral ABNT SmartClass 2026.</p>
+            </div>
+
+            <!-- BLOCO 4: Arquitetura, modelo de relacionamento e identidade visual (máscara TCC) -->
+            <div class="footer-card">
+                <h3><i class="fas fa-microchip"></i> Arquitetura & Tecnologia</h3>
+                <ul>
+                    <li><i class="fas fa-database"></i> <strong>Modelo de Relacionamento:</strong> Usuário, Aula, Turma, Professor, Log_Acesso — com rastreabilidade total para LGPD.</li>
+                    <li><i class="fas fa-video"></i> Gravação contínua com acesso restrito (login/senha) e registro de IP em todas as visualizações.</li>
+                    <li><i class="fas fa-cloud-upload-alt"></i> Armazenamento criptografado em nuvem, garantindo conformidade legal e proteção de dados sensíveis.</li>
+                    <li><i class="fas fa-palette"></i> <strong>Identidade Visual:</strong> logo fusão câmera + livro, paleta de tons verdes que representam crescimento, segurança e inovação.</li>
+                </ul>
+                <p class="tag-ethic" style="margin-top: 8px;"><i class="fab fa-google"></i> Linguagens: HTML5, CSS3, JavaScript, Firebase (protótipo) · Pesquisa exploratória e descritiva.</p>
+            </div>
+        </div>
+
+        <div class="footer-divider"></div>
+
+        <div class="footer-bottom">
+            <div>
+                <i class="fas fa-graduation-cap"></i> SmartClass © 2026 · ETEC de Mauá · Curso Técnico em Informática
+                <br><span style="font-size: 11px;">Gabriel Ferreira da Silva · Lucas Rodrigues Santana · Murillo Fernando Azevedo e Silva · Victor Gabriel da Silva Lima</span>
+            </div>
+            <div class="footer-links">
+                <a href="#"><i class="fas fa-file-contract"></i> Citação da Máscara TCC</a>
+                <a href="#"><i class="fas fa-lock"></i> Política de Privacidade (LGPD)</a>
+                <a href="#"><i class="fas fa-envelope"></i> smartclass@etec.sp.gov.br</a>
+            </div>
+        </div>
+        <div style="text-align: center; margin-top: 25px; font-size: 11.5px; color: #9ca3af; max-width: 1000px; margin-left: auto; margin-right: auto;">
+            “SmartClass: democratização do conhecimento e segurança escolar — inovação responsável alinhada à ética, à moral e à excelência acadêmica.” (TCC 2025 - ETEC Mauá)
+        </div>
+    </div>
+</div>
+
+<!-- OVERLAY DE TRANSIÇÃO -->
+<div id="transitionOverlay" class="transition-overlay">
+    <div class="loader"></div>
+    <p id="transitionText" style="color: white;">Carregando...</p>
+</div>
+
+<script>
+    // ========== FUNÇÃO DE REDIRECIONAMENTO (100% ORIGINAL) ==========
+    function selecionarTipo(tipo) {
+        localStorage.setItem("tipoUsuario", tipo);
+        const overlay = document.getElementById('transitionOverlay');
+        const transitionText = document.getElementById('transitionText');
+        
+        if (tipo === 'aluno') {
+            transitionText.innerHTML = '<i class="fas fa-user-graduate"></i> Entrando como Aluno...';
+        } else {
+            transitionText.innerHTML = '<i class="fas fa-chalkboard-user"></i> Entrando como Professor...';
+        }
+        
+        overlay.style.display = 'flex';
+        setTimeout(() => overlay.classList.add('active'), 10);
+        const container = document.getElementById('selectionContainer');
+        if(container) container.classList.add('fade-out-card');
+        
+        setTimeout(() => {
+            if (tipo === 'aluno') {
+                window.location.href = "login_aluno.html";
+            } else {
+                window.location.href = "login_professor.html";
+            }
+        }, 800);
+    }
+    
+    // ========== CONTROLE DE FADE-IN / FADE-OUT NO RODAPÉ (scroll suave e responsivo) ==========
+    const footerElement = document.getElementById('infoFooter');
+    const heroElement = document.getElementById('heroBlock');
+    let footerVisible = false;
+    
+    // Observer para detectar visibilidade do footer (fade-in ao descer)
+    const observerFooter = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            const ratio = entry.intersectionRatio;
+            if (ratio >= 0.2) {  // quando 20% do footer aparece
+                if (!footerVisible) {
+                    footerElement.classList.add('visible');
+                    footerVisible = true;
+                }
+            } else if (ratio < 0.05) {  // praticamente invisível
+                if (footerVisible) {
+                    footerElement.classList.remove('visible');
+                    footerVisible = false;
+                }
+            }
+        });
+    }, { threshold: [0, 0.05, 0.2, 0.4], rootMargin: "0px 0px -10px 0px" });
+    
+    observerFooter.observe(footerElement);
+    
+    // Observer secundário: quando o hero estiver completamente visível (topo centralizado), força fade-out do footer
+    const heroObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.intersectionRatio > 0.95 && footerVisible) {
+                // pequeno delay para evitar conflito com scroll rápido
+                setTimeout(() => {
+                    const footerRect = footerElement.getBoundingClientRect();
+                    const windowHeight = window.innerHeight;
+                    const visibleHeight = Math.min(footerRect.bottom, windowHeight) - Math.max(footerRect.top, 0);
+                    const visibleRatio = footerRect.height ? visibleHeight / footerRect.height : 0;
+                    if (visibleRatio < 0.08) {
+                        footerElement.classList.remove('visible');
+                        footerVisible = false;
+                    }
+                }, 30);
+            }
+        });
+    }, { threshold: 0.9 });
+    
+    if (heroElement) heroObserver.observe(heroElement);
+    
+    // Evento scroll adicional para maior fluidez (garantia de transição suave)
+    let ticking = false;
+    window.addEventListener('scroll', () => {
+        if (!ticking) {
+            requestAnimationFrame(() => {
+                const rect = footerElement.getBoundingClientRect();
+                const winH = window.innerHeight;
+                const visiblePart = Math.min(rect.bottom, winH) - Math.max(rect.top, 0);
+                const ratio = rect.height ? visiblePart / rect.height : 0;
+                
+                if (ratio >= 0.2 && !footerVisible) {
+                    footerElement.classList.add('visible');
+                    footerVisible = true;
+                } else if (ratio < 0.06 && footerVisible) {
+                    footerElement.classList.remove('visible');
+                    footerVisible = false;
+                }
+                ticking = false;
+            });
+            ticking = true;
+        }
+    });
+    
+    // garantir que ao carregar a página, o footer fique invisível e a interface no topo centralizada
+    window.addEventListener('load', () => {
+        const scrollDiv = document.querySelector('.scroll-container');
+        if (scrollDiv) scrollDiv.scrollTo({ top: 0, behavior: 'auto' });
+        else window.scrollTo(0, 0);
+        
+        footerElement.classList.remove('visible');
+        footerVisible = false;
+        
+        // pequena verificação extra após carregamento completo
+        setTimeout(() => {
+            const rect = footerElement.getBoundingClientRect();
+            const winH = window.innerHeight;
+            const visibleH = Math.min(rect.bottom, winH) - Math.max(rect.top, 0);
+            if (visibleH / rect.height > 0.25) {
+                footerElement.classList.add('visible');
+                footerVisible = true;
+            } else {
+                footerElement.classList.remove('visible');
+                footerVisible = false;
+            }
+        }, 200);
+    });
+    
+    // reset do scroll restoration
+    if (history.scrollRestoration) history.scrollRestoration = 'manual';
+</script>
+</body>
+</html>
