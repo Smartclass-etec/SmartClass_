@@ -1,5 +1,3 @@
-Aqui está o HTML com as letras pequenas aumentadas, textos reduzidos, e o lado esquerdo verde com bordas levemente arredondadas.
-```html
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -45,17 +43,16 @@ Aqui está o HTML com as letras pequenas aumentadas, textos reduzidos, e o lado 
             position: relative;
         }
 
-        /* LADO ESQUERDO - VERDE COM BORDAS LEVEMENTE ARREDONDADAS */
+        /* LADO ESQUERDO - VERDE COM CURVAS ORGÂNICAS */
         .left-side {
             flex: 1.3;
             background: linear-gradient(145deg, #005f56 0%, #003d36 100%);
             display: flex;
             align-items: center;
-            justify-content: flex-start;
+            justify-content: center;
             padding: 0;
             position: relative;
             overflow: hidden;
-            /* Bordas arredondadas no lado esquerdo */
             border-radius: 0 32px 32px 0;
         }
 
@@ -66,9 +63,36 @@ Aqui está o HTML com as letras pequenas aumentadas, textos reduzidos, e o lado 
             left: 0;
             width: 100%;
             height: 100%;
-            background-image: radial-gradient(circle at 20% 40%, rgba(255,255,240,0.03) 2%, transparent 2.5%);
-            background-size: 32px 32px;
+            background-image: 
+                radial-gradient(circle at 20% 40%, rgba(255,255,240,0.08) 2%, transparent 2.5%),
+                radial-gradient(circle at 80% 70%, rgba(255,255,240,0.05) 1.5%, transparent 2%);
+            background-size: 32px 32px, 40px 40px;
             pointer-events: none;
+        }
+
+        /* CURVAS ORGÂNICAS NO TOPO E FUNDO DO VERDE */
+        .green-top-curve {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 80px;
+            background: radial-gradient(ellipse at 30% 0%, rgba(255,255,255,0.12) 0%, transparent 70%);
+            border-radius: 0 0 50% 50%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .green-bottom-curve {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 80px;
+            background: radial-gradient(ellipse at 70% 100%, rgba(0,0,0,0.15) 0%, transparent 70%);
+            border-radius: 50% 50% 0 0;
+            pointer-events: none;
+            z-index: 1;
         }
 
         .info-container {
@@ -83,9 +107,21 @@ Aqui está o HTML com as letras pequenas aumentadas, textos reduzidos, e o lado 
             display: flex;
             flex-direction: column;
             justify-content: center;
-            padding: 28px 0 28px 0;
-            overflow-y: visible;
+            padding: 28px 0;
+            overflow-y: auto;
             max-height: 100%;
+        }
+
+        .info-container::-webkit-scrollbar {
+            width: 4px;
+        }
+        .info-container::-webkit-scrollbar-track {
+            background: rgba(255,255,255,0.1);
+            border-radius: 10px;
+        }
+        .info-container::-webkit-scrollbar-thumb {
+            background: rgba(255,217,102,0.5);
+            border-radius: 10px;
         }
 
         @keyframes fadeInUp {
@@ -99,6 +135,8 @@ Aqui está o HTML com as letras pequenas aumentadas, textos reduzidos, e o lado 
             line-height: 1.2;
             margin-bottom: 18px;
             letter-spacing: -0.02em;
+            position: relative;
+            z-index: 2;
         }
 
         .main-title span {
@@ -109,6 +147,30 @@ Aqui está o HTML com as letras pequenas aumentadas, textos reduzidos, e o lado 
             background-clip: text;
             color: transparent;
             display: inline-block;
+            animation: glow 2s ease-in-out infinite;
+        }
+
+        @keyframes glow {
+            0%, 100% { text-shadow: 0 0 5px rgba(255,217,102,0.3); }
+            50% { text-shadow: 0 0 15px rgba(255,217,102,0.6); }
+        }
+
+        /* ÍCONES FLUTUANTES DECORATIVOS */
+        .floating-icon {
+            position: absolute;
+            font-size: 40px;
+            opacity: 0.08;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .floating-icon-1 { top: 15%; right: 5%; font-size: 60px; animation: float 8s ease-in-out infinite; }
+        .floating-icon-2 { bottom: 20%; left: 5%; font-size: 45px; animation: float 6s ease-in-out infinite reverse; }
+        .floating-icon-3 { top: 50%; right: 8%; font-size: 35px; animation: float 7s ease-in-out infinite; }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-15px) rotate(5deg); }
         }
 
         .description {
@@ -125,7 +187,7 @@ Aqui está o HTML com as letras pequenas aumentadas, textos reduzidos, e o lado 
             display: flex;
             flex-direction: column;
             gap: 12px;
-            margin: 16px 0 16px;
+            margin: 16px 0;
         }
 
         .info-text {
@@ -171,7 +233,7 @@ Aqui está o HTML com as letras pequenas aumentadas, textos reduzidos, e o lado 
             background: rgba(0, 0, 0, 0.28);
             border-radius: 18px;
             padding: 10px 14px;
-            margin: 10px 0 10px;
+            margin: 10px 0;
             border-left: 3px solid #FFD966;
             max-width: 96%;
         }
@@ -207,19 +269,99 @@ Aqui está o HTML com as letras pequenas aumentadas, textos reduzidos, e o lado 
             max-width: 96%;
         }
 
-        /* LADO DIREITO - BRANCO COM BORDAS ARREDONDADAS E EFEITO TILT */
+        /* LADO DIREITO - BRANCO COM PARTÍCULAS SUBINDO DE BAIXO PARA CIMA */
         .right-side {
             flex: 1;
             display: flex;
             align-items: center;
             justify-content: center;
-            background: #ffffff;
+            background: linear-gradient(135deg, #f8fafc 0%, #ffffff 100%);
             padding: 32px 40px;
             overflow: hidden;
             position: relative;
-            border-radius: 0 32px 32px 0;
-            box-shadow: -4px 0 25px rgba(0, 0, 0, 0.04);
+            border-radius: 0;
             perspective: 1200px;
+        }
+
+        /* CONTAINER DE PARTÍCULAS */
+        .particles-container {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* BOLAS QUE SOBEM DE BAIXO PARA CIMA */
+        .particle-up {
+            position: absolute;
+            bottom: -50px;
+            border-radius: 50%;
+            pointer-events: none;
+            animation: riseUp linear infinite;
+            box-shadow: 0 0 10px rgba(0,0,0,0.05);
+        }
+
+        @keyframes riseUp {
+            0% {
+                transform: translateY(0) translateX(0) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.6;
+            }
+            90% {
+                opacity: 0.6;
+            }
+            100% {
+                transform: translateY(-120vh) translateX(var(--moveX, 30px)) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* CÍRCULOS ESTÁTICOS DE FUNDO */
+        .bg-circle {
+            position: absolute;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 0;
+        }
+        .bg-circle-1 { 
+            width: 350px; height: 350px; top: -120px; right: -80px; 
+            background: radial-gradient(circle, rgba(0,121,107,0.03) 0%, transparent 70%);
+        }
+        .bg-circle-2 { 
+            width: 250px; height: 250px; bottom: -80px; left: -60px; 
+            background: radial-gradient(circle, rgba(255,217,102,0.04) 0%, transparent 70%);
+        }
+        .bg-circle-3 { 
+            width: 180px; height: 180px; top: 40%; right: 15%; 
+            background: radial-gradient(circle, rgba(0,121,107,0.02) 0%, transparent 70%);
+        }
+        .bg-circle-4 { 
+            width: 120px; height: 120px; bottom: 25%; left: 15%; 
+            background: radial-gradient(circle, rgba(255,217,102,0.03) 0%, transparent 70%);
+        }
+
+        /* ONDULAÇÃO NA DIVISÃO ENTRE VERDE E BRANCO */
+        .divider-wave {
+            position: absolute;
+            left: -2px;
+            top: 0;
+            height: 100%;
+            width: 30px;
+            background: repeating-linear-gradient(
+                135deg,
+                rgba(255,255,255,0.6) 0px,
+                rgba(255,255,255,0.6) 6px,
+                transparent 6px,
+                transparent 12px
+            );
+            z-index: 5;
+            pointer-events: none;
         }
 
         /* Container com efeito de movimento do mouse */
@@ -235,11 +377,15 @@ Aqui está o HTML com as letras pequenas aumentadas, textos reduzidos, e o lado 
             overflow-y: auto;
             transform-style: preserve-3d;
             will-change: transform;
-            box-shadow: 0 20px 35px -15px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 25px 45px -20px rgba(0, 0, 0, 0.12), 0 0 0 1px rgba(0,0,0,0.02);
+            position: relative;
+            z-index: 2;
+            backdrop-filter: blur(0px);
         }
         
         .login-container:hover {
-            box-shadow: 0 25px 45px -18px rgba(0, 111, 100, 0.25);
+            box-shadow: 0 30px 55px -22px rgba(0, 111, 100, 0.25), 0 0 0 1px rgba(0,111,100,0.1);
+            transform: translateY(-3px);
         }
         
         .login-container::-webkit-scrollbar {
@@ -326,7 +472,7 @@ Aqui está o HTML com as letras pequenas aumentadas, textos reduzidos, e o lado 
             justify-content: space-between;
             cursor: pointer;
             transition: all 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08), 0 0 0 1px rgba(0,111,100,0.1);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.06), 0 0 0 1px rgba(0,111,100,0.08);
             border: none;
             position: relative;
             overflow: hidden;
@@ -351,7 +497,7 @@ Aqui está o HTML com as letras pequenas aumentadas, textos reduzidos, e o lado 
 
         .access-card:hover {
             transform: translateY(-6px) scale(1.01);
-            box-shadow: 0 28px 45px -15px rgba(0, 95, 86, 0.35), 0 0 0 2px rgba(0,111,100,0.3);
+            box-shadow: 0 28px 45px -15px rgba(0, 95, 86, 0.35), 0 0 0 2px rgba(0,111,100,0.2);
             background: #ffffff;
         }
 
@@ -517,6 +663,35 @@ Aqui está o HTML com as letras pequenas aumentadas, textos reduzidos, e o lado 
             color: #fbbf24;
         }
 
+        /* BOTÕES DE AÇÃO ADICIONAIS */
+        .extra-actions {
+            display: flex;
+            gap: 12px;
+            margin-top: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .extra-btn {
+            background: transparent;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 30px;
+            font-size: 11px;
+            font-weight: 500;
+            color: #006f64;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .extra-btn:hover {
+            background: #e8f5e9;
+            transform: translateY(-1px);
+        }
+
         /* OVERLAY */
         .transition-overlay {
             position: fixed;
@@ -574,26 +749,26 @@ Aqui está o HTML com as letras pequenas aumentadas, textos reduzidos, e o lado 
             .card-text h3 { font-size: 22px; }
             .access-card { padding: 18px 26px; }
         }
+
         @media (max-width: 1000px) {
             .split-layout { flex-direction: column; overflow-y: auto; position: relative; }
             body { overflow-y: auto; height: auto; }
             .main-wrapper { height: auto; min-height: 100vh; overflow-y: auto; }
             .left-side { 
                 overflow-y: auto; 
-                min-height: 42vh; 
+                min-height: auto; 
                 flex: none; 
                 justify-content: flex-start; 
                 padding: 20px 0;
-                border-radius: 0 0 24px 24px;
+                border-radius: 0 0 32px 32px;
             }
             .right-side { 
                 overflow-y: auto; 
                 min-height: auto; 
                 padding: 28px;
-                border-radius: 24px 24px 24px 24px;
-                margin: 16px;
-                box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+                border-radius: 32px 32px 0 0;
                 perspective: none;
+                margin-top: -10px;
             }
             .login-container {
                 transform: none !important;
@@ -604,7 +779,9 @@ Aqui está o HTML com as letras pequenas aumentadas, textos reduzidos, e o lado 
             .card-icon i { font-size: 26px; }
             .card-text h3 { font-size: 20px; }
             .access-card { padding: 16px 22px; }
+            .green-top-curve, .green-bottom-curve { height: 50px; }
         }
+
         @media (max-width: 700px) {
             .info-container { margin-left: 5%; margin-right: 5%; }
             .main-title { font-size: 30px; }
@@ -616,15 +793,23 @@ Aqui está o HTML com as letras pequenas aumentadas, textos reduzidos, e o lado 
             .card-text h3 { font-size: 18px; }
             .card-arrow { width: 40px; height: 40px; }
             .card-arrow i { font-size: 18px; }
-            .right-side { padding: 16px; border-radius: 20px; margin: 12px; }
+            .right-side { padding: 16px; }
+            .green-top-curve, .green-bottom-curve { height: 40px; }
         }
     </style>
 </head>
 <body>
 <div class="main-wrapper">
     <div class="split-layout">
-        <!-- LADO ESQUERDO - VERDE COM BORDAS ARREDONDADAS -->
+        <!-- LADO ESQUERDO - VERDE COM CURVAS ORGÂNICAS -->
         <div class="left-side">
+            <div class="green-top-curve"></div>
+            <div class="green-bottom-curve"></div>
+            
+            <div class="floating-icon floating-icon-1"><i class="fas fa-laptop-code"></i></div>
+            <div class="floating-icon floating-icon-2"><i class="fas fa-robot"></i></div>
+            <div class="floating-icon floating-icon-3"><i class="fas fa-chalkboard"></i></div>
+            
             <div class="info-container">
                 <div class="main-title">
                     Conheça o<br>
@@ -664,8 +849,17 @@ Aqui está o HTML com as letras pequenas aumentadas, textos reduzidos, e o lado 
             </div>
         </div>
 
-        <!-- LADO DIREITO - COM EFEITO DE MOVIMENTO DO MOUSE -->
+        <!-- LADO DIREITO - BRANCO COM PARTÍCULAS SUBINDO -->
         <div class="right-side">
+            <!-- CONTAINER DE PARTÍCULAS QUE SOBEM -->
+            <div class="particles-container" id="particlesContainer"></div>
+            
+            <!-- CÍRCULOS ESTÁTICOS DE FUNDO -->
+            <div class="bg-circle bg-circle-1"></div>
+            <div class="bg-circle bg-circle-2"></div>
+            <div class="bg-circle bg-circle-3"></div>
+            <div class="bg-circle bg-circle-4"></div>
+            
             <div class="login-container" id="loginContainer">
                 <div class="logo">
                     <div class="logo-icon">
@@ -721,19 +915,76 @@ Aqui está o HTML com as letras pequenas aumentadas, textos reduzidos, e o lado 
                         <span><i class="fas fa-clock"></i> 24h resposta</span>
                     </div>
                 </div>
+
+                <div class="extra-actions">
+                    <button class="extra-btn" onclick="alert('📱 Baixe nosso aplicativo na loja de aplicativos!')">
+                        <i class="fas fa-mobile-alt"></i> App
+                    </button>
+                    <button class="extra-btn" onclick="alert('🔒 Esqueceu sua senha? Entre em contato com o suporte.')">
+                        <i class="fas fa-key"></i> Esqueci a senha
+                    </button>
+                </div>
             </div>
         </div>
     </div>
 </div>
 
-<!-- OVERLAY -->
 <div id="transitionOverlay" class="transition-overlay">
     <div class="loader"></div>
     <div id="transitionText"><i class="fas fa-spinner fa-pulse"></i> Redirecionando...</div>
 </div>
 
 <script>
-    // EFEITO TILT - O CONTAINER DO LADO DIREITO SE MOVE COM O MOUSE
+    // CRIA PARTÍCULAS QUE SOBEM DE BAIXO PARA CIMA
+    function createRisingParticles() {
+        const container = document.getElementById('particlesContainer');
+        if (!container) return;
+        
+        const colors = [
+            'rgba(0,121,107,0.12)',
+            'rgba(255,217,102,0.1)',
+            'rgba(0,121,107,0.08)',
+            'rgba(255,217,102,0.07)',
+            'rgba(0,95,86,0.1)',
+            'rgba(0,121,107,0.06)'
+        ];
+        
+        const particleCount = 35;
+        
+        for (let i = 0; i < particleCount; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'particle-up';
+            
+            // Tamanho aleatório entre 10px e 70px
+            const size = Math.random() * 60 + 10;
+            particle.style.width = size + 'px';
+            particle.style.height = size + 'px';
+            
+            // Posição horizontal aleatória (0% a 100%)
+            particle.style.left = Math.random() * 100 + '%';
+            
+            // Cor aleatória
+            particle.style.background = colors[Math.floor(Math.random() * colors.length)];
+            
+            // Duração da animação entre 6s e 18s
+            const duration = Math.random() * 12 + 6;
+            particle.style.animationDuration = duration + 's';
+            
+            // Delay aleatório para não sincronizar
+            particle.style.animationDelay = Math.random() * 15 + 's';
+            
+            // Movimento horizontal variado (oscilação lateral)
+            const moveX = (Math.random() - 0.5) * 120;
+            particle.style.setProperty('--moveX', moveX + 'px');
+            
+            // Opacidade variada
+            particle.style.opacity = Math.random() * 0.5 + 0.15;
+            
+            container.appendChild(particle);
+        }
+    }
+    
+    // EFEITO TILT
     const tiltContainer = document.getElementById('loginContainer');
     const rightSide = document.querySelector('.right-side');
     
@@ -807,7 +1058,9 @@ Aqui está o HTML com as letras pequenas aumentadas, textos reduzidos, e o lado 
         e.preventDefault();
         alert("🎥 Tutoriais interativos SmartClass: Como usar o mural, registrar presença e acompanhar evolução.");
     });
+    
+    // INICIALIZAR PARTÍCULAS QUE SOBEM
+    createRisingParticles();
 </script>
 </body>
 </html>
-```

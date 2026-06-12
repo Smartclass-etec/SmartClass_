@@ -7,29 +7,133 @@
 
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-
-    <link rel="stylesheet" href="css/style.css">
     
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            background: #0a2e25;
+            position: relative;
+        }
+
+        /* FUNDO VERDE ESCURO */
+        .dark-green-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            background: linear-gradient(135deg, #0a2e25 0%, #051f18 100%);
+        }
+
+        .dark-green-bg::before {
+            content: '';
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle at 20% 30%, rgba(0,255,200,0.08) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 70%, rgba(255,217,102,0.05) 0%, transparent 50%);
+            animation: bgPulse 8s ease-in-out infinite;
+        }
+
+        @keyframes bgPulse {
+            0%, 100% { opacity: 0.6; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.05); }
+        }
+
+        /* BOLHAS MENORES SUBINDO */
+        .bubble {
+            position: absolute;
+            bottom: -50px;
+            border-radius: 50%;
+            pointer-events: none;
+            animation: riseBubble linear infinite;
+            box-shadow: 0 0 10px rgba(0,255,200,0.2);
+            z-index: -1;
+        }
+
+        @keyframes riseBubble {
+            0% {
+                transform: translateY(0) translateX(0) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.6;
+            }
+            90% {
+                opacity: 0.6;
+            }
+            100% {
+                transform: translateY(-120vh) translateX(var(--moveX, 20px)) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* CÍRCULOS DECORATIVOS DE FUNDO */
+        .bg-circle {
+            position: absolute;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .bg-circle-1 {
+            width: 500px;
+            height: 500px;
+            top: -200px;
+            left: -150px;
+            background: radial-gradient(circle, rgba(0,255,200,0.08) 0%, transparent 70%);
+        }
+
+        .bg-circle-2 {
+            width: 400px;
+            height: 400px;
+            bottom: -150px;
+            right: -120px;
+            background: radial-gradient(circle, rgba(255,217,102,0.06) 0%, transparent 70%);
+        }
+
+        .bg-circle-3 {
+            width: 250px;
+            height: 250px;
+            top: 50%;
+            left: 10%;
+            background: radial-gradient(circle, rgba(0,255,200,0.05) 0%, transparent 70%);
+        }
+
+        /* BOTÃO VOLTAR */
         .btn-voltar {
             position: fixed;
             top: 20px;
             left: 20px;
-            background: rgba(0, 0, 0, 0.6);
+            background: rgba(0, 0, 0, 0.4);
             border: none;
             border-radius: 30px;
-            padding: 8px 18px;
+            padding: 6px 16px;
             cursor: pointer;
-            font-size: 14px;
+            font-size: 12px;
             font-weight: 500;
             color: white;
             z-index: 1000;
             transition: all 0.3s ease;
-            backdrop-filter: blur(5px);
-            display: flex;
+            backdrop-filter: blur(4px);
+            display: inline-flex;
             align-items: center;
-            gap: 8px;
+            gap: 6px;
             font-family: 'Poppins', sans-serif;
+            width: auto;
+            white-space: nowrap;
         }
         
         .btn-voltar:hover {
@@ -37,51 +141,204 @@
             transform: translateX(-3px);
         }
 
-        /* Esconder o formulário de cadastro */
-        .sign-up-container {
-            display: none !important;
+        /* CONTAINER PRINCIPAL */
+        .container {
+            background: rgba(255, 255, 255, 0.98);
+            border-radius: 32px;
+            position: relative;
+            overflow: hidden;
+            width: 950px;
+            max-width: 95%;
+            min-height: 580px;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.4);
+            display: flex;
+            flex-direction: row-reverse;
+            z-index: 10;
         }
 
-        /* Ajustar o overlay para mostrar apenas o lado do login */
+        /* FORMULÁRIO */
+        .form-container {
+            position: absolute;
+            top: 0;
+            height: 100%;
+            width: 50%;
+            transition: all 0.6s ease-in-out;
+        }
+
+        .sign-in-container {
+            left: 0;
+            z-index: 2;
+        }
+
+        form {
+            background: white;
+            display: flex;
+            flex-direction: column;
+            padding: 50px 50px;
+            height: 100%;
+            justify-content: center;
+            align-items: center;
+        }
+
+        h1 {
+            margin-bottom: 15px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            color: #00796b;
+            font-size: 32px;
+        }
+
+        form p.subtitle {
+            font-size: 13px;
+            color: #777;
+            margin-bottom: 25px;
+        }
+
+        /* INPUTS */
+        .input-group {
+            position: relative;
+            width: 100%;
+            margin-bottom: 18px;
+        }
+
+        .input-group i {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #00796b;
+            font-size: 16px;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 14px 20px 14px 45px;
+            border-radius: 30px;
+            border: 1px solid #e0e0e0;
+            background: #f8fefe;
+            transition: 0.3s ease;
+            font-size: 14px;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .input-group input:focus {
+            outline: none;
+            border-color: #00796b;
+            box-shadow: 0 0 0 3px rgba(0,121,107,0.1);
+            background: #ffffff;
+        }
+
+        /* BOTÃO */
+        button {
+            border-radius: 30px;
+            border: none;
+            padding: 14px 50px;
+            background: linear-gradient(135deg, #00796b, #004d47);
+            color: white;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: all 0.3s ease;
+            font-family: 'Poppins', sans-serif;
+            font-size: 14px;
+            width: 100%;
+        }
+
+        button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0,121,107,0.3);
+        }
+
+        .divider {
+            display: flex;
+            align-items: center;
+            margin: 20px 0;
+            color: #999;
+            font-size: 12px;
+            width: 100%;
+        }
+
+        .divider::before,
+        .divider::after {
+            content: "";
+            flex: 1;
+            height: 1px;
+            background: #ddd;
+            margin: 0 10px;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 15px;
+            margin-top: 5px;
+        }
+
+        .social-icons i {
+            background: #f1f1f1;
+            padding: 12px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: 0.3s;
+            font-size: 18px;
+            color: #5b6e8c;
+        }
+
+        .social-icons i:hover {
+            background: #00796b;
+            color: white;
+            transform: translateY(-3px);
+        }
+
+        /* OVERLAY (LADO DA LOGO) */
         .overlay-container {
-            width: 100% !important;
-            left: 0 !important;
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 50%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 100;
         }
 
         .overlay {
-            left: -100% !important;
-            width: 200% !important;
-        }
-
-        .container.right-panel-active .overlay {
-            transform: translateX(50%) !important;
+            background: linear-gradient(135deg, #005f56, #003d36);
+            color: white;
+            position: relative;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .overlay-panel {
-            width: 50% !important;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 40px;
+            text-align: center;
         }
 
-        .overlay-left {
-            display: flex !important;
-        }
-
-        .overlay-right {
-            display: none !important;
-        }
-
-        /* Logo branca centralizada na parte verde */
+        /* LOGO CENTRALIZADA */
         .overlay-logo {
             text-align: center;
             margin-bottom: 30px;
         }
 
-        .overlay-logo i {
-            font-size: 70px;
-            color: white;
-            background: rgba(255, 255, 255, 0.2);
-            padding: 20px;
-            border-radius: 60px;
-            margin-bottom: 15px;
+        .overlay-logo img {
+            max-width: 220px;
+            width: 100%;
+            height: auto;
+            margin-bottom: 20px;
+            filter: drop-shadow(0 4px 15px rgba(0,0,0,0.2));
+            transition: transform 0.3s ease;
+        }
+
+        .overlay-logo img:hover {
+            transform: scale(1.05);
         }
 
         .overlay-logo h2 {
@@ -89,6 +346,7 @@
             font-size: 28px;
             font-weight: 700;
             letter-spacing: 2px;
+            margin-top: 10px;
         }
 
         .overlay-logo p {
@@ -101,14 +359,50 @@
             margin-top: 20px;
             font-size: 12px;
             opacity: 0.7;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            justify-content: center;
         }
 
-        /* Tela de loading mais discreta */
+        .overlay-text {
+            margin-top: 20px;
+            font-size: 13px;
+            opacity: 0.85;
+        }
+
+        /* NOTIFICAÇÃO */
+        .notification {
+            position: fixed;
+            top: -80px;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 12px 24px;
+            border-radius: 12px;
+            font-size: 13px;
+            z-index: 9999;
+            transition: 0.4s;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+            color: white;
+            background: #e53935;
+            font-family: 'Poppins', sans-serif;
+            white-space: nowrap;
+        }
+
+        .notification.show {
+            top: 80px;
+        }
+
+        .notification.success {
+            background: linear-gradient(135deg, #00796b, #004d47);
+        }
+
+        /* LOADING SCREEN */
         #loading-screen {
             position: fixed;
             width: 100%;
             height: 100%;
-            background: rgba(0, 121, 107, 0.95);
+            background: rgba(0, 61, 54, 0.98);
             display: none;
             justify-content: center;
             align-items: center;
@@ -122,7 +416,7 @@
             width: 50px;
             height: 50px;
             border: 4px solid rgba(255,255,255,0.3);
-            border-top: 4px solid white;
+            border-top: 4px solid #FFD966;
             border-radius: 50%;
             animation: spin 0.8s linear infinite;
             margin-bottom: 15px;
@@ -132,26 +426,60 @@
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
+
+        /* RESPONSIVIDADE */
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+                width: 95%;
+            }
+            
+            .form-container, .overlay-container {
+                width: 100%;
+                position: relative;
+            }
+            
+            .overlay-container {
+                display: none;
+            }
+            
+            .sign-in-container {
+                position: relative;
+            }
+            
+            form {
+                padding: 40px 30px;
+            }
+            
+            .notification {
+                white-space: normal;
+                text-align: center;
+                max-width: 90%;
+            }
+        }
     </style>
 </head>
 <body>
 
+<!-- FUNDO VERDE ESCURO -->
+<div class="dark-green-bg">
+    <div class="bg-circle bg-circle-1"></div>
+    <div class="bg-circle bg-circle-2"></div>
+    <div class="bg-circle bg-circle-3"></div>
+</div>
+
+<!-- BOTÃO VOLTAR -->
 <button class="btn-voltar" onclick="window.location.href='index.html'">
     <i class="fas fa-arrow-left"></i> Voltar
 </button>
 
+<!-- NOTIFICAÇÃO -->
 <div id="notification" class="notification">
-    Use e-mail institucional @cps.sp.gov.br
-</div>
-
-<div class="background">
-    <div class="bg bg1"></div>
-    <div class="bg bg2"></div>
-    <div class="overlay-verde"></div>
+    Use e-mail @aluno.cps.sp.gov.br
 </div>
 
 <div class="container">
-
+    <!-- FORMULÁRIO DE LOGIN -->
     <div class="form-container sign-in-container">
         <form id="loginForm">
             <h1>Entrar</h1>
@@ -159,15 +487,12 @@
 
             <div class="input-group">
                 <i class="fas fa-envelope"></i>
-                <input type="email" placeholder="E-mail @cps.sp.gov.br" id="loginEmail" required>
+                <input type="email" placeholder="nome.sobrenome123@aluno.cps.sp.gov.br" id="loginEmail" required>
             </div>
 
             <div class="input-group">
                 <i class="fas fa-lock"></i>
                 <input type="password" placeholder="Senha" id="loginSenha" required>
-                <span class="toggle-password" onclick="togglePassword('loginSenha', this)">
-                    <i class="fas fa-eye"></i>
-                </span>
             </div>
 
             <button type="submit">Entrar</button>
@@ -181,69 +506,101 @@
         </form>
     </div>
 
-    <div class="form-container sign-up-container" style="display: none;">
-        <form id="signupForm" style="display: none;">
-        </form>
-    </div>
-
+    <!-- LADO DA LOGO -->
     <div class="overlay-container">
         <div class="overlay">
-            <div class="overlay-panel overlay-left">
+            <div class="overlay-panel">
                 <div class="overlay-logo">
-                    <i class="fas fa-user-graduate"></i>
+                    <img src="logo.branca.png" alt="SmartClass Logo" onerror="this.src='https://placehold.co/200x80/ffffff/00796b?text=SmartClass'">
                     <h2>SmartClass</h2>
                     <p>Plataforma Educacional</p>
                     <div class="overlay-tag">
                         <i class="fas fa-school"></i> ETEC - Centro Paula Souza
                     </div>
                 </div>
-                <p style="margin-top: 20px;">Acesse sua conta com e-mail institucional</p>
-                <button class="ghost" id="signIn" style="display: none;">Entrar</button>
-            </div>
-
-            <div class="overlay-panel overlay-right" style="display: none;">
-                <h1>Criar conta!</h1>
-                <p>Crie sua conta para começar</p>
-                <button class="ghost" id="signUp">Cadastrar</button>
+                <div class="overlay-text">
+                    <i class="fas fa-user-graduate"></i> Área do Aluno
+                </div>
             </div>
         </div>
     </div>
-
 </div>
 
+<!-- LOADING SCREEN -->
 <div id="loading-screen">
     <div class="loader"></div>
     <p>Entrando...</p>
 </div>
 
-<script src="js/app.js"></script>
 <script>
-    const signUpButton = document.getElementById('signUp');
-    const signInButton = document.getElementById('signIn');
-    const container = document.querySelector('.container');
-
-    if (signInButton) signInButton.style.display = 'none';
-    if (signUpButton) signUpButton.style.display = 'none';
-
-    function togglePassword(id, element) {
-        const input = document.getElementById(id);
-        const icon = element.querySelector("i");
-
-        if (input.type === "password") {
-            input.type = "text";
-            icon.classList.replace("fa-eye","fa-eye-slash");
-        } else {
-            input.type = "password";
-            icon.classList.replace("fa-eye-slash","fa-eye");
+    // CRIA BOLHAS MENORES
+    function createBubbles() {
+        const bubbleContainer = document.body;
+        const colors = [
+            'rgba(0,255,200,0.12)',
+            'rgba(0,200,255,0.1)',
+            'rgba(100,255,200,0.08)',
+            'rgba(0,255,180,0.11)',
+            'rgba(50,200,255,0.07)',
+            'rgba(0,255,220,0.09)'
+        ];
+        
+        const bubbleCount = 40;
+        
+        for (let i = 0; i < bubbleCount; i++) {
+            const bubble = document.createElement('div');
+            bubble.className = 'bubble';
+            
+            // TAMANHOS MENORES (entre 15px e 50px)
+            const size = Math.random() * 35 + 15;
+            bubble.style.width = size + 'px';
+            bubble.style.height = size + 'px';
+            
+            // POSIÇÃO HORIZONTAL ALEATÓRIA
+            bubble.style.left = Math.random() * 100 + '%';
+            
+            // COR ALEATÓRIA
+            bubble.style.background = colors[Math.floor(Math.random() * colors.length)];
+            
+            // DURAÇÃO DA ANIMAÇÃO
+            const duration = Math.random() * 10 + 6;
+            bubble.style.animationDuration = duration + 's';
+            
+            // DELAY ALEATÓRIO
+            bubble.style.animationDelay = Math.random() * 15 + 's';
+            
+            // MOVIMENTO HORIZONTAL VARIADO
+            const moveX = (Math.random() - 0.5) * 150;
+            bubble.style.setProperty('--moveX', moveX + 'px');
+            
+            // BORDA (efeito de bolha)
+            bubble.style.border = '1px solid rgba(255,255,255,0.25)';
+            bubble.style.backdropFilter = 'blur(1px)';
+            
+            bubbleContainer.appendChild(bubble);
         }
     }
-
-    // Função para extrair o primeiro nome do email (parte antes do ponto)
+    
     function extrairNomeDoEmail(email) {
+        // Extrai o nome antes do @ e pega a primeira parte antes do ponto
         let nomeParte = email.split('@')[0];
         let nome = nomeParte.split('.')[0];
+        // Remove números do final se houver
+        nome = nome.replace(/[0-9]/g, '');
         nome = nome.charAt(0).toUpperCase() + nome.slice(1).toLowerCase();
         return nome;
+    }
+
+    function showNotification(message, isError = true) {
+        const notification = document.getElementById("notification");
+        notification.textContent = message;
+        if (!isError) {
+            notification.classList.add("success");
+        } else {
+            notification.classList.remove("success");
+        }
+        notification.classList.add("show");
+        setTimeout(() => notification.classList.remove("show"), 3000);
     }
 
     const loginForm = document.getElementById('loginForm');
@@ -255,23 +612,16 @@
         const email = document.getElementById('loginEmail').value.trim();
         const password = document.getElementById('loginSenha').value;
 
-        if(!email.endsWith("@cps.sp.gov.br")){
-            const notification = document.getElementById("notification");
-            notification.textContent = "Use um e-mail institucional @cps.sp.gov.br";
-            notification.classList.add("show");
-            setTimeout(()=> notification.classList.remove("show"), 3000);
+        if(!email.endsWith("@aluno.cps.sp.gov.br")){
+            showNotification("Use um e-mail institucional @aluno.cps.sp.gov.br");
             return;
         }
         
         if(password.length < 1){
-            const notification = document.getElementById("notification");
-            notification.textContent = "Digite sua senha";
-            notification.classList.add("show");
-            setTimeout(()=> notification.classList.remove("show"), 3000);
+            showNotification("Digite sua senha");
             return;
         }
         
-        // Extrair o primeiro nome do email (antes do ponto)
         const nome = extrairNomeDoEmail(email);
         
         const loggedUser = {
@@ -285,15 +635,16 @@
         localStorage.setItem("loggedUser", JSON.stringify(loggedUser));
         localStorage.setItem("tipoUsuario", "aluno");
         
-        // Criar pet
+        // Criar pet se não existir
         const petKey = `pet_${email}`;
-        if(!localStorage.getItem(petKey)){
+        if (!localStorage.getItem(petKey)) {
             localStorage.setItem(petKey, JSON.stringify({ 
                 streak: 0, totalPoints: 0, lastAttendanceDate: null, level: 0,
-                currentSkin: "dog", ownedItems: ["dog"], petName: nome
+                currentSkin: "dog", ownedItems: ["dog"], petName: nome,
+                lastAlimentou: null, lastBrincou: null
             }));
         }
-        
+
         // Adicionar à turma
         const chaveAlunos = `alunos_turma_1anoEM_1A`;
         const alunosExistentes = JSON.parse(localStorage.getItem(chaveAlunos) || '[]');
@@ -303,134 +654,10 @@
         }
         
         loadingScreen.style.display = "flex";
-        setTimeout(()=>{ window.location.href = "html/home_aluno.html"; }, 800);
+        setTimeout(()=>{ window.location.href = "home_aluno.html"; }, 800);
     });
-</script>
-<!-- No final do body, antes do fechamento </body> -->
-<script type="module">
-    import { loginOrCreateUser } from 'js/supabase-client.js'
-    
-    // ===== AGUARDAR O DOM CARREGAR PRIMEIRO =====
-    document.addEventListener('DOMContentLoaded', function() {
-        
-        // ===== PEGAR OS ELEMENTOS DEPOIS QUE O DOM EXISTE =====
-        const loginForm = document.getElementById('loginForm')
-        const loginEmail = document.getElementById('loginEmail')
-        const loginSenha = document.getElementById('loginSenha')
-        const loadingScreen = document.getElementById('loading-screen')
-        const notification = document.getElementById('notification')
-        
-        // Função para extrair nome do email
-        function extrairNomeDoEmail(email) {
-            let nomeParte = email.split('@')[0]
-            let nome = nomeParte.split('.')[0]
-            nome = nome.charAt(0).toUpperCase() + nome.slice(1).toLowerCase()
-            return nome
-        }
-        
-        // Função de notificação
-        function showNotification(message, type = 'error') {
-            if (!notification) return
-            notification.textContent = message
-            notification.classList.remove('success')
-            if (type === 'success') {
-                notification.classList.add('success')
-            }
-            notification.classList.add('show')
-            setTimeout(() => {
-                notification.classList.remove('show')
-            }, 3000)
-        }
-        
-        // ===== EVENTO DE LOGIN =====
-        if (loginForm) {
-            loginForm.addEventListener('submit', async function(e) {
-                e.preventDefault()
-                
-                if (!loginEmail || !loginSenha) return
-                
-                const email = loginEmail.value.trim()
-                const password = loginSenha.value
-                
-                // Validação do email
-                if (!email.endsWith('@cps.sp.gov.br')) {
-                    showNotification('Use um e-mail @cps.sp.gov.br', 'error')
-                    return
-                }
-                
-                if (!password || password.length < 1) {
-                    showNotification('Digite sua senha', 'error')
-                    return
-                }
-                
-                const nome = extrairNomeDoEmail(email)
-                const curso = 'DS'
-                const modulo = 'DS1'
-                
-                // Mostrar loading
-                if (loadingScreen) loadingScreen.style.display = 'flex'
-                
-                try {
-                    // Tentar login ou criar usuário
-                    const result = await loginOrCreateUser(email, password, nome, 'aluno', curso, modulo)
-                    
-                    if (!result.success) {
-                        if (loadingScreen) loadingScreen.style.display = 'none'
-                        showNotification('Erro ao fazer login: ' + result.error, 'error')
-                        return
-                    }
-                    
-                    // Salvar dados na sessão local
-                    localStorage.setItem('loggedUser', JSON.stringify({
-                        name: nome,
-                        email: email,
-                        tipo: 'aluno',
-                        curso: curso,
-                        modulo: modulo,
-                        user_id: result.user?.id
-                    }))
-                    localStorage.setItem('tipoUsuario', 'aluno')
-                    
-                    // Redirecionar
-                    setTimeout(() => {
-                        window.location.href = 'html/home_aluno.html'
-                    }, 1500)
-                    
-                } catch (error) {
-                    if (loadingScreen) loadingScreen.style.display = 'none'
-                    showNotification('Erro ao conectar com o servidor', 'error')
-                    console.error('Erro:', error)
-                }
-            })
-        }
-        
-        // ===== MÁSCARA DE CPF (se existir o campo) =====
-        const loginCpf = document.getElementById('loginCpf')
-        if (loginCpf) {
-            loginCpf.addEventListener('input', function(e) {
-                this.value = this.value.replace(/\D/g, '')
-            })
-        }
-        
-        // ===== TOGGLE PASSWORD =====
-        window.togglePassword = function(id, element) {
-            const input = document.getElementById(id)
-            if (!input) return
-            const icon = element.querySelector("i")
-            
-            if (input.type === "password") {
-                input.type = "text"
-                if (icon) icon.classList.replace("fa-eye", "fa-eye-slash")
-            } else {
-                input.type = "password"
-                if (icon) icon.classList.replace("fa-eye-slash", "fa-eye")
-            }
-        }
-    })
-</script>
-    
-    <script src="js/notifications.js"></script>
 
-
+    createBubbles();
+</script>
 </body>
 </html>
