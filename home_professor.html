@@ -21,48 +21,6 @@
             transition: background 0.3s ease;
         }
 
-        /* ========== SIDEBAR ========== */
-        .sidebar {
-            width: 260px;
-            height: 100vh;
-            background: #00796b;
-            color: white;
-            position: fixed;
-            padding-top: 30px;
-            overflow-y: auto;
-            transition: all 0.3s ease;
-            z-index: 100;
-        }
-
-        .sidebar h2 {
-            text-align: center;
-            margin-bottom: 30px;
-            font-size: 22px;
-            letter-spacing: 1px;
-        }
-
-        .sidebar a {
-            display: block;
-            padding: 14px 25px;
-            color: white;
-            text-decoration: none;
-            transition: 0.3s;
-            font-size: 14px;
-            font-weight: 500;
-            border-left: 3px solid transparent;
-        }
-
-        .sidebar a:hover {
-            background: #004d47;
-            border-left-color: #fbbf24;
-        }
-
-        .sidebar a.active {
-            background: #004d47;
-            border-left-color: #fbbf24;
-        }
-
-        /* ========== CONTEÚDO PRINCIPAL ========== */
         .content {
             margin-left: 260px;
             padding: 25px;
@@ -73,7 +31,6 @@
             min-height: 100vh;
         }
 
-        /* ========== WELCOME CARD ========== */
         .welcome-card {
             background: linear-gradient(135deg, #00796b, #004d47);
             border-radius: 20px;
@@ -126,7 +83,6 @@
             font-size: 13px;
         }
 
-        /* ========== SELETORES ========== */
         .selected-info {
             background: #e8f5e9;
             border-radius: 14px;
@@ -139,6 +95,28 @@
             align-items: center;
             gap: 12px;
             flex-wrap: wrap;
+            justify-content: space-between;
+        }
+
+        .selected-info .btn-exportar {
+            background: linear-gradient(135deg, #2e7d32, #1b5e20);
+            color: white;
+            border: none;
+            padding: 8px 18px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 12px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.3s ease;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .selected-info .btn-exportar:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(46, 125, 50, 0.3);
         }
 
         body.dark-mode .selected-info {
@@ -147,7 +125,6 @@
             border-left-color: #fbbf24;
         }
 
-        /* ========== GRID PRINCIPAL ========== */
         .dashboard-grid {
             display: grid;
             grid-template-columns: 320px 1fr;
@@ -155,7 +132,6 @@
             align-items: start;
         }
 
-        /* Card de Turmas e Alunos */
         .card-white {
             background: white;
             border-radius: 20px;
@@ -227,12 +203,12 @@
             transition: 0.2s;
         }
 
-        .turma-btn:hover, .turma-btn.active {
+        .turma-btn:hover,
+        .turma-btn.active {
             background: #fbbf24;
             color: #004d47;
         }
 
-        /* Lista de Alunos */
         .alunos-area {
             padding: 15px;
             max-height: 420px;
@@ -275,7 +251,7 @@
 
         .aluno-item i {
             font-size: 32px;
-            color: #ffffff;
+            color: #00796b;
             flex-shrink: 0;
         }
 
@@ -328,7 +304,6 @@
             color: white;
         }
 
-        /* Botões de ação */
         .btn-group {
             display: flex;
             gap: 12px;
@@ -365,7 +340,6 @@
             background: linear-gradient(135deg, #f44336, #c62828);
         }
 
-        /* Cards de estatísticas */
         .stats-row {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
@@ -412,7 +386,6 @@
             color: #5a6e6a;
         }
 
-        /* Gráficos */
         .charts-row {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -447,7 +420,6 @@
             max-width: 100%;
         }
 
-        /* Tabela de registros */
         .tabela-card {
             background: white;
             border-radius: 18px;
@@ -475,7 +447,8 @@
             font-size: 11px;
         }
 
-        th, td {
+        th,
+        td {
             padding: 10px 8px;
             text-align: left;
             border-bottom: 1px solid #eef2f6;
@@ -516,7 +489,6 @@
             color: white;
         }
 
-        /* Modal */
         .modal {
             display: none;
             position: fixed;
@@ -540,8 +512,14 @@
         }
 
         @keyframes modalIn {
-            from { transform: scale(0.95); opacity: 0; }
-            to { transform: scale(1); opacity: 1; }
+            from {
+                transform: scale(0.95);
+                opacity: 0;
+            }
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
         }
 
         .modal-header {
@@ -603,7 +581,6 @@
             color: white;
         }
 
-        /* Notificações */
         .custom-notification {
             position: fixed;
             top: 20px;
@@ -631,17 +608,19 @@
             background: #f44336;
         }
 
-        /* Animações */
         @keyframes flash {
-            0% { background: #fff9c4; }
-            100% { background: #f8f9fa; }
+            0% {
+                background: #fff9c4;
+            }
+            100% {
+                background: #f8f9fa;
+            }
         }
 
         .aluno-item.flash {
             animation: flash 0.5s ease;
         }
 
-        /* Scrollbar */
         ::-webkit-scrollbar {
             width: 5px;
         }
@@ -656,27 +635,12 @@
             border-radius: 10px;
         }
 
-        /* ========== MODO ESCURO ========== */
         body.dark-mode {
             background: #0f172a;
         }
 
         body.dark-mode .content {
             background: #0f172a;
-        }
-
-        body.dark-mode .sidebar {
-            background: #0f172a;
-            border-right: 1px solid #1e293b;
-        }
-
-        body.dark-mode .sidebar a:hover,
-        body.dark-mode .sidebar a.active {
-            background: #1e293b;
-        }
-
-        body.dark-mode .welcome-card {
-            background: linear-gradient(135deg, #0d5c52, #083a35);
         }
 
         body.dark-mode .card-white,
@@ -721,6 +685,7 @@
 
         body.dark-mode td {
             border-bottom-color: #334155;
+            color: #cbd5e1;
         }
 
         body.dark-mode .modal-content {
@@ -733,6 +698,29 @@
 
         body.dark-mode .modal-date {
             color: #fbbf24;
+        }
+
+        body.dark-mode .turmas-header {
+            background: linear-gradient(135deg, #0d4a47, #083a38);
+        }
+
+        body.dark-mode .selected-info {
+            background: #1e293b;
+            color: #fbbf24;
+            border-left-color: #fbbf24;
+        }
+
+        body.dark-mode .btn-exportar {
+            background: #fbbf24;
+            color: #0f172a;
+        }
+
+        body.dark-mode .btn-exportar:hover {
+            background: #ffd93d;
+        }
+
+        body.dark-mode .welcome-card {
+            background: linear-gradient(135deg, #0d4a47, #083a38);
         }
 
         @media (max-width: 1000px) {
@@ -748,632 +736,732 @@
         }
 
         @media (max-width: 768px) {
-            .sidebar {
-                width: 200px;
-            }
             .content {
-                margin-left: 200px;
-                width: calc(100% - 200px);
+                margin-left: 0;
                 padding: 15px;
+                width: 100%;
             }
             .stats-row {
                 grid-template-columns: 1fr;
+            }
+            .selected-info {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .selected-info .btn-exportar {
+                justify-content: center;
             }
         }
     </style>
 </head>
 <body>
-<div class="sidebar">
 
-</div>
-
-
-<div class="content">
-    <!-- WELCOME CARD -->
-    <div class="welcome-card">
-        <h2 id="welcomeMessage">Bem-vindo, Professor! 👨‍🏫</h2>
-        <p>Gerencie suas turmas, registre presenças e acompanhe o desempenho dos seus alunos</p>
-        <div class="welcome-stats">
-            <div class="welcome-stat-item"><i class="fas fa-calendar-alt"></i> <span id="dataAtual"></span></div>
-            <div class="welcome-stat-item"><i class="fas fa-school"></i> <span id="turmaResumo">Série: 1º Ano EM | Turma: A</span></div>
-            <div class="welcome-stat-item"><i class="fas fa-chart-line"></i> Dashboard em tempo real</div>
-        </div>
-    </div>
-
-    <!-- INFORMAÇÃO DA SELEÇÃO -->
-    <div class="selected-info" id="selectedInfo">
-        <i class="fas fa-user-graduate"></i> Selecione uma série, turma e aluno
-    </div>
-
-    <!-- GRID PRINCIPAL -->
-    <div class="dashboard-grid">
-        <!-- COLUNA ESQUERDA: TURMAS E ALUNOS -->
-        <div class="card-white">
-            <div class="turmas-header">
-                <h3><i class="fas fa-school"></i> Turmas</h3>
-                <div class="serie-select">
-                    <label>Série:</label>
-                    <select id="serieSelect">
-                        <option value="9ano">9º Ano</option>
-                        <option value="1anoEM" selected>1º Ano EM</option>
-                        <option value="2anoEM">2º Ano EM</option>
-                        <option value="3anoEM">3º Ano EM</option>
-                    </select>
-                </div>
-                <div class="turmas-buttons" id="turmasButtons"></div>
-            </div>
-            
-            <div class="alunos-area">
-                <h4><i class="fas fa-users"></i> Alunos <span id="turmaNome"></span></h4>
-                <div id="alunosList"></div>
-            </div>
-            
-            <div class="btn-group">
-                <button class="btn btn-presenca" id="btnPresencaHoje"><i class="fas fa-check"></i> Presença Hoje</button>
-                <button class="btn btn-falta" id="btnFaltaHoje"><i class="fas fa-times"></i> Falta Hoje</button>
+    <div class="content">
+        <!-- WELCOME CARD -->
+        <div class="welcome-card">
+            <h2 id="welcomeMessage">Bem-vindo, Professor! 👨‍🏫</h2>
+            <p>Gerencie suas turmas, registre presenças e acompanhe o desempenho dos seus alunos</p>
+            <div class="welcome-stats">
+                <div class="welcome-stat-item"><i class="fas fa-calendar-alt"></i> <span id="dataAtual"></span></div>
+                <div class="welcome-stat-item"><i class="fas fa-school"></i> <span id="turmaResumo">Série: 1º Ano EM | Turma: A</span></div>
+                <div class="welcome-stat-item"><i class="fas fa-chart-line"></i> Dashboard em tempo real</div>
             </div>
         </div>
 
-        <!-- COLUNA DIREITA: ESTATÍSTICAS E GRÁFICOS -->
-        <div>
-            <!-- Cards de estatísticas -->
-            <div class="stats-row">
-                <div class="stat-card">
-                    <div class="stat-icon"><i class="fas fa-calendar-alt"></i></div>
-                    <div class="stat-info"><h3 id="diasLetivos">0</h3><p>Dias Letivos</p></div>
+        <!-- INFORMAÇÃO DA SELEÇÃO + BOTÃO EXPORTAR -->
+        <div class="selected-info" id="selectedInfo">
+            <span><i class="fas fa-user-graduate"></i> Selecione uma série, turma e aluno</span>
+            <button class="btn-exportar" onclick="exportarRelatorio()">
+                <i class="fas fa-file-pdf"></i> Exportar Relatório
+            </button>
+        </div>
+
+        <!-- GRID PRINCIPAL -->
+        <div class="dashboard-grid">
+            <!-- COLUNA ESQUERDA: TURMAS E ALUNOS -->
+            <div class="card-white">
+                <div class="turmas-header">
+                    <h3><i class="fas fa-school"></i> Turmas</h3>
+                    <div class="serie-select">
+                        <label>Série:</label>
+                        <select id="serieSelect">
+                            <option value="9ano">9º Ano</option>
+                            <option value="1anoEM" selected>1º Ano EM</option>
+                            <option value="2anoEM">2º Ano EM</option>
+                            <option value="3anoEM">3º Ano EM</option>
+                        </select>
+                    </div>
+                    <div class="turmas-buttons" id="turmasButtons"></div>
                 </div>
-                <div class="stat-card">
-                    <div class="stat-icon"><i class="fas fa-check-circle"></i></div>
-                    <div class="stat-info"><h3 id="presencas">0</h3><p>Presenças</p></div>
+
+                <div class="alunos-area">
+                    <h4><i class="fas fa-users"></i> Alunos <span id="turmaNome"></span></h4>
+                    <div id="alunosList"></div>
                 </div>
-                <div class="stat-card">
-                    <div class="stat-icon"><i class="fas fa-times-circle"></i></div>
-                    <div class="stat-info"><h3 id="faltas">0</h3><p>Faltas</p></div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-icon"><i class="fas fa-chart-line"></i></div>
-                    <div class="stat-info"><h3 id="frequencia">0%</h3><p>Frequência</p></div>
+
+                <div class="btn-group">
+                    <button class="btn btn-presenca" id="btnPresencaHoje"><i class="fas fa-check"></i> Presença Hoje</button>
+                    <button class="btn btn-falta" id="btnFaltaHoje"><i class="fas fa-times"></i> Falta Hoje</button>
                 </div>
             </div>
 
-            <!-- Gráficos -->
-            <div class="charts-row">
-                <div class="chart-card">
-                    <h3><i class="fas fa-chart-pie"></i> Panorama de Presenças</h3>
-                    <div class="chart-wrapper">
-                        <canvas id="pieChart"></canvas>
+            <!-- COLUNA DIREITA: ESTATÍSTICAS E GRÁFICOS -->
+            <div>
+                <!-- Cards de estatísticas -->
+                <div class="stats-row">
+                    <div class="stat-card">
+                        <div class="stat-icon"><i class="fas fa-calendar-alt"></i></div>
+                        <div class="stat-info"><h3 id="diasLetivos">0</h3><p>Dias Letivos</p></div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon"><i class="fas fa-check-circle"></i></div>
+                        <div class="stat-info"><h3 id="presencas">0</h3><p>Presenças</p></div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon"><i class="fas fa-times-circle"></i></div>
+                        <div class="stat-info"><h3 id="faltas">0</h3><p>Faltas</p></div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon"><i class="fas fa-chart-line"></i></div>
+                        <div class="stat-info"><h3 id="frequencia">0%</h3><p>Frequência</p></div>
                     </div>
                 </div>
-                <div class="chart-card">
-                    <h3><i class="fas fa-chart-line"></i> Evolução Mensal</h3>
-                    <div class="chart-wrapper">
-                        <canvas id="lineChart"></canvas>
+
+                <!-- Gráficos -->
+                <div class="charts-row">
+                    <div class="chart-card">
+                        <h3><i class="fas fa-chart-pie"></i> Panorama de Presenças</h3>
+                        <div class="chart-wrapper">
+                            <canvas id="pieChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="chart-card">
+                        <h3><i class="fas fa-chart-line"></i> Evolução Mensal</h3>
+                        <div class="chart-wrapper">
+                            <canvas id="lineChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tabela de registros -->
+                <div class="tabela-card">
+                    <h3><i class="fas fa-table-list"></i> Registros de Frequência <span style="font-size: 10px;">(Clique no dia para editar)</span></h3>
+                    <div class="tabela-scroll">
+                        <table id="tabelaRegistros">
+                            <thead>
+                                <tr><th>Data</th><th>Status</th><th>Observação</th></tr>
+                            </thead>
+                            <tbody id="tabelaBody">
+                                <tr><td colspan="3" style="text-align:center">Selecione um aluno</td></tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
 
-            <!-- Tabela de registros -->
-            <div class="tabela-card">
-                <h3><i class="fas fa-table-list"></i> Registros de Frequência <span style="font-size: 10px;">(Clique no dia para editar)</span></h3>
-                <div class="tabela-scroll">
-                    <table id="tabelaRegistros">
-                        <thead>
-                            <tr><th>Data</th><th>Status</th><th>Observação</th></tr>
-                        </thead>
-                        <tbody id="tabelaBody">
-                            <tr><td colspan="3" style="text-align:center">Selecione um aluno</td></tr>
-                        </tbody>
-                    </table>
+    <!-- MODAL PARA EDIÇÃO DE PRESENÇA -->
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fas fa-edit"></i> Editar Registro</h3>
+                <span class="modal-close" onclick="fecharModal()">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div class="modal-date" id="modalData"></div>
+                <div class="modal-buttons">
+                    <button class="modal-btn modal-presenca" id="modalPresencaBtn"><i class="fas fa-check"></i> Presente</button>
+                    <button class="modal-btn modal-falta" id="modalFaltaBtn"><i class="fas fa-times"></i> Falta</button>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
-<!-- MODAL PARA EDIÇÃO DE PRESENÇA -->
-<div id="modal" class="modal">
-    <div class="modal-content">
-        <div class="modal-header">
-            <h3><i class="fas fa-edit"></i> Editar Registro</h3>
-            <span class="modal-close" onclick="fecharModal()">&times;</span>
-        </div>
-        <div class="modal-body">
-            <div class="modal-date" id="modalData"></div>
-            <div class="modal-buttons">
-                <button class="modal-btn modal-presenca" id="modalPresencaBtn"><i class="fas fa-check"></i> Presente</button>
-                <button class="modal-btn modal-falta" id="modalFaltaBtn"><i class="fas fa-times"></i> Falta</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<script>
-    // ========== DADOS GLOBAIS ==========
-    let user = null;
-    let selectedSerie = "1anoEM";
-    let selectedTurmaId = null;
-    let selectedAluno = null;
-    let pieChart = null;
-    let lineChart = null;
-    let modalDataStr = null;
-
-    // Configuração das turmas
-    const turmasPorSerie = {
-        "9ano": { nome: "9º Ano", turmas: [{ id: "9A", nome: "Turma A" }, { id: "9B", nome: "Turma B" }, { id: "9C", nome: "Turma C" }] },
-        "1anoEM": { nome: "1º Ano EM", turmas: [{ id: "1A", nome: "Turma A" }, { id: "1B", nome: "Turma B" }, { id: "1C", nome: "Turma C" }] },
-        "2anoEM": { nome: "2º Ano EM", turmas: [{ id: "2A", nome: "Turma A" }, { id: "2B", nome: "Turma B" }, { id: "2C", nome: "Turma C" }] },
-        "3anoEM": { nome: "3º Ano EM", turmas: [{ id: "3A", nome: "Turma A" }, { id: "3B", nome: "Turma B" }, { id: "3C", nome: "Turma C" }] }
-    };
-
-    // Feriados
-    const feriados = { 
-        "2026-04-03": "Sexta Santa", "2026-04-21": "Tiradentes", "2026-05-01": "Dia do Trabalho",
-        "2026-09-07": "Independência", "2026-10-12": "Aparecida", "2026-11-02": "Finados",
-        "2026-11-15": "Proclamação", "2026-12-25": "Natal"
-    };
-
-    // ========== FUNÇÕES AUXILIARES ==========
-    function formatarDataBR(dataStr) {
-        const data = new Date(dataStr);
-        return `${String(data.getDate()).padStart(2,'0')}/${String(data.getMonth()+1).padStart(2,'0')}/${data.getFullYear()}`;
-    }
-
-    function hojeStr() {
-        const d = new Date();
-        return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
-    }
-
-    function isFimSemana(data) {
-        return data.getDay() === 0 || data.getDay() === 6;
-    }
-
-    function isFeriado(dataStr) {
-        return feriados[dataStr] !== undefined;
-    }
-
-    // Gerar todos os dias letivos de 2026
-    function getTodosDiasLetivos() {
-        const dias = [];
-        for (let mes = 0; mes < 12; mes++) {
-            const ultimoDia = new Date(2026, mes + 1, 0).getDate();
-            for (let dia = 1; dia <= ultimoDia; dia++) {
-                const data = new Date(2026, mes, dia);
-                const dataStr = `${2026}-${String(mes+1).padStart(2,'0')}-${String(dia).padStart(2,'0')}`;
-                if (!isFimSemana(data) && !isFeriado(dataStr)) {
-                    dias.push({ dataStr, dataBR: formatarDataBR(dataStr) });
-                }
-            }
-        }
-        return dias;
-    }
-
-    const TODOS_DIAS_LETIVOS = getTodosDiasLetivos();
-    const TOTAL_DIAS_LETIVOS = TODOS_DIAS_LETIVOS.length;
-
-    // ========== FUNÇÕES DE REGISTRO ==========
-    function carregarAlunosDaTurma(serie, turma) {
-        const chave = `alunos_turma_${serie}_${turma}`;
-        return JSON.parse(localStorage.getItem(chave) || '[]');
-    }
-
-    function getRegistrosKey() {
-        return `absences_${selectedAluno?.email}`;
-    }
-
-    function carregarRegistros() {
-        if (!selectedAluno) return {};
-        const key = getRegistrosKey();
-        const saved = localStorage.getItem(key);
-        return saved ? JSON.parse(saved) : {};
-    }
-
-    function salvarRegistros(registros) {
-        if (!selectedAluno) return;
-        const key = getRegistrosKey();
-        localStorage.setItem(key, JSON.stringify(registros));
-    }
-
-    function getRegistroDiario(email) {
-        const hoje = hojeStr();
-        const key = `daily_${selectedSerie}_${selectedTurmaId}_${email}`;
-        const saved = localStorage.getItem(key);
-        if (!saved) return null;
-        const data = JSON.parse(saved);
-        return data.data === hoje ? data.status : null;
-    }
-
-    // ========== CÁLCULOS ESTATÍSTICOS ==========
-    function calcularEstatisticas() {
-        if (!selectedAluno) {
-            return { presencas: 0, faltas: 0, totalDias: 0, frequencia: 0 };
-        }
-        
-        const registros = carregarRegistros();
-        const hoje = new Date();
-        let faltas = 0;
-        let diasLetivosAteHoje = 0;
-        
-        for (const dia of TODOS_DIAS_LETIVOS) {
-            const dataDia = new Date(dia.dataStr);
-            if (dataDia <= hoje) {
-                diasLetivosAteHoje++;
-                if (registros[dia.dataStr]) faltas++;
-            }
-        }
-        
-        const presencas = diasLetivosAteHoje - faltas;
-        const frequencia = diasLetivosAteHoje > 0 ? Math.round((presencas / diasLetivosAteHoje) * 100) : 0;
-        
-        return { presencas, faltas, totalDias: diasLetivosAteHoje, frequencia };
-    }
-
-    function calcularDadosMensais() {
-        if (!selectedAluno) return Array(12).fill(0);
-        
-        const registros = carregarRegistros();
-        const hoje = new Date();
-        const dadosMensais = Array(12).fill(0);
-        
-        for (let mes = 0; mes < 12; mes++) {
-            let diasLetivosMes = 0;
-            let faltasMes = 0;
-            const ultimoDia = new Date(2026, mes + 1, 0).getDate();
+    <!-- SCRIPTS -->
+    <script>
+        // =============================================
+        // FUNÇÃO DE EXPORTAR RELATÓRIO
+        // =============================================
+        function exportarRelatorio() {
+            const aluno = selectedAluno ? selectedAluno.nome : 'Todos os alunos';
+            const stats = calcularEstatisticas();
             
-            for (let dia = 1; dia <= ultimoDia; dia++) {
-                const data = new Date(2026, mes, dia);
-                const dataStr = `${2026}-${String(mes+1).padStart(2,'0')}-${String(dia).padStart(2,'0')}`;
-                if (!isFimSemana(data) && !isFeriado(dataStr)) {
-                    if (data <= hoje) {
-                        diasLetivosMes++;
-                        if (registros[dataStr]) faltasMes++;
+            // Simular download de relatório
+            const relatorio = `
+        =========================================
+        RELATÓRIO DE FREQUÊNCIA - SMARTCLASS
+        =========================================
+        
+        Aluno: ${aluno}
+        Turma: ${dadosAtuais.serie} - ${dadosAtuais.turma}
+        Data: ${new Date().toLocaleDateString('pt-BR')}
+        
+        -----------------------------------------
+        ESTATÍSTICAS:
+        - Dias Letivos: ${stats.totalDias}
+        - Presenças: ${stats.presencas}
+        - Faltas: ${stats.faltas}
+        - Frequência: ${stats.frequencia}%
+        -----------------------------------------
+        
+        Registros detalhados:
+        `;
+            
+            // Exibir em uma nova janela para impressão/salvar como PDF
+            const win = window.open('', '_blank');
+            win.document.write(`
+                <html>
+                <head>
+                    <title>Relatório de Frequência</title>
+                    <style>
+                        body { font-family: 'Courier New', monospace; padding: 40px; }
+                        h1 { color: #00796b; }
+                        .header { border-bottom: 2px solid #00796b; padding-bottom: 10px; margin-bottom: 20px; }
+                        .stats { background: #f5f5f5; padding: 15px; border-radius: 8px; margin: 15px 0; }
+                        .stats p { margin: 5px 0; }
+                        .footer { margin-top: 30px; font-size: 12px; color: #888; border-top: 1px solid #ddd; padding-top: 10px; }
+                        @media print {
+                            body { padding: 20px; }
+                            .no-print { display: none; }
+                        }
+                    </style>
+                </head>
+                <body>
+                    <h1>📄 Relatório de Frequência</h1>
+                    <div class="header">
+                        <p><strong>Aluno:</strong> ${aluno}</p>
+                        <p><strong>Turma:</strong> ${dadosAtuais.serie} - ${dadosAtuais.turma}</p>
+                        <p><strong>Data de emissão:</strong> ${new Date().toLocaleDateString('pt-BR')}</p>
+                    </div>
+                    <div class="stats">
+                        <h3>📊 Estatísticas</h3>
+                        <p>✅ Dias Letivos: <strong>${stats.totalDias}</strong></p>
+                        <p>✅ Presenças: <strong>${stats.presencas}</strong></p>
+                        <p>❌ Faltas: <strong>${stats.faltas}</strong></p>
+                        <p>📈 Frequência: <strong>${stats.frequencia}%</strong></p>
+                    </div>
+                    <div style="margin-top: 20px;">
+                        <h3>📋 Histórico de Registros</h3>
+                        <p>Consulte os registros detalhados na tabela do sistema.</p>
+                    </div>
+                    <div class="footer">
+                        <p>Relatório gerado pelo SmartClass - Plataforma Educacional</p>
+                        <p>ETEC de Mauá - ${new Date().getFullYear()}</p>
+                    </div>
+                    <div class="no-print" style="margin-top: 30px;">
+                        <button onclick="window.print()" style="padding: 10px 30px; background: #00796b; color: white; border: none; border-radius: 30px; cursor: pointer; font-weight: 600;">
+                            🖨️ Imprimir / Salvar como PDF
+                        </button>
+                    </div>
+                </body>
+                </html>
+            `);
+            win.document.close();
+
+            showNotification('📄 Relatório gerado com sucesso!', 'success');
+        }
+
+        // =============================================
+        // DADOS GLOBAIS
+        // =============================================
+        let user = null;
+        let selectedSerie = "1anoEM";
+        let selectedTurmaId = null;
+        let selectedAluno = null;
+        let pieChart = null;
+        let lineChart = null;
+        let modalDataStr = null;
+
+        const turmasPorSerie = {
+            "9ano": { nome: "9º Ano", turmas: [{ id: "9A", nome: "Turma A" }, { id: "9B", nome: "Turma B" }, { id: "9C", nome: "Turma C" }] },
+            "1anoEM": { nome: "1º Ano EM", turmas: [{ id: "1A", nome: "Turma A" }, { id: "1B", nome: "Turma B" }, { id: "1C", nome: "Turma C" }] },
+            "2anoEM": { nome: "2º Ano EM", turmas: [{ id: "2A", nome: "Turma A" }, { id: "2B", nome: "Turma B" }, { id: "2C", nome: "Turma C" }] },
+            "3anoEM": { nome: "3º Ano EM", turmas: [{ id: "3A", nome: "Turma A" }, { id: "3B", nome: "Turma B" }, { id: "3C", nome: "Turma C" }] }
+        };
+
+        const feriados = {
+            "2026-04-03": "Sexta Santa",
+            "2026-04-21": "Tiradentes",
+            "2026-05-01": "Dia do Trabalho",
+            "2026-09-07": "Independência",
+            "2026-10-12": "Aparecida",
+            "2026-11-02": "Finados",
+            "2026-11-15": "Proclamação",
+            "2026-12-25": "Natal"
+        };
+
+        // =============================================
+        // FUNÇÕES AUXILIARES
+        // =============================================
+        function formatarDataBR(dataStr) {
+            const data = new Date(dataStr);
+            return `${String(data.getDate()).padStart(2, '0')}/${String(data.getMonth() + 1).padStart(2, '0')}/${data.getFullYear()}`;
+        }
+
+        function hojeStr() {
+            const d = new Date();
+            return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+        }
+
+        function isFimSemana(data) {
+            return data.getDay() === 0 || data.getDay() === 6;
+        }
+
+        function isFeriado(dataStr) {
+            return feriados[dataStr] !== undefined;
+        }
+
+        function getTodosDiasLetivos() {
+            const dias = [];
+            for (let mes = 0; mes < 12; mes++) {
+                const ultimoDia = new Date(2026, mes + 1, 0).getDate();
+                for (let dia = 1; dia <= ultimoDia; dia++) {
+                    const data = new Date(2026, mes, dia);
+                    const dataStr = `${2026}-${String(mes + 1).padStart(2, '0')}-${String(dia).padStart(2, '0')}`;
+                    if (!isFimSemana(data) && !isFeriado(dataStr)) {
+                        dias.push({ dataStr, dataBR: formatarDataBR(dataStr) });
                     }
                 }
             }
-            const presencasMes = diasLetivosMes - faltasMes;
-            dadosMensais[mes] = diasLetivosMes > 0 ? Math.round((presencasMes / diasLetivosMes) * 100) : 0;
+            return dias;
         }
-        return dadosMensais;
-    }
 
-    // ========== ATUALIZAR INTERFACE ==========
-    function atualizarDashboard() {
-        const stats = calcularEstatisticas();
-        
-        document.getElementById('diasLetivos').textContent = stats.totalDias;
-        document.getElementById('presencas').textContent = stats.presencas;
-        document.getElementById('faltas').textContent = stats.faltas;
-        document.getElementById('frequencia').textContent = `${stats.frequencia}%`;
-        
-        if (pieChart) {
-            pieChart.data.datasets[0].data = [stats.presencas, stats.faltas];
-            pieChart.update();
-        }
-        
-        if (lineChart && selectedAluno) {
-            lineChart.data.datasets[0].data = calcularDadosMensais();
-            lineChart.update();
-        }
-        
-        atualizarTabelaRegistros();
-    }
+        const TODOS_DIAS_LETIVOS = getTodosDiasLetivos();
+        const TOTAL_DIAS_LETIVOS = TODOS_DIAS_LETIVOS.length;
 
-    function atualizarTabelaRegistros() {
-        const tbody = document.getElementById('tabelaBody');
-        if (!selectedAluno) {
-            tbody.innerHTML = '<tr><td colspan="3" style="text-align:center">Selecione um aluno</td></tr>';
-            return;
+        function carregarAlunosDaTurma(serie, turma) {
+            const chave = `alunos_turma_${serie}_${turma}`;
+            return JSON.parse(localStorage.getItem(chave) || '[]');
         }
-        
-        const registros = carregarRegistros();
-        const hoje = new Date();
-        const diasAteHoje = TODOS_DIAS_LETIVOS.filter(dia => new Date(dia.dataStr) <= hoje);
-        
-        tbody.innerHTML = diasAteHoje.map(dia => {
-            const temFalta = registros[dia.dataStr];
-            const status = temFalta ? 'falta' : 'presente';
-            const statusText = temFalta ? '✗ Falta' : '✓ Presente';
-            const statusClass = temFalta ? 'falta' : 'presente';
-            const obs = temFalta ? (temFalta.note || 'Falta registrada') : 'Presente';
-            
-            return `
-                <tr class="registro-item" onclick="abrirModal('${dia.dataStr}', '${dia.dataBR}')">
-                    <td>${dia.dataBR}</td>
-                    <td><span class="badge-status ${statusClass}">${statusText}</span></td>
-                    <td>${obs}</td>
-                </tr>
-            `;
-        }).join('');
-    }
 
-    // ========== RENDERIZAÇÃO DE ALUNOS E TURMAS ==========
-    function renderizarTurmas() {
-        const serieData = turmasPorSerie[selectedSerie];
-        if (!serieData) return;
-        
-        const container = document.getElementById('turmasButtons');
-        container.innerHTML = serieData.turmas.map(t => 
-            `<button class="turma-btn ${selectedTurmaId === t.id ? 'active' : ''}" onclick="selecionarTurma('${t.id}')">${t.nome}</button>`
-        ).join('');
-        
-        if (!selectedTurmaId && serieData.turmas.length) {
-            selecionarTurma(serieData.turmas[0].id);
+        function getRegistrosKey() {
+            return `absences_${selectedAluno?.email}`;
         }
-    }
 
-    function renderizarAlunos() {
-        if (!selectedTurmaId) {
-            document.getElementById('alunosList').innerHTML = '<div style="text-align:center; padding:20px; color:#999;">Selecione uma turma</div>';
-            return;
+        function carregarRegistros() {
+            if (!selectedAluno) return {};
+            const key = getRegistrosKey();
+            const saved = localStorage.getItem(key);
+            return saved ? JSON.parse(saved) : {};
         }
-        
-        const alunos = carregarAlunosDaTurma(selectedSerie, selectedTurmaId);
-        const serieData = turmasPorSerie[selectedSerie];
-        const turma = serieData?.turmas.find(t => t.id === selectedTurmaId);
-        document.getElementById('turmaNome').innerHTML = turma ? `- ${turma.nome}` : '';
-        
-        // Atualizar resumo no welcome-card
-        const serieMap = { '9ano': '9º Ano', '1anoEM': '1º Ano EM', '2anoEM': '2º Ano EM', '3anoEM': '3º Ano EM' };
-        document.getElementById('turmaResumo').innerHTML = `${serieMap[selectedSerie]} | Turma ${selectedTurmaId?.replace(/[0-9]/g, '') || ''}`;
-        
-        if (alunos.length === 0) {
-            document.getElementById('alunosList').innerHTML = '<div style="text-align:center; padding:20px; color:#999;">Nenhum aluno cadastrado ainda.<br>Os alunos aparecerão aqui quando se cadastrarem.</div>';
-            return;
+
+        function salvarRegistros(registros) {
+            if (!selectedAluno) return;
+            const key = getRegistrosKey();
+            localStorage.setItem(key, JSON.stringify(registros));
         }
-        
-        document.getElementById('alunosList').innerHTML = alunos.map(aluno => {
-            const isActive = selectedAluno?.email === aluno.email;
-            const registroDia = getRegistroDiario(aluno.email);
-            
-            let badgeClass = 'badge-pendente';
-            let badgeIcon = '<i class="fas fa-clock"></i>';
-            let badgeText = 'Pendente';
-            
-            if (registroDia === 'present') {
-                badgeClass = 'badge-presente';
-                badgeIcon = '<i class="fas fa-check-circle"></i>';
-                badgeText = 'Presente';
-            } else if (registroDia === 'absent') {
-                badgeClass = 'badge-falta';
-                badgeIcon = '<i class="fas fa-times-circle"></i>';
-                badgeText = 'Falta';
+
+        function getRegistroDiario(email) {
+            const hoje = hojeStr();
+            const key = `daily_${selectedSerie}_${selectedTurmaId}_${email}`;
+            const saved = localStorage.getItem(key);
+            if (!saved) return null;
+            const data = JSON.parse(saved);
+            return data.data === hoje ? data.status : null;
+        }
+
+        function calcularEstatisticas() {
+            if (!selectedAluno) {
+                return { presencas: 0, faltas: 0, totalDias: 0, frequencia: 0 };
             }
-            
-            return `
-                <div class="aluno-item ${isActive ? 'active' : ''}" data-email="${aluno.email}" onclick="selecionarAluno('${aluno.email.replace(/'/g, "\\'")}', '${aluno.nome.replace(/'/g, "\\'")}')">
-                    <i class="fas fa-user-circle"></i>
-                    <div class="aluno-info">
-                        <div class="aluno-nome">${aluno.nome}</div>
-                        <div class="aluno-email">${aluno.email}</div>
-                    </div>
-                    <div class="badge-dia ${badgeClass}">${badgeIcon}<span>${badgeText}</span></div>
-                </div>
-            `;
-        }).join('');
-    }
 
-    // ========== FUNÇÕES DE AÇÃO ==========
-    function selecionarTurma(id) {
-        selectedTurmaId = id;
-        selectedAluno = null;
-        renderizarTurmas();
-        renderizarAlunos();
-        atualizarDashboard();
-        document.getElementById('selectedInfo').innerHTML = `<i class="fas fa-user-graduate"></i> Turma selecionada - Clique em um aluno`;
-    }
+            const registros = carregarRegistros();
+            const hoje = new Date();
+            let faltas = 0;
+            let diasLetivosAteHoje = 0;
 
-    function selecionarAluno(email, nome) {
-        selectedAluno = { email, nome };
-        renderizarAlunos();
-        atualizarDashboard();
-        document.getElementById('selectedInfo').innerHTML = `<i class="fas fa-user-graduate"></i> Aluno: <strong>${nome}</strong>`;
-    }
+            for (const dia of TODOS_DIAS_LETIVOS) {
+                const dataDia = new Date(dia.dataStr);
+                if (dataDia <= hoje) {
+                    diasLetivosAteHoje++;
+                    if (registros[dia.dataStr]) faltas++;
+                }
+            }
 
-    function marcarPresencaHoje() {
-        if (!selectedAluno) { showNotification("Selecione um aluno primeiro!", "error"); return; }
-        
-        const hoje = new Date();
-        const hojeStrDate = hojeStr();
-        
-        if (isFimSemana(hoje)) { showNotification("Fim de semana não é dia letivo!", "error"); return; }
-        if (isFeriado(hojeStrDate)) { showNotification(`${feriados[hojeStrDate]} - não é dia letivo!`, "error"); return; }
-        
-        const registros = carregarRegistros();
-        delete registros[hojeStrDate];
-        salvarRegistros(registros);
-        
-        const key = `daily_${selectedSerie}_${selectedTurmaId}_${selectedAluno.email}`;
-        localStorage.setItem(key, JSON.stringify({ data: hojeStr(), status: 'present' }));
-        
-        showNotification(`✅ Presença registrada para ${selectedAluno.nome} hoje!`, "success");
-        atualizarDashboard();
-        renderizarAlunos();
-        animarAluno();
-    }
+            const presencas = diasLetivosAteHoje - faltas;
+            const frequencia = diasLetivosAteHoje > 0 ? Math.round((presencas / diasLetivosAteHoje) * 100) : 0;
 
-    function marcarFaltaHoje() {
-        if (!selectedAluno) { showNotification("Selecione um aluno primeiro!", "error"); return; }
-        
-        const hoje = new Date();
-        const hojeStrDate = hojeStr();
-        
-        if (isFimSemana(hoje)) { showNotification("Fim de semana não é dia letivo!", "error"); return; }
-        if (isFeriado(hojeStrDate)) { showNotification(`${feriados[hojeStrDate]} - não é dia letivo!`, "error"); return; }
-        
-        const registros = carregarRegistros();
-        registros[hojeStrDate] = { date: hojeStrDate, note: 'Falta registrada', registeredAt: new Date().toISOString() };
-        salvarRegistros(registros);
-        
-        const key = `daily_${selectedSerie}_${selectedTurmaId}_${selectedAluno.email}`;
-        localStorage.setItem(key, JSON.stringify({ data: hojeStr(), status: 'absent' }));
-        
-        showNotification(`❌ Falta registrada para ${selectedAluno.nome} hoje!`, "success");
-        atualizarDashboard();
-        renderizarAlunos();
-        animarAluno();
-    }
-
-    function animarAluno() {
-        const item = document.querySelector(`.aluno-item[data-email="${selectedAluno?.email || ''}"]`);
-        if (item) {
-            item.classList.add('flash');
-            setTimeout(() => item.classList.remove('flash'), 500);
+            return { presencas, faltas, totalDias: diasLetivosAteHoje, frequencia };
         }
-    }
 
-    // ========== MODAL ==========
-    function abrirModal(dataStr, dataBR) {
-        modalDataStr = dataStr;
-        document.getElementById('modalData').innerHTML = dataBR;
-        document.getElementById('modal').style.display = 'flex';
-    }
+        function calcularDadosMensais() {
+            if (!selectedAluno) return Array(12).fill(0);
 
-    function fecharModal() {
-        document.getElementById('modal').style.display = 'none';
-        modalDataStr = null;
-    }
+            const registros = carregarRegistros();
+            const hoje = new Date();
+            const dadosMensais = Array(12).fill(0);
 
-    function editarRegistro(novoStatus) {
-        if (!modalDataStr || !selectedAluno) return;
-        
-        const registros = carregarRegistros();
-        
-        if (novoStatus === 'presente') {
-            delete registros[modalDataStr];
-            showNotification(`✅ Presença registrada para ${modalDataStr}`, "success");
-        } else if (novoStatus === 'falta') {
-            registros[modalDataStr] = { date: modalDataStr, note: 'Falta registrada pelo professor', registeredAt: new Date().toISOString() };
-            showNotification(`❌ Falta registrada para ${modalDataStr}`, "success");
+            for (let mes = 0; mes < 12; mes++) {
+                let diasLetivosMes = 0;
+                let faltasMes = 0;
+                const ultimoDia = new Date(2026, mes + 1, 0).getDate();
+
+                for (let dia = 1; dia <= ultimoDia; dia++) {
+                    const data = new Date(2026, mes, dia);
+                    const dataStr = `${2026}-${String(mes + 1).padStart(2, '0')}-${String(dia).padStart(2, '0')}`;
+                    if (!isFimSemana(data) && !isFeriado(dataStr)) {
+                        if (data <= hoje) {
+                            diasLetivosMes++;
+                            if (registros[dataStr]) faltasMes++;
+                        }
+                    }
+                }
+                const presencasMes = diasLetivosMes - faltasMes;
+                dadosMensais[mes] = diasLetivosMes > 0 ? Math.round((presencasMes / diasLetivosMes) * 100) : 0;
+            }
+            return dadosMensais;
         }
-        
-        salvarRegistros(registros);
-        
-        if (modalDataStr === hojeStr()) {
+
+        function atualizarDashboard() {
+            const stats = calcularEstatisticas();
+
+            document.getElementById('diasLetivos').textContent = stats.totalDias;
+            document.getElementById('presencas').textContent = stats.presencas;
+            document.getElementById('faltas').textContent = stats.faltas;
+            document.getElementById('frequencia').textContent = `${stats.frequencia}%`;
+
+            if (pieChart) {
+                pieChart.data.datasets[0].data = [stats.presencas, stats.faltas];
+                pieChart.update();
+            }
+
+            if (lineChart && selectedAluno) {
+                lineChart.data.datasets[0].data = calcularDadosMensais();
+                lineChart.update();
+            }
+
+            atualizarTabelaRegistros();
+        }
+
+        function atualizarTabelaRegistros() {
+            const tbody = document.getElementById('tabelaBody');
+            if (!selectedAluno) {
+                tbody.innerHTML = '<tr><td colspan="3" style="text-align:center">Selecione um aluno</td></tr>';
+                return;
+            }
+
+            const registros = carregarRegistros();
+            const hoje = new Date();
+            const diasAteHoje = TODOS_DIAS_LETIVOS.filter(dia => new Date(dia.dataStr) <= hoje);
+
+            tbody.innerHTML = diasAteHoje.map(dia => {
+                const temFalta = registros[dia.dataStr];
+                const status = temFalta ? 'falta' : 'presente';
+                const statusText = temFalta ? '✗ Falta' : '✓ Presente';
+                const statusClass = temFalta ? 'falta' : 'presente';
+                const obs = temFalta ? (temFalta.note || 'Falta registrada') : 'Presente';
+
+                return `
+                        <tr class="registro-item" onclick="abrirModal('${dia.dataStr}', '${dia.dataBR}')">
+                            <td>${dia.dataBR}</td>
+                            <td><span class="badge-status ${statusClass}">${statusText}</span></td>
+                            <td>${obs}</td>
+                        </tr>
+                    `;
+            }).join('');
+        }
+
+        function renderizarTurmas() {
+            const serieData = turmasPorSerie[selectedSerie];
+            if (!serieData) return;
+
+            const container = document.getElementById('turmasButtons');
+            container.innerHTML = serieData.turmas.map(t =>
+                `<button class="turma-btn ${selectedTurmaId === t.id ? 'active' : ''}" onclick="selecionarTurma('${t.id}')">${t.nome}</button>`
+            ).join('');
+
+            if (!selectedTurmaId && serieData.turmas.length) {
+                selecionarTurma(serieData.turmas[0].id);
+            }
+        }
+
+        function renderizarAlunos() {
+            if (!selectedTurmaId) {
+                document.getElementById('alunosList').innerHTML = '<div style="text-align:center; padding:20px; color:#999;">Selecione uma turma</div>';
+                return;
+            }
+
+            const alunos = carregarAlunosDaTurma(selectedSerie, selectedTurmaId);
+            const serieData = turmasPorSerie[selectedSerie];
+            const turma = serieData?.turmas.find(t => t.id === selectedTurmaId);
+            document.getElementById('turmaNome').innerHTML = turma ? `- ${turma.nome}` : '';
+
+            const serieMap = { '9ano': '9º Ano', '1anoEM': '1º Ano EM', '2anoEM': '2º Ano EM', '3anoEM': '3º Ano EM' };
+            document.getElementById('turmaResumo').innerHTML = `${serieMap[selectedSerie]} | Turma ${selectedTurmaId?.replace(/[0-9]/g, '') || ''}`;
+
+            if (alunos.length === 0) {
+                document.getElementById('alunosList').innerHTML = '<div style="text-align:center; padding:20px; color:#999;">Nenhum aluno cadastrado ainda.<br>Os alunos aparecerão aqui quando se cadastrarem.</div>';
+                return;
+            }
+
+            document.getElementById('alunosList').innerHTML = alunos.map(aluno => {
+                const isActive = selectedAluno?.email === aluno.email;
+                const registroDia = getRegistroDiario(aluno.email);
+
+                let badgeClass = 'badge-pendente';
+                let badgeIcon = '<i class="fas fa-clock"></i>';
+                let badgeText = 'Pendente';
+
+                if (registroDia === 'present') {
+                    badgeClass = 'badge-presente';
+                    badgeIcon = '<i class="fas fa-check-circle"></i>';
+                    badgeText = 'Presente';
+                } else if (registroDia === 'absent') {
+                    badgeClass = 'badge-falta';
+                    badgeIcon = '<i class="fas fa-times-circle"></i>';
+                    badgeText = 'Falta';
+                }
+
+                return `
+                        <div class="aluno-item ${isActive ? 'active' : ''}" data-email="${aluno.email}" onclick="selecionarAluno('${aluno.email.replace(/'/g, "\\'")}', '${aluno.nome.replace(/'/g, "\\'")}')">
+                            <i class="fas fa-user-circle"></i>
+                            <div class="aluno-info">
+                                <div class="aluno-nome">${aluno.nome}</div>
+                                <div class="aluno-email">${aluno.email}</div>
+                            </div>
+                            <div class="badge-dia ${badgeClass}">${badgeIcon}<span>${badgeText}</span></div>
+                        </div>
+                    `;
+            }).join('');
+        }
+
+        function selecionarTurma(id) {
+            selectedTurmaId = id;
+            selectedAluno = null;
+            renderizarTurmas();
+            renderizarAlunos();
+            atualizarDashboard();
+            document.getElementById('selectedInfo').innerHTML = `
+                    <span><i class="fas fa-user-graduate"></i> Turma selecionada - Clique em um aluno</span>
+                    <button class="btn-exportar" onclick="exportarRelatorio()">
+                        <i class="fas fa-file-pdf"></i> Exportar Relatório
+                    </button>
+                `;
+        }
+
+        function selecionarAluno(email, nome) {
+            selectedAluno = { email, nome };
+            renderizarAlunos();
+            atualizarDashboard();
+            document.getElementById('selectedInfo').innerHTML = `
+                    <span><i class="fas fa-user-graduate"></i> Aluno: <strong>${nome}</strong></span>
+                    <button class="btn-exportar" onclick="exportarRelatorio()">
+                        <i class="fas fa-file-pdf"></i> Exportar Relatório
+                    </button>
+                `;
+        }
+
+        function marcarPresencaHoje() {
+            if (!selectedAluno) { showNotification("Selecione um aluno primeiro!", "error"); return; }
+
+            const hoje = new Date();
+            const hojeStrDate = hojeStr();
+
+            if (isFimSemana(hoje)) { showNotification("Fim de semana não é dia letivo!", "error"); return; }
+            if (isFeriado(hojeStrDate)) { showNotification(`${feriados[hojeStrDate]} - não é dia letivo!`, "error"); return; }
+
+            const registros = carregarRegistros();
+            delete registros[hojeStrDate];
+            salvarRegistros(registros);
+
             const key = `daily_${selectedSerie}_${selectedTurmaId}_${selectedAluno.email}`;
-            localStorage.setItem(key, JSON.stringify({ data: hojeStr(), status: novoStatus === 'presente' ? 'present' : 'absent' }));
-        }
-        
-        atualizarDashboard();
-        renderizarAlunos();
-        fecharModal();
-    }
+            localStorage.setItem(key, JSON.stringify({ data: hojeStr(), status: 'present' }));
 
-    // ========== GRÁFICOS ==========
-    function initCharts() {
-        const ctxPie = document.getElementById('pieChart').getContext('2d');
-        pieChart = new Chart(ctxPie, {
-            type: 'doughnut',
-            data: { labels: ['Presenças', 'Faltas'], datasets: [{ data: [0, 0], backgroundColor: ['#4caf50', '#f44336'], borderWidth: 0 }] },
-            options: { responsive: true, maintainAspectRatio: true, plugins: { legend: { position: 'bottom', labels: { font: { size: 10 } } } }, cutout: '60%' }
+            showNotification(`✅ Presença registrada para ${selectedAluno.nome} hoje!`, "success");
+            atualizarDashboard();
+            renderizarAlunos();
+            animarAluno();
+        }
+
+        function marcarFaltaHoje() {
+            if (!selectedAluno) { showNotification("Selecione um aluno primeiro!", "error"); return; }
+
+            const hoje = new Date();
+            const hojeStrDate = hojeStr();
+
+            if (isFimSemana(hoje)) { showNotification("Fim de semana não é dia letivo!", "error"); return; }
+            if (isFeriado(hojeStrDate)) { showNotification(`${feriados[hojeStrDate]} - não é dia letivo!`, "error"); return; }
+
+            const registros = carregarRegistros();
+            registros[hojeStrDate] = { date: hojeStrDate, note: 'Falta registrada', registeredAt: new Date().toISOString() };
+            salvarRegistros(registros);
+
+            const key = `daily_${selectedSerie}_${selectedTurmaId}_${selectedAluno.email}`;
+            localStorage.setItem(key, JSON.stringify({ data: hojeStr(), status: 'absent' }));
+
+            showNotification(`❌ Falta registrada para ${selectedAluno.nome} hoje!`, "success");
+            atualizarDashboard();
+            renderizarAlunos();
+            animarAluno();
+        }
+
+        function animarAluno() {
+            const item = document.querySelector(`.aluno-item[data-email="${selectedAluno?.email || ''}"]`);
+            if (item) {
+                item.classList.add('flash');
+                setTimeout(() => item.classList.remove('flash'), 500);
+            }
+        }
+
+        function abrirModal(dataStr, dataBR) {
+            modalDataStr = dataStr;
+            document.getElementById('modalData').innerHTML = dataBR;
+            document.getElementById('modal').style.display = 'flex';
+        }
+
+        function fecharModal() {
+            document.getElementById('modal').style.display = 'none';
+            modalDataStr = null;
+        }
+
+        function editarRegistro(novoStatus) {
+            if (!modalDataStr || !selectedAluno) return;
+
+            const registros = carregarRegistros();
+
+            if (novoStatus === 'presente') {
+                delete registros[modalDataStr];
+                showNotification(`✅ Presença registrada para ${modalDataStr}`, "success");
+            } else if (novoStatus === 'falta') {
+                registros[modalDataStr] = { date: modalDataStr, note: 'Falta registrada pelo professor', registeredAt: new Date().toISOString() };
+                showNotification(`❌ Falta registrada para ${modalDataStr}`, "success");
+            }
+
+            salvarRegistros(registros);
+
+            if (modalDataStr === hojeStr()) {
+                const key = `daily_${selectedSerie}_${selectedTurmaId}_${selectedAluno.email}`;
+                localStorage.setItem(key, JSON.stringify({ data: hojeStr(), status: novoStatus === 'presente' ? 'present' : 'absent' }));
+            }
+
+            atualizarDashboard();
+            renderizarAlunos();
+            fecharModal();
+        }
+
+        function initCharts() {
+            const ctxPie = document.getElementById('pieChart').getContext('2d');
+            pieChart = new Chart(ctxPie, {
+                type: 'doughnut',
+                data: { labels: ['Presenças', 'Faltas'], datasets: [{ data: [0, 0], backgroundColor: ['#4caf50', '#f44336'], borderWidth: 0 }] },
+                options: { responsive: true, maintainAspectRatio: true, plugins: { legend: { position: 'bottom', labels: { font: { size: 10 } } } }, cutout: '60%' }
+            });
+
+            const ctxLine = document.getElementById('lineChart').getContext('2d');
+            lineChart = new Chart(ctxLine, {
+                type: 'line',
+                data: { labels: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'], datasets: [{ label: 'Frequência %', data: Array(12).fill(0), borderColor: '#00796b', backgroundColor: 'rgba(0, 121, 107, 0.1)', tension: 0.3, fill: true }] },
+                options: { responsive: true, maintainAspectRatio: true, scales: { y: { beginAtZero: true, max: 100 } } }
+            });
+        }
+
+        function showNotification(msg, tipo) {
+            const notif = document.createElement('div');
+            notif.className = `custom-notification ${tipo}`;
+            notif.innerHTML = `<i class="fas ${tipo === 'success' ? 'fa-check-circle' : 'fa-exclamation-circle'}"></i> ${msg}`;
+            document.body.appendChild(notif);
+            setTimeout(() => notif.classList.add('show'), 10);
+            setTimeout(() => { notif.classList.remove('show'); setTimeout(() => notif.remove(), 300); }, 2500);
+        }
+
+        function toggleDarkMode() {
+            const isDark = document.getElementById('darkModeToggle').checked;
+            if (isDark) {
+                document.body.classList.add('dark-mode');
+                localStorage.setItem('darkMode', 'enabled');
+            } else {
+                document.body.classList.remove('dark-mode');
+                localStorage.setItem('darkMode', 'disabled');
+            }
+        }
+
+        function aplicarDarkMode() {
+            const darkMode = localStorage.getItem('darkMode') === 'enabled';
+            if (darkMode) {
+                document.body.classList.add('dark-mode');
+                document.getElementById('darkModeToggle').checked = true;
+            }
+        }
+
+        function atualizarWelcome() {
+            const userLogged = JSON.parse(localStorage.getItem("loggedUser") || "{}");
+            const nome = userLogged.name || userLogged.nome || "Professor";
+            const primeiroNome = nome.split(' ')[0];
+            const hora = new Date().getHours();
+            let saudacao = "Bem-vindo";
+            if (hora < 12) saudacao = "Bom dia";
+            else if (hora < 18) saudacao = "Boa tarde";
+            else saudacao = "Boa noite";
+            document.getElementById('welcomeMessage').innerHTML = `${saudacao}, ${primeiroNome}! 👨‍🏫`;
+
+            const hoje = new Date();
+            const opcoes = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            const dataFormatada = hoje.toLocaleDateString('pt-BR', opcoes);
+            document.getElementById('dataAtual').textContent = dataFormatada.charAt(0).toUpperCase() + dataFormatada.slice(1);
+        }
+
+        function mudarSerie() {
+            selectedSerie = document.getElementById('serieSelect').value;
+            selectedTurmaId = null;
+            selectedAluno = null;
+            renderizarTurmas();
+            renderizarAlunos();
+            atualizarDashboard();
+            document.getElementById('selectedInfo').innerHTML = `
+                    <span><i class="fas fa-user-graduate"></i> Selecione uma série, turma e aluno</span>
+                    <button class="btn-exportar" onclick="exportarRelatorio()">
+                        <i class="fas fa-file-pdf"></i> Exportar Relatório
+                    </button>
+                `;
+            showNotification(`Série: ${turmasPorSerie[selectedSerie].nome}`, "success");
+        }
+
+        function sairDoSistema() {
+            localStorage.removeItem("loggedUser");
+            localStorage.removeItem("tipoUsuario");
+            window.location.href = "index.html";
+        }
+
+        // =============================================
+        // INICIALIZAÇÃO
+        // =============================================
+        document.addEventListener('DOMContentLoaded', () => {
+            const userStr = localStorage.getItem("loggedUser");
+            if (!userStr) { window.location.href = "login_professor.html"; return; }
+            user = JSON.parse(userStr);
+
+            aplicarDarkMode();
+            atualizarWelcome();
+            initCharts();
+            renderizarTurmas();
+            renderizarAlunos();
+            atualizarDashboard();
+
+            document.getElementById('serieSelect').addEventListener('change', mudarSerie);
+            document.getElementById('btnPresencaHoje').addEventListener('click', marcarPresencaHoje);
+            document.getElementById('btnFaltaHoje').addEventListener('click', marcarFaltaHoje);
+            document.getElementById('modalPresencaBtn').onclick = () => editarRegistro('presente');
+            document.getElementById('modalFaltaBtn').onclick = () => editarRegistro('falta');
+
+            window.onclick = (e) => { if (e.target === document.getElementById('modal')) fecharModal(); };
+
+            window.selecionarTurma = selecionarTurma;
+            window.selecionarAluno = selecionarAluno;
+            window.abrirModal = abrirModal;
+            window.fecharModal = fecharModal;
+            window.sairDoSistema = sairDoSistema;
+            window.toggleDarkMode = toggleDarkMode;
+            window.exportarRelatorio = exportarRelatorio;
         });
-        
-        const ctxLine = document.getElementById('lineChart').getContext('2d');
-        lineChart = new Chart(ctxLine, {
-            type: 'line',
-            data: { labels: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'], datasets: [{ label: 'Frequência %', data: Array(12).fill(0), borderColor: '#00796b', backgroundColor: 'rgba(0, 121, 107, 0.1)', tension: 0.3, fill: true }] },
-            options: { responsive: true, maintainAspectRatio: true, scales: { y: { beginAtZero: true, max: 100 } } }
-        });
-    }
+    </script>
 
-    // ========== NOTIFICAÇÕES ==========
-    function showNotification(msg, tipo) {
-        const notif = document.createElement('div');
-        notif.className = `custom-notification ${tipo}`;
-        notif.innerHTML = `<i class="fas ${tipo === 'success' ? 'fa-check-circle' : 'fa-exclamation-circle'}"></i> ${msg}`;
-        document.body.appendChild(notif);
-        setTimeout(() => notif.classList.add('show'), 10);
-        setTimeout(() => { notif.classList.remove('show'); setTimeout(() => notif.remove(), 300); }, 2500);
-    }
-
-    // ========== DARK MODE ==========
-    function toggleDarkMode() {
-        const isDark = document.getElementById('darkModeToggle').checked;
-        if (isDark) {
-            document.body.classList.add('dark-mode');
-            localStorage.setItem('darkMode', 'enabled');
-        } else {
-            document.body.classList.remove('dark-mode');
-            localStorage.setItem('darkMode', 'disabled');
-        }
-    }
-
-    function aplicarDarkMode() {
-        const darkMode = localStorage.getItem('darkMode') === 'enabled';
-        if (darkMode) {
-            document.body.classList.add('dark-mode');
-            document.getElementById('darkModeToggle').checked = true;
-        }
-    }
-
-    // ========== WELCOME CARD ==========
-    function atualizarWelcome() {
-        const userLogged = JSON.parse(localStorage.getItem("loggedUser") || "{}");
-        const nome = userLogged.name || userLogged.nome || "Professor";
-        const primeiroNome = nome.split(' ')[0];
-        const hora = new Date().getHours();
-        let saudacao = "Bem-vindo";
-        if (hora < 12) saudacao = "Bom dia";
-        else if (hora < 18) saudacao = "Boa tarde";
-        else saudacao = "Boa noite";
-        document.getElementById('welcomeMessage').innerHTML = `${saudacao}, ${primeiroNome}! 👨‍🏫`;
-        
-        const hoje = new Date();
-        const opcoes = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-        const dataFormatada = hoje.toLocaleDateString('pt-BR', opcoes);
-        document.getElementById('dataAtual').textContent = dataFormatada.charAt(0).toUpperCase() + dataFormatada.slice(1);
-    }
-
-    function mudarSerie() {
-        selectedSerie = document.getElementById('serieSelect').value;
-        selectedTurmaId = null;
-        selectedAluno = null;
-        renderizarTurmas();
-        renderizarAlunos();
-        atualizarDashboard();
-        document.getElementById('selectedInfo').innerHTML = `<i class="fas fa-user-graduate"></i> Selecione uma série, turma e aluno`;
-        showNotification(`Série: ${turmasPorSerie[selectedSerie].nome}`, "success");
-    }
-
-    function sairDoSistema() {
-        localStorage.removeItem("loggedUser");
-        localStorage.removeItem("tipoUsuario");
-        window.location.href = "index.html";
-    }
-
-    // ========== INICIALIZAÇÃO ==========
-    document.addEventListener('DOMContentLoaded', () => {
-        const userStr = localStorage.getItem("loggedUser");
-        if (!userStr) { window.location.href = "login_professor.html"; return; }
-        user = JSON.parse(userStr);
-        
-        aplicarDarkMode();
-        atualizarWelcome();
-        initCharts();
-        renderizarTurmas();
-        renderizarAlunos();
-        atualizarDashboard();
-        
-        document.getElementById('serieSelect').addEventListener('change', mudarSerie);
-        document.getElementById('btnPresencaHoje').addEventListener('click', marcarPresencaHoje);
-        document.getElementById('btnFaltaHoje').addEventListener('click', marcarFaltaHoje);
-        document.getElementById('modalPresencaBtn').onclick = () => editarRegistro('presente');
-        document.getElementById('modalFaltaBtn').onclick = () => editarRegistro('falta');
-        
-        window.onclick = (e) => { if (e.target === document.getElementById('modal')) fecharModal(); };
-        
-        window.selecionarTurma = selecionarTurma;
-        window.selecionarAluno = selecionarAluno;
-        window.abrirModal = abrirModal;
-        window.fecharModal = fecharModal;
-        window.sairDoSistema = sairDoSistema;
-        window.toggleDarkMode = toggleDarkMode;
-    });
-</script>
-
- <script src="js/darkmode.js"></script>
+    <script src="js/darkmode.js"></script>
     <script src="js/sidebar.js"></script>
     <script src="js/validacoes.js"></script>
-    <!-- Scripts -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/js/all.min.js"></script>
-<script src="js/sidebar.js"></script>
+    <script src="js/notifications.js"></script>
+    <script src="js/app.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/js/all.min.js"></script>
+    <script src="js/sidebar.js"></script>
 </body>
 </html>

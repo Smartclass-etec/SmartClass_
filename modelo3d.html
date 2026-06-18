@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modelo 3D - Câmeras | SmartClass</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        * { margin:0; padding:0; box-sizing:border-box; }
+        body { font-family:'Poppins',sans-serif; background:#f0f2f5; display:flex; }
+        .content { margin-left:260px; padding:25px; flex:1; background:#f0f2f5; min-height:100vh; }
+        .page-header { margin-bottom:30px; }
+        .page-header h1 { color:#00796b; font-size:28px; display:flex; align-items:center; gap:12px; }
+        .page-header p { color:#666; font-size:14px; }
+        .model-container { background:white; border-radius:20px; padding:20px; border:1px solid #eef2f6; }
+        .canvas-wrapper { background:#1a1a2e; border-radius:16px; height:500px; display:flex; align-items:center; justify-content:center; color:white; font-size:18px; flex-direction:column; gap:15px; }
+        .canvas-wrapper i { font-size:80px; opacity:0.3; }
+        .controls { display:flex; gap:15px; margin-top:20px; flex-wrap:wrap; }
+        .control-group { display:flex; align-items:center; gap:10px; background:#f8f9fa; padding:10px 15px; border-radius:12px; }
+        .control-group label { font-weight:600; font-size:12px; color:#555; }
+        .control-group input[type="range"] { width:150px; }
+        .control-group .value { font-weight:600; color:#00796b; min-width:40px; }
+        .btn-simular { background:#00796b; color:white; border:none; padding:12px 25px; border-radius:30px; cursor:pointer; font-weight:600; transition:0.3s; }
+        .btn-simular:hover { transform:translateY(-2px); box-shadow:0 5px 15px rgba(0,121,107,0.3); }
+        .dica { margin-top:15px; padding:15px; background:#f8f9fa; border-radius:12px; font-size:13px; color:#555; border-left:4px solid #00796b; }
+        .dica i { color:#00796b; margin-right:8px; }
+        @media (max-width:768px) { .content { margin-left:0; padding:15px; } .controls { flex-direction:column; } }
+    </style>
+</head>
+<body>
+    <div class="content">
+        <div class="page-header">
+            <h1><i class="fas fa-cube"></i> Modelo 3D - Posicionamento de Câmeras</h1>
+            <p>Simule o ângulo e a altura da câmera para obter a melhor cobertura da sala</p>
+        </div>
+        <div class="model-container">
+            <div class="canvas-wrapper">
+                <i class="fas fa-camera"></i>
+                <div style="text-align:center;">
+                    <p>Simulação 3D da sala de aula</p>
+                    <p style="font-size:12px;opacity:0.6;">(Use os controles abaixo para ajustar)</p>
+                </div>
+            </div>
+            <div class="controls">
+                <div class="control-group">
+                    <label>Ângulo <i class="fas fa-arrow-up"></i></label>
+                    <input type="range" id="angulo" min="0" max="90" value="45">
+                    <span class="value" id="anguloVal">45°</span>
+                </div>
+                <div class="control-group">
+                    <label>Altura <i class="fas fa-arrow-up"></i></label>
+                    <input type="range" id="altura" min="1" max="4" step="0.1" value="2.5">
+                    <span class="value" id="alturaVal">2.5m</span>
+                </div>
+                <div class="control-group">
+                    <label>Distância <i class="fas fa-arrows-alt-h"></i></label>
+                    <input type="range" id="distancia" min="1" max="10" step="0.5" value="5">
+                    <span class="value" id="distanciaVal">5m</span>
+                </div>
+                <button class="btn-simular" onclick="alert('Simulação atualizada! (Renderização 3D real seria acionada)')"><i class="fas fa-sync-alt"></i> Atualizar</button>
+            </div>
+            <div class="dica">
+                <i class="fas fa-info-circle"></i> 
+                <strong>Ângulo recomendado:</strong> 45° | <strong>Altura ideal:</strong> 2,5 m | <strong>Distância:</strong> 5 m da lousa – garante cobertura total da sala e visão frontal do professor.
+            </div>
+        </div>
+    </div>
+    <script>
+        document.getElementById('angulo').addEventListener('input', function() {
+            document.getElementById('anguloVal').textContent = this.value + '°';
+        });
+        document.getElementById('altura').addEventListener('input', function() {
+            document.getElementById('alturaVal').textContent = this.value + 'm';
+        });
+        document.getElementById('distancia').addEventListener('input', function() {
+            document.getElementById('distanciaVal').textContent = this.value + 'm';
+        });
+    </script>
+    <script src="js/sidebar.js"></script>
+</body>
+</html>
