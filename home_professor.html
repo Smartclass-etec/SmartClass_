@@ -21,6 +21,11 @@
             transition: background 0.3s ease;
         }
 
+        /* ===== TEXTAREA FIXA ===== */
+        textarea {
+            resize: none !important;
+        }
+
         .content {
             margin-left: 260px;
             padding: 25px;
@@ -763,14 +768,14 @@
             <p>Gerencie suas turmas, registre presenças e acompanhe o desempenho dos seus alunos</p>
             <div class="welcome-stats">
                 <div class="welcome-stat-item"><i class="fas fa-calendar-alt"></i> <span id="dataAtual"></span></div>
-                <div class="welcome-stat-item"><i class="fas fa-school"></i> <span id="turmaResumo">Série: 1º Ano EM | Turma: A</span></div>
+                <div class="welcome-stat-item"><i class="fas fa-school"></i> <span id="turmaResumo">Módulo: 1º TI | Turma: A</span></div>
                 <div class="welcome-stat-item"><i class="fas fa-chart-line"></i> Dashboard em tempo real</div>
             </div>
         </div>
 
         <!-- INFORMAÇÃO DA SELEÇÃO + BOTÃO EXPORTAR -->
         <div class="selected-info" id="selectedInfo">
-            <span><i class="fas fa-user-graduate"></i> Selecione uma série, turma e aluno</span>
+            <span><i class="fas fa-user-graduate"></i> Selecione um módulo, turma e aluno</span>
             <button class="btn-exportar" onclick="exportarRelatorio()">
                 <i class="fas fa-file-pdf"></i> Exportar Relatório
             </button>
@@ -783,12 +788,11 @@
                 <div class="turmas-header">
                     <h3><i class="fas fa-school"></i> Turmas</h3>
                     <div class="serie-select">
-                        <label>Série:</label>
+                        <label>Módulo:</label>
                         <select id="serieSelect">
-                            <option value="9ano">9º Ano</option>
-                            <option value="1anoEM" selected>1º Ano EM</option>
-                            <option value="2anoEM">2º Ano EM</option>
-                            <option value="3anoEM">3º Ano EM</option>
+                            <option value="TI1">1º Módulo - Téc. Informática</option>
+                            <option value="TI2" selected>2º Módulo - Téc. Informática</option>
+                            <option value="TI3">3º Módulo - Téc. Informática</option>
                         </select>
                     </div>
                     <div class="turmas-buttons" id="turmasButtons"></div>
@@ -887,28 +891,6 @@
             const aluno = selectedAluno ? selectedAluno.nome : 'Todos os alunos';
             const stats = calcularEstatisticas();
             
-            // Simular download de relatório
-            const relatorio = `
-        =========================================
-        RELATÓRIO DE FREQUÊNCIA - SMARTCLASS
-        =========================================
-        
-        Aluno: ${aluno}
-        Turma: ${dadosAtuais.serie} - ${dadosAtuais.turma}
-        Data: ${new Date().toLocaleDateString('pt-BR')}
-        
-        -----------------------------------------
-        ESTATÍSTICAS:
-        - Dias Letivos: ${stats.totalDias}
-        - Presenças: ${stats.presencas}
-        - Faltas: ${stats.faltas}
-        - Frequência: ${stats.frequencia}%
-        -----------------------------------------
-        
-        Registros detalhados:
-        `;
-            
-            // Exibir em uma nova janela para impressão/salvar como PDF
             const win = window.open('', '_blank');
             win.document.write(`
                 <html>
@@ -958,7 +940,6 @@
                 </html>
             `);
             win.document.close();
-
             showNotification('📄 Relatório gerado com sucesso!', 'success');
         }
 
@@ -966,18 +947,18 @@
         // DADOS GLOBAIS
         // =============================================
         let user = null;
-        let selectedSerie = "1anoEM";
+        let selectedSerie = "TI2";
         let selectedTurmaId = null;
         let selectedAluno = null;
         let pieChart = null;
         let lineChart = null;
         let modalDataStr = null;
 
+        // ===== APENAS MÓDULOS TÉCNICO EM INFORMÁTICA (TI1, TI2, TI3) =====
         const turmasPorSerie = {
-            "9ano": { nome: "9º Ano", turmas: [{ id: "9A", nome: "Turma A" }, { id: "9B", nome: "Turma B" }, { id: "9C", nome: "Turma C" }] },
-            "1anoEM": { nome: "1º Ano EM", turmas: [{ id: "1A", nome: "Turma A" }, { id: "1B", nome: "Turma B" }, { id: "1C", nome: "Turma C" }] },
-            "2anoEM": { nome: "2º Ano EM", turmas: [{ id: "2A", nome: "Turma A" }, { id: "2B", nome: "Turma B" }, { id: "2C", nome: "Turma C" }] },
-            "3anoEM": { nome: "3º Ano EM", turmas: [{ id: "3A", nome: "Turma A" }, { id: "3B", nome: "Turma B" }, { id: "3C", nome: "Turma C" }] }
+            "TI1": { nome: "1º Módulo - Téc. Informática", turmas: [{ id: "1TI-A", nome: "Turma A" }, { id: "1TI-B", nome: "Turma B" }] },
+            "TI2": { nome: "2º Módulo - Téc. Informática", turmas: [{ id: "2TI-A", nome: "Turma A" }, { id: "2TI-B", nome: "Turma B" }] },
+            "TI3": { nome: "3º Módulo - Téc. Informática", turmas: [{ id: "3TI-A", nome: "Turma A" }, { id: "3TI-B", nome: "Turma B" }] }
         };
 
         const feriados = {
@@ -1187,8 +1168,8 @@
             const turma = serieData?.turmas.find(t => t.id === selectedTurmaId);
             document.getElementById('turmaNome').innerHTML = turma ? `- ${turma.nome}` : '';
 
-            const serieMap = { '9ano': '9º Ano', '1anoEM': '1º Ano EM', '2anoEM': '2º Ano EM', '3anoEM': '3º Ano EM' };
-            document.getElementById('turmaResumo').innerHTML = `${serieMap[selectedSerie]} | Turma ${selectedTurmaId?.replace(/[0-9]/g, '') || ''}`;
+            const serieMap = { 'TI1': '1º Módulo', 'TI2': '2º Módulo', 'TI3': '3º Módulo' };
+            document.getElementById('turmaResumo').innerHTML = `${serieMap[selectedSerie]} | Turma ${selectedTurmaId?.replace(/[0-9]/g, '').replace('TI-', '') || ''}`;
 
             if (alunos.length === 0) {
                 document.getElementById('alunosList').innerHTML = '<div style="text-align:center; padding:20px; color:#999;">Nenhum aluno cadastrado ainda.<br>Os alunos aparecerão aqui quando se cadastrarem.</div>';
@@ -1409,12 +1390,12 @@
             renderizarAlunos();
             atualizarDashboard();
             document.getElementById('selectedInfo').innerHTML = `
-                    <span><i class="fas fa-user-graduate"></i> Selecione uma série, turma e aluno</span>
+                    <span><i class="fas fa-user-graduate"></i> Selecione um módulo, turma e aluno</span>
                     <button class="btn-exportar" onclick="exportarRelatorio()">
                         <i class="fas fa-file-pdf"></i> Exportar Relatório
                     </button>
                 `;
-            showNotification(`Série: ${turmasPorSerie[selectedSerie].nome}`, "success");
+            showNotification(`Módulo: ${turmasPorSerie[selectedSerie].nome}`, "success");
         }
 
         function sairDoSistema() {

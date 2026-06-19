@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assistir Vídeo | SmartClass</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        * { margin:0; padding:0; box-sizing:border-box; }
+        body { font-family:'Poppins',sans-serif; background:#0f172a; display:flex; }
+        textarea { resize:none !important; }
+
+        .content { margin-left:260px; padding:25px; flex:1; background:#0f172a; min-height:100vh; }
+        
+        .btn-voltar {
+            display:inline-flex;
+            align-items:center;
+            gap:8px;
+            background:rgba(255,255,255,0.1);
+            border:none;
+            padding:10px 20px;
+            border-radius:30px;
+            color:white;
+            cursor:pointer;
+            font-weight:500;
+            font-size:13px;
+            transition:all 0.3s;
+            font-family:'Poppins',sans-serif;
+            margin-bottom:20px;
+            backdrop-filter:blur(4px);
+            border:1px solid rgba(255,255,255,0.05);
+        }
+        .btn-voltar:hover { background:rgba(255,255,255,0.2); transform:translateX(-3px); }
+
+        .player-container {
+            background:#1e293b;
+            border-radius:24px;
+            overflow:hidden;
+            border:1px solid #334155;
+            box-shadow:0 20px 60px rgba(0,0,0,0.5);
+        }
+
+        .video-wrapper {
+            background:#0a0a0a;
+            position:relative;
+            width:100%;
+            padding-top:56.25%; /* 16:9 */
+        }
+        .video-wrapper video {
+            position:absolute;
+            top:0;
+            left:0;
+            width:100%;
+            height:100%;
+            background:#000;
+        }
+        .video-wrapper .placeholder {
+            position:absolute;
+            top:0;
+            left:0;
+            width:100%;
+            height:100%;
+            display:flex;
+            flex-direction:column;
+            align-items:center;
+            justify-content:center;
+            color:white;
+            background:linear-gradient(135deg,#1a1a2e,#16213e);
+        }
+        .video-wrapper .placeholder i {
+            font-size:80px;
+            opacity:0.3;
+            margin-bottom:20px;
+        }
+        .video-wrapper .placeholder p {
+            opacity:0.6;
+            font-size:14px;
+        }
+
+        .player-info {
+            padding:24px 28px;
+            color:#f1f5f9;
+        }
+        .player-info h2 {
+            font-size:22px;
+            font-weight:700;
+            margin-bottom:6px;
+            color:#fbbf24;
+        }
+        .player-info .sub-info {
+            display:flex;
+            gap:20px;
+            flex-wrap:wrap;
+            font-size:13px;
+            color:#94a3b8;
+            margin-bottom:16px;
+        }
+        .player-info .sub-info i { color:#fbbf24; width:18px; }
+        .player-info .descricao {
+            background:#334155;
+            padding:16px 20px;
+            border-radius:12px;
+            font-size:14px;
+            line-height:1.6;
+            color:#cbd5e1;
+            margin-bottom:16px;
+            border-left:3px solid #fbbf24;
+        }
+        .player-actions {
+            display:flex;
+            gap:12px;
+            flex-wrap:wrap;
+        }
+        .btn-marcar {
+            background:linear-gradient(135deg,#fbbf24,#f59e0b);
+            color:#0f172a;
+            border:none;
+            padding:10px 24px;
+            border-radius:30px;
+            cursor:pointer;
+            font-weight:600;
+            font-size:13px;
+            transition:all 0.3s;
+            font-family:'Poppins',sans-serif;
+            display:flex;
+            align-items:center;
+            gap:8px;
+        }
+        .btn-marcar:hover { transform:translateY(-2px); box-shadow:0 8px 20px rgba(251,191,36,0.3); }
+        .btn-marcar.assistido { background:#4caf50; color:white; }
+        .btn-marcar.assistido:hover { background:#2e7d32; }
+
+        .btn-download {
+            background:rgba(255,255,255,0.08);
+            color:#f1f5f9;
+            border:1px solid #334155;
+            padding:10px 20px;
+            border-radius:30px;
+            cursor:pointer;
+            font-weight:500;
+            font-size:13px;
+            transition:all 0.3s;
+            font-family:'Poppins',sans-serif;
+            display:flex;
+            align-items:center;
+            gap:8px;
+        }
+        .btn-download:hover { background:rgba(255,255,255,0.15); }
+
+        .status-tag {
+            display:inline-block;
+            padding:4px 14px;
+            border-radius:20px;
+            font-size:11px;
+            font-weight:600;
+            margin-left:10px;
+        }
+        .status-tag.disponivel { background:#e8f5e9; color:#2e7d32; }
+        .status-tag.aguardando { background:#fff3e0; color:#e65100; }
+        .status-tag.assistido { background:#e3f2fd; color:#1565c0; }
+
+        /* ===== DARK MODE ===== */
+        body.dark-mode .content { background:#0f172a; }
+        body.dark-mode .player-container { background:#1e293b; border-color:#334155; }
+        body.dark-mode .player-info h2 { color:#fbbf24; }
+        body.dark-mode .player-info .sub-info { color:#94a3b8; }
+        body.dark-mode .player-info .descricao { background:#334155; color:#cbd5e1; border-left-color:#fbbf24; }
+
+        @media (max-width:768px) {
+            .content { margin-left:0; padding:15px; }
+            .player-info { padding:16px; }
+            .player-info h2 { font-size:18px; }
+            .player-info .sub-info { font-size:12px; gap:10px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="content">
+        <button class="btn-voltar" onclick="window.history.back()">
+            <i class="fas fa-arrow-left"></i> Voltar para videoaulas
+        </button>
+
+        <div class="player-container">
+            <div class="video-wrapper" id="videoWrapper">
+                <!-- O vídeo será inserido via JavaScript -->
+                <div class="placeholder" id="placeholder">
+                    <i class="fas fa-film"></i>
+                    <p>Carregando vídeo...</p>
+                </div>
+            </div>
+
+            <div class="player-info" id="playerInfo">
+                <div style="display:flex; align-items:center; flex-wrap:wrap; gap:8px;">
+                    <h2 id="videoTitulo">Título do Vídeo</h2>
+                    <span class="status-tag" id="videoStatus">Disponível</span>
+                </div>
+                <div class="sub-info" id="videoMeta">
+                    <span><i class="fas fa-chalkboard-user"></i> <span id="videoProfessor">Professor</span></span>
+                    <span><i class="fas fa-calendar-alt"></i> <span id="videoData">00/00/0000</span></span>
+                    <span><i class="fas fa-book"></i> <span id="videoDisciplina">Disciplina</span></span>
+                    <span><i class="fas fa-layer-group"></i> <span id="videoModulo">Módulo</span></span>
+                    <span><i class="fas fa-clock"></i> <span id="videoDuracao">00min</span></span>
+                </div>
+                <div class="descricao" id="videoDescricao">
+                    Esta é uma gravação da aula. Assista ao vídeo e marque como assistido quando terminar.
+                </div>
+                <div class="player-actions">
+                    <button class="btn-marcar" id="btnMarcar" onclick="marcarAssistido()">
+                        <i class="fas fa-check-circle"></i> Marcar como assistido
+                    </button>
+                    <button class="btn-download" onclick="alert('⬇️ Download iniciado! (Simulação)')">
+                        <i class="fas fa-download"></i> Baixar
+                    </button>
+                    <button class="btn-download" onclick="alert('📤 Compartilhar link (Simulação)')">
+                        <i class="fas fa-share-alt"></i> Compartilhar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/sidebar.js"></script>
+    <script src="js/notifications.js"></script>
+    <script>
+        // =============================================
+        // DADOS DOS VÍDEOS (MESMO DO videoaulas_aluno.html)
+        // =============================================
+        const VIDEOS = [
+            // 1º Módulo - TI1
+            { id:1, titulo:'OCA1 - Operação de Computadores I - Aula 01', modulo:'TI1', disciplina:'OCA1', professor:'Carlos Silva', duracao:'45min', data:'15/06/2026', status:'disponivel', descricao:'Introdução à operação de computadores, componentes principais e primeiros passos com sistemas operacionais.' },
+            { id:2, titulo:'OCA1 - Operação de Computadores I - Aula 02', modulo:'TI1', disciplina:'OCA1', professor:'Carlos Silva', duracao:'50min', data:'17/06/2026', status:'disponivel', descricao:'Continuação dos conceitos de operação de computadores, explorando periféricos e configurações básicas.' },
+            { id:3, titulo:'LTT - Linguagem e Tecnologia - Aula 01', modulo:'TI1', disciplina:'LTT', professor:'Mariana Santos', duracao:'40min', data:'14/06/2026', status:'disponivel', descricao:'A relação entre linguagem, trabalho e tecnologia. Análise de discursos e impacto da tecnologia na comunicação.' },
+            { id:4, titulo:'IMC - Instalação e Manutenção - Aula 01', modulo:'TI1', disciplina:'IMC', professor:'Roberto Almeida', duracao:'55min', data:'16/06/2026', status:'aguardando', descricao:'Conceitos de instalação de hardware, montagem de computadores e manutenção preventiva.' },
+            { id:5, titulo:'PC1 - Programação I - Aula 01', modulo:'TI1', disciplina:'PC1', professor:'Carlos Silva', duracao:'60min', data:'13/06/2026', status:'disponivel', descricao:'Introdução à lógica de programação, variáveis, tipos de dados e estruturas condicionais.' },
+            { id:6, titulo:'PC1 - Programação I - Aula 02', modulo:'TI1', disciplina:'PC1', professor:'Carlos Silva', duracao:'55min', data:'18/06/2026', status:'disponivel', descricao:'Estruturas de repetição (for, while) e resolução de exercícios práticos.' },
+            { id:7, titulo:'GSO1 - Sistemas Operacionais I - Aula 01', modulo:'TI1', disciplina:'GSO1', professor:'Fernanda Lima', duracao:'50min', data:'12/06/2026', status:'disponivel', descricao:'História e evolução dos sistemas operacionais, principais funções e gerenciamento de processos.' },
+            // 2º Módulo - TI2
+            { id:8, titulo:'MBD - Modelagem de Banco de Dados - Aula 01', modulo:'TI2', disciplina:'MBD', professor:'Mariana Santos', duracao:'45min', data:'20/06/2026', status:'disponivel', descricao:'Introdução a banco de dados, modelagem conceitual, entidades, atributos e relacionamentos.' },
+            { id:9, titulo:'MBD - Modelagem de Banco de Dados - Aula 02', modulo:'TI2', disciplina:'MBD', professor:'Mariana Santos', duracao:'50min', data:'22/06/2026', status:'aguardando', descricao:'Modelagem lógica e física, normalização e criação de tabelas no SQL.' },
+            { id:10, titulo:'SU - Segurança da Informação - Aula 01', modulo:'TI2', disciplina:'SU', professor:'Paulo Oliveira', duracao:'40min', data:'19/06/2026', status:'disponivel', descricao:'Princípios de segurança da informação, criptografia, firewalls e boas práticas.' },
+            { id:11, titulo:'STIC - Tecnologia da Informação - Aula 01', modulo:'TI2', disciplina:'STIC', professor:'Roberto Almeida', duracao:'55min', data:'21/06/2026', status:'disponivel', descricao:'Sistemas de Tecnologia da Informação e Comunicação, infraestrutura e redes.' },
+            { id:12, titulo:'SBD - Sistemas de Banco de Dados - Aula 01', modulo:'TI2', disciplina:'SBD', professor:'Mariana Santos', duracao:'60min', data:'23/06/2026', status:'disponivel', descricao:'Implementação de banco de dados com SQL, consultas, joins e subconsultas.' },
+            { id:13, titulo:'SBD - Sistemas de Banco de Dados - Aula 02', modulo:'TI2', disciplina:'SBD', professor:'Mariana Santos', duracao:'50min', data:'25/06/2026', status:'disponivel', descricao:'Transações, views, stored procedures e otimização de consultas.' },
+            { id:14, titulo:'RCD1 - Redes de Dados I - Aula 01', modulo:'TI2', disciplina:'RCD1', professor:'Roberto Almeida', duracao:'45min', data:'24/06/2026', status:'aguardando', descricao:'Modelo OSI e TCP/IP, cabeamento, switches e roteadores básicos.' },
+            // 3º Módulo - TI3
+            { id:15, titulo:'PC2 - Programação II - Aula 01', modulo:'TI3', disciplina:'PC2', professor:'Carlos Silva', duracao:'55min', data:'26/06/2026', status:'disponivel', descricao:'Programação orientada a objetos, classes, objetos, herança e polimorfismo.' },
+            { id:16, titulo:'PC2 - Programação II - Aula 02', modulo:'TI3', disciplina:'PC2', professor:'Carlos Silva', duracao:'60min', data:'28/06/2026', status:'disponivel', descricao:'Interfaces, classes abstratas e tratamento de exceções em Java.' },
+            { id:17, titulo:'SD - Sistemas Distribuídos - Aula 01', modulo:'TI3', disciplina:'SD', professor:'Fernanda Lima', duracao:'50min', data:'27/06/2026', status:'disponivel', descricao:'Conceitos de sistemas distribuídos, comunicação remota, RPC e SOAP.' },
+            { id:18, titulo:'DTCC - TCC - Aula 01', modulo:'TI3', disciplina:'DTCC', professor:'Paulo Oliveira', duracao:'45min', data:'29/06/2026', status:'aguardando', descricao:'Planejamento do Trabalho de Conclusão de Curso, metodologia e estrutura do documento.' },
+            { id:19, titulo:'CNM - Computação em Nuvem - Aula 01', modulo:'TI3', disciplina:'CNM', professor:'Paulo Oliveira', duracao:'40min', data:'30/06/2026', status:'disponivel', descricao:'Introdução à computação em nuvem, modelos IaaS, PaaS e SaaS, AWS e Azure.' },
+            { id:20, titulo:'CNM - Computação em Nuvem - Aula 02', modulo:'TI3', disciplina:'CNM', professor:'Paulo Oliveira', duracao:'50min', data:'01/07/2026', status:'disponivel', descricao:'Segurança na nuvem, implantação de aplicações e gerenciamento de recursos.' }
+        ];
+
+        // =============================================
+        // CARREGAR VÍDEO
+        // =============================================
+        function carregarVideo() {
+            // Tentar pegar da sessionStorage (vindo da página anterior)
+            let video = null;
+            const stored = sessionStorage.getItem('video_playing');
+            if (stored) {
+                video = JSON.parse(stored);
+            } else {
+                // Fallback: buscar da URL (caso o link venha direto)
+                const params = new URLSearchParams(window.location.search);
+                const id = params.get('id');
+                if (id) {
+                    video = VIDEOS.find(v => v.id == id);
+                }
+                // Se ainda não tiver, pegar o primeiro disponível
+                if (!video) {
+                    video = VIDEOS.find(v => v.status === 'disponivel') || VIDEOS[0];
+                }
+            }
+
+            if (!video) {
+                document.getElementById('placeholder').innerHTML = `
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <p>Vídeo não encontrado</p>
+                `;
+                return;
+            }
+
+            // Limpar placeholder e inserir vídeo
+            const wrapper = document.getElementById('videoWrapper');
+            const placeholder = document.getElementById('placeholder');
+            placeholder.style.display = 'none';
+
+            // Criar elemento de vídeo
+            const videoEl = document.createElement('video');
+            videoEl.controls = true;
+            videoEl.autoplay = false;
+            videoEl.style.width = '100%';
+            videoEl.style.height = '100%';
+            videoEl.style.background = '#000';
+
+            // Fonte de vídeo de exemplo (Big Buck Bunny - domínio público)
+            // Como não temos um vídeo real, usamos um link de exemplo que realmente funciona
+            const source = document.createElement('source');
+            source.src = 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4';
+            source.type = 'video/mp4';
+            videoEl.appendChild(source);
+
+            // Mensagem de fallback
+            videoEl.innerHTML = 'Seu navegador não suporta vídeos HTML5.';
+
+            wrapper.insertBefore(videoEl, placeholder);
+
+            // Atualizar informações
+            document.getElementById('videoTitulo').textContent = video.titulo;
+            document.getElementById('videoProfessor').textContent = video.professor;
+            document.getElementById('videoData').textContent = video.data;
+            document.getElementById('videoDisciplina').textContent = video.disciplina;
+            document.getElementById('videoModulo').textContent = video.modulo;
+            document.getElementById('videoDuracao').textContent = video.duracao;
+
+            const statusTag = document.getElementById('videoStatus');
+            const statusMap = {
+                'disponivel': { class: 'disponivel', text: 'Disponível' },
+                'aguardando': { class: 'aguardando', text: 'Aguardando liberação' },
+                'assistido': { class: 'assistido', text: 'Já assistido' }
+            };
+            const s = statusMap[video.status] || statusMap['disponivel'];
+            statusTag.className = `status-tag ${s.class}`;
+            statusTag.textContent = s.text;
+
+            // Se já estiver assistido, mudar o botão
+            const btnMarcar = document.getElementById('btnMarcar');
+            if (video.status === 'assistido') {
+                btnMarcar.classList.add('assistido');
+                btnMarcar.innerHTML = '<i class="fas fa-check-circle"></i> Já assistido';
+            } else {
+                btnMarcar.classList.remove('assistido');
+                btnMarcar.innerHTML = '<i class="fas fa-check-circle"></i> Marcar como assistido';
+            }
+
+            // Descrição
+            const desc = video.descricao || 'Esta é uma gravação da aula. Assista ao vídeo e marque como assistido quando terminar.';
+            document.getElementById('videoDescricao').textContent = desc;
+
+            // Salvar o vídeo atual na sessionStorage para referência
+            sessionStorage.setItem('video_playing', JSON.stringify(video));
+        }
+
+        // =============================================
+        // MARCAR COMO ASSISTIDO
+        // =============================================
+        function marcarAssistido() {
+            const stored = sessionStorage.getItem('video_playing');
+            if (!stored) {
+                showNotification('Erro: vídeo não encontrado', 'error');
+                return;
+            }
+            const video = JSON.parse(stored);
+            
+            // Atualizar status localmente (na memória)
+            video.status = 'assistido';
+            sessionStorage.setItem('video_playing', JSON.stringify(video));
+
+            // Atualizar interface
+            const btnMarcar = document.getElementById('btnMarcar');
+            btnMarcar.classList.add('assistido');
+            btnMarcar.innerHTML = '<i class="fas fa-check-circle"></i> Já assistido';
+
+            const statusTag = document.getElementById('videoStatus');
+            statusTag.className = 'status-tag assistido';
+            statusTag.textContent = 'Já assistido';
+
+            showNotification('✅ Vídeo marcado como assistido!', 'success');
+        }
+
+        function showNotification(msg, tipo) {
+            if (window.notificationSystem) {
+                window.notificationSystem.show(msg, tipo);
+            } else {
+                alert(msg);
+            }
+        }
+
+        // =============================================
+        // INICIALIZAR
+        // =============================================
+        document.addEventListener('DOMContentLoaded', () => {
+            carregarVideo();
+        });
+    </script>
+</body>
+</html>

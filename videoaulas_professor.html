@@ -9,33 +9,335 @@
     <style>
         * { margin:0; padding:0; box-sizing:border-box; }
         body { font-family:'Poppins',sans-serif; background:#f0f2f5; display:flex; }
+        textarea { resize:none !important; }
+        
         .content { margin-left:260px; padding:25px; flex:1; background:#f0f2f5; min-height:100vh; }
-        .page-header { margin-bottom:30px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:15px; }
+        .page-header { margin-bottom:25px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:15px; }
         .page-header h1 { color:#00796b; font-size:28px; display:flex; align-items:center; gap:12px; }
         .page-header p { color:#666; font-size:14px; }
-        .btn-upload { background:linear-gradient(135deg,#00796b,#004d47); color:white; border:none; padding:12px 25px; border-radius:30px; cursor:pointer; font-weight:600; transition:0.3s; display:flex; align-items:center; gap:8px; }
+        .btn-upload {
+            background:linear-gradient(135deg,#00796b,#004d47);
+            color:white;
+            border:none;
+            padding:12px 24px;
+            border-radius:30px;
+            cursor:pointer;
+            font-weight:600;
+            font-size:13px;
+            transition:all 0.3s;
+            display:flex;
+            align-items:center;
+            gap:8px;
+            font-family:'Poppins',sans-serif;
+            box-shadow:0 2px 8px rgba(0,121,107,0.2);
+        }
         .btn-upload:hover { transform:translateY(-2px); box-shadow:0 8px 20px rgba(0,121,107,0.3); }
-        .video-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:20px; margin-top:20px; }
-        .video-card { background:white; border-radius:20px; overflow:hidden; border:1px solid #eef2f6; transition:0.3s; }
-        .video-card:hover { box-shadow:0 8px 25px rgba(0,121,107,0.08); }
-        .video-thumb { background:#1a1a2e; height:180px; display:flex; align-items:center; justify-content:center; color:white; font-size:60px; position:relative; }
-        .video-thumb .play-icon { background:rgba(0,0,0,0.6); width:70px; height:70px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:30px; }
-        .video-info { padding:15px; }
-        .video-info h3 { font-size:16px; color:#2d3436; }
-        .video-info .meta { font-size:12px; color:#888; margin-top:5px; display:flex; gap:15px; flex-wrap:wrap; }
-        .video-info .meta i { color:#00796b; }
-        .video-actions { margin-top:10px; display:flex; gap:8px; flex-wrap:wrap; align-items:center; }
-        .btn-toggle { border:none; padding:6px 14px; border-radius:20px; cursor:pointer; font-size:11px; font-weight:600; transition:0.2s; }
+        
+        /* ===== FILTROS ===== */
+        .filters-bar {
+            background:white;
+            border-radius:16px;
+            padding:16px 20px;
+            margin-bottom:25px;
+            display:flex;
+            gap:15px;
+            flex-wrap:wrap;
+            align-items:center;
+            border:1px solid #eef2f6;
+            box-shadow:0 2px 8px rgba(0,0,0,0.04);
+        }
+        .filter-group {
+            display:flex;
+            align-items:center;
+            gap:8px;
+        }
+        .filter-group label {
+            font-weight:600;
+            color:#00796b;
+            font-size:12px;
+            white-space:nowrap;
+        }
+        .filter-group select,
+        .filter-group input {
+            padding:8px 14px;
+            border-radius:30px;
+            border:1px solid #e0e0e0;
+            font-family:'Poppins',sans-serif;
+            font-size:12px;
+            background:#f8f9fa;
+            transition:all 0.3s;
+            min-width:140px;
+        }
+        .filter-group select:focus,
+        .filter-group input:focus {
+            outline:none;
+            border-color:#00796b;
+            box-shadow:0 0 0 3px rgba(0,121,107,0.1);
+            background:white;
+        }
+        .search-wrapper {
+            position:relative;
+            flex:1;
+            min-width:200px;
+        }
+        .search-wrapper i {
+            position:absolute;
+            left:14px;
+            top:50%;
+            transform:translateY(-50%);
+            color:#00796b;
+            font-size:14px;
+        }
+        .search-wrapper input {
+            width:100%;
+            padding:8px 14px 8px 36px;
+            border-radius:30px;
+            border:1px solid #e0e0e0;
+            font-family:'Poppins',sans-serif;
+            font-size:12px;
+            background:#f8f9fa;
+            transition:all 0.3s;
+        }
+        .search-wrapper input:focus {
+            outline:none;
+            border-color:#00796b;
+            box-shadow:0 0 0 3px rgba(0,121,107,0.1);
+            background:white;
+        }
+        .btn-limpar-filtros {
+            background:#f5f5f5;
+            border:none;
+            padding:8px 18px;
+            border-radius:30px;
+            cursor:pointer;
+            font-size:12px;
+            font-weight:500;
+            color:#666;
+            transition:all 0.3s;
+            font-family:'Poppins',sans-serif;
+            display:flex;
+            align-items:center;
+            gap:6px;
+        }
+        .btn-limpar-filtros:hover { background:#e0e0e0; color:#333; }
+        
+        /* ===== ESTATÍSTICAS ===== */
+        .stats-video {
+            display:grid;
+            grid-template-columns:repeat(4,1fr);
+            gap:15px;
+            margin-bottom:25px;
+        }
+        .stat-video-card {
+            background:white;
+            border-radius:16px;
+            padding:16px 18px;
+            display:flex;
+            align-items:center;
+            gap:14px;
+            border:1px solid #eef2f6;
+            transition:all 0.3s;
+        }
+        .stat-video-card:hover { transform:translateY(-3px); box-shadow:0 8px 25px rgba(0,121,107,0.08); }
+        .stat-video-icon {
+            width:44px;
+            height:44px;
+            background:#e8f5e9;
+            border-radius:14px;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            font-size:20px;
+            color:#00796b;
+            flex-shrink:0;
+        }
+        .stat-video-info h3 { font-size:22px; font-weight:700; color:#00796b; line-height:1.2; }
+        .stat-video-info p { font-size:11px; color:#666; margin-top:2px; }
+        
+        /* ===== GRID DE VÍDEOS ===== */
+        .video-grid {
+            display:grid;
+            grid-template-columns:repeat(auto-fill,minmax(320px,1fr));
+            gap:20px;
+        }
+        .video-card {
+            background:white;
+            border-radius:20px;
+            overflow:hidden;
+            border:1px solid #eef2f6;
+            transition:all 0.3s ease;
+        }
+        .video-card:hover { transform:translateY(-5px); box-shadow:0 15px 35px rgba(0,121,107,0.12); }
+        .video-thumb {
+            background:#1a1a2e;
+            height:180px;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            color:white;
+            font-size:60px;
+            position:relative;
+        }
+        .video-thumb .play-icon {
+            background:rgba(0,0,0,0.6);
+            width:64px;
+            height:64px;
+            border-radius:50%;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            font-size:28px;
+            transition:all 0.3s;
+        }
+        .video-card:hover .play-icon {
+            transform:scale(1.1);
+            background:rgba(0,121,107,0.8);
+        }
+        .video-thumb .duracao {
+            position:absolute;
+            bottom:12px;
+            right:12px;
+            background:rgba(0,0,0,0.8);
+            padding:3px 10px;
+            border-radius:12px;
+            font-size:11px;
+            font-weight:600;
+        }
+        .video-thumb .modulo-tag {
+            position:absolute;
+            top:12px;
+            left:12px;
+            background:rgba(0,121,107,0.85);
+            padding:3px 12px;
+            border-radius:12px;
+            font-size:10px;
+            font-weight:600;
+        }
+        .video-info { padding:15px 18px; }
+        .video-info h3 { font-size:15px; color:#2d3436; font-weight:600; margin-bottom:5px; }
+        .video-info .meta {
+            font-size:12px;
+            color:#888;
+            display:flex;
+            gap:12px;
+            flex-wrap:wrap;
+        }
+        .video-info .meta i { color:#00796b; width:16px; }
+        .video-actions {
+            margin-top:10px;
+            display:flex;
+            gap:8px;
+            flex-wrap:wrap;
+            align-items:center;
+            padding-top:10px;
+            border-top:1px solid #eef2f6;
+        }
+        .btn-toggle {
+            border:none;
+            padding:6px 14px;
+            border-radius:20px;
+            cursor:pointer;
+            font-size:11px;
+            font-weight:600;
+            transition:all 0.2s;
+            font-family:'Poppins',sans-serif;
+            display:flex;
+            align-items:center;
+            gap:6px;
+        }
         .btn-toggle.disponivel { background:#e8f5e9; color:#2e7d32; }
         .btn-toggle.aguardando { background:#fff3e0; color:#e65100; }
-        .btn-toggle:hover { opacity:0.8; }
-        .btn-delete { background:#ffebee; color:#c62828; border:none; padding:6px 14px; border-radius:20px; cursor:pointer; font-size:11px; font-weight:600; }
+        .btn-toggle:hover { transform:scale(1.05); }
+        .btn-delete {
+            background:#ffebee;
+            color:#c62828;
+            border:none;
+            padding:6px 14px;
+            border-radius:20px;
+            cursor:pointer;
+            font-size:11px;
+            font-weight:600;
+            transition:all 0.2s;
+            font-family:'Poppins',sans-serif;
+            display:flex;
+            align-items:center;
+            gap:6px;
+        }
         .btn-delete:hover { background:#c62828; color:white; }
-        .empty-state { text-align:center; padding:60px 20px; background:white; border-radius:20px; grid-column:1/-1; }
+        .btn-edit {
+            background:#e3f2fd;
+            color:#1565c0;
+            border:none;
+            padding:6px 14px;
+            border-radius:20px;
+            cursor:pointer;
+            font-size:11px;
+            font-weight:600;
+            transition:all 0.2s;
+            font-family:'Poppins',sans-serif;
+            display:flex;
+            align-items:center;
+            gap:6px;
+        }
+        .btn-edit:hover { background:#1565c0; color:white; }
+        
+        /* ===== EMPTY STATE ===== */
+        .empty-state {
+            text-align:center;
+            padding:60px 20px;
+            background:white;
+            border-radius:20px;
+            grid-column:1/-1;
+            border:1px solid #eef2f6;
+        }
         .empty-state i { font-size:64px; color:#ccc; margin-bottom:15px; }
         .empty-state h3 { color:#636e72; margin-bottom:8px; }
-        .empty-state p { color:#b2bec3; }
-        @media (max-width:768px) { .content { margin-left:0; padding:15px; } }
+        .empty-state p { color:#b2bec3; font-size:14px; }
+        
+        /* ===== DARK MODE ===== */
+        body.dark-mode .content { background:#0f172a; }
+        body.dark-mode .filters-bar,
+        body.dark-mode .stat-video-card,
+        body.dark-mode .video-card,
+        body.dark-mode .empty-state { background:#1e293b; border-color:#334155; }
+        body.dark-mode .page-header h1 { color:#fbbf24; }
+        body.dark-mode .page-header p { color:#94a3b8; }
+        body.dark-mode .stat-video-info h3 { color:#fbbf24; }
+        body.dark-mode .stat-video-info p { color:#94a3b8; }
+        body.dark-mode .video-info h3 { color:#f1f5f9; }
+        body.dark-mode .video-info .meta { color:#94a3b8; }
+        body.dark-mode .filter-group label { color:#fbbf24; }
+        body.dark-mode .filter-group select,
+        body.dark-mode .filter-group input,
+        body.dark-mode .search-wrapper input {
+            background:#334155;
+            border-color:#475569;
+            color:#f1f5f9;
+        }
+        body.dark-mode .btn-limpar-filtros { background:#334155; color:#94a3b8; }
+        body.dark-mode .btn-limpar-filtros:hover { background:#475569; color:#f1f5f9; }
+        body.dark-mode .stat-video-icon { background:#0d4a47; color:#fbbf24; }
+        body.dark-mode .btn-upload { background:linear-gradient(135deg,#0d4a47,#083a38); }
+        body.dark-mode .btn-toggle.disponivel { background:#0d4a47; color:#fbbf24; }
+        body.dark-mode .btn-toggle.aguardando { background:#7f5a1a; color:#fbbf24; }
+        body.dark-mode .btn-delete { background:#7f1a1a; color:#fecaca; }
+        body.dark-mode .btn-delete:hover { background:#fecaca; color:#7f1a1a; }
+        body.dark-mode .btn-edit { background:#0d47a1; color:#90caf9; }
+        body.dark-mode .btn-edit:hover { background:#90caf9; color:#0d47a1; }
+        
+        @media (max-width:768px) {
+            .content { margin-left:0; padding:15px; }
+            .filters-bar { flex-direction:column; align-items:stretch; }
+            .filter-group { flex-wrap:wrap; }
+            .search-wrapper { min-width:100%; }
+            .stats-video { grid-template-columns:repeat(2,1fr); }
+            .video-grid { grid-template-columns:1fr; }
+        }
+        @media (max-width:480px) {
+            .stats-video { grid-template-columns:1fr; }
+            .page-header { flex-direction:column; align-items:stretch; }
+            .btn-upload { justify-content:center; }
+        }
     </style>
 </head>
 <body>
@@ -45,49 +347,306 @@
                 <h1><i class="fas fa-video"></i> Gravações</h1>
                 <p>Gerencie as gravações automáticas e libere para os alunos</p>
             </div>
-            <button class="btn-upload" onclick="alert('As gravações são feitas automaticamente pelo sistema.')"><i class="fas fa-sync-alt"></i> Sincronizar</button>
+            </button>
         </div>
-        <div class="video-grid" id="videoGrid">
-            <!-- Exemplo de gravação -->
-            <div class="video-card">
-                <div class="video-thumb"><div class="play-icon"><i class="fas fa-play"></i></div></div>
-                <div class="video-info">
-                    <h3>Programação Web I - Aula 12</h3>
-                    <div class="meta"><span><i class="fas fa-calendar"></i> 15/06/2026</span><span><i class="fas fa-clock"></i> 45min</span><span><i class="fas fa-chalkboard-user"></i> Prof. Carlos</span></div>
-                    <div class="video-actions">
-                        <button class="btn-toggle disponivel" onclick="toggleLiberacao(this)"><i class="fas fa-check-circle"></i> Disponível</button>
-                        <button class="btn-delete" onclick="alert('Excluir gravação?')"><i class="fas fa-trash"></i> Excluir</button>
-                    </div>
-                </div>
+
+        <!-- ESTATÍSTICAS -->
+        <div class="stats-video">
+            <div class="stat-video-card">
+                <div class="stat-video-icon"><i class="fas fa-video"></i></div>
+                <div class="stat-video-info"><h3 id="totalVideos">0</h3><p>Total de gravações</p></div>
             </div>
-            <div class="video-card">
-                <div class="video-thumb"><div class="play-icon"><i class="fas fa-play"></i></div></div>
-                <div class="video-info">
-                    <h3>Banco de Dados - Aula 08</h3>
-                    <div class="meta"><span><i class="fas fa-calendar"></i> 12/06/2026</span><span><i class="fas fa-clock"></i> 50min</span><span><i class="fas fa-chalkboard-user"></i> Prof. Mariana</span></div>
-                    <div class="video-actions">
-                        <button class="btn-toggle aguardando" onclick="toggleLiberacao(this)"><i class="fas fa-clock"></i> Aguardando</button>
-                        <button class="btn-delete" onclick="alert('Excluir gravação?')"><i class="fas fa-trash"></i> Excluir</button>
-                    </div>
-                </div>
+            <div class="stat-video-card">
+                <div class="stat-video-icon"><i class="fas fa-check-circle"></i></div>
+                <div class="stat-video-info"><h3 id="totalDisponiveis">0</h3><p>Liberadas</p></div>
+            </div>
+            <div class="stat-video-card">
+                <div class="stat-video-icon"><i class="fas fa-clock"></i></div>
+                <div class="stat-video-info"><h3 id="totalAguardando">0</h3><p>Aguardando liberação</p></div>
+            </div>
+            <div class="stat-video-card">
+                <div class="stat-video-icon"><i class="fas fa-users"></i></div>
+                <div class="stat-video-info"><h3 id="totalVisualizacoes">0</h3><p>Visualizações</p></div>
             </div>
         </div>
+
+        <!-- FILTROS -->
+        <div class="filters-bar">
+            <div class="filter-group">
+                <label><i class="fas fa-layer-group"></i> Módulo:</label>
+                <select id="filtroModulo">
+                    <option value="todos">Todos os módulos</option>
+                    <option value="TI1">1º Módulo</option>
+                    <option value="TI2">2º Módulo</option>
+                    <option value="TI3">3º Módulo</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <label><i class="fas fa-book"></i> Disciplina:</label>
+                <select id="filtroDisciplina">
+                    <option value="todos">Todas as disciplinas</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <label><i class="fas fa-filter"></i> Status:</label>
+                <select id="filtroStatus">
+                    <option value="todos">Todos</option>
+                    <option value="disponivel">Liberados</option>
+                    <option value="aguardando">Aguardando</option>
+                </select>
+            </div>
+            <div class="search-wrapper">
+                <i class="fas fa-search"></i>
+                <input type="text" id="buscaVideo" placeholder="Buscar por título ou professor...">
+            </div>
+            <button class="btn-limpar-filtros" onclick="limparFiltros()">
+                <i class="fas fa-undo"></i> Limpar
+            </button>
+        </div>
+
+        <!-- GRID DE VÍDEOS -->
+        <div class="video-grid" id="videoGrid"></div>
     </div>
+
+    <script src="js/sidebar.js"></script>
+    <script src="js/notifications.js"></script>
     <script>
-        function toggleLiberacao(btn) {
-            if (btn.classList.contains('disponivel')) {
-                btn.classList.remove('disponivel');
-                btn.classList.add('aguardando');
-                btn.innerHTML = '<i class="fas fa-clock"></i> Aguardando';
-                alert('Gravação ocultada dos alunos.');
-            } else {
-                btn.classList.remove('aguardando');
-                btn.classList.add('disponivel');
-                btn.innerHTML = '<i class="fas fa-check-circle"></i> Disponível';
-                alert('Gravação liberada para os alunos!');
+        // =============================================
+        // DADOS DOS VÍDEOS (20 VÍDEOS DE EXEMPLO)
+        // =============================================
+        const VIDEOS = [
+            // 1º Módulo - TI1
+            { id:1, titulo:'OCA1 - Operação de Computadores I - Aula 01', modulo:'TI1', disciplina:'OCA1', professor:'Carlos Silva', duracao:'45min', data:'15/06/2026', status:'disponivel', visualizacoes:15 },
+            { id:2, titulo:'OCA1 - Operação de Computadores I - Aula 02', modulo:'TI1', disciplina:'OCA1', professor:'Carlos Silva', duracao:'50min', data:'17/06/2026', status:'disponivel', visualizacoes:8 },
+            { id:3, titulo:'LTT - Linguagem e Tecnologia - Aula 01', modulo:'TI1', disciplina:'LTT', professor:'Mariana Santos', duracao:'40min', data:'14/06/2026', status:'disponivel', visualizacoes:22 },
+            { id:4, titulo:'IMC - Instalação e Manutenção - Aula 01', modulo:'TI1', disciplina:'IMC', professor:'Roberto Almeida', duracao:'55min', data:'16/06/2026', status:'aguardando', visualizacoes:0 },
+            { id:5, titulo:'PC1 - Programação I - Aula 01', modulo:'TI1', disciplina:'PC1', professor:'Carlos Silva', duracao:'60min', data:'13/06/2026', status:'disponivel', visualizacoes:31 },
+            { id:6, titulo:'PC1 - Programação I - Aula 02', modulo:'TI1', disciplina:'PC1', professor:'Carlos Silva', duracao:'55min', data:'18/06/2026', status:'disponivel', visualizacoes:12 },
+            { id:7, titulo:'GSO1 - Sistemas Operacionais I - Aula 01', modulo:'TI1', disciplina:'GSO1', professor:'Fernanda Lima', duracao:'50min', data:'12/06/2026', status:'disponivel', visualizacoes:19 },
+            // 2º Módulo - TI2
+            { id:8, titulo:'MBD - Modelagem de Banco de Dados - Aula 01', modulo:'TI2', disciplina:'MBD', professor:'Mariana Santos', duracao:'45min', data:'20/06/2026', status:'disponivel', visualizacoes:27 },
+            { id:9, titulo:'MBD - Modelagem de Banco de Dados - Aula 02', modulo:'TI2', disciplina:'MBD', professor:'Mariana Santos', duracao:'50min', data:'22/06/2026', status:'aguardando', visualizacoes:0 },
+            { id:10, titulo:'SU - Segurança da Informação - Aula 01', modulo:'TI2', disciplina:'SU', professor:'Paulo Oliveira', duracao:'40min', data:'19/06/2026', status:'disponivel', visualizacoes:14 },
+            { id:11, titulo:'STIC - Tecnologia da Informação - Aula 01', modulo:'TI2', disciplina:'STIC', professor:'Roberto Almeida', duracao:'55min', data:'21/06/2026', status:'disponivel', visualizacoes:9 },
+            { id:12, titulo:'SBD - Sistemas de Banco de Dados - Aula 01', modulo:'TI2', disciplina:'SBD', professor:'Mariana Santos', duracao:'60min', data:'23/06/2026', status:'disponivel', visualizacoes:18 },
+            { id:13, titulo:'SBD - Sistemas de Banco de Dados - Aula 02', modulo:'TI2', disciplina:'SBD', professor:'Mariana Santos', duracao:'50min', data:'25/06/2026', status:'disponivel', visualizacoes:6 },
+            { id:14, titulo:'RCD1 - Redes de Dados I - Aula 01', modulo:'TI2', disciplina:'RCD1', professor:'Roberto Almeida', duracao:'45min', data:'24/06/2026', status:'aguardando', visualizacoes:0 },
+            // 3º Módulo - TI3
+            { id:15, titulo:'PC2 - Programação II - Aula 01', modulo:'TI3', disciplina:'PC2', professor:'Carlos Silva', duracao:'55min', data:'26/06/2026', status:'disponivel', visualizacoes:24 },
+            { id:16, titulo:'PC2 - Programação II - Aula 02', modulo:'TI3', disciplina:'PC2', professor:'Carlos Silva', duracao:'60min', data:'28/06/2026', status:'disponivel', visualizacoes:11 },
+            { id:17, titulo:'SD - Sistemas Distribuídos - Aula 01', modulo:'TI3', disciplina:'SD', professor:'Fernanda Lima', duracao:'50min', data:'27/06/2026', status:'disponivel', visualizacoes:16 },
+            { id:18, titulo:'DTCC - TCC - Aula 01', modulo:'TI3', disciplina:'DTCC', professor:'Paulo Oliveira', duracao:'45min', data:'29/06/2026', status:'aguardando', visualizacoes:0 },
+            { id:19, titulo:'CNM - Computação em Nuvem - Aula 01', modulo:'TI3', disciplina:'CNM', professor:'Paulo Oliveira', duracao:'40min', data:'30/06/2026', status:'disponivel', visualizacoes:7 },
+            { id:20, titulo:'CNM - Computação em Nuvem - Aula 02', modulo:'TI3', disciplina:'CNM', professor:'Paulo Oliveira', duracao:'50min', data:'01/07/2026', status:'disponivel', visualizacoes:3 }
+        ];
+
+        // =============================================
+        // ESTADO
+        // =============================================
+        let filtroModulo = 'todos';
+        let filtroDisciplina = 'todos';
+        let filtroStatus = 'todos';
+        let busca = '';
+        let videosFiltrados = [...VIDEOS];
+
+        // =============================================
+        // ELEMENTOS
+        // =============================================
+        const grid = document.getElementById('videoGrid');
+        const filtroModuloEl = document.getElementById('filtroModulo');
+        const filtroDisciplinaEl = document.getElementById('filtroDisciplina');
+        const filtroStatusEl = document.getElementById('filtroStatus');
+        const buscaEl = document.getElementById('buscaVideo');
+
+        // =============================================
+        // FUNÇÕES
+        // =============================================
+        function getDisciplinasUnicas() {
+            const disciplinas = [...new Set(VIDEOS.map(v => v.disciplina))];
+            return disciplinas.sort();
+        }
+
+        function popularDisciplinas() {
+            const disciplinas = getDisciplinasUnicas();
+            filtroDisciplinaEl.innerHTML = '<option value="todos">Todas as disciplinas</option>' +
+                disciplinas.map(d => `<option value="${d}">${d}</option>`).join('');
+        }
+
+        function getStatusText(status) {
+            const map = { 'disponivel': 'Liberado', 'aguardando': 'Aguardando' };
+            return map[status] || status;
+        }
+
+        function getStatusIcon(status) {
+            const map = { 'disponivel': 'fa-check-circle', 'aguardando': 'fa-clock' };
+            return map[status] || 'fa-circle';
+        }
+
+        function getEmojiModulo(modulo) {
+            const map = { 'TI1': '1️⃣', 'TI2': '2️⃣', 'TI3': '3️⃣' };
+            return map[modulo] || '📚';
+        }
+
+        function getCorModulo(modulo) {
+            const map = { 'TI1': '#e3f2fd', 'TI2': '#e8f5e9', 'TI3': '#fff3e0' };
+            return map[modulo] || '#f5f5f5';
+        }
+
+        function filtrarVideos() {
+            videosFiltrados = VIDEOS.filter(v => {
+                const matchModulo = filtroModulo === 'todos' || v.modulo === filtroModulo;
+                const matchDisciplina = filtroDisciplina === 'todos' || v.disciplina === filtroDisciplina;
+                const matchStatus = filtroStatus === 'todos' || v.status === filtroStatus;
+                const matchBusca = busca === '' || 
+                    v.titulo.toLowerCase().includes(busca.toLowerCase()) ||
+                    v.professor.toLowerCase().includes(busca.toLowerCase());
+                return matchModulo && matchDisciplina && matchStatus && matchBusca;
+            });
+            renderizar();
+            atualizarStats();
+        }
+
+        function renderizar() {
+            if (videosFiltrados.length === 0) {
+                grid.innerHTML = `
+                    <div class="video-card" onclick="abrirVideoPlayer('${v.id}')">
+                    <div class="empty-state">
+                        <i class="fas fa-video-slash"></i>
+                        <h3>Nenhuma gravação encontrada</h3>
+                        <p>Tente ajustar os filtros ou a busca</p>
+                    </div>
+                `;
+                return;
+            }
+
+            grid.innerHTML = videosFiltrados.map(v => `
+                <div class="video-card">
+                    <div class="video-thumb" style="background: ${getCorModulo(v.modulo)};">
+                        <span class="modulo-tag">${getEmojiModulo(v.modulo)} ${v.modulo}</span>
+                        <div class="play-icon"><i class="fas fa-play"></i></div>
+                        <span class="duracao">${v.duracao}</span>
+                    </div>
+                    <div class="video-info">
+                        <h3>${v.titulo}</h3>
+                        <div class="meta">
+                            <span><i class="fas fa-chalkboard-user"></i> ${v.professor}</span>
+                            <span><i class="fas fa-calendar-alt"></i> ${v.data}</span>
+                            <span><i class="fas fa-book"></i> ${v.disciplina}</span>
+                            <span><i class="fas fa-eye"></i> ${v.visualizacoes} views</span>
+                        </div>
+                        <div class="video-actions">
+                            <button class="btn-toggle ${v.status}" onclick="toggleStatus('${v.id}')">
+                                <i class="fas ${getStatusIcon(v.status)}"></i> ${getStatusText(v.status)}
+                            </button>
+                            <button class="btn-edit" onclick="editarVideo('${v.id}')">
+                                <i class="fas fa-edit"></i> Editar
+                            </button>
+                            <button class="btn-delete" onclick="excluirVideo('${v.id}')">
+                                <i class="fas fa-trash"></i> Excluir
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function atualizarStats() {
+            document.getElementById('totalVideos').textContent = VIDEOS.length;
+            document.getElementById('totalDisponiveis').textContent = VIDEOS.filter(v => v.status === 'disponivel').length;
+            document.getElementById('totalAguardando').textContent = VIDEOS.filter(v => v.status === 'aguardando').length;
+            document.getElementById('totalVisualizacoes').textContent = VIDEOS.reduce((acc, v) => acc + (v.visualizacoes || 0), 0);
+        }
+
+        function limparFiltros() {
+            filtroModuloEl.value = 'todos';
+            filtroDisciplinaEl.value = 'todos';
+            filtroStatusEl.value = 'todos';
+            buscaEl.value = '';
+            filtroModulo = 'todos';
+            filtroDisciplina = 'todos';
+            filtroStatus = 'todos';
+            busca = '';
+            filtrarVideos();
+            showNotification('Filtros limpos!', 'info');
+        }
+
+        function toggleStatus(id) {
+            const video = VIDEOS.find(v => v.id === id);
+            if (!video) return;
+            video.status = video.status === 'disponivel' ? 'aguardando' : 'disponivel';
+            filtrarVideos();
+            const msg = video.status === 'disponivel' ? 'Gravação liberada para os alunos!' : 'Gravação ocultada dos alunos.';
+            showNotification(msg, 'success');
+        }
+
+        function editarVideo(id) {
+            const video = VIDEOS.find(v => v.id === id);
+            if (!video) return;
+            const novoTitulo = prompt('Editar título do vídeo:', video.titulo);
+            if (novoTitulo && novoTitulo.trim()) {
+                video.titulo = novoTitulo.trim();
+                filtrarVideos();
+                showNotification('✅ Título atualizado!', 'success');
             }
         }
+
+        function excluirVideo(id) {
+            if (!confirm('Tem certeza que deseja excluir esta gravação?')) return;
+            const index = VIDEOS.findIndex(v => v.id === id);
+            if (index !== -1) {
+                VIDEOS.splice(index, 1);
+                filtrarVideos();
+                showNotification('🗑️ Gravação excluída!', 'success');
+            }
+        }
+
+        function showNotification(msg, tipo) {
+            if (window.notificationSystem) {
+                window.notificationSystem.show(msg, tipo);
+            } else {
+                alert(msg);
+            }
+        }
+
+        // =============================================
+        // EVENTOS
+        // =============================================
+        filtroModuloEl.addEventListener('change', () => {
+            filtroModulo = filtroModuloEl.value;
+            filtrarVideos();
+        });
+
+        filtroDisciplinaEl.addEventListener('change', () => {
+            filtroDisciplina = filtroDisciplinaEl.value;
+            filtrarVideos();
+        });
+
+        filtroStatusEl.addEventListener('change', () => {
+            filtroStatus = filtroStatusEl.value;
+            filtrarVideos();
+        });
+
+        buscaEl.addEventListener('input', () => {
+            busca = buscaEl.value;
+            filtrarVideos();
+        });
+
+        // =============================================
+        // INICIALIZAR
+        // =============================================
+        document.addEventListener('DOMContentLoaded', () => {
+            popularDisciplinas();
+            filtrarVideos();
+        });
+
+        // Adicione esta função no script
+function abrirVideoPlayer(id) {
+    const video = VIDEOS.find(v => v.id === id);
+    if (video) {
+        sessionStorage.setItem('video_playing', JSON.stringify(video));
+        window.location.href = 'video_player.html';
+    }
+}
     </script>
-    <script src="js/sidebar.js"></script>
 </body>
 </html>
