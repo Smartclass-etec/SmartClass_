@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meu Perfil - Aluno | SmartClass</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/darkmode-padrao.css">
+    <link rel="stylesheet" href="css/sidebar.css">
+    <script src="js/theme-loader.js"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { display: flex; background: #f0f2f5; font-family: 'Poppins', sans-serif; transition: background 0.3s ease; }
+        
+        .content {
+            margin-left: 260px;
+            padding: 25px;
+            flex: 1;
+            background: #f0f2f5;
+            min-height: 100vh;
+            transition: margin-left 0.3s ease;
+        }
+
+        .page-header { margin-bottom: 30px; }
+        .page-header h1 { color: #00796b; font-size: 28px; margin-bottom: 8px; display: flex; align-items: center; gap: 12px; }
+        .page-header p { color: #666; font-size: 14px; }
+
+        .perfil-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.5fr;
+            gap: 25px;
+        }
+
+        .perfil-card {
+            background: white;
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+            border: 1px solid #eef2f6;
+            margin-bottom: 25px;
+            transition: all 0.3s ease;
+        }
+        .perfil-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0,121,107,0.1);
+        }
+
+        .foto-container {
+            position: relative;
+            width: 150px;
+            height: 150px;
+            margin: 0 auto 20px;
+            border-radius: 50%;
+            overflow: hidden;
+            cursor: pointer;
+            box-shadow: 0 5px 20px rgba(0,121,107,0.3);
+        }
+        .foto-container img { width: 100%; height: 100%; object-fit: cover; }
+        .foto-overlay {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0,0,0,0.6);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            color: white;
+        }
+        .foto-overlay i { font-size: 28px; }
+        .foto-overlay span { font-size: 11px; }
+        .foto-container:hover .foto-overlay { opacity: 1; }
+
+        .nome-usuario { font-size: 22px; color: #2d3436; text-align: center; margin-bottom: 5px; }
+        .email-usuario { color: #666; font-size: 13px; text-align: center; margin-bottom: 20px; }
+        .info-extra { display: flex; flex-direction: column; gap: 10px; padding-top: 15px; border-top: 1px solid #eef2f6; }
+        .info-item { display: flex; align-items: center; gap: 10px; font-size: 13px; color: #636e72; }
+        .info-item i { width: 20px; color: #00796b; }
+
+        .stats-mini-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-top: 15px; }
+        .stat-mini { text-align: center; padding: 15px; background: #f8f9fa; border-radius: 15px; }
+        .stat-mini-value { font-size: 28px; font-weight: 700; color: #00796b; }
+        .stat-mini-label { font-size: 11px; color: #666; margin-top: 5px; }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #eef2f6;
+        }
+        .card-header h3 { color: #00796b; font-size: 18px; display: flex; align-items: center; gap: 8px; }
+
+        .btn-editar {
+            background: #f0f7f5;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 500;
+            color: #00796b;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .btn-editar:hover { background: #00796b; color: white; transform: translateY(-2px); }
+
+        .descricao-texto { font-size: 14px; line-height: 1.6; color: #2d3436; text-align: justify; }
+
+        .materias-container { display: flex; flex-wrap: wrap; gap: 12px; }
+        .materia-item {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 12px 8px 16px;
+            border-radius: 30px;
+            font-size: 13px;
+            font-weight: 500;
+            background: #e8f5e9;
+            border-left: 3px solid #fbbf24;
+        }
+        .materia-item i { font-size: 14px; color: #fbbf24; }
+        .remove-materia { background: none; border: none; font-size: 18px; cursor: pointer; color: #999; margin-left: 5px; transition: color 0.2s; }
+        .remove-materia:hover { color: #f44336; }
+
+        .meta-item {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 12px;
+            transition: all 0.2s ease;
+        }
+        .meta-item:hover { background: #e8f5e9; }
+        .meta-item.concluida { background: #e8f5e9; opacity: 0.8; }
+        .meta-item.concluida .meta-titulo span { text-decoration: line-through; color: #666; }
+        .meta-header { display: flex; justify-content: space-between; align-items: center; }
+        .meta-titulo { display: flex; align-items: center; gap: 10px; }
+        .meta-titulo input[type="checkbox"] { width: 18px; height: 18px; cursor: pointer; accent-color: #00796b; }
+        .meta-titulo span { font-weight: 600; font-size: 14px; color: #2d3436; }
+        .remove-meta { background: none; border: none; font-size: 20px; cursor: pointer; color: #999; padding: 0 5px; transition: color 0.2s; }
+        .remove-meta:hover { color: #f44336; }
+        .meta-descricao { font-size: 12px; color: #666; margin-top: 8px; padding-top: 8px; border-top: 1px solid #e0e0e0; }
+
+        .empty-materias, .empty-metas {
+            text-align: center;
+            padding: 40px 20px;
+            background: #f8f9fa;
+            border-radius: 15px;
+        }
+        .empty-materias i, .empty-metas i { font-size: 48px; color: #b2bec3; margin-bottom: 10px; }
+        .empty-materias p, .empty-metas p { color: #999; font-size: 13px; }
+
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0,0,0,0.5);
+            backdrop-filter: blur(4px);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+        }
+        .modal-container {
+            background: white;
+            border-radius: 24px;
+            width: 90%;
+            max-width: 550px;
+            max-height: 85vh;
+            overflow-y: auto;
+            animation: slideIn 0.3s ease;
+        }
+        @keyframes slideIn { from { opacity: 0; transform: translateY(-30px); } to { opacity: 1; transform: translateY(0); } }
+        .modal-header {
+            padding: 20px 25px;
+            border-bottom: 1px solid #eef2f6;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: white;
+            border-radius: 24px 24px 0 0;
+        }
+        .modal-header h3 { color: #00796b; font-size: 20px; display: flex; align-items: center; gap: 10px; }
+        .modal-close { font-size: 28px; cursor: pointer; color: #b2bec3; transition: all 0.2s; line-height: 1; }
+        .modal-close:hover { color: #c62828; transform: scale(1.1); }
+        .modal-body { padding: 25px; }
+
+        .form-group { margin-bottom: 20px; }
+        .form-group label { display: block; margin-bottom: 8px; font-weight: 600; font-size: 13px; color: #2d3436; }
+        .form-group label i { color: #00796b; margin-right: 6px; }
+        .form-group input, .form-group textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #e0e0e0;
+            border-radius: 12px;
+            font-family: 'Poppins', sans-serif;
+            background: #f8f9fa;
+        }
+        .form-group input:focus, .form-group textarea:focus {
+            outline: none;
+            border-color: #00796b;
+            box-shadow: 0 0 0 3px rgba(0,121,107,0.1);
+            background: white;
+        }
+        .btn-submit {
+            background: linear-gradient(135deg, #00796b, #004d47);
+            color: white;
+            border: none;
+            padding: 14px;
+            border-radius: 30px;
+            font-size: 14px;
+            font-weight: 600;
+            width: 100%;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: 'Poppins', sans-serif;
+        }
+        .btn-submit:hover { transform: translateY(-2px); box-shadow: 0 5px 20px rgba(0,121,107,0.3); }
+
+        .materias-opcoes {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin-bottom: 25px;
+        }
+        .materia-opcao {
+            padding: 12px;
+            background: #f8f9fa;
+            border-radius: 12px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 13px;
+            border: 2px solid transparent;
+            transition: all 0.2s ease;
+        }
+        .materia-opcao:hover { background: #e8f5e9; transform: translateX(3px); }
+        .materia-opcao.selected { background: #00796b; color: white; border-color: #004d47; }
+        .materia-opcao.selected i { color: white; }
+        .materia-opcao i { width: 24px; color: #00796b; }
+
+        .custom-notification {
+            position: fixed;
+            top: 20px;
+            right: -300px;
+            padding: 14px 24px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            z-index: 10000;
+            transition: right 0.3s ease;
+            font-size: 13px;
+            font-weight: 500;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+        }
+        .custom-notification.show { right: 20px; }
+        .custom-notification.success { background: #00796b; color: white; }
+        .custom-notification.error { background: #f44336; color: white; }
+        .custom-notification.info { background: #2196f3; color: white; }
+
+        /* Dark Mode */
+        body.dark-mode { background: #0f172a; }
+        body.dark-mode .content { background: #0f172a; }
+        body.dark-mode .perfil-card { background: #1e293b; border-color: #334155; }
+        body.dark-mode .page-header h1, body.dark-mode .perfil-card h3, body.dark-mode .nome-usuario { color: #fbbf24; }
+        body.dark-mode .page-header p, body.dark-mode .email-usuario, body.dark-mode .info-item,
+        body.dark-mode .stat-mini-label, body.dark-mode .descricao-texto { color: #94a3b8; }
+        body.dark-mode .stat-mini, body.dark-mode .empty-materias, body.dark-mode .empty-metas,
+        body.dark-mode .meta-item { background: #334155; }
+        body.dark-mode .stat-mini-value { color: #fbbf24; }
+        body.dark-mode .materia-item { background: #334155; }
+        body.dark-mode .btn-editar { background: #334155; color: #fbbf24; }
+        body.dark-mode .btn-editar:hover { background: #fbbf24; color: #0f172a; }
+        body.dark-mode .modal-container, body.dark-mode .modal-header { background: #1e293b; }
+        body.dark-mode .modal-header h3 { color: #fbbf24; }
+        body.dark-mode .form-group input, body.dark-mode .form-group textarea,
+        body.dark-mode .materia-opcao { background: #334155; border-color: #475569; color: #f1f5f9; }
+        body.dark-mode .materia-opcao.selected { background: #fbbf24; color: #0f172a; }
+
+        @media (max-width: 900px) {
+            .perfil-grid { grid-template-columns: 1fr; }
+            .content { margin-left: 0; padding: 15px; }
+            .materias-opcoes { grid-template-columns: 1fr; }
+        }
+        @media (max-width: 480px) {
+            .stats-mini-grid { grid-template-columns: 1fr; }
+            .card-header { flex-direction: column; gap: 10px; align-items: flex-start; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="content">
+    <div class="perfil-container">
+        <div class="page-header">
+            <h1><i class="fas fa-user-circle"></i> Meu Perfil</h1>
+            <p>Gerencie suas informações e acompanhe seu progresso</p>
+        </div>
+
+        <div class="perfil-grid">
+            <div class="perfil-coluna">
+                <div class="perfil-card foto-card">
+                    <div class="foto-container" onclick="abrirModalFoto()">
+                        <img id="fotoPerfil" src="" alt="Foto">
+                        <div class="foto-overlay">
+                            <i class="fas fa-camera"></i>
+                            <span>Alterar Foto</span>
+                        </div>
+                    </div>
+                    <h2 id="nomeUsuario" class="nome-usuario">Carregando...</h2>
+                    <p id="emailUsuario" class="email-usuario">carregando@etec.sp.gov.br</p>
+                    <div class="info-extra">
+                        <div class="info-item"><i class="fas fa-calendar-alt"></i><span>Membro desde: <strong id="membroDesde">--/--/----</strong></span></div>
+                        <div class="info-item"><i class="fas fa-tasks"></i><span>Atividades concluídas: <strong id="totalConcluidas">0</strong></span></div>
+                    </div>
+                </div>
+
+                <div class="perfil-card">
+                    <h3><i class="fas fa-chart-line"></i> Estatísticas Rápidas</h3>
+                    <div class="stats-mini-grid">
+                        <div class="stat-mini"><div class="stat-mini-value" id="totalFaltasStat">0</div><div class="stat-mini-label">Total de Faltas</div></div>
+                        <div class="stat-mini"><div class="stat-mini-value" id="percentualFaltasStat">0%</div><div class="stat-mini-label">Percentual de Faltas</div></div>
+                        <div class="stat-mini"><div class="stat-mini-value" id="mediaGeralStat">0.0</div><div class="stat-mini-label">Média Geral</div></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="perfil-coluna">
+                <div class="perfil-card">
+                    <div class="card-header">
+                        <h3><i class="fas fa-edit"></i> Sobre Mim</h3>
+                        <button class="btn-editar" onclick="editarDescricao()"><i class="fas fa-pen"></i> Editar</button>
+                    </div>
+                    <p id="descricaoTexto" class="descricao-texto">Clique em editar para adicionar uma descrição!</p>
+                </div>
+
+                <div class="perfil-card">
+                    <div class="card-header">
+                        <h3><i class="fas fa-star"></i> Matérias Dominantes</h3>
+                        <button class="btn-editar" onclick="abrirModalMaterias()"><i class="fas fa-plus"></i> Adicionar</button>
+                    </div>
+                    <div class="materias-container" id="materiasContainer"></div>
+                </div>
+
+                <div class="perfil-card">
+                    <div class="card-header">
+                        <h3><i class="fas fa-bullseye"></i> Metas Pessoais</h3>
+                        <button class="btn-editar" onclick="adicionarMeta()"><i class="fas fa-plus"></i> Nova Meta</button>
+                    </div>
+                    <div class="metas-container" id="metasContainer"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modais -->
+<div id="modalDescricao" class="modal-overlay">
+    <div class="modal-container">
+        <div class="modal-header"><h3><i class="fas fa-edit"></i> Editar Descrição</h3><span class="modal-close" onclick="fecharModal('modalDescricao')">&times;</span></div>
+        <div class="modal-body">
+            <textarea id="descricaoInput" rows="6" style="width:100%" maxlength="500" placeholder="Fale sobre você, seus hobbies, matérias favoritas..."></textarea>
+            <button class="btn-submit" onclick="salvarDescricao()">Salvar</button>
+        </div>
+    </div>
+</div>
+
+<div id="modalMaterias" class="modal-overlay">
+    <div class="modal-container">
+        <div class="modal-header"><h3><i class="fas fa-star"></i> Matérias Dominantes</h3><span class="modal-close" onclick="fecharModal('modalMaterias')">&times;</span></div>
+        <div class="modal-body">
+            <p style="color:#666; font-size:13px; margin-bottom:15px;">Selecione as matérias em que você tem mais facilidade:</p>
+            <div class="materias-opcoes" id="materiasOpcoes"></div>
+            <button class="btn-submit" onclick="salvarMaterias()">Salvar</button>
+        </div>
+    </div>
+</div>
+
+<div id="modalMeta" class="modal-overlay">
+    <div class="modal-container">
+        <div class="modal-header"><h3><i class="fas fa-bullseye"></i> Nova Meta Pessoal</h3><span class="modal-close" onclick="fecharModal('modalMeta')">&times;</span></div>
+        <div class="modal-body">
+            <div class="form-group"><label><i class="fas fa-heading"></i> Título</label><input type="text" id="metaTitulo" maxlength="80" placeholder="Ex: Melhorar em Matemática"></div>
+            <div class="form-group"><label><i class="fas fa-align-left"></i> Descrição</label><textarea id="metaDescricao" rows="3" maxlength="300" placeholder="Detalhes sobre sua meta..."></textarea></div>
+            <button class="btn-submit" onclick="salvarMeta()">Adicionar</button>
+        </div>
+    </div>
+</div>
+
+<input type="file" id="uploadFoto" accept="image/*" style="display:none" onchange="processarFoto(this)">
+
+<script>
+    // ========== DADOS DO USUÁRIO ==========
+    let usuarioAtual = null;
+    let materiasSelecionadas = [];
+    let metas = [];
+
+    const nomesMaterias = {
+        matematica: "Matemática",
+        portugues: "Português",
+        ciencias: "Ciências",
+        historia: "História",
+        geografia: "Geografia",
+        ingles: "Inglês",
+        fisica: "Física",
+        quimica: "Química",
+        biologia: "Biologia",
+        programacao: "Programação",
+        redes: "Redes de Computadores",
+        banco_dados: "Banco de Dados",
+        sistemas: "Sistemas Operacionais"
+    };
+
+    // ========== FUNÇÕES AUXILIARES ==========
+    function showNotification(msg, type) {
+        if (window.notificationSystem) {
+            window.notificationSystem.show(msg, type === 'success' ? 'success' : 'error');
+        } else {
+            const notif = document.createElement('div');
+            notif.className = `custom-notification ${type}`;
+            notif.innerHTML = `<i class="fas ${type === 'success' ? 'fa-check-circle' : 'fa-exclamation-circle'}"></i> ${msg}`;
+            document.body.appendChild(notif);
+            setTimeout(() => notif.classList.add('show'), 10);
+            setTimeout(() => { notif.classList.remove('show'); setTimeout(() => notif.remove(), 300); }, 3000);
+        }
+    }
+
+    function fecharModal(modalId) { document.getElementById(modalId).style.display = 'none'; }
+
+    function abrirModalFoto() { document.getElementById("uploadFoto").click(); }
+    
+    function processarFoto(input) {
+        if (input.files && input.files[0]) {
+            const reader = new FileReader();
+            reader.onload = e => {
+                document.getElementById("fotoPerfil").src = e.target.result;
+                localStorage.setItem(`foto_${usuarioAtual.email}`, e.target.result);
+                if(window.atualizarFotoSidebar) window.atualizarFotoSidebar();
+                showNotification("Foto atualizada!", "success");
+            };
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+    // ========== USUÁRIO ==========
+    function carregarUsuario() {
+        const userStr = localStorage.getItem("loggedUser");
+        if (!userStr) { window.location.href = "login_aluno.html"; return; }
+        usuarioAtual = JSON.parse(userStr);
+        document.getElementById("nomeUsuario").textContent = usuarioAtual.name;
+        document.getElementById("emailUsuario").textContent = usuarioAtual.email;
+        const foto = localStorage.getItem(`foto_${usuarioAtual.email}`);
+        document.getElementById("fotoPerfil").src = foto || `https://ui-avatars.com/api/?background=00796b&color=fff&name=${encodeURIComponent(usuarioAtual.name)}`;
+        document.getElementById("membroDesde").textContent = "2026/01/01";
+    }
+
+    // ========== DESCRIÇÃO ==========
+    function carregarDescricao() {
+        const desc = localStorage.getItem(`descricao_${usuarioAtual?.email}`);
+        if (desc) document.getElementById("descricaoTexto").textContent = desc;
+    }
+    
+    function editarDescricao() { 
+        document.getElementById("descricaoInput").value = localStorage.getItem(`descricao_${usuarioAtual?.email}`) || ""; 
+        document.getElementById("modalDescricao").style.display = "flex"; 
+    }
+    
+    function salvarDescricao() {
+        localStorage.setItem(`descricao_${usuarioAtual.email}`, document.getElementById("descricaoInput").value);
+        document.getElementById("descricaoTexto").textContent = document.getElementById("descricaoInput").value || "Clique em editar para adicionar uma descrição!";
+        fecharModal('modalDescricao');
+        showNotification("Descrição atualizada!", "success");
+    }
+
+    // ========== MATÉRIAS ==========
+    function carregarMaterias() {
+        const saved = localStorage.getItem(`materias_${usuarioAtual?.email}`);
+        materiasSelecionadas = saved ? JSON.parse(saved) : [];
+        renderizarMaterias();
+    }
+    
+    function renderizarMaterias() {
+        const container = document.getElementById("materiasContainer");
+        if (!container) return;
+        if (materiasSelecionadas.length === 0) { 
+            container.innerHTML = `<div class="empty-materias"><i class="fas fa-graduation-cap"></i><p>Adicione matérias dominantes</p></div>`; 
+            return; 
+        }
+        container.innerHTML = materiasSelecionadas.map(m => `
+            <div class="materia-item">
+                <i class="fas fa-star"></i>
+                <span>${nomesMaterias[m] || m}</span>
+                <button class="remove-materia" onclick="removerMateria('${m}')">&times;</button>
+            </div>
+        `).join('');
+    }
+    
+    function abrirModalMaterias() {
+        const opcoes = Object.keys(nomesMaterias).map(m => `
+            <div class="materia-opcao" data-materia="${m}" onclick="this.classList.toggle('selected')">
+                <i class="fas fa-star"></i> ${nomesMaterias[m]}
+            </div>
+        `).join('');
+        document.getElementById("materiasOpcoes").innerHTML = opcoes;
+        document.querySelectorAll('.materia-opcao').forEach(opt => { 
+            if (materiasSelecionadas.includes(opt.dataset.materia)) opt.classList.add('selected'); 
+        });
+        document.getElementById("modalMaterias").style.display = "flex";
+    }
+    
+    function salvarMaterias() {
+        materiasSelecionadas = Array.from(document.querySelectorAll('.materia-opcao.selected')).map(opt => opt.dataset.materia);
+        localStorage.setItem(`materias_${usuarioAtual.email}`, JSON.stringify(materiasSelecionadas));
+        renderizarMaterias();
+        fecharModal('modalMaterias');
+        showNotification("Matérias atualizadas!", "success");
+    }
+    
+    function removerMateria(materia) {
+        materiasSelecionadas = materiasSelecionadas.filter(m => m !== materia);
+        localStorage.setItem(`materias_${usuarioAtual.email}`, JSON.stringify(materiasSelecionadas));
+        renderizarMaterias();
+        showNotification(`${nomesMaterias[materia]} removida!`, "info");
+    }
+
+    // ========== METAS ==========
+    function carregarMetas() {
+        const saved = localStorage.getItem(`metas_${usuarioAtual?.email}`);
+        metas = saved ? JSON.parse(saved) : [];
+        renderizarMetas();
+    }
+    
+    function renderizarMetas() {
+        const container = document.getElementById("metasContainer");
+        if (!container) return;
+        if (metas.length === 0) { 
+            container.innerHTML = `<div class="empty-metas"><i class="fas fa-clipboard-list"></i><p>Adicione suas metas!</p></div>`; 
+            return; 
+        }
+        container.innerHTML = metas.map((m, i) => `
+            <div class="meta-item ${m.concluida ? 'concluida' : ''}">
+                <div class="meta-header">
+                    <div class="meta-titulo">
+                        <input type="checkbox" ${m.concluida ? 'checked' : ''} onchange="toggleMeta(${i})">
+                        <span>${m.titulo}</span>
+                    </div>
+                    <button class="remove-meta" onclick="removerMeta(${i})">&times;</button>
+                </div>
+                ${m.descricao ? `<div class="meta-descricao">${m.descricao}</div>` : ''}
+            </div>
+        `).join('');
+    }
+    
+    function adicionarMeta() { document.getElementById("modalMeta").style.display = "flex"; }
+    
+    function salvarMeta() {
+        const titulo = document.getElementById("metaTitulo").value.trim();
+        if (!titulo) { showNotification("Digite um título!", "error"); return; }
+        metas.push({ titulo, descricao: document.getElementById("metaDescricao").value, concluida: false });
+        localStorage.setItem(`metas_${usuarioAtual.email}`, JSON.stringify(metas));
+        renderizarMetas();
+        fecharModal('modalMeta');
+        document.getElementById("metaTitulo").value = "";
+        document.getElementById("metaDescricao").value = "";
+        showNotification("Meta adicionada!", "success");
+    }
+    
+    function toggleMeta(i) { 
+        metas[i].concluida = !metas[i].concluida; 
+        localStorage.setItem(`metas_${usuarioAtual.email}`, JSON.stringify(metas)); 
+        renderizarMetas(); 
+    }
+    
+    function removerMeta(i) { 
+        metas.splice(i,1); 
+        localStorage.setItem(`metas_${usuarioAtual.email}`, JSON.stringify(metas)); 
+        renderizarMetas(); 
+        showNotification("Meta removida!", "info"); 
+    }
+
+    // ========== ESTATÍSTICAS ==========
+    function atualizarEstatisticas() {
+        // Buscar faltas reais do aluno
+        const absencesKey = `absences_${usuarioAtual?.email}`;
+        const absences = JSON.parse(localStorage.getItem(absencesKey) || '{}');
+        const totalFaltas = Object.keys(absences).length;
+        document.getElementById("totalFaltasStat").textContent = totalFaltas;
+        
+        // Percentual aproximado (considerando 180 dias letivos)
+        const percentual = Math.round((totalFaltas / 180) * 100);
+        document.getElementById("percentualFaltasStat").textContent = Math.min(percentual, 100) + '%';
+        
+        // Média geral (buscar atividades corrigidas)
+        const atividades = JSON.parse(localStorage.getItem("atividades_professor") || "[]");
+        let somaNotas = 0, countNotas = 0;
+        atividades.forEach(a => {
+            if (a.entregas) {
+                a.entregas.forEach(e => {
+                    if (e.email === usuarioAtual?.email && e.status === "corrigida" && e.nota) {
+                        somaNotas += e.nota;
+                        countNotas++;
+                    }
+                });
+            }
+        });
+        const media = countNotas > 0 ? (somaNotas / countNotas).toFixed(1) : "0.0";
+        document.getElementById("mediaGeralStat").textContent = media;
+        
+        // Atividades concluídas
+        const concluidas = atividades.filter(a => a.entregas?.some(e => e.email === usuarioAtual?.email && e.status === "corrigida"));
+        document.getElementById("totalConcluidas").textContent = concluidas.length;
+    }
+
+    // ========== INICIALIZAÇÃO ==========
+    document.addEventListener('DOMContentLoaded', () => {
+        carregarUsuario();
+        if (!usuarioAtual) return;
+        
+        carregarDescricao();
+        carregarMaterias();
+        carregarMetas();
+        atualizarEstatisticas();
+        
+        window.onclick = e => { if (e.target.classList.contains('modal-overlay')) e.target.style.display = 'none'; };
+        
+        window.abrirModalMaterias = abrirModalMaterias;
+        window.removerMateria = removerMateria;
+        window.editarDescricao = editarDescricao;
+        window.adicionarMeta = adicionarMeta;
+        window.toggleMeta = toggleMeta;
+        window.removerMeta = removerMeta;
+        window.fecharModal = fecharModal;
+        window.abrirModalFoto = abrirModalFoto;
+        window.processarFoto = processarFoto;
+        window.salvarDescricao = salvarDescricao;
+        window.salvarMaterias = salvarMaterias;
+        window.salvarMeta = salvarMeta;
+    });
+</script>
+
+<script src="js/validacoes.js"></script>
+<script src="js/notifications.js"></script>
+<script src="js/app.js"></script>
+<script src="js/darkmode.js"></script>
+<script src="js/sidebar.js"></script>
+<script src="js/global.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/js/all.min.js"></script>
+</body>
+</html>

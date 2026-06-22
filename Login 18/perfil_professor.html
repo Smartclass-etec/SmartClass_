@@ -1,0 +1,977 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meu Perfil - Professor | SmartClass</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/darkmode-padrao.css">
+    <link rel="stylesheet" href="css/sidebar.css">
+    <script src="js/theme-loader.js"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { display: flex; background: #f0f2f5; font-family: 'Poppins', sans-serif; transition: background 0.3s ease; }
+        
+        .content {
+            margin-left: 260px;
+            padding: 30px;
+            flex: 1;
+            width: calc(100% - 260px);
+            transition: all 0.3s ease;
+            background: #f0f2f5;
+            min-height: 100vh;
+        }
+
+        .perfil-container { max-width: 1400px; margin: 0 auto; }
+        .page-header { margin-bottom: 30px; }
+        .page-header h1 { color: #00796b; font-size: 28px; margin-bottom: 8px; display: flex; align-items: center; gap: 12px; }
+        .page-header p { color: #5a6e6a; font-size: 14px; }
+
+        .perfil-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.5fr;
+            gap: 25px;
+        }
+        .perfil-coluna { display: flex; flex-direction: column; gap: 25px; }
+        .perfil-card {
+            background: white;
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+            border: 1px solid #eef2f6;
+            transition: all 0.3s ease;
+        }
+        .perfil-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0,121,107,0.1);
+        }
+
+        .foto-card { text-align: center; }
+        .foto-container {
+            position: relative;
+            width: 150px;
+            height: 150px;
+            margin: 0 auto 20px;
+            border-radius: 50%;
+            overflow: hidden;
+            cursor: pointer;
+            box-shadow: 0 5px 20px rgba(0,121,107,0.3);
+        }
+        .foto-container img { width: 100%; height: 100%; object-fit: cover; }
+        .foto-overlay {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0,0,0,0.6);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            color: white;
+        }
+        .foto-overlay i { font-size: 28px; }
+        .foto-overlay span { font-size: 11px; }
+        .foto-container:hover .foto-overlay { opacity: 1; }
+
+        .nome-usuario { font-size: 22px; color: #2d3436; margin-bottom: 5px; }
+        .email-usuario { color: #5a6e6a; font-size: 13px; margin-bottom: 20px; }
+        .info-extra { display: flex; flex-direction: column; gap: 10px; padding-top: 15px; border-top: 1px solid #eef2f6; }
+        .info-item { display: flex; align-items: center; gap: 10px; font-size: 13px; color: #5a6e6a; }
+        .info-item i { width: 20px; color: #00796b; }
+
+        .stats-mini-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-top: 15px; }
+        .stat-mini { text-align: center; padding: 15px; background: #f8f9fa; border-radius: 15px; transition: all 0.3s ease; }
+        .stat-mini:hover { background: #e8f5e9; transform: translateY(-2px); }
+        .stat-mini-value { font-size: 28px; font-weight: 700; color: #00796b; }
+        .stat-mini-label { font-size: 11px; color: #5a6e6a; margin-top: 5px; }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #eef2f6;
+        }
+        .card-header h3 { color: #00796b; font-size: 18px; display: flex; align-items: center; gap: 8px; }
+
+        .btn-editar {
+            background: #f0f7f5;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 500;
+            color: #00796b;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .btn-editar:hover { background: #00796b; color: white; transform: translateY(-2px); }
+
+        .descricao-texto { font-size: 14px; line-height: 1.6; color: #2d3436; text-align: justify; }
+
+        .materias-container { display: flex; flex-wrap: wrap; gap: 12px; }
+        .materia-item {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 12px 8px 16px;
+            border-radius: 30px;
+            font-size: 13px;
+            font-weight: 500;
+            background: #e8f5e9;
+            border-left: 3px solid #fbbf24;
+        }
+        .materia-item i { font-size: 14px; color: #fbbf24; }
+        .remove-materia { background: none; border: none; font-size: 18px; cursor: pointer; color: #999; margin-left: 5px; transition: color 0.2s; }
+        .remove-materia:hover { color: #f44336; }
+
+        .empty-materias, .empty-metas, .empty-historico, .empty-disciplinas {
+            text-align: center;
+            padding: 40px 20px;
+            background: #f8f9fa;
+            border-radius: 15px;
+        }
+        .empty-materias i, .empty-metas i, .empty-historico i, .empty-disciplinas i { font-size: 48px; color: #b2bec3; margin-bottom: 10px; }
+        .empty-materias p, .empty-metas p, .empty-historico p, .empty-disciplinas p { color: #5a6e6a; font-size: 13px; }
+
+        .disciplina-alocada {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 12px;
+            border-left: 4px solid #4caf50;
+            transition: all 0.2s;
+        }
+        .disciplina-alocada:hover { transform: translateX(3px); background: #e8f5e9; }
+        .disciplina-header { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; margin-bottom: 8px; }
+        .disciplina-sigla { font-weight: 700; color: #00796b; font-size: 14px; }
+        .disciplina-nome { font-size: 12px; color: #666; }
+        .disciplina-detalhes { font-size: 11px; color: #888; margin-top: 8px; display: flex; gap: 15px; flex-wrap: wrap; }
+        .disciplina-horario { display: flex; align-items: center; gap: 5px; }
+        .disciplina-horario i { color: #f39c12; }
+
+        .metas-container { display: flex; flex-direction: column; gap: 12px; }
+        .meta-item { background: #f8f9fa; border-radius: 12px; padding: 15px; transition: all 0.2s ease; }
+        .meta-item.concluida { background: #e8f5e9; opacity: 0.8; }
+        .meta-item.concluida .meta-titulo span { text-decoration: line-through; color: #666; }
+        .meta-header { display: flex; justify-content: space-between; align-items: center; }
+        .meta-titulo { display: flex; align-items: center; gap: 10px; }
+        .meta-titulo input[type="checkbox"] { width: 18px; height: 18px; cursor: pointer; accent-color: #00796b; }
+        .meta-titulo span { font-weight: 600; font-size: 14px; color: #2d3436; }
+        .remove-meta { background: none; border: none; font-size: 20px; cursor: pointer; color: #999; padding: 0 5px; transition: color 0.2s; }
+        .remove-meta:hover { color: #f44336; }
+        .meta-data { font-size: 11px; color: #00796b; margin-top: 8px; display: flex; align-items: center; gap: 5px; }
+        .meta-descricao { font-size: 12px; color: #5a6e6a; margin-top: 8px; padding-top: 8px; border-top: 1px solid #e0e0e0; }
+
+        .progress-graph { margin-top: 10px; }
+        .graph-bar { margin-bottom: 15px; }
+        .graph-label { display: flex; justify-content: space-between; font-size: 12px; margin-bottom: 5px; color: #5a6e6a; }
+        .graph-bar-fill { height: 10px; background: #00796b; border-radius: 10px; width: 0%; transition: width 0.5s ease; }
+
+        .historico-container { max-height: 300px; overflow-y: auto; }
+        .atividade-historico-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px;
+            background: #f8f9fa;
+            border-radius: 12px;
+            margin-bottom: 8px;
+        }
+        .atividade-info h4 { font-size: 13px; margin-bottom: 3px; color: #2d3436; }
+        .atividade-info p { font-size: 10px; color: #5a6e6a; }
+        .atividade-status { font-size: 11px; font-weight: 600; padding: 4px 12px; border-radius: 20px; }
+        .atividade-status.aberta { background: #e8f5e9; color: #2e7d32; }
+        .atividade-status.entregue { background: #e3f2fd; color: #1565c0; }
+        .atividade-status.corrigida { background: #e8f5e9; color: #2e7d32; }
+
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0,0,0,0.5);
+            backdrop-filter: blur(4px);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+        }
+        .modal-container {
+            background: white;
+            border-radius: 24px;
+            width: 90%;
+            max-width: 550px;
+            max-height: 85vh;
+            overflow-y: auto;
+            animation: slideIn 0.3s ease;
+        }
+        @keyframes slideIn { from { opacity: 0; transform: translateY(-30px); } to { opacity: 1; transform: translateY(0); } }
+        .modal-header {
+            padding: 20px 25px;
+            border-bottom: 1px solid #eef2f6;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            background: white;
+            border-radius: 24px 24px 0 0;
+        }
+        .modal-header h3 { color: #00796b; font-size: 20px; display: flex; align-items: center; gap: 10px; }
+        .modal-close { font-size: 28px; cursor: pointer; color: #b2bec3; transition: all 0.2s; line-height: 1; }
+        .modal-close:hover { color: #c62828; transform: scale(1.1); }
+        .modal-body { padding: 25px; }
+
+        .form-group { margin-bottom: 20px; }
+        .form-group label { display: block; margin-bottom: 8px; font-weight: 600; font-size: 13px; color: #2d3436; }
+        .form-group label i { color: #00796b; margin-right: 6px; }
+        .form-group input, .form-group textarea, .form-group select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #e0e0e0;
+            border-radius: 12px;
+            font-size: 14px;
+            font-family: 'Poppins', sans-serif;
+            background: #f8f9fa;
+        }
+        .form-group input:focus, .form-group textarea:focus, .form-group select:focus {
+            outline: none;
+            border-color: #00796b;
+            box-shadow: 0 0 0 3px rgba(0,121,107,0.1);
+            background: white;
+        }
+        .btn-submit {
+            background: linear-gradient(135deg, #00796b, #004d47);
+            color: white;
+            border: none;
+            padding: 14px;
+            border-radius: 30px;
+            font-size: 14px;
+            font-weight: 600;
+            width: 100%;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: 'Poppins', sans-serif;
+        }
+        .btn-submit:hover { transform: translateY(-2px); box-shadow: 0 5px 20px rgba(0,121,107,0.3); }
+
+        .materias-opcoes {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin-bottom: 25px;
+        }
+        .materia-opcao {
+            padding: 12px;
+            background: #f8f9fa;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 13px;
+            font-weight: 500;
+            border: 2px solid transparent;
+        }
+        .materia-opcao:hover { background: #e8f5e9; transform: translateX(3px); }
+        .materia-opcao.selected { background: #00796b; color: white; border-color: #004d47; }
+        .materia-opcao.selected i { color: white; }
+        .materia-opcao i { width: 24px; color: #00796b; }
+
+        .custom-notification {
+            position: fixed;
+            top: 20px;
+            right: -300px;
+            padding: 14px 24px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            z-index: 10000;
+            transition: right 0.3s ease;
+            font-size: 13px;
+            font-weight: 500;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+        }
+        .custom-notification.show { right: 20px; }
+        .custom-notification.success { background: #00796b; color: white; }
+        .custom-notification.error { background: #f44336; color: white; }
+        .custom-notification.info { background: #2196f3; color: white; }
+
+        /* Dark Mode */
+        body.dark-mode { background: #0f172a; }
+        body.dark-mode .content { background: #0f172a; }
+        body.dark-mode .perfil-card { background: #1e293b; border-color: #334155; }
+        body.dark-mode .page-header h1 { color: #fbbf24; }
+        body.dark-mode .page-header p, body.dark-mode .info-item, body.dark-mode .stat-mini-label,
+        body.dark-mode .descricao-texto, body.dark-mode .graph-label, body.dark-mode .atividade-info p,
+        body.dark-mode .disciplina-nome, body.dark-mode .disciplina-detalhes { color: #94a3b8; }
+        body.dark-mode .nome-usuario, body.dark-mode .card-header h3, body.dark-mode .meta-titulo span,
+        body.dark-mode .atividade-info h4, body.dark-mode .disciplina-sigla { color: #f1f5f9; }
+        body.dark-mode .info-extra, body.dark-mode .card-header { border-top-color: #334155; border-bottom-color: #334155; }
+        body.dark-mode .stat-mini, body.dark-mode .empty-materias, body.dark-mode .empty-metas,
+        body.dark-mode .empty-historico, body.dark-mode .empty-disciplinas, body.dark-mode .meta-item,
+        body.dark-mode .atividade-historico-item, body.dark-mode .disciplina-alocada { background: #334155; }
+        body.dark-mode .stat-mini-value { color: #fbbf24; }
+        body.dark-mode .materia-item { background: #334155; }
+        body.dark-mode .meta-item.concluida, body.dark-mode .disciplina-alocada:hover { background: #1e3a2e; }
+        body.dark-mode .graph-bar-fill { background: #fbbf24; }
+        body.dark-mode .btn-editar { background: #334155; color: #fbbf24; }
+        body.dark-mode .btn-editar:hover { background: #fbbf24; color: #0f172a; }
+        body.dark-mode .modal-container, body.dark-mode .modal-header { background: #1e293b; }
+        body.dark-mode .modal-header { border-bottom-color: #334155; }
+        body.dark-mode .modal-header h3 { color: #fbbf24; }
+        body.dark-mode .form-group label { color: #cbd5e1; }
+        body.dark-mode .form-group input, body.dark-mode .form-group textarea, body.dark-mode .form-group select,
+        body.dark-mode .materia-opcao { background: #334155; border-color: #475569; color: #f1f5f9; }
+        body.dark-mode .materia-opcao.selected { background: #fbbf24; color: #0f172a; }
+
+        @media (max-width: 900px) {
+            .content { margin-left: 0; padding: 20px; width: 100%; }
+            .perfil-grid { grid-template-columns: 1fr; }
+            .materias-opcoes { grid-template-columns: 1fr; }
+        }
+        @media (max-width: 480px) {
+            .stats-mini-grid { grid-template-columns: 1fr; }
+            .card-header { flex-direction: column; gap: 10px; align-items: flex-start; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="content">
+    <div class="perfil-container">
+        <div class="page-header">
+            <h1><i class="fas fa-chalkboard-teacher"></i> Meu Perfil</h1>
+            <p>Gerencie suas informações e acompanhe suas disciplinas alocadas</p>
+        </div>
+
+        <div class="perfil-grid">
+            <div class="perfil-coluna">
+                <!-- Card de Foto -->
+                <div class="perfil-card foto-card">
+                    <div class="foto-container" onclick="abrirModalFoto()">
+                        <img id="fotoPerfil" src="" alt="Foto">
+                        <div class="foto-overlay">
+                            <i class="fas fa-camera"></i>
+                            <span>Alterar Foto</span>
+                        </div>
+                    </div>
+                    <h2 id="nomeUsuario" class="nome-usuario">Carregando...</h2>
+                    <p id="emailUsuario" class="email-usuario">carregando@etec.sp.gov.br</p>
+                    <div class="info-extra">
+                        <div class="info-item"><i class="fas fa-calendar-alt"></i><span>Membro desde: <strong id="membroDesde">--/--/----</strong></span></div>
+                        <div class="info-item"><i class="fas fa-users"></i><span>Total de alunos: <strong id="totalAlunos">0</strong></span></div>
+                        <div class="info-item"><i class="fas fa-tasks"></i><span>Atividades criadas: <strong id="totalAtividades">0</strong></span></div>
+                    </div>
+                </div>
+
+                <!-- Estatísticas Rápidas -->
+                <div class="perfil-card">
+                    <h3><i class="fas fa-chart-line"></i> Estatísticas Rápidas</h3>
+                    <div class="stats-mini-grid">
+                        <div class="stat-mini"><div class="stat-mini-value" id="totalTurmasStat">0</div><div class="stat-mini-label">Turmas</div></div>
+                        <div class="stat-mini"><div class="stat-mini-value" id="correcoesPendentesStat">0</div><div class="stat-mini-label">Correções Pendentes</div></div>
+                        <div class="stat-mini"><div class="stat-mini-value" id="mediaTurmaStat">0.0</div><div class="stat-mini-label">Média da Turma</div></div>
+                    </div>
+                </div>
+
+                <!-- Matérias de Interesse -->
+                <div class="perfil-card">
+                    <div class="card-header">
+                        <h3><i class="fas fa-star"></i> Matérias de Interesse</h3>
+                        <button class="btn-editar" onclick="abrirModalMaterias()"><i class="fas fa-plus"></i> Adicionar</button>
+                    </div>
+                    <div class="materias-container" id="materiasContainer"></div>
+                </div>
+
+                <!-- Desempenho por Matéria -->
+                <div class="perfil-card">
+                    <h3><i class="fas fa-chart-simple"></i> Desempenho das Turmas</h3>
+                    <div class="progress-graph" id="progressGraph"></div>
+                </div>
+            </div>
+
+            <div class="perfil-coluna">
+                <!-- Sobre Mim -->
+                <div class="perfil-card">
+                    <div class="card-header">
+                        <h3><i class="fas fa-edit"></i> Sobre Mim</h3>
+                        <button class="btn-editar" onclick="editarDescricao()"><i class="fas fa-pen"></i> Editar</button>
+                    </div>
+                    <p id="descricaoTexto" class="descricao-texto">Clique em editar para adicionar uma descrição!</p>
+                </div>
+
+                <!-- Disciplinas Alocadas -->
+                <div class="perfil-card">
+                    <div class="card-header">
+                        <h3><i class="fas fa-chalkboard-user"></i> Minhas Disciplinas Alocadas</h3>
+                        <button class="btn-editar" onclick="solicitarDisciplina()"><i class="fas fa-plus"></i> Solicitar nova</button>
+                    </div>
+                    <div id="minhasDisciplinasContainer"></div>
+                </div>
+
+                <!-- Metas de Ensino -->
+                <div class="perfil-card">
+                    <div class="card-header">
+                        <h3><i class="fas fa-bullseye"></i> Metas de Ensino</h3>
+                        <button class="btn-editar" onclick="adicionarMeta()"><i class="fas fa-plus"></i> Nova Meta</button>
+                    </div>
+                    <div class="metas-container" id="metasContainer"></div>
+                </div>
+
+                <!-- Últimas Atividades -->
+                <div class="perfil-card">
+                    <h3><i class="fas fa-history"></i> Últimas Atividades</h3>
+                    <div class="historico-container" id="historicoContainer"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modais -->
+<div id="modalDescricao" class="modal-overlay">
+    <div class="modal-container">
+        <div class="modal-header"><h3><i class="fas fa-edit"></i> Editar Descrição</h3><span class="modal-close" onclick="fecharModal('modalDescricao')">&times;</span></div>
+        <div class="modal-body">
+            <textarea id="descricaoInput" rows="6" style="width:100%" maxlength="500" placeholder="Fale sobre você, sua experiência, matérias que leciona..."></textarea>
+            <button class="btn-submit" onclick="salvarDescricao()">Salvar</button>
+        </div>
+    </div>
+</div>
+
+<div id="modalMaterias" class="modal-overlay">
+    <div class="modal-container">
+        <div class="modal-header"><h3><i class="fas fa-star"></i> Matérias de Interesse</h3><span class="modal-close" onclick="fecharModal('modalMaterias')">&times;</span></div>
+        <div class="modal-body">
+            <p class="modal-subtitle" style="color:#666; font-size:13px; margin-bottom:15px;">Selecione as matérias que você tem interesse em lecionar:</p>
+            <div class="materias-opcoes" id="materiasOpcoes"></div>
+            <button class="btn-submit" onclick="salvarMaterias()">Salvar</button>
+        </div>
+    </div>
+</div>
+
+<div id="modalMeta" class="modal-overlay">
+    <div class="modal-container">
+        <div class="modal-header"><h3><i class="fas fa-bullseye"></i> Nova Meta de Ensino</h3><span class="modal-close" onclick="fecharModal('modalMeta')">&times;</span></div>
+        <div class="modal-body">
+            <div class="form-group">
+                <label><i class="fas fa-heading"></i> Título</label>
+                <input type="text" id="metaTitulo" placeholder="Ex: Melhorar a média em Matemática" maxlength="80">
+            </div>
+            <div class="form-group">
+                <label><i class="fas fa-calendar"></i> Data</label>
+                <input type="date" id="metaData">
+            </div>
+            <div class="form-group">
+                <label><i class="fas fa-align-left"></i> Descrição</label>
+                <textarea id="metaDescricao" rows="3" maxlength="300" placeholder="Detalhes sobre a meta..."></textarea>
+            </div>
+            <button class="btn-submit" onclick="salvarMeta()">Adicionar Meta</button>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Solicitar Disciplina -->
+<div id="modalSolicitarDisciplina" class="modal-overlay">
+    <div class="modal-container">
+        <div class="modal-header"><h3><i class="fas fa-plus-circle"></i> Solicitar Nova Disciplina</h3><span class="modal-close" onclick="fecharModal('modalSolicitarDisciplina')">&times;</span></div>
+        <div class="modal-body">
+            <form id="formSolicitarDisciplina">
+                <div class="form-group">
+                    <label><i class="fas fa-book"></i> Disciplina *</label>
+                    <select id="solicitarDisciplina" required>
+                        <option value="">Selecione a disciplina</option>
+                        <optgroup label="1º Módulo - Técnico em Informática">
+                            <option value="OCA1">OCA 1 - Operação de Computadores e Aplicativos I</option>
+                            <option value="LTT">LTT - Linguagem, Trabalho e Tecnologia</option>
+                            <option value="IMC">IMC - Instalação e Manutenção de Computadores</option>
+                            <option value="PC1">PC 1 - Programação de Computadores I</option>
+                            <option value="GSO1">GSO 1 - Gestão de Sistemas Operacionais I</option>
+                            <option value="MBD">MBD - Modelagem de Banco de Dados</option>
+                            <option value="SU">SU - Sistemas Ubíquos</option>
+                            <option value="STIC">STIC - Segurança em Tecnologia da Informação</option>
+                        </optgroup>
+                        <optgroup label="2º Módulo - Técnico em Informática">
+                            <option value="SI">SI - Sistemas de Informação</option>
+                            <option value="PTCC">PTCC - Planejamento do TCC</option>
+                            <option value="SBD">SBD - Sistemas de Banco de Dados</option>
+                            <option value="DSE">DSE - Desenvolvimento de Sistemas Embarcados</option>
+                            <option value="RCD1">RCD 1 - Redes de Comunicação de Dados I</option>
+                            <option value="PC2">PC 2 - Programação de Computadores II</option>
+                            <option value="GSO2">GSO 2 - Gestão de Sistemas Operacionais II</option>
+                        </optgroup>
+                        <optgroup label="3º Módulo - Técnico em Informática">
+                            <option value="INGLES">Inglês - Inglês Instrumental</option>
+                            <option value="SD">SD - Segurança Digital</option>
+                            <option value="DTCC">DTCC - Desenvolvimento do TCC</option>
+                            <option value="CNM">CNM - Computação em Nuvem</option>
+                            <option value="ECO">ECO - Empreendedorismo</option>
+                            <option value="IOT">IOT - Internet das Coisas</option>
+                            <option value="RCD2">RCD 2 - Redes de Comunicação de Dados II</option>
+                            <option value="GSO3">GSO 3 - Gestão de Sistemas Operacionais III</option>
+                        </optgroup>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label><i class="fas fa-layer-group"></i> Módulo *</label>
+                    <select id="solicitarModulo" required>
+                        <option value="">Selecione o módulo</option>
+                        <option value="1modulo">1º Módulo</option>
+                        <option value="2modulo">2º Módulo</option>
+                        <option value="3modulo">3º Módulo</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label><i class="fas fa-align-left"></i> Observação</label>
+                    <textarea id="solicitarObs" rows="3" placeholder="Informações adicionais..."></textarea>
+                </div>
+                <button type="submit" class="btn-submit"><i class="fas fa-paper-plane"></i> Enviar Solicitação</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<input type="file" id="uploadFoto" accept="image/*" style="display:none" onchange="processarFoto(this)">
+
+<script>
+    // ========== MATÉRIAS DO SISTEMA ==========
+    const MATERIAS_SISTEMA = {
+        DS: { nome: "Desenvolvimento de Sistemas", materias: ["PW1", "PW2", "PW3", "PA", "BD1", "BD2", "PAM1", "PAM2", "PTCC", "ECO", "IPSS", "QTS", "DSE"] },
+        TI: { nome: "Técnico em Informática", materias: ["OCA1", "LTT", "IMC", "PC1", "GSO1", "MBD", "SU", "STIC", "SI", "SBD", "RCD1", "PC2", "SD", "DTCC", "CNM", "ECO", "IoT", "RCD2", "GSO2", "GSO3", "PTCC"] }
+    };
+
+    const NOMES_MATERIAS = {
+        "PW1": "Programação Web I", "PW2": "Programação Web II", "PW3": "Programação Web III",
+        "PA": "Projeto de Aprendizagem", "BD1": "Banco de Dados I", "BD2": "Banco de Dados II",
+        "PAM1": "Programação de Aplicativos Mobile I", "PAM2": "Programação de Aplicativos Mobile II",
+        "PTCC": "Planejamento do TCC", "ECO": "Ética e Cidadania Organizacional",
+        "IPSS": "Internet, Protocolos e Segurança de Sistemas", "QTS": "Qualidade e Testes de Software",
+        "DSE": "Desenvolvimento de Sistemas Empresariais", "OCA1": "Operação de Computadores e Aplicativos I",
+        "LTT": "Linguagem, Trabalho e Tecnologia", "IMC": "Instalação e Manutenção de Computadores",
+        "PC1": "Programação de Computadores I", "GSO1": "Gestão de Sistemas Operacionais I",
+        "MBD": "Modelagem de Banco de Dados", "SU": "Segurança da Informação",
+        "STIC": "Sistemas de Tecnologia da Informação e Comunicação", "SI": "Sistemas de Informação",
+        "SBD": "Sistemas de Banco de Dados", "RCD1": "Redes de Comunicação de Dados I",
+        "PC2": "Programação de Computadores II", "SD": "Sistemas Distribuídos",
+        "DTCC": "Desenvolvimento do TCC", "CNM": "Computação em Nuvem",
+        "IoT": "Internet das Coisas", "RCD2": "Redes de Comunicação de Dados II",
+        "GSO2": "Gestão de Sistemas Operacionais II", "GSO3": "Gestão de Sistemas Operacionais III"
+    };
+
+    // ========== FUNÇÕES AUXILIARES ==========
+    function getAlocacoes() { return JSON.parse(localStorage.getItem("alocacoes_professores") || "[]"); }
+    function saveAlocacoes(alocacoes) { localStorage.setItem("alocacoes_professores", JSON.stringify(alocacoes)); }
+    function getFilaEspera() { return JSON.parse(localStorage.getItem("fila_espera_disciplinas") || "[]"); }
+    function saveFilaEspera(fila) { localStorage.setItem("fila_espera_disciplinas", JSON.stringify(fila)); }
+
+    function showNotification(msg, type) {
+        if (window.notificationSystem) {
+            window.notificationSystem.show(msg, type === 'success' ? 'success' : 'error');
+        } else {
+            const notif = document.createElement('div');
+            notif.className = `custom-notification ${type}`;
+            notif.innerHTML = `<i class="fas ${type === 'success' ? 'fa-check-circle' : 'fa-exclamation-circle'}"></i> ${msg}`;
+            document.body.appendChild(notif);
+            setTimeout(() => notif.classList.add('show'), 10);
+            setTimeout(() => { notif.classList.remove('show'); setTimeout(() => notif.remove(), 300); }, 3000);
+        }
+    }
+
+    function fecharModal(modalId) { document.getElementById(modalId).style.display = 'none'; }
+
+    // ========== USUÁRIO ==========
+    let usuarioAtual = null;
+    let materiasSelecionadas = [];
+    let metas = [];
+
+    function carregarUsuario() {
+        const userStr = localStorage.getItem("loggedUser");
+        if (!userStr) { window.location.href = "login_professor.html"; return; }
+        usuarioAtual = JSON.parse(userStr);
+        document.getElementById("nomeUsuario").textContent = usuarioAtual.name;
+        document.getElementById("emailUsuario").textContent = usuarioAtual.identifier || usuarioAtual.email;
+        const foto = localStorage.getItem(`foto_${usuarioAtual.identifier || usuarioAtual.email}`);
+        document.getElementById("fotoPerfil").src = foto || `https://ui-avatars.com/api/?background=00796b&color=fff&name=${encodeURIComponent(usuarioAtual.name)}`;
+        document.getElementById("membroDesde").textContent = "2026/01/01";
+    }
+
+    function abrirModalFoto() { document.getElementById("uploadFoto").click(); }
+
+    function processarFoto(input) {
+        if (input.files && input.files[0]) {
+            const reader = new FileReader();
+            reader.onload = e => {
+                document.getElementById("fotoPerfil").src = e.target.result;
+                localStorage.setItem(`foto_${usuarioAtual.identifier || usuarioAtual.email}`, e.target.result);
+                if(window.atualizarFotoSidebar) window.atualizarFotoSidebar();
+                showNotification("Foto atualizada!", "success");
+            };
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+    // ========== DESCRIÇÃO ==========
+    function carregarDescricao() {
+        const desc = localStorage.getItem(`descricao_prof_${usuarioAtual?.identifier || usuarioAtual?.email}`);
+        if (desc) document.getElementById("descricaoTexto").textContent = desc;
+    }
+
+    function editarDescricao() {
+        document.getElementById("descricaoInput").value = localStorage.getItem(`descricao_prof_${usuarioAtual?.identifier || usuarioAtual?.email}`) || "";
+        document.getElementById("modalDescricao").style.display = "flex";
+    }
+
+    function salvarDescricao() {
+        localStorage.setItem(`descricao_prof_${usuarioAtual.identifier || usuarioAtual.email}`, document.getElementById("descricaoInput").value);
+        document.getElementById("descricaoTexto").textContent = document.getElementById("descricaoInput").value || "Clique em editar para adicionar uma descrição!";
+        fecharModal('modalDescricao');
+        showNotification("Descrição atualizada!", "success");
+    }
+
+    // ========== MATÉRIAS DE INTERESSE ==========
+    function carregarMaterias() {
+        const saved = localStorage.getItem(`materias_interesse_${usuarioAtual?.identifier || usuarioAtual?.email}`);
+        materiasSelecionadas = saved ? JSON.parse(saved) : [];
+        renderizarMaterias();
+    }
+
+    function renderizarMaterias() {
+        const container = document.getElementById("materiasContainer");
+        if (!container) return;
+        if (materiasSelecionadas.length === 0) {
+            container.innerHTML = `<div class="empty-materias"><i class="fas fa-graduation-cap"></i><p>Adicione matérias de interesse</p></div>`;
+            return;
+        }
+        container.innerHTML = materiasSelecionadas.map(m => `
+            <div class="materia-item">
+                <i class="fas fa-star"></i>
+                <span><strong>${m}</strong> - ${NOMES_MATERIAS[m] || m}</span>
+                <button class="remove-materia" onclick="removerMateria('${m}')">&times;</button>
+            </div>
+        `).join('');
+    }
+
+    function abrirModalMaterias() {
+        const todasMaterias = [...MATERIAS_SISTEMA.DS.materias, ...MATERIAS_SISTEMA.TI.materias];
+        const opcoes = [...new Set(todasMaterias)].map(m => `
+            <div class="materia-opcao" data-materia="${m}" onclick="this.classList.toggle('selected')">
+                <i class="fas fa-book"></i> <strong>${m}</strong> - ${NOMES_MATERIAS[m] || m}
+            </div>
+        `).join('');
+        document.getElementById("materiasOpcoes").innerHTML = opcoes;
+        document.querySelectorAll('.materia-opcao').forEach(opt => {
+            if (materiasSelecionadas.includes(opt.dataset.materia)) opt.classList.add('selected');
+        });
+        document.getElementById("modalMaterias").style.display = "flex";
+    }
+
+    function salvarMaterias() {
+        materiasSelecionadas = Array.from(document.querySelectorAll('.materia-opcao.selected')).map(opt => opt.dataset.materia);
+        localStorage.setItem(`materias_interesse_${usuarioAtual.identifier || usuarioAtual.email}`, JSON.stringify(materiasSelecionadas));
+        renderizarMaterias();
+        fecharModal('modalMaterias');
+        showNotification("Matérias de interesse atualizadas!", "success");
+    }
+
+    function removerMateria(materia) {
+        materiasSelecionadas = materiasSelecionadas.filter(m => m !== materia);
+        localStorage.setItem(`materias_interesse_${usuarioAtual.identifier || usuarioAtual.email}`, JSON.stringify(materiasSelecionadas));
+        renderizarMaterias();
+        showNotification(`${materia} removida!`, "info");
+    }
+
+    // ========== DISCIPLINAS ALOCADAS ==========
+    function carregarMinhasDisciplinas() {
+        const alocacoes = getAlocacoes();
+        const emailUsuario = usuarioAtual?.identifier || usuarioAtual?.email;
+        const minhasAlocacoes = alocacoes.filter(a => a.professorEmail === emailUsuario && a.status === 'aprovada');
+        const container = document.getElementById("minhasDisciplinasContainer");
+        if (!container) return;
+        
+        if (minhasAlocacoes.length === 0) {
+            container.innerHTML = `<div class="empty-disciplinas"><i class="fas fa-clock"></i><p>Você ainda não possui disciplinas alocadas. Clique em "Solicitar nova".</p></div>`;
+            return;
+        }
+        
+        container.innerHTML = minhasAlocacoes.map(a => `
+            <div class="disciplina-alocada">
+                <div class="disciplina-header">
+                    <div class="disciplina-sigla">${a.materiaSigla}</div>
+                    <div style="font-size:11px; background:#e8f5e9; padding:2px 8px; border-radius:20px; color:#2e7d32;">Aprovada</div>
+                </div>
+                <div class="disciplina-nome">${a.materiaNome}</div>
+                <div class="disciplina-detalhes">
+                    <span class="disciplina-horario"><i class="fas fa-graduation-cap"></i> ${a.cursoNome || 'Técnico em Informática'}</span>
+                    <span class="disciplina-horario"><i class="fas fa-layer-group"></i> ${a.moduloNome || getModuloNome(a.modulo)}</span>
+                    <span class="disciplina-horario"><i class="fas fa-clock"></i> ${a.horarioDescricao || "Horário a definir"}</span>
+                </div>
+            </div>
+        `).join('');
+    }
+
+    function getModuloNome(moduloKey) {
+        const modulos = { '1modulo': '1º Módulo', '2modulo': '2º Módulo', '3modulo': '3º Módulo' };
+        return modulos[moduloKey] || moduloKey;
+    }
+
+    // ===== SOLICITAR DISCIPLINA =====
+    function solicitarDisciplina() {
+        document.getElementById("modalSolicitarDisciplina").style.display = "flex";
+    }
+
+    document.getElementById('formSolicitarDisciplina').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const disciplina = document.getElementById('solicitarDisciplina').value;
+        const modulo = document.getElementById('solicitarModulo').value;
+        const obs = document.getElementById('solicitarObs').value.trim();
+
+        if (!disciplina || !modulo) {
+            showNotification('Preencha todos os campos obrigatórios!', 'error');
+            return;
+        }
+
+        const fila = getFilaEspera();
+        const novaSolicitacao = {
+            id: Date.now().toString(),
+            professorEmail: usuarioAtual.identifier || usuarioAtual.email,
+            professorNome: usuarioAtual.name,
+            materiaSigla: disciplina,
+            materiaNome: NOMES_MATERIAS[disciplina] || disciplina,
+            modulo: modulo,
+            moduloNome: getModuloNome(modulo),
+            cursoNome: 'Técnico em Informática',
+            observacao: obs,
+            dataSolicitacao: new Date().toISOString(),
+            status: 'pendente'
+        };
+        fila.push(novaSolicitacao);
+        saveFilaEspera(fila);
+        fecharModal('modalSolicitarDisciplina');
+        document.getElementById('solicitarDisciplina').value = '';
+        document.getElementById('solicitarModulo').value = '';
+        document.getElementById('solicitarObs').value = '';
+        showNotification('✅ Solicitação enviada com sucesso! Aguarde aprovação.', 'success');
+    });
+
+    // ========== METAS ==========
+    function carregarMetas() {
+        const saved = localStorage.getItem(`metas_prof_${usuarioAtual?.identifier || usuarioAtual?.email}`);
+        metas = saved ? JSON.parse(saved) : [];
+        renderizarMetas();
+    }
+
+    function renderizarMetas() {
+        const container = document.getElementById("metasContainer");
+        if (!container) return;
+        if (metas.length === 0) {
+            container.innerHTML = `<div class="empty-metas"><i class="fas fa-clipboard-list"></i><p>Adicione suas metas de ensino!</p></div>`;
+            return;
+        }
+        container.innerHTML = metas.map((m, i) => `
+            <div class="meta-item ${m.concluida ? 'concluida' : ''}">
+                <div class="meta-header">
+                    <div class="meta-titulo">
+                        <input type="checkbox" ${m.concluida ? 'checked' : ''} onchange="toggleMeta(${i})">
+                        <span>${m.titulo}</span>
+                    </div>
+                    <button class="remove-meta" onclick="removerMeta(${i})">&times;</button>
+                </div>
+                ${m.data ? `<div class="meta-data"><i class="fas fa-calendar"></i> ${new Date(m.data).toLocaleDateString('pt-BR')}</div>` : ''}
+                ${m.descricao ? `<div class="meta-descricao">${m.descricao}</div>` : ''}
+            </div>
+        `).join('');
+    }
+
+    function adicionarMeta() { document.getElementById("modalMeta").style.display = "flex"; }
+
+    function salvarMeta() {
+        const titulo = document.getElementById("metaTitulo").value.trim();
+        if (!titulo) { showNotification("Digite um título!", "error"); return; }
+        metas.push({
+            titulo: titulo,
+            data: document.getElementById("metaData").value,
+            descricao: document.getElementById("metaDescricao").value,
+            concluida: false
+        });
+        localStorage.setItem(`metas_prof_${usuarioAtual.identifier || usuarioAtual.email}`, JSON.stringify(metas));
+        renderizarMetas();
+        fecharModal('modalMeta');
+        document.getElementById("metaTitulo").value = "";
+        document.getElementById("metaData").value = "";
+        document.getElementById("metaDescricao").value = "";
+        showNotification("Meta adicionada!", "success");
+    }
+
+    function toggleMeta(i) {
+        metas[i].concluida = !metas[i].concluida;
+        localStorage.setItem(`metas_prof_${usuarioAtual.identifier || usuarioAtual.email}`, JSON.stringify(metas));
+        renderizarMetas();
+    }
+
+    function removerMeta(i) {
+        metas.splice(i, 1);
+        localStorage.setItem(`metas_prof_${usuarioAtual.identifier || usuarioAtual.email}`, JSON.stringify(metas));
+        renderizarMetas();
+        showNotification("Meta removida!", "info");
+    }
+
+    // ========== DESEMPENHO ==========
+    function carregarDesempenhoMaterias() {
+        const atividades = JSON.parse(localStorage.getItem("atividades_professor") || "[]");
+        const notasPorMateria = {};
+        const materias = Object.keys(NOMES_MATERIAS);
+        materias.forEach(m => notasPorMateria[m] = { soma: 0, count: 0 });
+
+        atividades.forEach(a => {
+            if (a.entregas) {
+                a.entregas.forEach(e => {
+                    if (e.status === "corrigida" && e.nota && notasPorMateria[a.materia]) {
+                        notasPorMateria[a.materia].soma += e.nota;
+                        notasPorMateria[a.materia].count++;
+                    }
+                });
+            }
+        });
+
+        const container = document.getElementById("progressGraph");
+        if (!container) return;
+
+        const materiasAtivas = Object.keys(notasPorMateria).filter(m => notasPorMateria[m].count > 0);
+        if (materiasAtivas.length === 0) {
+            container.innerHTML = `<p style="text-align:center; color:#999; padding:20px;">Nenhuma atividade corrigida ainda</p>`;
+            return;
+        }
+
+        container.innerHTML = materiasAtivas.slice(0, 6).map(m => {
+            const media = (notasPorMateria[m].soma / notasPorMateria[m].count).toFixed(1);
+            const percentual = (media / 10) * 100;
+            return `
+                <div class="graph-bar">
+                    <div class="graph-label">
+                        <span>${NOMES_MATERIAS[m] || m}</span>
+                        <span>${media}/10</span>
+                    </div>
+                    <div class="graph-bar-fill" style="width: ${percentual}%"></div>
+                </div>
+            `;
+        }).join('');
+    }
+
+    // ========== HISTÓRICO ==========
+    function carregarHistoricoAtividades() {
+        const atividades = JSON.parse(localStorage.getItem("atividades_professor") || "[]");
+        const atividadesOrdenadas = atividades.sort((a, b) => new Date(b.dataEntrega) - new Date(a.dataEntrega)).slice(0, 3);
+        const container = document.getElementById("historicoContainer");
+        if (!container) return;
+
+        if (atividadesOrdenadas.length === 0) {
+            container.innerHTML = `<div class="empty-historico"><i class="fas fa-folder-open"></i><p>Nenhuma atividade criada ainda</p></div>`;
+            return;
+        }
+
+        container.innerHTML = atividadesOrdenadas.map(a => {
+            const entregas = a.entregas?.length || 0;
+            const corrigidas = a.entregas?.filter(e => e.status === "corrigida").length || 0;
+            let statusClass = "aberta", statusTexto = "Aberta";
+            if (a.status === "encerrada") { statusClass = "corrigida"; statusTexto = "Encerrada"; }
+            else if (entregas > 0 && entregas === corrigidas) { statusClass = "corrigida"; statusTexto = "Corrigida"; }
+            else if (entregas > 0) { statusClass = "entregue"; statusTexto = "Entregue"; }
+            return `
+                <div class="atividade-historico-item">
+                    <div class="atividade-info">
+                        <h4>${a.titulo.length > 40 ? a.titulo.substring(0, 40) + '...' : a.titulo}</h4>
+                        <p><i class="fas fa-calendar-alt"></i> ${new Date(a.dataEntrega).toLocaleDateString('pt-BR')} · ${NOMES_MATERIAS[a.materia] || a.materia}</p>
+                    </div>
+                    <div class="atividade-status ${statusClass}">${statusTexto} (${entregas} entregas)</div>
+                </div>
+            `;
+        }).join('');
+    }
+
+    // ========== ESTATÍSTICAS ==========
+    function atualizarEstatisticas() {
+        const atividades = JSON.parse(localStorage.getItem("atividades_professor") || "[]");
+        const totalAtividades = atividades.length;
+        const correcoesPendentes = atividades.reduce((acc, a) => {
+            if (a.entregas) return acc + a.entregas.filter(e => e.status === "entregue").length;
+            return acc;
+        }, 0);
+
+        let somaNotas = 0, countNotas = 0;
+        atividades.forEach(a => {
+            if (a.entregas) {
+                a.entregas.forEach(e => {
+                    if (e.status === "corrigida" && e.nota) { somaNotas += e.nota; countNotas++; }
+                });
+            }
+        });
+        const mediaTurma = countNotas > 0 ? (somaNotas / countNotas).toFixed(1) : "0.0";
+
+        document.getElementById("totalTurmasStat").textContent = "3";
+        document.getElementById("correcoesPendentesStat").textContent = correcoesPendentes;
+        document.getElementById("mediaTurmaStat").textContent = mediaTurma;
+        document.getElementById("totalAtividades").textContent = totalAtividades;
+        
+        let totalAlunos = 0;
+        for (let i = 0; i < localStorage.length; i++) {
+            const key = localStorage.key(i);
+            if (key && key.startsWith('alunos_turma_')) {
+                const alunos = JSON.parse(localStorage.getItem(key) || '[]');
+                totalAlunos += alunos.length;
+            }
+        }
+        document.getElementById("totalAlunos").textContent = totalAlunos;
+    }
+
+    // ========== INICIALIZAÇÃO ==========
+    document.addEventListener('DOMContentLoaded', () => {
+        carregarUsuario();
+        if (!usuarioAtual) return;
+
+        carregarDescricao();
+        carregarMaterias();
+        carregarMetas();
+        carregarDesempenhoMaterias();
+        carregarHistoricoAtividades();
+        carregarMinhasDisciplinas();
+        atualizarEstatisticas();
+
+        window.onclick = e => { if (e.target.classList.contains('modal-overlay')) e.target.style.display = 'none'; };
+        
+        window.abrirModalMaterias = abrirModalMaterias;
+        window.removerMateria = removerMateria;
+        window.editarDescricao = editarDescricao;
+        window.adicionarMeta = adicionarMeta;
+        window.toggleMeta = toggleMeta;
+        window.removerMeta = removerMeta;
+        window.fecharModal = fecharModal;
+        window.abrirModalFoto = abrirModalFoto;
+        window.processarFoto = processarFoto;
+        window.salvarDescricao = salvarDescricao;
+        window.salvarMaterias = salvarMaterias;
+        window.salvarMeta = salvarMeta;
+        window.solicitarDisciplina = solicitarDisciplina;
+    });
+</script>
+
+<script src="js/validacoes.js"></script>
+<script src="js/notifications.js"></script>
+<script src="js/app.js"></script>
+<script src="js/darkmode.js"></script>
+<script src="js/sidebar.js"></script>
+<script src="js/global.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/js/all.min.js"></script>
+</body>
+</html>

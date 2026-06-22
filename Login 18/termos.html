@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Política de Privacidade | SmartClass</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/darkmode-padrao.css">
+    <link rel="stylesheet" href="css/sidebar.css">   <!-- NOVO -->
+    <!-- ... -->
+    <script src="js/theme-loader.js"></script>
+    <style>
+        * { margin:0; padding:0; box-sizing:border-box; }
+        body { font-family:'Poppins',sans-serif; background:#f0f2f5; display:flex; }
+        .content { margin-left:260px; padding:25px; flex:1; background:#f0f2f5; min-height:100vh; }
+        .page-header { margin-bottom:30px; }
+        .page-header h1 { color:#00796b; font-size:28px; display:flex; align-items:center; gap:12px; }
+        .page-header p { color:#666; font-size:14px; }
+        .termos-box { background:white; border-radius:20px; padding:30px; border:1px solid #eef2f6; line-height:1.8; }
+        .termos-box h2 { color:#00796b; font-size:20px; margin-top:25px; }
+        .termos-box p { color:#333; margin-bottom:10px; }
+        .termos-box ul { padding-left:25px; margin-bottom:15px; }
+        .termos-box ul li { margin-bottom:5px; }
+        .termos-box .atualizacao { margin-top:20px; font-size:13px; color:#888; border-top:1px solid #eef2f6; padding-top:15px; }
+        @media (max-width:768px) { .content { margin-left:0; padding:15px; } }
+    </style>
+</head>
+<body>
+    <div class="content">
+        <div class="page-header">
+            <h1><i class="fas fa-shield-alt"></i> Política de Privacidade</h1>
+            <p>Como a SmartClass protege seus dados em conformidade com a LGPD</p>
+        </div>
+        <div class="termos-box">
+            <h2>1. Coleta de Dados</h2>
+            <p>A SmartClass coleta apenas o e-mail institucional, nome completo e dados de frequência escolar, estritamente para fins pedagógicos e de gestão da instituição.</p>
+
+            <h2>2. Uso dos Dados</h2>
+            <p>Os dados são utilizados para:</p>
+            <ul>
+                <li>Controle de presença e emissão de relatórios de frequência.</li>
+                <li>Disponibilização de videoaulas gravadas para alunos ausentes.</li>
+                <li>Funcionamento do sistema gamificado (pet virtual) como estímulo à assiduidade.</li>
+                <li>Comunicação institucional via mural de tarefas.</li>
+            </ul>
+            <p>Não compartilhamos dados com terceiros sem consentimento explícito.</p>
+
+            <h2>3. Gravações de Aulas</h2>
+            <p>As aulas gravadas ficam armazenadas por até <strong>30 dias</strong> e são acessíveis apenas a alunos da respectiva turma, mediante autenticação por e-mail institucional. O professor pode liberar ou restringir o acesso a cada gravação.</p>
+
+            <h2>4. Direitos do Usuário (LGPD)</h2>
+            <ul>
+                <li><strong>Acesso:</strong> você pode solicitar uma cópia de todos os seus dados armazenados.</li>
+                <li><strong>Correção:</strong> pode corrigir dados incompletos ou desatualizados.</li>
+                <li><strong>Exclusão:</strong> pode solicitar a remoção de seus dados, exceto quando houver obrigação legal de retenção.</li>
+                <li><strong>Revogação de consentimento:</strong> pode revogar o consentimento para uso de dados a qualquer momento.</li>
+            </ul>
+
+            <h2>5. Segurança</h2>
+            <p>Todos os dados são criptografados em trânsito e em repouso. O acesso é restrito exclusivamente a e-mails institucionais (@cps.sp.gov.br, @aluno.cps.sp.gov.br, @professor.cps.sp.gov.br).</p>
+
+            <h2>6. Contato</h2>
+            <p>Para exercer seus direitos ou tirar dúvidas, entre em contato com a coordenação da sua escola ou envie um e-mail para <strong>suporte@smartclass.etec</strong>.</p>
+
+            <div class="atualizacao">
+                <i class="fas fa-calendar-alt"></i> Última atualização: junho de 2026
+            </div>
+        </div>
+    </div>
+        <!-- ===== SCRIPTS GLOBAIS (carregar ao final do body) ===== -->
+    
+    <!-- 1. Validações de campos (máximo de caracteres, contadores, resize) -->
+    <script src="js/validacoes.js"></script>
+    
+    <!-- 2. Sistema de notificações (showNotification, NotificationSystem) -->
+    <script src="js/notifications.js"></script>
+    
+    <!-- 3. Aplicativo principal (login, localStorage, pet, atividades, seed) -->
+    <script src="js/app.js"></script>
+    
+    <!-- 4. Controle do modo escuro (dark mode global) -->
+    <script src="js/darkmode.js"></script>
+    
+    <!-- 5. Barra lateral universal (sidebar fixa) -->
+    <script src="js/sidebar.js"></script>
+    
+    <!-- 6. Utilitários globais (funções auxiliares, fallbacks) -->
+    <script src="js/global.js"></script>
+    
+    <!-- 7. Ícones Font Awesome (renderização dos ícones) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/js/all.min.js"></script>
+
+    <!-- (Opcional) Scripts específicos da página podem vir depois -->
+    <!-- <script src="js/meu-script-especifico.js"></script> -->
+</body>
+</html>

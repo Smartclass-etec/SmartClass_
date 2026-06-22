@@ -1,0 +1,537 @@
+/* ============================================
+   css/darkmode-padrao.css
+   Dark Mode Padronizado - SmartClass
+   Versão original com fundo #0f172a
+   ============================================ */
+
+/* ===== FUNDOS PRINCIPAIS ===== */
+body.dark-mode {
+    background: #0f172a !important;
+}
+
+body.dark-mode .content,
+body.dark-mode .atividades-container,
+body.dark-mode .perfil-container,
+body.dark-mode .dashboard-grid,
+body.dark-mode .mural-container,
+body.dark-mode .video-grid,
+body.dark-mode .aulas-grid,
+body.dark-mode .model-container,
+body.dark-mode .config-container,
+body.dark-mode .main-wrapper,
+body.dark-mode .player-container,
+body.dark-mode .perfil-grid,
+body.dark-mode .container-fluid,
+body.dark-mode .atividades-grid {
+    background: #0f172a !important;
+}
+
+/* ===== CARDS E CONTAINERS ===== */
+body.dark-mode .perfil-card,
+body.dark-mode .card-white,
+body.dark-mode .stat-card,
+body.dark-mode .chart-card,
+body.dark-mode .tabela-card,
+body.dark-mode .config-card,
+body.dark-mode .turma-card,
+body.dark-mode .atividade-card,
+body.dark-mode .aviso-card,
+body.dark-mode .info-card,
+body.dark-mode .selectors-bar,
+body.dark-mode .toolbar,
+body.dark-mode .empty-state,
+body.dark-mode .filters-bar,
+body.dark-mode .fila-card,
+body.dark-mode .materia-card,
+body.dark-mode .shop-card,
+body.dark-mode .pet-card,
+body.dark-mode .video-card,
+body.dark-mode .aula-card,
+body.dark-mode .stat-video-card,
+body.dark-mode .dashboard-stats .stat-card,
+body.dark-mode .form-card,
+body.dark-mode .login-container,
+body.dark-mode .support-section,
+body.dark-mode .model-container,
+body.dark-mode .video-info-player,
+body.dark-mode .modal-container,
+body.dark-mode .modal-header,
+body.dark-mode .modal-body {
+    background: #1e293b !important;
+    border-color: #334155 !important;
+}
+
+/* ===== TÍTULOS E CABEÇALHOS ===== */
+body.dark-mode .page-header h1,
+body.dark-mode .card-header h3,
+body.dark-mode .turmas-header h3,
+body.dark-mode .aviso-titulo,
+body.dark-mode .modal-header h3,
+body.dark-mode .welcome-card h2,
+body.dark-mode .shop-title,
+body.dark-mode .card-white h3,
+body.dark-mode .stat-card .stat-info h3,
+body.dark-mode .chart-card h3,
+body.dark-mode .tabela-card h3,
+body.dark-mode .config-card h3,
+body.dark-mode .video-info h3,
+body.dark-mode .aula-titulo,
+body.dark-mode .stat-video-info h3,
+body.dark-mode .fila-professor,
+body.dark-mode .alocacao-professor,
+body.dark-mode .disciplina-sigla,
+body.dark-mode .nome-usuario,
+body.dark-mode .atividade-info h4,
+body.dark-mode .perfil-card h3,
+body.dark-mode .rank-item .rank-name,
+body.dark-mode .materia-sigla {
+    color: #fbbf24 !important;
+}
+
+/* ===== TEXTOS GERAIS ===== */
+body.dark-mode .page-header p,
+body.dark-mode .descricao-texto,
+body.dark-mode .card-content .descricao,
+body.dark-mode .aviso-body,
+body.dark-mode .atividade-info p,
+body.dark-mode .card-footer .date-info,
+body.dark-mode .stat-info p,
+body.dark-mode .info-item,
+body.dark-mode .stat-mini-label,
+body.dark-mode .graph-label,
+body.dark-mode .disciplina-nome,
+body.dark-mode .disciplina-detalhes,
+body.dark-mode .fila-detalhes,
+body.dark-mode .alocacao-detalhes,
+body.dark-mode .preferencia-info p,
+body.dark-mode .video-info .meta,
+body.dark-mode .aula-descricao,
+body.dark-mode .aula-meta,
+body.dark-mode .aviso-meta,
+body.dark-mode .stat-video-info p,
+body.dark-mode .login-container p,
+body.dark-mode .support-section p,
+body.dark-mode .help-mini span {
+    color: #94a3b8 !important;
+}
+
+/* ===== NOMES E TEXTOS IMPORTANTES ===== */
+body.dark-mode .aluno-nome,
+body.dark-mode .professor-name,
+body.dark-mode .card-content h3,
+body.dark-mode .meta-titulo span,
+body.dark-mode .preferencia-info h4,
+body.dark-mode .turma-titulo,
+body.dark-mode .video-info h3,
+body.dark-mode .aula-titulo,
+body.dark-mode .aviso-titulo,
+body.dark-mode .aluno-item .aluno-info,
+body.dark-mode .welcome-box h2,
+body.dark-mode .access-card .card-text h3 {
+    color: #f1f5f9 !important;
+}
+
+/* ===== INPUTS, TEXTAREAS E SELECTS ===== */
+body.dark-mode input,
+body.dark-mode textarea,
+body.dark-mode select,
+body.dark-mode .search-wrapper input,
+body.dark-mode .filter-group select,
+body.dark-mode .filter-group input,
+body.dark-mode .form-group input,
+body.dark-mode .form-group textarea,
+body.dark-mode .form-group select,
+body.dark-mode .chat-input-area input {
+    background-color: #334155 !important;
+    border-color: #475569 !important;
+    color: #f1f5f9 !important;
+}
+
+body.dark-mode input::placeholder,
+body.dark-mode textarea::placeholder,
+body.dark-mode .search-wrapper input::placeholder {
+    color: #94a3b8 !important;
+}
+
+body.dark-mode input:focus,
+body.dark-mode textarea:focus,
+body.dark-mode select:focus {
+    border-color: #fbbf24 !important;
+    outline: none !important;
+    box-shadow: 0 0 0 2px rgba(251, 191, 36, 0.2) !important;
+}
+
+/* ===== LABELS ===== */
+body.dark-mode label,
+body.dark-mode .form-group label,
+body.dark-mode .filter-group label,
+body.dark-mode .preferencia-item label {
+    color: #fbbf24 !important;
+}
+
+/* ===== BOTÕES PRINCIPAIS ===== */
+body.dark-mode .btn-editar,
+body.dark-mode .btn-config,
+body.dark-mode .filter-btn,
+body.dark-mode .btn-upload,
+body.dark-mode .btn-nova-atividade,
+body.dark-mode .btn-submit,
+body.dark-mode .btn-primary,
+body.dark-mode .btn-success,
+body.dark-mode .btn-entregar {
+    background: #0d4a47 !important;
+    color: #fbbf24 !important;
+    border-color: #334155 !important;
+}
+
+body.dark-mode .btn-editar:hover,
+body.dark-mode .btn-config:hover,
+body.dark-mode .filter-btn:hover,
+body.dark-mode .btn-upload:hover,
+body.dark-mode .btn-nova-atividade:hover,
+body.dark-mode .btn-submit:hover,
+body.dark-mode .btn-primary:hover,
+body.dark-mode .btn-success:hover,
+body.dark-mode .btn-entregar:hover {
+    background: #fbbf24 !important;
+    color: #0f172a !important;
+}
+
+body.dark-mode .filter-btn.active {
+    background: #fbbf24 !important;
+    color: #0f172a !important;
+}
+
+/* ===== BOTÕES ESPECÍFICOS ===== */
+body.dark-mode .btn-presenca,
+body.dark-mode .btn-aprovar {
+    background: #0d4a47 !important;
+    color: #fbbf24 !important;
+}
+
+body.dark-mode .btn-falta,
+body.dark-mode .btn-recusar,
+body.dark-mode .btn-remover {
+    background: #7f1a1a !important;
+    color: #fecaca !important;
+}
+
+body.dark-mode .btn-assistir {
+    background: linear-gradient(135deg, #0d4a47, #083a38) !important;
+    color: #f1f5f9 !important;
+}
+
+body.dark-mode .btn-assistir:hover {
+    background: linear-gradient(135deg, #fbbf24, #f59e0b) !important;
+    color: #0f172a !important;
+}
+
+/* ===== BOTÕES DE AÇÃO ===== */
+body.dark-mode .btn-toggle.disponivel {
+    background: #0d4a47 !important;
+    color: #fbbf24 !important;
+}
+
+body.dark-mode .btn-toggle.aguardando {
+    background: #7f5a1a !important;
+    color: #fbbf24 !important;
+}
+
+body.dark-mode .btn-acao.btn-editar {
+    background: #0d47a1 !important;
+    color: #90caf9 !important;
+}
+
+body.dark-mode .btn-acao.btn-editar:hover {
+    background: #90caf9 !important;
+    color: #0d47a1 !important;
+}
+
+body.dark-mode .btn-acao.btn-excluir {
+    background: #7f1a1a !important;
+    color: #fecaca !important;
+}
+
+body.dark-mode .btn-acao.btn-excluir:hover {
+    background: #fecaca !important;
+    color: #7f1a1a !important;
+}
+
+body.dark-mode .btn-acao.btn-liberar {
+    background: #0d4a47 !important;
+    color: #fbbf24 !important;
+}
+
+body.dark-mode .btn-acao.btn-liberar:hover {
+    background: #fbbf24 !important;
+    color: #0f172a !important;
+}
+
+body.dark-mode .btn-acao.btn-ocultar {
+    background: #7f1a1a !important;
+    color: #fecaca !important;
+}
+
+body.dark-mode .btn-acao.btn-ocultar:hover {
+    background: #fecaca !important;
+    color: #7f1a1a !important;
+}
+
+body.dark-mode .btn-acao.btn-previsualizar {
+    background: #0d47a1 !important;
+    color: #90caf9 !important;
+}
+
+body.dark-mode .btn-acao.btn-previsualizar:hover {
+    background: #90caf9 !important;
+    color: #0d47a1 !important;
+}
+
+/* ===== LISTAS E ITENS ===== */
+body.dark-mode .aluno-item,
+body.dark-mode .professor-item,
+body.dark-mode .aluno-item-card,
+body.dark-mode .fila-item,
+body.dark-mode .alocacao-item,
+body.dark-mode .meta-item,
+body.dark-mode .materia-item,
+body.dark-mode .atividade-historico-item,
+body.dark-mode .disciplina-alocada,
+body.dark-mode .stat-mini,
+body.dark-mode .empty-materias,
+body.dark-mode .empty-metas,
+body.dark-mode .empty-historico,
+body.dark-mode .empty-disciplinas,
+body.dark-mode .ranking-item,
+body.dark-mode .materia-opcao,
+body.dark-mode .shop-item,
+body.dark-mode .video-card {
+    background: #334155 !important;
+    border-color: #475569 !important;
+}
+
+body.dark-mode .aluno-item:hover,
+body.dark-mode .professor-item:hover,
+body.dark-mode .fila-item:hover,
+body.dark-mode .disciplina-alocada:hover {
+    background: #1e3a2e !important;
+}
+
+/* ===== BADGES E TAGS ===== */
+body.dark-mode .materia-tag {
+    background: #1e3a2e !important;
+    color: #fbbf24 !important;
+}
+
+body.dark-mode .status-tag.aberta,
+body.dark-mode .status-tag.corrigida {
+    background: #1e3a2e !important;
+    color: #4caf50 !important;
+}
+
+body.dark-mode .status-tag.entregue {
+    background: #1e3a5e !important;
+    color: #2196f3 !important;
+}
+
+body.dark-mode .turma-badge,
+body.dark-mode .professor-badge,
+body.dark-mode .modulo-tag {
+    background: #1e3a2e !important;
+    color: #fbbf24 !important;
+}
+
+body.dark-mode .status-badge.liberado {
+    background: #0d4a47 !important;
+    color: #fbbf24 !important;
+}
+
+body.dark-mode .status-badge.aguardando {
+    background: #7f5a1a !important;
+    color: #fbbf24 !important;
+}
+
+/* ===== GRÁFICOS E BARRAS ===== */
+body.dark-mode .graph-bar-fill,
+body.dark-mode .progress-fill,
+body.dark-mode .materia-fill {
+    background: #fbbf24 !important;
+}
+
+body.dark-mode .progress-bar,
+body.dark-mode .materia-bar {
+    background: #334155 !important;
+}
+
+/* ===== MODAIS ===== */
+body.dark-mode .modal-overlay {
+    background: rgba(0, 0, 0, 0.85) !important;
+}
+
+body.dark-mode .modal-container,
+body.dark-mode .modal-header,
+body.dark-mode .modal-body {
+    background: #1e293b !important;
+}
+
+body.dark-mode .modal-header {
+    border-bottom-color: #334155 !important;
+}
+
+/* ===== TABELAS ===== */
+body.dark-mode table th {
+    background: #334155 !important;
+    color: #fbbf24 !important;
+}
+
+body.dark-mode table td {
+    border-bottom-color: #334155 !important;
+}
+
+body.dark-mode .badge-status.presente {
+    background: #0d4a47 !important;
+    color: #4caf50 !important;
+}
+
+body.dark-mode .badge-status.falta {
+    background: #7f1a1a !important;
+    color: #f87171 !important;
+}
+
+/* ===== PET E LOJA ===== */
+body.dark-mode .pet-canvas {
+    background: linear-gradient(135deg, #1e3a2e, #0f2e24) !important;
+}
+
+body.dark-mode .pet-stats {
+    background: #334155 !important;
+}
+
+body.dark-mode .pet-message {
+    background: #334155 !important;
+    color: #fbbf24 !important;
+    border-left-color: #fbbf24 !important;
+}
+
+body.dark-mode .your-rank {
+    background: #1e3a2e !important;
+}
+
+/* ===== WELCOME CARD ===== */
+body.dark-mode .welcome-card {
+    background: linear-gradient(135deg, #0d4a47, #083a38) !important;
+}
+
+body.dark-mode .welcome-card h2,
+body.dark-mode .welcome-card p {
+    color: white !important;
+}
+
+/* ===== SIDEBAR ===== */
+body.dark-mode .sidebar-universal {
+    background: linear-gradient(180deg, #0f172a 0%, #020617 100%) !important;
+    border-right: 1px solid #1e293b !important;
+}
+
+body.dark-mode .sidebar-universal .nav-link-universal:hover,
+body.dark-mode .sidebar-universal .nav-link-universal.active {
+    background: #1e293b !important;
+}
+
+body.dark-mode .sidebar-universal .nav-link-universal.active {
+    border-left-color: #fbbf24 !important;
+}
+
+/* ===== SCROLLBAR ===== */
+body.dark-mode ::-webkit-scrollbar-track {
+    background: #1e293b !important;
+}
+
+body.dark-mode ::-webkit-scrollbar-thumb {
+    background: #fbbf24 !important;
+}
+
+/* ===== TRANSIÇÕES ===== */
+body.dark-mode,
+body.dark-mode * {
+    transition: background-color 0.2s ease, 
+                border-color 0.2s ease, 
+                color 0.2s ease,
+                box-shadow 0.2s ease !important;
+}
+
+.theme-transitioning,
+.theme-transitioning * {
+    transition: all 0.2s ease !important;
+}
+
+/* ===== CORREÇÃO PARA O LOGIN/INDEX ===== */
+body.dark-mode .container {
+    background: #1e293b !important;
+}
+
+body.dark-mode .container form {
+    background: transparent !important;
+}
+
+body.dark-mode .container h1 {
+    color: #fbbf24 !important;
+}
+
+body.dark-mode .container .subtitle {
+    color: #94a3b8 !important;
+}
+
+body.dark-mode .container .input-group input {
+    background: #334155 !important;
+    border-color: #475569 !important;
+    color: #f1f5f9 !important;
+}
+
+body.dark-mode .container .input-group input::placeholder {
+    color: #94a3b8 !important;
+}
+
+body.dark-mode .container .input-group i {
+    color: #fbbf24 !important;
+}
+
+body.dark-mode .container .divider {
+    color: #94a3b8 !important;
+}
+
+body.dark-mode .container .divider::before,
+body.dark-mode .container .divider::after {
+    background: #334155 !important;
+}
+
+body.dark-mode .container .social-icons i {
+    background: #334155 !important;
+    color: #94a3b8 !important;
+}
+
+body.dark-mode .container .social-icons i:hover {
+    background: #0d9488 !important;
+    color: white !important;
+}
+
+/* ===== BOTÕES DE SUPORTE ===== */
+body.dark-mode .support-email-btn {
+    background: #334155 !important;
+    color: #f1f5f9 !important;
+    border-color: #475569 !important;
+}
+
+body.dark-mode .support-email-btn:hover {
+    background: #0d9488 !important;
+    color: white !important;
+}
+
+body.dark-mode .extra-btn {
+    color: #94a3b8 !important;
+}
+
+body.dark-mode .extra-btn:hover {
+    background: #334155 !important;
+    color: #f1f5f9 !important;
+}

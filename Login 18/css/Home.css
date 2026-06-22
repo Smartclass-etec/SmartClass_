@@ -1,0 +1,69 @@
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Poppins;
+}
+
+body{
+display:flex;
+background:#f4f6f8;
+}
+
+/* MENU LATERAL */
+
+.sidebar{
+
+width:220px;
+height:100vh;
+background:#00796b;
+color:white;
+padding-top:30px;
+position:fixed;
+
+}
+
+.sidebar h2{
+
+text-align:center;
+margin-bottom:30px;
+
+}
+
+.sidebar a{
+
+display:block;
+padding:15px 25px;
+color:white;
+text-decoration:none;
+transition:0.3s;
+
+}
+
+.sidebar a:hover{
+
+background:#004d47;
+
+}
+
+/* CONTEUDO */
+
+.content{
+
+margin-left:220px;
+padding:40px;
+
+}
+
+.content h1{
+
+margin-bottom:20px;
+color:#00796b;
+
+}
+
+
+.sidebar a.active {
+    background: #004d47;
+    border-left: 4px solid #ffd700;
+}

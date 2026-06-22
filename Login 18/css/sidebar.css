@@ -1,0 +1,564 @@
+/* ============================================
+   css/sidebar.css
+   SIDEBAR PADRONIZADA - SmartClass
+   Todos os estilos da sidebar centralizados aqui
+   ============================================ */
+
+/* ============================================
+   CONTAINER PRINCIPAL
+   ============================================ */
+.sidebar-universal {
+    position: fixed !important;
+    left: 0 !important;
+    top: 0 !important;
+    width: 280px !important;
+    height: 100vh !important;
+    background: linear-gradient(180deg, #00796b 0%, #004d47 100%) !important;
+    z-index: 1000 !important;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    box-shadow: 2px 0 20px rgba(0, 0, 0, 0.15) !important;
+    display: flex !important;
+    flex-direction: column !important;
+    overflow: hidden !important;
+    flex-shrink: 0 !important;
+    color: white !important;
+}
+
+/* ============================================
+   MODO MINIMIZADO
+   ============================================ */
+.sidebar-universal.minimizada {
+    width: 80px !important;
+}
+
+/* ============================================
+   HEADER - LOGO
+   ============================================ */
+.sidebar-universal .sidebar-header-universal {
+    padding: 20px 16px !important;
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.12) !important;
+    min-height: 76px !important;
+    flex-shrink: 0 !important;
+    gap: 8px !important;
+}
+
+.sidebar-universal .logo-wrapper-universal {
+    display: flex !important;
+    align-items: center !important;
+    gap: 12px !important;
+    overflow: hidden !important;
+}
+
+.sidebar-universal .logo-img-universal {
+    width: 40px !important;
+    height: 40px !important;
+    object-fit: contain !important;
+    flex-shrink: 0 !important;
+}
+
+.sidebar-universal .logo-texto-universal {
+    display: flex !important;
+    flex-direction: column !important;
+    white-space: nowrap !important;
+}
+
+.sidebar-universal .logo-nome-universal {
+    font-size: 18px !important;
+    font-weight: 700 !important;
+    color: white !important;
+    line-height: 1.2 !important;
+    letter-spacing: 0.5px !important;
+}
+
+.sidebar-universal .logo-subtitle-universal {
+    font-size: 9px !important;
+    color: rgba(255, 255, 255, 0.65) !important;
+    letter-spacing: 0.8px !important;
+    text-transform: uppercase !important;
+}
+
+/* ============================================
+   BOTÃO TOGGLE (recolher/expandir)
+   ============================================ */
+.sidebar-universal .toggle-sidebar-universal {
+    background: rgba(255, 255, 255, 0.10) !important;
+    border: none !important;
+    width: 36px !important;
+    height: 36px !important;
+    border-radius: 10px !important;
+    cursor: pointer !important;
+    color: white !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    transition: all 0.3s ease !important;
+    flex-shrink: 0 !important;
+    font-size: 14px !important;
+}
+
+.sidebar-universal .toggle-sidebar-universal:hover {
+    background: rgba(255, 255, 255, 0.20) !important;
+    transform: scale(1.05) !important;
+}
+
+.sidebar-universal .toggle-sidebar-universal i {
+    font-size: 14px !important;
+    transition: transform 0.3s ease !important;
+}
+
+.sidebar-universal.minimizada .toggle-sidebar-universal i {
+    transform: rotate(180deg) !important;
+}
+
+/* ============================================
+   USUÁRIO
+   ============================================ */
+.sidebar-universal .user-info-universal {
+    padding: 16px 16px !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 12px !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.12) !important;
+    flex-shrink: 0 !important;
+    min-height: 72px !important;
+}
+
+.sidebar-universal .user-avatar-universal {
+    width: 44px !important;
+    height: 44px !important;
+    border-radius: 50% !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    flex-shrink: 0 !important;
+    overflow: hidden !important;
+    background: #FFD966 !important;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15) !important;
+}
+
+.sidebar-universal .user-avatar-universal img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+}
+
+.sidebar-universal .user-avatar-universal span {
+    font-size: 18px !important;
+    font-weight: 600 !important;
+    color: #004d47 !important;
+}
+
+.sidebar-universal .user-details-universal {
+    flex: 1 !important;
+    overflow: hidden !important;
+    min-width: 0 !important;
+}
+
+.sidebar-universal .user-name-universal {
+    font-size: 14px !important;
+    font-weight: 600 !important;
+    display: block !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    color: white !important;
+    line-height: 1.3 !important;
+}
+
+.sidebar-universal .user-role-universal {
+    font-size: 11px !important;
+    opacity: 0.7 !important;
+    display: block !important;
+    color: rgba(255, 255, 255, 0.75) !important;
+    line-height: 1.3 !important;
+}
+
+/* ============================================
+   NAVEGAÇÃO
+   ============================================ */
+.sidebar-universal .sidebar-nav-universal {
+    flex: 1 !important;
+    padding: 16px 12px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 4px !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+}
+
+/* Scrollbar da navegação */
+.sidebar-universal .sidebar-nav-universal::-webkit-scrollbar {
+    width: 4px !important;
+}
+.sidebar-universal .sidebar-nav-universal::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.05) !important;
+    border-radius: 10px !important;
+}
+.sidebar-universal .sidebar-nav-universal::-webkit-scrollbar-thumb {
+    background: rgba(255, 217, 102, 0.4) !important;
+    border-radius: 10px !important;
+}
+
+.sidebar-universal .nav-link-universal {
+    display: flex !important;
+    align-items: center !important;
+    gap: 12px !important;
+    padding: 11px 14px !important;
+    color: rgba(255, 255, 255, 0.80) !important;
+    text-decoration: none !important;
+    border-radius: 12px !important;
+    transition: all 0.25s ease !important;
+    font-size: 14px !important;
+    font-weight: 500 !important;
+    white-space: nowrap !important;
+    min-height: 46px !important;
+    font-family: 'Poppins', sans-serif !important;
+    position: relative !important;
+}
+
+.sidebar-universal .nav-link-universal:hover {
+    background: rgba(255, 255, 255, 0.10) !important;
+    color: white !important;
+    transform: translateX(3px) !important;
+}
+
+.sidebar-universal .nav-link-universal.active {
+    background: rgba(255, 217, 102, 0.18) !important;
+    color: #FFD966 !important;
+    border-left: 3px solid #FFD966 !important;
+}
+
+.sidebar-universal .nav-link-universal i {
+    width: 20px !important;
+    height: 20px !important;
+    font-size: 18px !important;
+    color: rgba(255, 255, 255, 0.70) !important;
+    flex-shrink: 0 !important;
+    text-align: center !important;
+    line-height: 20px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    transition: color 0.25s ease !important;
+}
+
+.sidebar-universal .nav-link-universal:hover i {
+    color: white !important;
+}
+
+.sidebar-universal .nav-link-universal.active i {
+    color: #FFD966 !important;
+}
+
+.sidebar-universal .nav-link-universal span {
+    font-size: 14px !important;
+    font-weight: 500 !important;
+    transition: opacity 0.3s ease !important;
+}
+
+/* ============================================
+   FOOTER - BOTÕES (Modo Escuro / Sair)
+   ============================================ */
+.sidebar-universal .sidebar-footer-universal {
+    padding: 14px 12px !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.12) !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 6px !important;
+    flex-shrink: 0 !important;
+}
+
+.sidebar-universal .footer-btn-universal {
+    display: flex !important;
+    align-items: center !important;
+    gap: 12px !important;
+    background: rgba(255, 255, 255, 0.06) !important;
+    border: none !important;
+    padding: 10px 14px !important;
+    border-radius: 10px !important;
+    color: rgba(255, 255, 255, 0.80) !important;
+    cursor: pointer !important;
+    transition: all 0.25s ease !important;
+    font-size: 13px !important;
+    font-family: 'Poppins', sans-serif !important;
+    width: 100% !important;
+    white-space: nowrap !important;
+    min-height: 44px !important;
+    font-weight: 500 !important;
+}
+
+.sidebar-universal .footer-btn-universal:hover {
+    background: rgba(255, 255, 255, 0.12) !important;
+    color: white !important;
+    transform: translateX(3px) !important;
+}
+
+.sidebar-universal .footer-btn-universal.logout:hover {
+    background: rgba(220, 53, 69, 0.20) !important;
+    color: #ff8a8a !important;
+}
+
+.sidebar-universal .footer-btn-universal i {
+    width: 20px !important;
+    height: 20px !important;
+    font-size: 16px !important;
+    color: rgba(255, 255, 255, 0.65) !important;
+    flex-shrink: 0 !important;
+    text-align: center !important;
+    line-height: 20px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    transition: color 0.25s ease !important;
+}
+
+.sidebar-universal .footer-btn-universal:hover i {
+    color: white !important;
+}
+
+.sidebar-universal .footer-btn-universal.logout:hover i {
+    color: #ff8a8a !important;
+}
+
+.sidebar-universal .footer-btn-universal span {
+    font-size: 13px !important;
+    font-weight: 500 !important;
+}
+
+/* ============================================
+   MODO MINIMIZADO - AJUSTES
+   ============================================ */
+.sidebar-universal.minimizada .sidebar-header-universal {
+    padding: 16px 12px !important;
+    justify-content: center !important;
+    min-height: 72px !important;
+}
+
+.sidebar-universal.minimizada .logo-wrapper-universal {
+    display: none !important;
+}
+
+.sidebar-universal.minimizada .user-info-universal {
+    justify-content: center !important;
+    padding: 12px 8px !important;
+    min-height: 64px !important;
+}
+
+.sidebar-universal.minimizada .user-details-universal {
+    display: none !important;
+}
+
+.sidebar-universal.minimizada .user-avatar-universal {
+    width: 40px !important;
+    height: 40px !important;
+}
+
+.sidebar-universal.minimizada .sidebar-nav-universal {
+    padding: 12px 8px !important;
+}
+
+.sidebar-universal.minimizada .nav-link-universal {
+    justify-content: center !important;
+    padding: 10px !important;
+    min-height: 44px !important;
+    gap: 0 !important;
+}
+
+.sidebar-universal.minimizada .nav-link-universal i {
+    width: 22px !important;
+    height: 22px !important;
+    font-size: 20px !important;
+    line-height: 22px !important;
+}
+
+.sidebar-universal.minimizada .nav-link-universal span {
+    display: none !important;
+}
+
+.sidebar-universal.minimizada .sidebar-footer-universal {
+    padding: 12px 8px !important;
+}
+
+.sidebar-universal.minimizada .footer-btn-universal {
+    justify-content: center !important;
+    padding: 10px !important;
+    min-height: 42px !important;
+    gap: 0 !important;
+}
+
+.sidebar-universal.minimizada .footer-btn-universal i {
+    width: 22px !important;
+    height: 22px !important;
+    font-size: 18px !important;
+    line-height: 22px !important;
+}
+
+.sidebar-universal.minimizada .footer-btn-universal span {
+    display: none !important;
+}
+
+/* ============================================
+   DARK MODE
+   ============================================ */
+body.dark-mode .sidebar-universal {
+    background: linear-gradient(180deg, #0f172a 0%, #020617 100%) !important;
+    border-right: 1px solid rgba(255, 255, 255, 0.05) !important;
+}
+
+body.dark-mode .sidebar-universal .nav-link-universal.active {
+    background: rgba(251, 191, 36, 0.12) !important;
+}
+
+body.dark-mode .sidebar-universal .user-avatar-universal {
+    background: #fbbf24 !important;
+}
+
+body.dark-mode .sidebar-universal .user-avatar-universal span {
+    color: #0f172a !important;
+}
+
+body.dark-mode .sidebar-universal .toggle-sidebar-universal {
+    background: rgba(255, 255, 255, 0.06) !important;
+}
+
+body.dark-mode .sidebar-universal .toggle-sidebar-universal:hover {
+    background: rgba(255, 255, 255, 0.12) !important;
+}
+
+body.dark-mode .sidebar-universal .footer-btn-universal.logout:hover {
+    background: rgba(220, 53, 69, 0.15) !important;
+}
+
+/* ============================================
+   RESPONSIVIDADE - MOBILE
+   ============================================ */
+@media (max-width: 1000px) {
+    .sidebar-universal {
+        transform: translateX(-100%) !important;
+        width: 280px !important;
+        box-shadow: 2px 0 30px rgba(0, 0, 0, 0.3) !important;
+    }
+    
+    .sidebar-universal.mobile-open {
+        transform: translateX(0) !important;
+    }
+    
+    .sidebar-universal.minimizada {
+        width: 280px !important;
+    }
+    
+    .sidebar-universal.minimizada .logo-wrapper-universal {
+        display: flex !important;
+    }
+    
+    .sidebar-universal.minimizada .user-details-universal {
+        display: block !important;
+    }
+    
+    .sidebar-universal.minimizada .nav-link-universal {
+        justify-content: flex-start !important;
+        padding: 11px 14px !important;
+        gap: 12px !important;
+    }
+    
+    .sidebar-universal.minimizada .nav-link-universal span {
+        display: inline !important;
+    }
+    
+    .sidebar-universal.minimizada .footer-btn-universal {
+        justify-content: flex-start !important;
+        padding: 10px 14px !important;
+        gap: 12px !important;
+    }
+    
+    .sidebar-universal.minimizada .footer-btn-universal span {
+        display: inline !important;
+    }
+}
+
+/* ============================================
+   BOTÃO MOBILE (hambúrguer)
+   ============================================ */
+.mobile-menu-btn-universal {
+    position: fixed !important;
+    top: 16px !important;
+    left: 16px !important;
+    z-index: 1001 !important;
+    background: #00796b !important;
+    border: none !important;
+    width: 44px !important;
+    height: 44px !important;
+    border-radius: 12px !important;
+    color: white !important;
+    font-size: 20px !important;
+    cursor: pointer !important;
+    display: none !important;
+    align-items: center !important;
+    justify-content: center !important;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.2) !important;
+    transition: all 0.3s ease !important;
+}
+
+.mobile-menu-btn-universal:hover {
+    background: #004d47 !important;
+    transform: scale(1.05) !important;
+}
+
+body.dark-mode .mobile-menu-btn-universal {
+    background: #0d4a47 !important;
+}
+
+body.dark-mode .mobile-menu-btn-universal:hover {
+    background: #fbbf24 !important;
+    color: #0f172a !important;
+}
+
+@media (max-width: 1000px) {
+    .mobile-menu-btn-universal {
+        display: flex !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .mobile-menu-btn-universal {
+        width: 40px !important;
+        height: 40px !important;
+        font-size: 18px !important;
+        top: 12px !important;
+        left: 12px !important;
+    }
+}
+
+/* ============================================
+   CONTEÚDO PRINCIPAL - AJUSTE AUTOMÁTICO
+   ============================================ */
+.content {
+    margin-left: 280px !important;
+    padding: 25px 30px !important;
+    flex: 1 !important;
+    min-height: 100vh !important;
+    transition: margin-left 0.3s cubic-bezier(0.4, 0, 0.2, 1), width 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    width: calc(100% - 280px) !important;
+    max-width: 100% !important;
+    position: relative !important;
+}
+
+.sidebar-universal.minimizada ~ .content {
+    margin-left: 80px !important;
+    width: calc(100% - 80px) !important;
+}
+
+@media (max-width: 1000px) {
+    .content {
+        margin-left: 0 !important;
+        padding: 20px !important;
+        width: 100% !important;
+    }
+    .sidebar-universal.minimizada ~ .content {
+        margin-left: 0 !important;
+        width: 100% !important;
+    }
+}

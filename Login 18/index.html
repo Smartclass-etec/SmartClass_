@@ -1,0 +1,1066 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>SmartClass · Plataforma Educacional</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f0f4f8;
+            height: 100vh;
+            width: 100vw;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .main-wrapper {
+            width: 100%;
+            height: 100vh;
+            max-width: none;
+            margin: 0;
+            background: transparent;
+            overflow: hidden;
+        }
+
+        .split-layout {
+            display: flex;
+            width: 100%;
+            height: 100vh;
+            background: #ffffff;
+            overflow: hidden;
+            box-shadow: none;
+            position: relative;
+        }
+
+        /* LADO ESQUERDO - VERDE COM CURVAS ORGÂNICAS */
+        .left-side {
+            flex: 1.3;
+            background: linear-gradient(145deg, #005f56 0%, #003d36 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0;
+            position: relative;
+            overflow: hidden;
+            border-radius: 0 32px 32px 0;
+        }
+
+        .left-side::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(circle at 20% 40%, rgba(255,255,240,0.08) 2%, transparent 2.5%),
+                radial-gradient(circle at 80% 70%, rgba(255,255,240,0.05) 1.5%, transparent 2%);
+            background-size: 32px 32px, 40px 40px;
+            pointer-events: none;
+        }
+
+        /* CURVAS ORGÂNICAS NO TOPO E FUNDO DO VERDE */
+        .green-top-curve {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 80px;
+            background: radial-gradient(ellipse at 30% 0%, rgba(255,255,255,0.12) 0%, transparent 70%);
+            border-radius: 0 0 50% 50%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .green-bottom-curve {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 80px;
+            background: radial-gradient(ellipse at 70% 100%, rgba(0,0,0,0.15) 0%, transparent 70%);
+            border-radius: 50% 50% 0 0;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .info-container {
+            width: 100%;
+            height: 100%;
+            color: white;
+            animation: fadeInUp 0.6s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+            position: relative;
+            z-index: 2;
+            margin-left: 8%;
+            margin-right: 5%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 28px 0;
+            overflow-y: auto;
+            max-height: 100%;
+        }
+
+        .info-container::-webkit-scrollbar {
+            width: 4px;
+        }
+        .info-container::-webkit-scrollbar-track {
+            background: rgba(255,255,255,0.1);
+            border-radius: 10px;
+        }
+        .info-container::-webkit-scrollbar-thumb {
+            background: rgba(255,217,102,0.5);
+            border-radius: 10px;
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .main-title {
+            font-size: 44px;
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 18px;
+            letter-spacing: -0.02em;
+            position: relative;
+            z-index: 2;
+        }
+
+        .main-title span {
+            font-weight: 800;
+            font-size: 54px;
+            background: linear-gradient(125deg, #FFD966, #FFB347);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            display: inline-block;
+            animation: glow 2s ease-in-out infinite;
+        }
+
+        @keyframes glow {
+            0%, 100% { text-shadow: 0 0 5px rgba(255,217,102,0.3); }
+            50% { text-shadow: 0 0 15px rgba(255,217,102,0.6); }
+        }
+
+        /* ÍCONES FLUTUANTES DECORATIVOS */
+        .floating-icon {
+            position: absolute;
+            font-size: 40px;
+            opacity: 0.08;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .floating-icon-1 { top: 15%; right: 5%; font-size: 60px; animation: float 8s ease-in-out infinite; }
+        .floating-icon-2 { bottom: 20%; left: 5%; font-size: 45px; animation: float 6s ease-in-out infinite reverse; }
+        .floating-icon-3 { top: 50%; right: 8%; font-size: 35px; animation: float 7s ease-in-out infinite; }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-15px) rotate(5deg); }
+        }
+
+        .description {
+            font-size: 14px;
+            line-height: 1.45;
+            margin-bottom: 22px;
+            color: rgba(255, 255, 255, 0.92);
+            border-left: 3px solid #FFD966;
+            padding-left: 16px;
+            max-width: 95%;
+        }
+
+        .info-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin: 16px 0;
+        }
+
+        .info-text {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(4px);
+            border-radius: 20px;
+            padding: 12px 16px;
+            transition: all 0.2s ease;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            max-width: 96%;
+        }
+
+        .info-text:hover {
+            background: rgba(255, 255, 255, 0.14);
+            transform: translateX(5px);
+            border-color: rgba(255, 209, 102, 0.5);
+        }
+
+        .info-text h3 {
+            font-size: 15px;
+            font-weight: 700;
+            margin-bottom: 5px;
+            color: #FFE5A3;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .info-text h3 i {
+            font-size: 16px;
+            width: 24px;
+            color: #FFD966;
+        }
+
+        .info-text p {
+            font-size: 12px;
+            line-height: 1.4;
+            color: rgba(255, 255, 255, 0.88);
+            padding-left: 32px;
+        }
+
+        .extra-feature {
+            background: rgba(0, 0, 0, 0.28);
+            border-radius: 18px;
+            padding: 10px 14px;
+            margin: 10px 0;
+            border-left: 3px solid #FFD966;
+            max-width: 96%;
+        }
+        .extra-feature p {
+            font-size: 11.5px;
+            line-height: 1.4;
+            color: rgba(255,255,240,0.92);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            flex-wrap: wrap;
+            margin-bottom: 3px;
+        }
+        .extra-feature i {
+            font-size: 13px;
+            color: #FFD966;
+            width: 20px;
+        }
+        .extra-feature strong {
+            color: #FFE5A3;
+            font-weight: 600;
+        }
+
+        .tech-note {
+            font-size: 10.5px;
+            color: rgba(255, 255, 255, 0.65);
+            margin-top: 12px;
+            padding-top: 8px;
+            border-top: 1px dashed rgba(255,255,210,0.25);
+            display: flex;
+            gap: 14px;
+            flex-wrap: wrap;
+            max-width: 96%;
+        }
+
+        /* LADO DIREITO - BRANCO COM PARTÍCULAS SUBINDO DE BAIXO PARA CIMA */
+        .right-side {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #f8fafc 0%, #ffffff 100%);
+            padding: 32px 40px;
+            overflow: hidden;
+            position: relative;
+            border-radius: 0;
+            perspective: 1200px;
+        }
+
+        /* CONTAINER DE PARTÍCULAS */
+        .particles-container {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* BOLAS QUE SOBEM DE BAIXO PARA CIMA */
+        .particle-up {
+            position: absolute;
+            bottom: -50px;
+            border-radius: 50%;
+            pointer-events: none;
+            animation: riseUp linear infinite;
+            box-shadow: 0 0 10px rgba(0,0,0,0.05);
+        }
+
+        @keyframes riseUp {
+            0% {
+                transform: translateY(0) translateX(0) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.6;
+            }
+            90% {
+                opacity: 0.6;
+            }
+            100% {
+                transform: translateY(-120vh) translateX(var(--moveX, 30px)) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* CÍRCULOS ESTÁTICOS DE FUNDO */
+        .bg-circle {
+            position: absolute;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 0;
+        }
+        .bg-circle-1 { 
+            width: 350px; height: 350px; top: -120px; right: -80px; 
+            background: radial-gradient(circle, rgba(0,121,107,0.03) 0%, transparent 70%);
+        }
+        .bg-circle-2 { 
+            width: 250px; height: 250px; bottom: -80px; left: -60px; 
+            background: radial-gradient(circle, rgba(255,217,102,0.04) 0%, transparent 70%);
+        }
+        .bg-circle-3 { 
+            width: 180px; height: 180px; top: 40%; right: 15%; 
+            background: radial-gradient(circle, rgba(0,121,107,0.02) 0%, transparent 70%);
+        }
+        .bg-circle-4 { 
+            width: 120px; height: 120px; bottom: 25%; left: 15%; 
+            background: radial-gradient(circle, rgba(255,217,102,0.03) 0%, transparent 70%);
+        }
+
+        /* ONDULAÇÃO NA DIVISÃO ENTRE VERDE E BRANCO */
+        .divider-wave {
+            position: absolute;
+            left: -2px;
+            top: 0;
+            height: 100%;
+            width: 30px;
+            background: repeating-linear-gradient(
+                135deg,
+                rgba(255,255,255,0.6) 0px,
+                rgba(255,255,255,0.6) 6px,
+                transparent 6px,
+                transparent 12px
+            );
+            z-index: 5;
+            pointer-events: none;
+        }
+
+        /* Container com efeito de movimento do mouse */
+        .login-container {
+            background: #ffffff;
+            border-radius: 48px;
+            padding: 36px 36px;
+            text-align: center;
+            max-width: 580px;
+            width: 100%;
+            transition: transform 0.2s ease-out, box-shadow 0.3s ease;
+            max-height: 95vh;
+            overflow-y: auto;
+            transform-style: preserve-3d;
+            will-change: transform;
+            box-shadow: 0 25px 45px -20px rgba(0, 0, 0, 0.12), 0 0 0 1px rgba(0,0,0,0.02);
+            position: relative;
+            z-index: 2;
+            backdrop-filter: blur(0px);
+        }
+        
+        .login-container:hover {
+            box-shadow: 0 30px 55px -22px rgba(0, 111, 100, 0.25), 0 0 0 1px rgba(0,111,100,0.1);
+            transform: translateY(-3px);
+        }
+        
+        .login-container::-webkit-scrollbar {
+            width: 4px;
+        }
+        .login-container::-webkit-scrollbar-track {
+            background: #f0f0f0;
+            border-radius: 10px;
+        }
+        .login-container::-webkit-scrollbar-thumb {
+            background: #006f64;
+            border-radius: 10px;
+        }
+
+        .logo-icon {
+            background: linear-gradient(145deg, #eef9f6, #e0f0ec);
+            width: 80px;
+            height: 80px;
+            border-radius: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 14px;
+            box-shadow: 0 12px 22px -10px rgba(0,121,107,0.25);
+            transition: all 0.3s ease;
+        }
+        
+        .login-container:hover .logo-icon {
+            transform: scale(1.02);
+            box-shadow: 0 15px 30px -10px rgba(0,121,107,0.3);
+        }
+
+        .logo-icon i {
+            font-size: 44px;
+            color: #006f64;
+        }
+
+        .logo h1 {
+            font-size: 36px;
+            background: linear-gradient(135deg, #006f64, #004d42);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+
+        .logo p {
+            color: #6c7a8e;
+            font-size: 13px;
+            margin-top: 5px;
+        }
+
+        .welcome-box {
+            margin-bottom: 28px;
+        }
+
+        .welcome-box h2 {
+            font-size: 28px;
+            font-weight: 700;
+            color: #1e2a3e;
+            margin-bottom: 6px;
+        }
+
+        .welcome-box p {
+            font-size: 14px;
+            color: #5b6e8c;
+        }
+
+        .access-cards {
+            display: flex;
+            flex-direction: column;
+            gap: 22px;
+            margin-top: 18px;
+            margin-bottom: 14px;
+        }
+
+        .access-card {
+            background: linear-gradient(135deg, #ffffff 0%, #fefefd 100%);
+            border-radius: 32px;
+            padding: 22px 30px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.06), 0 0 0 1px rgba(0,111,100,0.08);
+            border: none;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .access-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 30% 20%, rgba(0,111,100,0.08), transparent 70%);
+            opacity: 0;
+            transition: opacity 0.4s;
+            pointer-events: none;
+        }
+
+        .access-card:hover::after {
+            opacity: 1;
+        }
+
+        .access-card:hover {
+            transform: translateY(-6px) scale(1.01);
+            box-shadow: 0 28px 45px -15px rgba(0, 95, 86, 0.35), 0 0 0 2px rgba(0,111,100,0.2);
+            background: #ffffff;
+        }
+
+        .card-info {
+            display: flex;
+            align-items: center;
+            gap: 22px;
+        }
+
+        .card-icon {
+            width: 72px;
+            height: 72px;
+            background: linear-gradient(145deg, #e0f3ef, #d0ebe5);
+            border-radius: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.05);
+            transition: all 0.2s;
+        }
+
+        .card-icon i {
+            font-size: 36px;
+            color: #006f64;
+        }
+
+        .access-card:hover .card-icon {
+            background: #006f64;
+            transform: scale(1.02);
+        }
+        .access-card:hover .card-icon i {
+            color: white;
+        }
+
+        .card-text h3 {
+            font-size: 24px;
+            font-weight: 800;
+            color: #1e2a41;
+            margin-bottom: 6px;
+            letter-spacing: -0.3px;
+        }
+
+        .card-text p {
+            font-size: 13px;
+            color: #5f7f9c;
+            font-weight: 500;
+        }
+
+        .card-arrow {
+            width: 50px;
+            height: 50px;
+            background: #eef3f7;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.02);
+        }
+
+        .card-arrow i {
+            font-size: 22px;
+            color: #006f64;
+            transition: transform 0.2s;
+        }
+
+        .access-card:hover .card-arrow {
+            background: #006f64;
+            transform: translateX(6px);
+        }
+        .access-card:hover .card-arrow i {
+            color: white;
+            transform: translateX(3px);
+        }
+
+        /* SUPORTE */
+        .support-divider {
+            margin-top: 24px;
+            margin-bottom: 18px;
+            border-top: 2px solid #e2edf2;
+        }
+        .support-section {
+            background: #fbfdfe;
+            border-radius: 26px;
+            padding: 14px 18px;
+            border: 1px solid #e9f0f5;
+            max-width: 100%;
+            transition: all 0.2s;
+        }
+        .support-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 10px;
+        }
+        .support-header i {
+            font-size: 20px;
+            color: #006f64;
+            background: #e0f0ec;
+            padding: 7px;
+            border-radius: 12px;
+        }
+        .support-header h3 {
+            font-size: 15px;
+            font-weight: 700;
+            color: #1e2a3e;
+            margin: 0;
+        }
+        .support-email-area {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 5px;
+        }
+        .support-email-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: white;
+            border: 1px solid #dce7ef;
+            padding: 8px 18px;
+            border-radius: 50px;
+            font-size: 13px;
+            font-weight: 600;
+            color: #1e2a3e;
+            cursor: pointer;
+            transition: 0.2s;
+            font-family: 'Inter', sans-serif;
+        }
+        .support-email-btn i {
+            font-size: 13px;
+            color: #006f64;
+        }
+        .support-email-btn:hover {
+            background: #006f64;
+            border-color: #006f64;
+            color: white;
+            transform: translateY(-2px);
+        }
+        .support-email-btn:hover i {
+            color: white;
+        }
+        .help-mini {
+            margin-top: 10px;
+            font-size: 11px;
+            color: #8ba0bc;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            flex-wrap: wrap;
+        }
+        .help-mini a {
+            color: #006f64;
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 11px;
+        }
+        .help-mini a:hover {
+            color: #fbbf24;
+        }
+
+        /* BOTÕES DE AÇÃO ADICIONAIS */
+        .extra-actions {
+            display: flex;
+            gap: 12px;
+            margin-top: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .extra-btn {
+            background: transparent;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 30px;
+            font-size: 11px;
+            font-weight: 500;
+            color: #006f64;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .extra-btn:hover {
+            background: #e8f5e9;
+            transform: translateY(-1px);
+        }
+
+        /* OVERLAY */
+        .transition-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at center, #005f56, #002c26);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            z-index: 10000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+            backdrop-filter: blur(8px);
+        }
+        .transition-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        .loader {
+            width: 60px;
+            height: 60px;
+            border: 4px solid rgba(255, 245, 200, 0.3);
+            border-top: 4px solid #FFD966;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+            margin-bottom: 18px;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        #transitionText {
+            font-size: 16px;
+            font-weight: 500;
+            background: rgba(255,255,240,0.1);
+            padding: 5px 16px;
+            border-radius: 40px;
+            color: white;
+        }
+        .fade-out-card {
+            opacity: 0;
+            transform: scale(0.96);
+            pointer-events: none;
+            transition: all 0.4s ease;
+        }
+
+        /* RESPONSIVIDADE */
+        @media (max-width: 1200px) {
+            .info-container { margin-left: 6%; margin-right: 4%; }
+            .main-title { font-size: 38px; }
+            .main-title span { font-size: 46px; }
+            .card-icon { width: 65px; height: 65px; }
+            .card-icon i { font-size: 32px; }
+            .card-text h3 { font-size: 22px; }
+            .access-card { padding: 18px 26px; }
+        }
+
+        @media (max-width: 1000px) {
+            .split-layout { flex-direction: column; overflow-y: auto; position: relative; }
+            body { overflow-y: auto; height: auto; }
+            .main-wrapper { height: auto; min-height: 100vh; overflow-y: auto; }
+            .left-side { 
+                overflow-y: auto; 
+                min-height: auto; 
+                flex: none; 
+                justify-content: flex-start; 
+                padding: 20px 0;
+                border-radius: 0 0 32px 32px;
+            }
+            .right-side { 
+                overflow-y: auto; 
+                min-height: auto; 
+                padding: 28px;
+                border-radius: 32px 32px 0 0;
+                perspective: none;
+                margin-top: -10px;
+            }
+            .login-container {
+                transform: none !important;
+                transition: none;
+            }
+            .info-container { margin-left: 6%; margin-right: 6%; padding: 20px 0; }
+            .card-icon { width: 56px; height: 56px; }
+            .card-icon i { font-size: 26px; }
+            .card-text h3 { font-size: 20px; }
+            .access-card { padding: 16px 22px; }
+            .green-top-curve, .green-bottom-curve { height: 50px; }
+        }
+
+        @media (max-width: 700px) {
+            .info-container { margin-left: 5%; margin-right: 5%; }
+            .main-title { font-size: 30px; }
+            .main-title span { font-size: 36px; }
+            .login-container { padding: 22px 18px; }
+            .card-info { gap: 14px; }
+            .card-icon { width: 48px; height: 48px; }
+            .card-icon i { font-size: 22px; }
+            .card-text h3 { font-size: 18px; }
+            .card-arrow { width: 40px; height: 40px; }
+            .card-arrow i { font-size: 18px; }
+            .right-side { padding: 16px; }
+            .green-top-curve, .green-bottom-curve { height: 40px; }
+        }
+    </style>
+</head>
+<body>
+<div class="main-wrapper">
+    <div class="split-layout">
+        <!-- LADO ESQUERDO - VERDE COM CURVAS ORGÂNICAS -->
+        <div class="left-side">
+            <div class="green-top-curve"></div>
+            <div class="green-bottom-curve"></div>
+            
+            <div class="floating-icon floating-icon-1"><i class="fas fa-laptop-code"></i></div>
+            <div class="floating-icon floating-icon-2"><i class="fas fa-robot"></i></div>
+            <div class="floating-icon floating-icon-3"><i class="fas fa-chalkboard"></i></div>
+            
+            <div class="info-container">
+                <div class="main-title">
+                    Conheça o<br>
+                    <span>SMARTCLASS</span>
+                </div>
+                <div class="description">
+                    Tecnologia educacional que une alunos, professores e responsáveis com gamificação, segurança e dados em tempo real.
+                </div>
+
+                <div class="info-grid">
+                    <div class="info-text">
+                        <h3><i class="fas fa-graduation-cap"></i> Alunos</h3>
+                        <p>Notas, frequência, pet virtual, videoaulas e agenda interativa.</p>
+                    </div>
+                    <div class="info-text">
+                        <h3><i class="fas fa-chalkboard-user"></i> Professores</h3>
+                        <p>Chamada digital rápida, mural de tarefas, relatórios de desempenho.</p>
+                    </div>
+                    <div class="info-text">
+                        <h3><i class="fas fa-heart"></i> Responsáveis</h3>
+                        <p>Acompanhamento de notas, faltas e comunicados em tempo real.</p>
+                    </div>
+                </div>
+
+                <div class="extra-feature">
+                    <p><i class="fas fa-video"></i> <strong>Modelo 3D</strong> para melhor ângulo das câmeras</p>
+                    <p><i class="fas fa-shield-alt"></i> <strong>E-mail institucional</strong> com segurança LGPD</p>
+                    <p><i class="fas fa-chart-simple"></i> <strong>Dashboards</strong> com indicadores de evolução</p>
+                </div>
+
+                <div class="tech-note">
+                    <span><i class="fas fa-cloud-upload-alt"></i> Nuvem</span>
+                    <span><i class="fas fa-robot"></i> Gamificação</span>
+                    <span><i class="fas fa-database"></i> Criptografia</span>
+                    <span><i class="fas fa-chalkboard"></i> 99% satisfação</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- LADO DIREITO - BRANCO COM PARTÍCULAS SUBINDO -->
+        <div class="right-side">
+            <!-- CONTAINER DE PARTÍCULAS QUE SOBEM -->
+            <div class="particles-container" id="particlesContainer"></div>
+            
+            <!-- CÍRCULOS ESTÁTICOS DE FUNDO -->
+            <div class="bg-circle bg-circle-1"></div>
+            <div class="bg-circle bg-circle-2"></div>
+            <div class="bg-circle bg-circle-3"></div>
+            <div class="bg-circle bg-circle-4"></div>
+            
+            <div class="login-container" id="loginContainer">
+                <div class="logo">
+                    <div class="logo-icon">
+                        <i class="fas fa-chalkboard-user"></i>
+                    </div>
+                    <h1>SmartClass</h1>
+                    <p>plataforma conectada ao futuro da educação</p>
+                </div>
+
+                <div class="welcome-box">
+                    <h2>Bem-vindo de volta</h2>
+                    <p>Selecione seu perfil para acessar sua área</p>
+                </div>
+
+                <div class="access-cards">
+                    <div class="access-card" onclick="selecionarTipo('aluno')">
+                        <div class="card-info">
+                            <div class="card-icon"><i class="fas fa-user-graduate"></i></div>
+                            <div class="card-text">
+                                <h3>Sou Aluno</h3>
+                                <p>Minhas notas, frequência & pet virtual</p>
+                            </div>
+                        </div>
+                        <div class="card-arrow"><i class="fas fa-arrow-right"></i></div>
+                    </div>
+
+                    <div class="access-card" onclick="selecionarTipo('professor')">
+                        <div class="card-info">
+                            <div class="card-icon"><i class="fas fa-chalkboard-user"></i></div>
+                            <div class="card-text">
+                                <h3>Sou Professor</h3>
+                                <p>Painel de turmas, chamada e relatórios</p>
+                            </div>
+                        </div>
+                        <div class="card-arrow"><i class="fas fa-arrow-right"></i></div>
+                    </div>
+                </div>
+
+                <div class="support-divider"></div>
+                <div class="support-section">
+                    <div class="support-header">
+                        <i class="fas fa-envelope"></i>
+                        <h3>Suporte por e-mail</h3>
+                    </div>
+                    <div class="support-email-area">
+                        <button class="support-email-btn" id="btnEmailSupport">
+                            <i class="fas fa-paper-plane"></i> suporte@smartclass.edu.br
+                        </button>
+                    </div>
+                    <div class="help-mini">
+                        <a href="#" id="faqLink"><i class="fas fa-question-circle"></i> FAQ</a>
+                        <a href="#" id="tutorialLink"><i class="fas fa-video"></i> Tutoriais</a>
+                        <span><i class="fas fa-clock"></i> 24h resposta</span>
+                    </div>
+                </div>
+
+                <div class="extra-actions">
+                    <button class="extra-btn" onclick="alert('📱 Baixe nosso aplicativo na loja de aplicativos!')">
+                        <i class="fas fa-mobile-alt"></i> App
+                    </button>
+                    <button class="extra-btn" onclick="alert('🔒 Esqueceu sua senha? Entre em contato com o suporte.')">
+                        <i class="fas fa-key"></i> Esqueci a senha
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="transitionOverlay" class="transition-overlay">
+    <div class="loader"></div>
+    <div id="transitionText"><i class="fas fa-spinner fa-pulse"></i> Redirecionando...</div>
+</div>
+
+<script>
+    // CRIA PARTÍCULAS QUE SOBEM DE BAIXO PARA CIMA
+    function createRisingParticles() {
+        const container = document.getElementById('particlesContainer');
+        if (!container) return;
+        
+        const colors = [
+            'rgba(0,121,107,0.12)',
+            'rgba(255,217,102,0.1)',
+            'rgba(0,121,107,0.08)',
+            'rgba(255,217,102,0.07)',
+            'rgba(0,95,86,0.1)',
+            'rgba(0,121,107,0.06)'
+        ];
+        
+        const particleCount = 35;
+        
+        for (let i = 0; i < particleCount; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'particle-up';
+            
+            // Tamanho aleatório entre 10px e 70px
+            const size = Math.random() * 60 + 10;
+            particle.style.width = size + 'px';
+            particle.style.height = size + 'px';
+            
+            // Posição horizontal aleatória (0% a 100%)
+            particle.style.left = Math.random() * 100 + '%';
+            
+            // Cor aleatória
+            particle.style.background = colors[Math.floor(Math.random() * colors.length)];
+            
+            // Duração da animação entre 6s e 18s
+            const duration = Math.random() * 12 + 6;
+            particle.style.animationDuration = duration + 's';
+            
+            // Delay aleatório para não sincronizar
+            particle.style.animationDelay = Math.random() * 15 + 's';
+            
+            // Movimento horizontal variado (oscilação lateral)
+            const moveX = (Math.random() - 0.5) * 120;
+            particle.style.setProperty('--moveX', moveX + 'px');
+            
+            // Opacidade variada
+            particle.style.opacity = Math.random() * 0.5 + 0.15;
+            
+            container.appendChild(particle);
+        }
+    }
+    
+    // EFEITO TILT
+    const tiltContainer = document.getElementById('loginContainer');
+    const rightSide = document.querySelector('.right-side');
+    
+    if (tiltContainer && window.innerWidth > 1000) {
+        rightSide.addEventListener('mousemove', function(e) {
+            const rect = this.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+            
+            const rotateY = ((x - centerX) / centerX) * 5;
+            const rotateX = ((centerY - y) / centerY) * 5;
+            
+            tiltContainer.style.transform = `perspective(1200px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateZ(5px)`;
+        });
+        
+        rightSide.addEventListener('mouseleave', function() {
+            tiltContainer.style.transform = 'perspective(1200px) rotateX(0deg) rotateY(0deg) translateZ(0px)';
+        });
+    }
+    
+    function selecionarTipo(tipo) {
+        localStorage.setItem("tipoUsuario", tipo);
+        const overlay = document.getElementById('transitionOverlay');
+        const transitionTextElem = document.getElementById('transitionText');
+
+        let message = '';
+        let iconHtml = '';
+        if (tipo === 'aluno') {
+            iconHtml = '<i class="fas fa-user-graduate" style="margin-right: 8px;"></i>';
+            message = 'Acessando ambiente do Aluno...';
+        } else {
+            iconHtml = '<i class="fas fa-chalkboard-user" style="margin-right: 8px;"></i>';
+            message = 'Carregando painel do Professor...';
+        }
+        transitionTextElem.innerHTML = `${iconHtml} ${message}`;
+
+        overlay.style.display = 'flex';
+        setTimeout(() => overlay.classList.add('active'), 15);
+
+        const container = document.getElementById('loginContainer');
+        if(container) container.classList.add('fade-out-card');
+
+        setTimeout(() => {
+            let targetUrl = '';
+            if (tipo === 'aluno') targetUrl = 'login_aluno.html';
+            else targetUrl = 'login_professor.html';
+            if (targetUrl) window.location.href = targetUrl;
+            else window.location.href = 'index.html';
+        }, 800);
+    }
+
+    document.getElementById('btnEmailSupport')?.addEventListener('click', (e) => {
+        e.preventDefault();
+        const email = "suporte@smartclass.edu.br";
+        if (navigator.clipboard) {
+            navigator.clipboard.writeText(email);
+            alert("✉️ E-mail copiado: " + email + "\n\nEnvie sua dúvida e responderemos em até 24h.");
+        } else {
+            window.location.href = "mailto:" + email;
+        }
+    });
+
+    document.getElementById('faqLink')?.addEventListener('click', (e) => {
+        e.preventDefault();
+        alert("📚 Central de ajuda: Perguntas frequentes sobre acesso, pet virtual, notas, frequência e gravações.");
+    });
+    document.getElementById('tutorialLink')?.addEventListener('click', (e) => {
+        e.preventDefault();
+        alert("🎥 Tutoriais interativos SmartClass: Como usar o mural, registrar presença e acompanhar evolução.");
+    });
+    
+    // INICIALIZAR PARTÍCULAS QUE SOBEM
+    createRisingParticles();
+</script>
+</body>
+</html>
