@@ -6,24 +6,13 @@
     <title>Home - Aluno | SmartClass</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/darkmode-padrao.css">
+    <link rel="stylesheet" href="css/sidebar.css">
+    <script src="js/theme-loader.js"></script>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            display: flex;
-            background: #f0f2f5;
-            font-family: 'Poppins', sans-serif;
-            transition: background 0.3s ease;
-        }
-
-        /* ===== TEXTAREA FIXA ===== */
-        textarea {
-            resize: none !important;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { display: flex; background: #f0f2f5; font-family: 'Poppins', sans-serif; transition: background 0.3s ease; }
 
         .content {
             margin-left: 260px;
@@ -34,11 +23,6 @@
             transition: margin-left 0.3s ease;
         }
 
-        /* Quando a sidebar está minimizada */
-        .sidebar-moderna.minimizada ~ .content {
-            margin-left: 70px;
-        }
-
         .welcome-card {
             background: linear-gradient(135deg, #00796b, #004d47);
             border-radius: 24px;
@@ -46,16 +30,8 @@
             margin-bottom: 25px;
             color: white;
         }
-
-        .welcome-card h2 {
-            font-size: 24px;
-            margin-bottom: 8px;
-        }
-
-        .welcome-card p {
-            opacity: 0.9;
-            font-size: 14px;
-        }
+        .welcome-card h2 { font-size: 24px; margin-bottom: 8px; }
+        .welcome-card p { opacity: 0.9; font-size: 14px; }
 
         .dashboard-grid {
             display: grid;
@@ -63,25 +39,16 @@
             gap: 25px;
         }
 
-        /* ========== CARD DO PET ========== */
+        /* ===== PET CARD ===== */
         .pet-card {
             background: white;
             border-radius: 24px;
             padding: 20px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
             transition: transform 0.3s ease;
         }
-
-        .pet-card:hover {
-            transform: translateY(-5px);
-        }
-
-        .pet-avatar-container {
-            text-align: center;
-            position: relative;
-            margin-bottom: 15px;
-        }
-
+        .pet-card:hover { transform: translateY(-5px); }
+        .pet-avatar-container { text-align: center; position: relative; margin-bottom: 15px; }
         .pet-canvas {
             background: linear-gradient(135deg, #e8f5e9, #c8e6d9);
             border-radius: 50%;
@@ -94,53 +61,14 @@
             position: relative;
             cursor: pointer;
             transition: all 0.3s ease;
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
             overflow: visible;
         }
-
-        .pet-canvas:hover {
-            transform: scale(1.02);
-        }
-
-        .pet-sprite-container {
-            position: relative;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .pet-emoji {
-            font-size: 100px;
-            transition: all 0.2s ease;
-            animation: float 3s ease-in-out infinite;
-            filter: drop-shadow(2px 4px 8px rgba(0,0,0,0.2));
-        }
-
-        /* Chapéu no topo central */
-        .pet-hat {
-            position: absolute;
-            top: -30px;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 50px;
-            filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.2));
-            pointer-events: none;
-            z-index: 10;
-        }
-
-        /* Acessórios mais para baixo - posicionados no peito/barriga */
-        .pet-accessory {
-            position: absolute;
-            bottom: -25px;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 45px;
-            filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.2));
-            pointer-events: none;
-            z-index: 10;
-        }
-
-        /* Posições específicas para diferentes pets (ajustes finos) */
+        .pet-canvas:hover { transform: scale(1.02); }
+        .pet-sprite-container { position: relative; display: flex; align-items: center; justify-content: center; }
+        .pet-emoji { font-size: 100px; transition: all 0.2s ease; animation: float 3s ease-in-out infinite; filter: drop-shadow(2px 4px 8px rgba(0,0,0,0.2)); }
+        .pet-hat { position: absolute; top: -30px; left: 50%; transform: translateX(-50%); font-size: 50px; filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.2)); pointer-events: none; z-index: 10; }
+        .pet-accessory { position: absolute; bottom: -25px; left: 50%; transform: translateX(-50%); font-size: 45px; filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.2)); pointer-events: none; z-index: 10; }
         .pet-accessory.dog { bottom: -25px; }
         .pet-accessory.cat { bottom: -20px; }
         .pet-accessory.fox { bottom: -28px; }
@@ -157,259 +85,54 @@
         .pet-accessory.unicorn { bottom: -30px; }
         .pet-accessory.dino { bottom: -35px; }
 
-        @keyframes float {
-            0%, 100% { transform: translateY(0px) rotate(0deg); }
-            50% { transform: translateY(-8px) rotate(3deg); }
-        }
-
-        @keyframes bounce {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.1); }
-        }
-
-        @keyframes shake {
-            0%, 100% { transform: rotate(0deg); }
-            25% { transform: rotate(-10deg); }
-            75% { transform: rotate(10deg); }
-        }
-
-        @keyframes jump {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-15px); }
-        }
-
+        @keyframes float { 0%,100% { transform: translateY(0px) rotate(0deg); } 50% { transform: translateY(-8px) rotate(3deg); } }
+        @keyframes bounce { 0%,100% { transform: scale(1); } 50% { transform: scale(1.1); } }
+        @keyframes shake { 0%,100% { transform: rotate(0deg); } 25% { transform: rotate(-10deg); } 75% { transform: rotate(10deg); } }
+        @keyframes jump { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
         .pet-emoji.happy { animation: bounce 0.5s ease; }
         .pet-emoji.excited { animation: shake 0.5s ease; }
         .pet-emoji.jump { animation: jump 0.6s ease; }
 
-        .pet-name-container {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            margin-top: 12px;
-        }
+        .pet-name-container { display: flex; align-items: center; justify-content: center; gap: 8px; margin-top: 12px; }
+        .pet-name { font-size: 20px; font-weight: 700; color: #00796b; cursor: pointer; padding: 4px 12px; border-radius: 30px; transition: all 0.3s; }
+        .pet-name:hover { background: #e8f5e9; }
+        .edit-name-btn { background: none; border: none; cursor: pointer; color: #00796b; font-size: 14px; padding: 5px; border-radius: 50%; transition: all 0.3s; }
+        .edit-name-btn:hover { background: #e8f5e9; transform: scale(1.1); }
+        .user-points { background: linear-gradient(135deg, #fbbf24, #f59e0b); border-radius: 30px; padding: 8px 16px; display: inline-flex; align-items: center; gap: 8px; color: white; font-weight: 600; font-size: 14px; margin-top: 10px; }
 
-        .pet-name {
-            font-size: 20px;
-            font-weight: 700;
-            color: #00796b;
-            cursor: pointer;
-            padding: 4px 12px;
-            border-radius: 30px;
-            transition: all 0.3s;
-        }
+        .pet-stats { background: #f8f9fa; border-radius: 18px; padding: 15px; margin: 15px 0; }
+        .stat-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+        .stat-label { font-size: 12px; color: #666; display: flex; align-items: center; gap: 6px; }
+        .stat-value { font-weight: 700; color: #00796b; }
+        .level-badge { background: linear-gradient(135deg, #fbbf24, #f59e0b); padding: 6px 14px; border-radius: 30px; font-size: 12px; font-weight: 600; color: white; }
+        .progress-bar { background: #e0e0e0; border-radius: 10px; height: 8px; overflow: hidden; margin: 8px 0; }
+        .progress-fill { width: 0%; height: 100%; background: linear-gradient(90deg, #00796b, #004d47); border-radius: 10px; transition: width 0.5s ease; }
 
-        .pet-name:hover {
-            background: #e8f5e9;
-        }
+        .pet-actions { display: flex; gap: 10px; margin: 15px 0; }
+        .pet-btn { flex: 1; background: #f0f7f5; border: none; padding: 10px; border-radius: 30px; font-size: 12px; font-weight: 600; color: #00796b; cursor: pointer; transition: all 0.3s; display: flex; align-items: center; justify-content: center; gap: 6px; }
+        .pet-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+        .pet-btn:hover:not(:disabled) { background: #00796b; color: white; transform: translateY(-2px); }
 
-        .edit-name-btn {
-            background: none;
-            border: none;
-            cursor: pointer;
-            color: #00796b;
-            font-size: 14px;
-            padding: 5px;
-            border-radius: 50%;
-            transition: all 0.3s;
-        }
+        .shop-card { background: white; border-radius: 24px; padding: 20px; margin-top: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.08); }
+        .shop-title { font-size: 18px; color: #00796b; margin-bottom: 15px; display: flex; align-items: center; gap: 10px; padding-bottom: 12px; border-bottom: 2px solid #eef2f6; }
+        .items-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; max-height: 280px; overflow-y: auto; }
+        .shop-item { background: #f8f9fa; border-radius: 16px; padding: 12px; text-align: center; cursor: pointer; transition: all 0.3s; border: 2px solid transparent; }
+        .shop-item:hover { transform: translateY(-3px); background: #e8f5e9; }
+        .shop-item.selected { border-color: #00796b; background: #e8f5e9; }
+        .shop-item-emoji { font-size: 40px; margin-bottom: 8px; }
+        .shop-item-name { font-size: 10px; font-weight: 600; color: #333; }
+        .shop-item-price { font-size: 9px; color: #f39c12; margin-top: 4px; }
+        .shop-item-owned { font-size: 9px; color: #4caf50; margin-top: 4px; }
+        .pet-message { background: #f0f7f5; border-radius: 15px; padding: 12px; margin-top: 15px; text-align: center; font-size: 12px; color: #00796b; font-weight: 500; border-left: 3px solid #00796b; }
 
-        .edit-name-btn:hover {
-            background: #e8f5e9;
-            transform: scale(1.1);
-        }
-
-        .user-points {
-            background: linear-gradient(135deg, #fbbf24, #f59e0b);
-            border-radius: 30px;
-            padding: 8px 16px;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            color: white;
-            font-weight: 600;
-            font-size: 14px;
-            margin-top: 10px;
-        }
-
-        .pet-stats {
-            background: #f8f9fa;
-            border-radius: 18px;
-            padding: 15px;
-            margin: 15px 0;
-        }
-
-        .stat-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 12px;
-        }
-
-        .stat-label {
-            font-size: 12px;
-            color: #666;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .stat-value {
-            font-weight: 700;
-            color: #00796b;
-        }
-
-        .level-badge {
-            background: linear-gradient(135deg, #fbbf24, #f59e0b);
-            padding: 6px 14px;
-            border-radius: 30px;
-            font-size: 12px;
-            font-weight: 600;
-            color: white;
-        }
-
-        .progress-bar {
-            background: #e0e0e0;
-            border-radius: 10px;
-            height: 8px;
-            overflow: hidden;
-            margin: 8px 0;
-        }
-
-        .progress-fill {
-            width: 0%;
-            height: 100%;
-            background: linear-gradient(90deg, #00796b, #004d47);
-            border-radius: 10px;
-            transition: width 0.5s ease;
-        }
-
-        .pet-actions {
-            display: flex;
-            gap: 10px;
-            margin: 15px 0;
-        }
-
-        .pet-btn {
-            flex: 1;
-            background: #f0f7f5;
-            border: none;
-            padding: 10px;
-            border-radius: 30px;
-            font-size: 12px;
-            font-weight: 600;
-            color: #00796b;
-            cursor: pointer;
-            transition: all 0.3s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 6px;
-        }
-
-        .pet-btn:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
-
-        .pet-btn:hover:not(:disabled) {
-            background: #00796b;
-            color: white;
-            transform: translateY(-2px);
-        }
-
-        .shop-card {
-            background: white;
-            border-radius: 24px;
-            padding: 20px;
-            margin-top: 20px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
-        }
-
-        .shop-title {
-            font-size: 18px;
-            color: #00796b;
-            margin-bottom: 15px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding-bottom: 12px;
-            border-bottom: 2px solid #eef2f6;
-        }
-
-        .items-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 12px;
-            max-height: 280px;
-            overflow-y: auto;
-        }
-
-        .shop-item {
-            background: #f8f9fa;
-            border-radius: 16px;
-            padding: 12px;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.3s;
-            border: 2px solid transparent;
-        }
-
-        .shop-item:hover {
-            transform: translateY(-3px);
-            background: #e8f5e9;
-        }
-
-        .shop-item.selected {
-            border-color: #00796b;
-            background: #e8f5e9;
-        }
-
-        .shop-item-emoji {
-            font-size: 40px;
-            margin-bottom: 8px;
-        }
-
-        .shop-item-name {
-            font-size: 10px;
-            font-weight: 600;
-            color: #333;
-        }
-
-        .shop-item-price {
-            font-size: 9px;
-            color: #f39c12;
-            margin-top: 4px;
-        }
-
-        .shop-item-owned {
-            font-size: 9px;
-            color: #4caf50;
-            margin-top: 4px;
-        }
-
-        .pet-message {
-            background: #f0f7f5;
-            border-radius: 15px;
-            padding: 12px;
-            margin-top: 15px;
-            text-align: center;
-            font-size: 12px;
-            color: #00796b;
-            font-weight: 500;
-            border-left: 3px solid #00796b;
-        }
-
-        /* ========== PAINEL DIREITO ========== */
+        /* ===== PAINEL DIREITO ===== */
         .info-card {
             background: white;
             border-radius: 20px;
             padding: 20px;
             margin-bottom: 20px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
         }
-
         .info-card h3 {
             color: #00796b;
             font-size: 16px;
@@ -427,31 +150,43 @@
             gap: 12px;
             margin-bottom: 20px;
         }
-
         .stat-mini-card {
             background: #f8f9fa;
             border-radius: 16px;
             padding: 15px;
             text-align: center;
         }
+        .stat-mini-card .stat-value { font-size: 28px; font-weight: 700; color: #00796b; }
+        .stat-mini-card .stat-label { font-size: 11px; color: #666; margin-top: 5px; }
 
-        .stat-mini-card .stat-value {
-            font-size: 28px;
-            font-weight: 700;
+        .atividade-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 0;
+            border-bottom: 1px solid #eef2f6;
+        }
+        .atividade-item:last-child { border-bottom: none; }
+        .atividade-info { flex: 1; }
+        .atividade-info .titulo { font-weight: 600; font-size: 14px; color: #2d3436; }
+        .atividade-info .data { font-size: 11px; color: #999; }
+        .atividade-info .materia { font-size: 11px; color: #00796b; background: #e8f5e9; padding: 2px 10px; border-radius: 30px; display: inline-block; margin-top: 4px; }
+        .atividade-status { font-size: 12px; font-weight: 600; padding: 4px 12px; border-radius: 30px; }
+        .atividade-status.pendente { background: #ffebee; color: #c62828; }
+        .atividade-status.entregue { background: #e3f2fd; color: #1565c0; }
+        .atividade-status.corrigida { background: #e8f5e9; color: #2e7d32; }
+
+        .ver-todos-link {
+            display: inline-block;
+            margin-top: 12px;
             color: #00796b;
+            font-weight: 600;
+            text-decoration: none;
+            font-size: 13px;
         }
+        .ver-todos-link:hover { text-decoration: underline; }
 
-        .stat-mini-card .stat-label {
-            font-size: 11px;
-            color: #666;
-            margin-top: 5px;
-        }
-
-        .ranking-list {
-            max-height: 250px;
-            overflow-y: auto;
-        }
-
+        .ranking-list { max-height: 250px; overflow-y: auto; }
         .ranking-item {
             display: flex;
             align-items: center;
@@ -462,15 +197,9 @@
             margin-bottom: 8px;
             transition: all 0.2s;
         }
-
-        .ranking-item:hover {
-            transform: translateX(3px);
-            background: #e8f5e9;
-        }
-
+        .ranking-item:hover { transform: translateX(3px); background: #e8f5e9; }
         .ranking-position {
-            width: 30px;
-            height: 30px;
+            width: 30px; height: 30px;
             background: #00796b;
             border-radius: 50%;
             display: flex;
@@ -480,17 +209,14 @@
             font-weight: 700;
             font-size: 12px;
         }
-
         .ranking-position.top1 { background: linear-gradient(135deg, #fbbf24, #f59e0b); }
         .ranking-position.top2 { background: linear-gradient(135deg, #94a3b8, #64748b); }
         .ranking-position.top3 { background: linear-gradient(135deg, #cd7f32, #b87333); }
-
         .ranking-avatar { font-size: 32px; }
         .ranking-info { flex: 1; }
         .ranking-name { font-weight: 600; font-size: 13px; color: #333; }
         .ranking-pet { font-size: 10px; color: #666; display: flex; align-items: center; gap: 4px; }
         .ranking-points { font-weight: 700; color: #f39c12; font-size: 14px; }
-
         .your-rank {
             background: linear-gradient(135deg, #e8f5e9, #c8e6d9);
             border-radius: 12px;
@@ -507,16 +233,27 @@
             font-size: 12px;
             color: #666;
         }
-
         .tip-item:last-child { border-bottom: none; }
         .tip-icon { color: #fbbf24; font-size: 16px; }
 
-        .materia-progress { margin-bottom: 12px; }
-        .materia-name { font-size: 12px; font-weight: 500; margin-bottom: 5px; display: flex; justify-content: space-between; }
-        .materia-bar { background: #e0e0e0; border-radius: 10px; height: 6px; overflow: hidden; }
-        .materia-fill { width: 0%; height: 100%; background: linear-gradient(90deg, #00796b, #004d47); border-radius: 10px; }
+        .mural-resumo-item {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            padding: 10px;
+            background: #f8f9fa;
+            border-radius: 12px;
+            border-left: 3px solid #00796b;
+            margin-bottom: 10px;
+            transition: 0.2s;
+        }
+        .mural-resumo-item:hover { background: #e8f5e9; transform: translateX(3px); }
+        .mural-resumo-item .icon { color: #00796b; font-size: 18px; }
+        .mural-resumo-item .conteudo { flex: 1; }
+        .mural-resumo-item .titulo { font-weight: 600; font-size: 14px; color: #2d3436; }
+        .mural-resumo-item .texto { font-size: 12px; color: #666; }
+        .mural-resumo-item .meta { font-size: 10px; color: #999; margin-top: 4px; }
 
-        /* Notificação */
         .custom-notification {
             position: fixed;
             top: 20px;
@@ -531,101 +268,43 @@
             align-items: center;
             gap: 8px;
         }
-
         .custom-notification.show { right: 20px; }
         .custom-notification.success { background: #00796b; }
         .custom-notification.error { background: #f44336; }
         .custom-notification.info { background: #2196f3; }
 
-        /* ========== MODO ESCURO ========== */
-        body.dark-mode {
-            background: #0f172a;
-        }
+        /* Dark mode */
+        body.dark-mode { background: #0f172a; }
+        body.dark-mode .content { background: #0f172a; }
+        body.dark-mode .pet-card, body.dark-mode .shop-card, body.dark-mode .info-card,
+        body.dark-mode .stat-mini-card { background: #1e293b; border-color: #334155; }
+        body.dark-mode .pet-name, body.dark-mode .shop-title, body.dark-mode .info-card h3 { color: #fbbf24; }
+        body.dark-mode .pet-stats { background: #334155; }
+        body.dark-mode .stat-label, body.dark-mode .ranking-name, body.dark-mode .ranking-pet,
+        body.dark-mode .tip-item, body.dark-mode .atividade-info .titulo { color: #cbd5e1; }
+        body.dark-mode .stat-value { color: #fbbf24; }
+        body.dark-mode .shop-item { background: #334155; }
+        body.dark-mode .shop-item-name { color: #f1f5f9; }
+        body.dark-mode .pet-canvas { background: linear-gradient(135deg, #1e3a2e, #0f2e24); }
+        body.dark-mode .pet-message { background: #334155; color: #fbbf24; border-left-color: #fbbf24; }
+        body.dark-mode .ranking-item { background: #334155; }
+        body.dark-mode .ranking-item:hover { background: #1e3a2e; }
+        body.dark-mode .your-rank { background: #1e3a2e; }
+        body.dark-mode .mural-resumo-item { background: #334155; }
+        body.dark-mode .mural-resumo-item .titulo { color: #f1f5f9; }
+        body.dark-mode .mural-resumo-item .texto, body.dark-mode .mural-resumo-item .meta { color: #94a3b8; }
+        body.dark-mode .mural-resumo-item:hover { background: #1e3a2e; }
+        body.dark-mode .atividade-item { border-bottom-color: #334155; }
+        body.dark-mode .atividade-info .materia { background: #334155; color: #fbbf24; }
+        body.dark-mode .atividade-status.pendente { background: #7f1a1a; color: #fecaca; }
+        body.dark-mode .atividade-status.entregue { background: #1a3a5c; color: #93c5fd; }
+        body.dark-mode .atividade-status.corrigida { background: #1a3a2e; color: #86efac; }
 
-        body.dark-mode .content {
-            background: #0f172a;
-        }
-
-        body.dark-mode .pet-card,
-        body.dark-mode .shop-card,
-        body.dark-mode .info-card,
-        body.dark-mode .stat-mini-card {
-            background: #1e293b;
-            border-color: #334155;
-        }
-
-        body.dark-mode .pet-name,
-        body.dark-mode .shop-title,
-        body.dark-mode .info-card h3 {
-            color: #fbbf24;
-        }
-
-        body.dark-mode .pet-stats {
-            background: #334155;
-        }
-
-        body.dark-mode .stat-label,
-        body.dark-mode .ranking-name,
-        body.dark-mode .ranking-pet,
-        body.dark-mode .tip-item {
-            color: #94a3b8;
-        }
-
-        body.dark-mode .stat-value {
-            color: #fbbf24;
-        }
-
-        body.dark-mode .shop-item {
-            background: #334155;
-        }
-
-        body.dark-mode .shop-item-name {
-            color: #f1f5f9;
-        }
-
-        body.dark-mode .pet-canvas {
-            background: linear-gradient(135deg, #1e3a2e, #0f2e24);
-        }
-
-        body.dark-mode .pet-message {
-            background: #334155;
-            color: #fbbf24;
-            border-left-color: #fbbf24;
-        }
-
-        body.dark-mode .ranking-item {
-            background: #334155;
-        }
-
-        body.dark-mode .ranking-item:hover {
-            background: #1e3a2e;
-        }
-
-        body.dark-mode .your-rank {
-            background: #1e3a2e;
-        }
-
-        body.dark-mode .materia-bar {
-            background: #334155;
-        }
-
-        @media (max-width: 1000px) {
-            .dashboard-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .content {
-                margin-left: 0;
-                padding: 15px;
-            }
-        }
+        @media (max-width: 1000px) { .dashboard-grid { grid-template-columns: 1fr; } }
+        @media (max-width: 768px) { .content { margin-left: 0; padding: 15px; } }
     </style>
 </head>
 <body>
-
-<!-- O SIDEBAR SERÁ INSERIDO AQUI PELO sidebar.js -->
 
 <div class="content">
     <div class="welcome-card">
@@ -690,38 +369,58 @@
             </div>
         </div>
 
-        <!-- COLUNA DIREITA: INFORMAÇÕES -->
+        <!-- COLUNA DIREITA -->
         <div>
+            <!-- STATS -->
             <div class="stats-mini">
                 <div class="stat-mini-card">
-                    <div class="stat-value" id="totalFaltas">0</div>
-                    <div class="stat-label">Total de Faltas</div>
+                    <div class="stat-value" id="presencasHoje">0/0</div>
+                    <div class="stat-label">✅ Presenças hoje</div>
                 </div>
                 <div class="stat-mini-card">
-                    <div class="stat-value" id="frequencia">0%</div>
-                    <div class="stat-label">Frequência</div>
+                    <div class="stat-value" id="faltasMes">0</div>
+                    <div class="stat-label">📅 Faltas no mês</div>
                 </div>
                 <div class="stat-mini-card">
-                    <div class="stat-value" id="atividadesFeitas">0</div>
-                    <div class="stat-label">Atividades</div>
+                    <div class="stat-value" id="frequenciaTotal">0%</div>
+                    <div class="stat-label">📊 Frequência total</div>
                 </div>
                 <div class="stat-mini-card">
-                    <div class="stat-value" id="mediaGeral">0.0</div>
-                    <div class="stat-label">Média Geral</div>
+                    <div class="stat-value" id="atividadesPendentes">0</div>
+                    <div class="stat-label">📝 Atividades pendentes</div>
                 </div>
             </div>
 
+            <!-- PRÓXIMAS ATIVIDADES -->
             <div class="info-card">
-                <h3><i class="fas fa-chart-line"></i> Seu Desempenho por Matéria</h3>
-                <div id="materiasProgresso"></div>
+                <h3><i class="fas fa-calendar-alt"></i> Próximas atividades</h3>
+                <div id="proximasAtividades">
+                    <p style="color:#999; font-size:13px;">Carregando...</p>
+                </div>
+                <a href="atividades_aluno.html" class="ver-todos-link">
+                    Ver todas as atividades <i class="fas fa-arrow-right"></i>
+                </a>
             </div>
 
+            <!-- RANKING CORRIGIDO -->
             <div class="info-card">
                 <h3><i class="fas fa-trophy"></i> Ranking dos Pets</h3>
                 <div class="ranking-list" id="rankingList"></div>
                 <div id="suaPosicao" class="your-rank"></div>
             </div>
 
+            <!-- MURAL RESUMO -->
+            <div class="info-card">
+                <h3><i class="fas fa-bullhorn"></i> 📢 Últimos avisos da sua turma</h3>
+                <div id="resumoMural">
+                    <p style="color:#999; font-size:13px;">Carregando...</p>
+                </div>
+                <a href="mural_aluno.html" class="ver-todos-link">
+                    Ver todos os avisos <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+
+            <!-- DICAS -->
             <div class="info-card">
                 <h3><i class="fas fa-lightbulb"></i> Dicas para Melhorar</h3>
                 <div class="tip-item">
@@ -746,7 +445,7 @@
 </div>
 
 <script>
-    // ========== EMOJIS DISPONÍVEIS ==========
+    // ========== EMOJIS E DADOS DO PET ==========
     const petEmojis = {
         dog: { emoji: "🐕", name: "Cachorro", price: 0 },
         cat: { emoji: "🐱", name: "Gato", price: 50 },
@@ -845,7 +544,6 @@
         const hoje = new Date().toISOString().slice(0,10);
         const alimentarBtn = document.getElementById('alimentarBtn');
         const brincarBtn = document.getElementById('brincarBtn');
-        
         if (petData.lastAlimentou === hoje) {
             alimentarBtn.disabled = true;
             alimentarBtn.title = "Você já alimentou seu pet hoje! Volte amanhã.";
@@ -853,7 +551,6 @@
             alimentarBtn.disabled = false;
             alimentarBtn.title = "Alimentar seu pet (+5 pontos)";
         }
-        
         if (petData.lastBrincou === hoje) {
             brincarBtn.disabled = true;
             brincarBtn.title = "Você já brincou com seu pet hoje! Volte amanhã.";
@@ -866,10 +563,8 @@
     function updatePetUI() {
         const skin = petEmojis[petData.currentSkin] || petEmojis.dog;
         const nivel = niveis[petData.level];
-        
         document.getElementById('petEmoji').innerHTML = skin.emoji;
         document.getElementById('petNameDisplay').innerHTML = petData.petName;
-        
         const hatContainer = document.getElementById('petHatContainer');
         if (petData.currentHat && petData.currentHat !== 'none' && hatEmojis[petData.currentHat]) {
             hatContainer.innerHTML = hatEmojis[petData.currentHat].emoji;
@@ -878,7 +573,6 @@
             hatContainer.innerHTML = '';
             hatContainer.style.display = 'none';
         }
-        
         const accessoryContainer = document.getElementById('petAccessoryContainer');
         if (petData.currentAccessory && petData.currentAccessory !== 'none' && accessoryEmojis[petData.currentAccessory]) {
             accessoryContainer.innerHTML = accessoryEmojis[petData.currentAccessory].emoji;
@@ -888,11 +582,9 @@
             accessoryContainer.innerHTML = '';
             accessoryContainer.style.display = 'none';
         }
-        
         document.getElementById('streakValue').innerText = `${petData.streak} dia${petData.streak !== 1 ? 's' : ''}`;
         document.getElementById('levelValue').innerHTML = nivel.nome;
         document.getElementById('petPoints').innerText = petData.totalPoints;
-        
         const nextLevel = niveis[petData.level + 1];
         let expNeeded = 100, expStart = 0;
         if (nextLevel) { expStart = nivel.minExp; expNeeded = nextLevel.minExp - nivel.minExp; }
@@ -900,38 +592,182 @@
         let currentExpInLevel = petData.totalPoints - expStart;
         let percent = Math.min(100, (currentExpInLevel / expNeeded) * 100);
         if (petData.level === niveis.length - 1) percent = 100;
-        
         document.getElementById('expFill').style.width = `${percent}%`;
         if (nextLevel) document.getElementById('expText').innerText = `${currentExpInLevel}/${expNeeded}`;
         else document.getElementById('expText').innerHTML = `MAX 👑`;
-        
         renderShop();
         atualizarRanking();
-        atualizarMateriasProgresso();
     }
 
     function editarNomePet() {
-        const novoNome = prompt("Digite o novo nome do seu pet (2 a 20 caracteres):", petData.petName);
-        if (novoNome && novoNome.trim()) {
-            const nomeLimpo = novoNome.trim();
-            if (!validarNomePet(nomeLimpo)) {
-                setMensagemPet("❌ Nome inválido! Use apenas letras (2-20 caracteres).", 'alerta');
+        const overlay = document.createElement('div');
+        overlay.className = 'modal-overlay';
+        overlay.id = 'modalNomePet';
+        overlay.style.cssText = `
+            display: flex;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(4px);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+        `;
+
+        const modal = document.createElement('div');
+        modal.className = 'modal-container';
+        modal.style.cssText = `
+            background: white;
+            border-radius: 24px;
+            width: 90%;
+            max-width: 450px;
+            max-height: 85vh;
+            overflow-y: auto;
+            animation: slideIn 0.3s ease;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
+        `;
+
+        const header = document.createElement('div');
+        header.className = 'modal-header';
+        header.style.cssText = `
+            padding: 20px 25px;
+            border-bottom: 1px solid #eef2f6;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: white;
+            border-radius: 24px 24px 0 0;
+        `;
+        header.innerHTML = `
+            <h3 style="color: #00796b; font-size: 20px; display: flex; align-items: center; gap: 10px;">
+                <i class="fas fa-paw"></i> Alterar nome do pet
+            </h3>
+            <span class="modal-close" style="font-size: 28px; cursor: pointer; color: #b2bec3; transition: 0.2s;">&times;</span>
+        `;
+
+        const body = document.createElement('div');
+        body.className = 'modal-body';
+        body.style.cssText = `padding: 25px;`;
+        body.innerHTML = `
+            <div style="text-align: center; margin-bottom: 20px;">
+                <div style="font-size: 60px; margin-bottom: 10px;">${petEmojis[petData.currentSkin]?.emoji || '🐕'}</div>
+                <p style="color: #666; font-size: 14px;">Escolha um nome especial para seu pet</p>
+            </div>
+            <div style="margin-bottom: 20px;">
+                <label style="display: block; font-weight: 600; font-size: 13px; color: #2d3436; margin-bottom: 6px;">
+                    <i class="fas fa-pen" style="color: #00796b; margin-right: 6px;"></i> Novo nome
+                </label>
+                <input type="text" id="inputNovoNomePet" value="${petData.petName}" maxlength="20" 
+                       style="width: 100%; padding: 12px 15px; border: 2px solid #e0e0e0; border-radius: 12px; 
+                              font-size: 16px; font-family: 'Poppins', sans-serif; transition: 0.3s;">
+                <div style="display: flex; justify-content: space-between; margin-top: 6px; font-size: 11px; color: #999;">
+                    <span id="feedbackNomePet"><i class="fas fa-info-circle"></i> 2 a 20 caracteres, apenas letras</span>
+                    <span id="contadorNomePet">${petData.petName.length}/20</span>
+                </div>
+            </div>
+            <button id="btnSalvarNomePet" style="
+                width: 100%;
+                padding: 14px;
+                background: linear-gradient(135deg, #00796b, #004d47);
+                color: white;
+                border: none;
+                border-radius: 30px;
+                font-size: 14px;
+                font-weight: 600;
+                cursor: pointer;
+                transition: all 0.3s;
+                font-family: 'Poppins', sans-serif;
+            ">
+                <i class="fas fa-check"></i> Salvar nome
+            </button>
+        `;
+
+        modal.appendChild(header);
+        modal.appendChild(body);
+        overlay.appendChild(modal);
+        document.body.appendChild(overlay);
+
+        const input = document.getElementById('inputNovoNomePet');
+        const contador = document.getElementById('contadorNomePet');
+        const feedback = document.getElementById('feedbackNomePet');
+        const btnSalvar = document.getElementById('btnSalvarNomePet');
+        const closeBtn = modal.querySelector('.modal-close');
+
+        function validarNome(nome) {
+            const nomeLimpo = nome.trim();
+            if (nomeLimpo.length < 2) {
+                return { valido: false, mensagem: '❌ Mínimo de 2 caracteres' };
+            }
+            if (nomeLimpo.length > 20) {
+                return { valido: false, mensagem: '❌ Máximo de 20 caracteres' };
+            }
+            if (!/^[a-zA-ZÀ-ÿ\s]+$/.test(nomeLimpo)) {
+                return { valido: false, mensagem: '❌ Use apenas letras e espaços' };
+            }
+            const palavrasProibidas = ["merda", "bosta", "caralho", "puta", "pau", "cu", "buceta", "porra", "foda", "cacete", "desgraça", "inferno", "viado", "bicha", "otario", "idiota", "babaca", "escroto", "nojeira", "fedido", "mijo", "xixi", "cocô", "tosco", "lixo"];
+            const nomeLower = nomeLimpo.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+            for (const palavra of palavrasProibidas) {
+                if (nomeLower.includes(palavra)) {
+                    return { valido: false, mensagem: '❌ Palavra ofensiva detectada' };
+                }
+            }
+            return { valido: true, mensagem: '✅ Nome válido!' };
+        }
+
+        function atualizarFeedback() {
+            const nome = input.value;
+            const resultado = validarNome(nome);
+            const length = nome.length;
+            contador.textContent = `${length}/20`;
+            feedback.innerHTML = `<i class="fas ${resultado.valido ? 'fa-check-circle' : 'fa-exclamation-circle'}"></i> ${resultado.mensagem}`;
+            feedback.style.color = resultado.valido ? '#2e7d32' : '#c62828';
+            if (resultado.valido) {
+                input.style.borderColor = '#4caf50';
+                btnSalvar.style.opacity = '1';
+                btnSalvar.style.cursor = 'pointer';
+            } else {
+                input.style.borderColor = '#f44336';
+                btnSalvar.style.opacity = '0.6';
+                btnSalvar.style.cursor = 'not-allowed';
+            }
+        }
+
+        input.addEventListener('input', atualizarFeedback);
+        atualizarFeedback();
+
+        btnSalvar.addEventListener('click', function() {
+            const nome = input.value.trim();
+            const resultado = validarNome(nome);
+            if (!resultado.valido) {
+                showNotification(resultado.mensagem, 'error');
                 return;
             }
-            petData.petName = nomeLimpo.charAt(0).toUpperCase() + nomeLimpo.slice(1);
+            petData.petName = nome.charAt(0).toUpperCase() + nome.slice(1);
             savePetData();
             updatePetUI();
             setMensagemPet(`✨ Seu pet agora se chama ${petData.petName}! ✨`, 'sucesso');
-        }
-    }
+            fecharModalNomePet();
+            showNotification(`Nome alterado para ${petData.petName}!`, 'success');
+        });
 
-    function animarPet(tipo) {
-        const emojiElement = document.getElementById('petEmoji');
-        emojiElement.classList.remove('happy', 'excited', 'jump');
-        if (tipo === 'happy') emojiElement.classList.add('happy');
-        else if (tipo === 'excited') emojiElement.classList.add('excited');
-        else if (tipo === 'jump') emojiElement.classList.add('jump');
-        setTimeout(() => emojiElement.classList.remove('happy', 'excited', 'jump'), 500);
+        function fecharModalNomePet() {
+            overlay.remove();
+        }
+
+        closeBtn.addEventListener('click', fecharModalNomePet);
+        overlay.addEventListener('click', function(e) {
+            if (e.target === overlay) fecharModalNomePet();
+        });
+
+        input.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                btnSalvar.click();
+            }
+        });
     }
 
     function setMensagemPet(msg, tipo = 'normal') {
@@ -965,6 +801,7 @@
 
     function interagirPet() { adicionarPontos(2, "Você fez carinho no pet!", 'acao'); animarPet('happy'); }
 
+    // ========== CORREÇÃO: ALIMENTAR E BRINCAR COM LIMITE DIÁRIO ==========
     function alimentarPet() {
         const hoje = new Date().toISOString().slice(0,10);
         if (petData.lastAlimentou === hoje) {
@@ -991,14 +828,8 @@
         atualizarBotoesDiarios();
     }
 
-    // Funções para serem chamadas pelo sistema
-    window.adicionarPontosPresenca = function() {
-        adicionarPontos(5, "Presença registrada pelo professor!", 'presenca');
-    };
-
-    window.adicionarPontosAtividade = function() {
-        adicionarPontos(10, "Atividade concluída!", 'atividade');
-    };
+    window.adicionarPontosPresenca = function() { adicionarPontos(5, "Presença registrada pelo professor!", 'presenca'); };
+    window.adicionarPontosAtividade = function() { adicionarPontos(10, "Atividade concluída!", 'atividade'); };
 
     function renderShop() {
         const container = document.getElementById('shopItems');
@@ -1042,7 +873,6 @@
         else if (tipo === 'hat') { itemConfig = hatEmojis[itemId]; price = itemConfig.price; itemKey = `hat_${itemId}`; }
         else if (tipo === 'accessory') { itemConfig = accessoryEmojis[itemId]; price = itemConfig.price; itemKey = `acc_${itemId}`; }
         if (!itemConfig) return;
-        
         if (petData.ownedItems.includes(itemKey)) {
             if (tipo === 'skin') petData.currentSkin = itemId;
             else if (tipo === 'hat') petData.currentHat = itemId;
@@ -1065,6 +895,7 @@
         }
     }
 
+    // ========== RANKING CORRIGIDO ==========
     function atualizarRanking() {
         const users = JSON.parse(localStorage.getItem("users") || "[]");
         const rankings = [];
@@ -1072,96 +903,237 @@
             if (u.tipo === "aluno") {
                 const petKey = `pet_${u.email}`;
                 const pet = JSON.parse(localStorage.getItem(petKey) || "{}");
-                rankings.push({ nome: u.name, pontos: pet.totalPoints || 0, petSkin: pet.currentSkin || "dog", email: u.email });
+                rankings.push({
+                    nome: u.name,
+                    pontos: pet.totalPoints || 0,
+                    petSkin: pet.currentSkin || "dog",
+                    petName: pet.petName || "Pet",
+                    email: u.email
+                });
             }
         });
         rankings.sort((a, b) => b.pontos - a.pontos);
         const container = document.getElementById('rankingList');
         if (!container) return;
+        if (rankings.length === 0) {
+            container.innerHTML = '<p style="color:#999; font-size:13px;">Nenhum aluno cadastrado.</p>';
+            document.getElementById('suaPosicao').innerHTML = '';
+            return;
+        }
         container.innerHTML = rankings.slice(0, 10).map((r, idx) => {
             const petEmoji = petEmojis[r.petSkin]?.emoji || "🐕";
             const posClass = idx === 0 ? 'top1' : idx === 1 ? 'top2' : idx === 2 ? 'top3' : '';
+            const isYou = r.email === user?.email ? '(Você)' : '';
             return `<div class="ranking-item">
                 <div class="ranking-position ${posClass}">${idx + 1}</div>
                 <div class="ranking-avatar">${petEmoji}</div>
                 <div class="ranking-info">
-                    <div class="ranking-name">${r.nome.split(' ')[0]} ${r.email === user?.email ? '(Você)' : ''}</div>
-                    <div class="ranking-pet"><i class="fas fa-star"></i> Nível ${Math.floor(r.pontos / 100) + 1}</div>
+                    <div class="ranking-name">${r.nome.split(' ')[0]} ${isYou}</div>
+                    <div class="ranking-pet"><i class="fas fa-paw"></i> ${r.petName} · Nível ${Math.floor(r.pontos / 100) + 1}</div>
                 </div>
                 <div class="ranking-points">🔥 ${r.pontos}</div>
             </div>`;
         }).join('');
         const posicao = rankings.findIndex(r => r.email === user?.email) + 1;
         const total = rankings.length;
-        document.getElementById('suaPosicao').innerHTML = `<i class="fas fa-flag-checkered"></i> Sua posição: ${posicao}º de ${total} alunos | 🔥 ${rankings.find(r => r.email === user?.email)?.pontos || 0} pontos`;
+        const meuRank = rankings.find(r => r.email === user?.email);
+        if (meuRank) {
+            document.getElementById('suaPosicao').innerHTML = `<i class="fas fa-flag-checkered"></i> Sua posição: ${posicao}º de ${total} alunos | 🐾 ${meuRank.petName} · 🔥 ${meuRank.pontos} pontos`;
+        } else {
+            document.getElementById('suaPosicao').innerHTML = '';
+        }
     }
 
-    function atualizarMateriasProgresso() {
-        const materias = [
-            { nome: "Matemática", progresso: 75, nota: 7.5 },
-            { nome: "Português", progresso: 82, nota: 8.2 },
-            { nome: "Ciências", progresso: 68, nota: 6.8 },
-            { nome: "História", progresso: 70, nota: 7.0 },
-            { nome: "Geografia", progresso: 65, nota: 6.5 },
-            { nome: "Inglês", progresso: 88, nota: 8.8 }
-        ];
-        const container = document.getElementById('materiasProgresso');
-        if (!container) return;
-        let soma = 0;
-        container.innerHTML = materias.map(m => {
-            soma += m.nota;
-            return `<div class="materia-progress">
-                <div class="materia-name"><span>${m.nome}</span><span>${m.nota}/10</span></div>
-                <div class="materia-bar"><div class="materia-fill" style="width: ${m.progresso}%"></div></div>
-            </div>`;
+    // ========== FUNÇÕES DE FREQUÊNCIA E ATIVIDADES ==========
+    function obterTurmaAluno(email) {
+        const chaves = Object.keys(localStorage);
+        for (let chave of chaves) {
+            if (chave.startsWith('alunos_turma_')) {
+                const alunos = JSON.parse(localStorage.getItem(chave) || '[]');
+                const encontrado = alunos.find(a => a.email === email);
+                if (encontrado) {
+                    const partes = chave.split('_');
+                    return partes[partes.length - 1];
+                }
+            }
+        }
+        return null;
+    }
+
+    function carregarFrequencia() {
+        const email = user?.email;
+        if (!email) return;
+        const turma = obterTurmaAluno(email);
+        const hoje = new Date().toISOString().slice(0,10);
+        const mesAtual = new Date().getMonth();
+        const anoAtual = new Date().getFullYear();
+
+        let presencasHoje = 0;
+        const turnos = ['1', '2'];
+        turnos.forEach(t => {
+            let serie = null;
+            const chaves = Object.keys(localStorage);
+            for (let chave of chaves) {
+                if (chave.startsWith('alunos_turma_')) {
+                    const partes = chave.split('_');
+                    if (partes.length >= 4) {
+                        const s = partes[2];
+                        const t2 = partes[3];
+                        if (t2 === turma) {
+                            serie = s;
+                            break;
+                        }
+                    }
+                }
+            }
+            if (serie && turma) {
+                const dailyKey = `daily_${serie}_${turma}_${email}_${t}`;
+                const registro = localStorage.getItem(dailyKey);
+                if (registro) {
+                    const data = JSON.parse(registro);
+                    if (data.data === hoje && data.status === 'present') {
+                        presencasHoje++;
+                    }
+                }
+            }
+        });
+
+        const absencesKey = `absences_${email}`;
+        const absences = JSON.parse(localStorage.getItem(absencesKey) || '{}');
+        let faltasMes = 0;
+        Object.keys(absences).forEach(dataStr => {
+            const data = new Date(dataStr);
+            if (data.getMonth() === mesAtual && data.getFullYear() === anoAtual) {
+                faltasMes++;
+            }
+        });
+
+        const totalDiasMes = new Date(anoAtual, mesAtual + 1, 0).getDate();
+        let diasUteis = 0;
+        for (let d = 1; d <= totalDiasMes; d++) {
+            const dt = new Date(anoAtual, mesAtual, d);
+            if (dt.getDay() !== 0 && dt.getDay() !== 6) diasUteis++;
+        }
+        const frequencia = diasUteis > 0 ? Math.round(((diasUteis - faltasMes) / diasUteis) * 100) : 0;
+        document.getElementById('presencasHoje').textContent = `${presencasHoje}/2`;
+        document.getElementById('faltasMes').textContent = faltasMes;
+        document.getElementById('frequenciaTotal').textContent = `${frequencia}%`;
+    }
+
+    function carregarAtividades() {
+        const todasAtividades = JSON.parse(localStorage.getItem("atividades_professor") || "[]");
+        const email = user?.email;
+        const turma = obterTurmaAluno(email);
+        let atividades = todasAtividades.filter(a => a.status === 'aberta' && a.moduloDestino === turma);
+        const pendentes = atividades.filter(a => {
+            const entregas = a.entregas || [];
+            return !entregas.some(e => e.email === email);
+        });
+        document.getElementById('atividadesPendentes').textContent = pendentes.length;
+
+        const proximas = atividades
+            .filter(a => new Date(a.dataEntrega) >= new Date())
+            .sort((a, b) => new Date(a.dataEntrega) - new Date(a.dataEntrega))
+            .slice(0, 3);
+
+        const container = document.getElementById('proximasAtividades');
+        if (proximas.length === 0) {
+            container.innerHTML = '<p style="color:#999; font-size:13px;">Nenhuma atividade futura.</p>';
+            return;
+        }
+        container.innerHTML = proximas.map(a => {
+            const diasRestantes = Math.ceil((new Date(a.dataEntrega) - new Date()) / (1000 * 60 * 60 * 24));
+            let statusText = `Em ${diasRestantes} dia${diasRestantes > 1 ? 's' : ''}`;
+            if (diasRestantes < 0) statusText = 'Atrasada';
+            return `
+                <div class="atividade-item">
+                    <div style="flex:1;">
+                        <div class="titulo">${a.titulo}</div>
+                        <div class="data"><i class="fas fa-calendar-alt"></i> ${new Date(a.dataEntrega).toLocaleDateString('pt-BR')}</div>
+                        <span class="materia">${a.materiaNome || a.materia}</span>
+                    </div>
+                    <span class="atividade-status pendente">${statusText}</span>
+                </div>
+            `;
         }).join('');
-        document.getElementById('mediaGeral').textContent = (soma / materias.length).toFixed(1);
-        document.getElementById('totalFaltas').textContent = Math.floor(Math.random() * 10);
-        document.getElementById('frequencia').textContent = `${85 + Math.floor(Math.random() * 10)}%`;
-        document.getElementById('atividadesFeitas').textContent = Math.floor(Math.random() * 30) + 5;
+    }
+
+    function carregarResumoMural() {
+        const STORAGE_KEY = 'avisos_mural';
+        const container = document.getElementById('resumoMural');
+        if (!container) return;
+        const userLogado = JSON.parse(localStorage.getItem('loggedUser') || '{}');
+        if (!userLogado || userLogado.tipo !== 'aluno') {
+            container.innerHTML = '<p style="color:#999; font-size:13px;">Faça login para ver os avisos.</p>';
+            return;
+        }
+        let turmaAluno = null;
+        const chaves = Object.keys(localStorage);
+        for (let chave of chaves) {
+            if (chave.startsWith('alunos_turma_')) {
+                const alunos = JSON.parse(localStorage.getItem(chave) || '[]');
+                const encontrado = alunos.find(a => a.email === userLogado.email);
+                if (encontrado) {
+                    const partes = chave.split('_');
+                    turmaAluno = partes[partes.length - 1];
+                    break;
+                }
+            }
+        }
+        const data = localStorage.getItem(STORAGE_KEY);
+        const todos = data ? JSON.parse(data) : [];
+        let avisos = turmaAluno ? todos.filter(a => a.modulo === turmaAluno) : todos;
+        avisos.sort((a, b) => new Date(b.data) - new Date(a.data));
+        const recentes = avisos.slice(0, 3);
+        if (recentes.length === 0) {
+            container.innerHTML = '<p style="color:#999; font-size:13px;">Nenhum aviso recente para sua turma.</p>';
+            return;
+        }
+        container.innerHTML = recentes.map(a => `
+            <div class="mural-resumo-item">
+                <div class="icon"><i class="fas fa-bullhorn"></i></div>
+                <div class="conteudo">
+                    <div class="titulo">${a.titulo}</div>
+                    <div class="texto">${a.mensagem.length > 80 ? a.mensagem.substring(0,80)+'...' : a.mensagem}</div>
+                    <div class="meta">${new Date(a.data).toLocaleDateString('pt-BR')} · ${a.autor}</div>
+                </div>
+            </div>
+        `).join('');
     }
 
     function showNotification(msg, type) {
         if (window.notificationSystem) {
             window.notificationSystem.show(msg, type === 'success' ? 'success' : 'error');
+            return;
         }
-    }
-
-    function toggleDarkMode() {
-        const isDark = document.getElementById('darkModeToggle')?.checked;
-        if (isDark) { document.body.classList.add('dark-mode'); localStorage.setItem('darkMode', 'enabled'); }
-        else { document.body.classList.remove('dark-mode'); localStorage.setItem('darkMode', 'disabled'); }
-    }
-
-    function aplicarDarkMode() {
-        if (localStorage.getItem('darkMode') === 'enabled') {
-            document.body.classList.add('dark-mode');
-            const toggle = document.getElementById('darkModeToggle');
-            if (toggle) toggle.checked = true;
-        }
-    }
-
-    function sairDoSistema() {
-        localStorage.removeItem("loggedUser");
-        localStorage.removeItem("tipoUsuario");
-        window.location.href = "index.html";
+        const notif = document.createElement('div');
+        notif.className = `custom-notification ${type}`;
+        notif.innerHTML = `<i class="fas ${type === 'success' ? 'fa-check-circle' : 'fa-exclamation-circle'}"></i> ${msg}`;
+        document.body.appendChild(notif);
+        setTimeout(() => notif.classList.add('show'), 10);
+        setTimeout(() => { notif.classList.remove('show'); setTimeout(() => notif.remove(), 300); }, 2500);
     }
 
     document.addEventListener('DOMContentLoaded', () => {
-        aplicarDarkMode();
+        if (localStorage.getItem('darkMode') === 'enabled') {
+            document.body.classList.add('dark-mode');
+        }
         loadPetData();
+        carregarFrequencia();
+        carregarAtividades();
+        carregarResumoMural();
         const nome = user?.name?.split(' ')[0] || "Aluno";
         document.getElementById('welcomeMessage').innerHTML = `Bem-vindo, ${nome}! 🎓`;
         setMensagemPet("🐾 Olá! Complete atividades e ganhe pontos para personalizar seu pet!", 'normal');
     });
 </script>
 
-<script src="js/darkmode.js"></script>
-<script src="js/sidebar.js"></script>
 <script src="js/validacoes.js"></script>
 <script src="js/notifications.js"></script>
 <script src="js/app.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/js/all.min.js"></script>
+<script src="js/darkmode.js"></script>
 <script src="js/sidebar.js"></script>
+<script src="js/global.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/js/all.min.js"></script>
 </body>
 </html>

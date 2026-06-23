@@ -10,7 +10,6 @@ class NotificationSystem {
     }
 
     init() {
-        // Criar container para as notificações
         if (!document.getElementById('notification-container')) {
             this.container = document.createElement('div');
             this.container.id = 'notification-container';
@@ -32,7 +31,6 @@ class NotificationSystem {
         }
     }
 
-    // Mostrar notificação
     show(message, type = 'success', duration = 4000, options = {}) {
         const notification = {
             id: Date.now() + Math.random(),
@@ -81,7 +79,6 @@ class NotificationSystem {
         notifElement.className = `notification-professional ${notification.type}`;
         notifElement.id = `notif-${notification.id}`;
         
-        // Cores por tipo
         const colors = {
             success: { bg: 'linear-gradient(135deg, #00796b, #004d47)', icon: '#4caf50', border: '#00796b' },
             error: { bg: 'linear-gradient(135deg, #d32f2f, #b71c1c)', icon: '#f44336', border: '#d32f2f' },
@@ -132,13 +129,11 @@ class NotificationSystem {
         
         this.container.appendChild(notifElement);
         
-        // Animar entrada
         setTimeout(() => {
             notifElement.style.opacity = '1';
             notifElement.style.transform = 'translateX(0)';
         }, 10);
         
-        // Iniciar barra de progresso
         const progressBar = notifElement.querySelector('.progress-bar');
         if (progressBar) {
             setTimeout(() => {
@@ -146,12 +141,10 @@ class NotificationSystem {
             }, 50);
         }
         
-        // Auto-fechar após duração
         const timeout = setTimeout(() => {
             this.closeNotification(notifElement);
         }, notification.duration);
         
-        // Permitir fechar manualmente
         const closeBtn = notifElement.querySelector('.notification-close');
         if (closeBtn) {
             closeBtn.onclick = () => {
@@ -181,7 +174,6 @@ class NotificationSystem {
         }
     }
 
-    // Métodos de atalho
     success(message, duration = 4000) {
         this.show(message, 'success', duration);
     }
@@ -198,12 +190,11 @@ class NotificationSystem {
         this.show(message, 'info', duration);
     }
 
-    // Notificação com loading
     loading(message, duration = null) {
         const id = 'loading-' + Date.now();
         const notifElement = document.createElement('div');
         notifElement.id = id;
-        notifElement.className = `notification-professional loading`;
+        notifElement.className = 'notification-professional loading';
         notifElement.style.cssText = `
             background: linear-gradient(135deg, #455a64, #37474f);
             border-radius: 16px;
@@ -247,13 +238,12 @@ class NotificationSystem {
         }
     }
 
-    // Notificação com botões de ação
     confirm(message, onConfirm, onCancel = null, options = {}) {
         const confirmText = options.confirmText || 'Confirmar';
         const cancelText = options.cancelText || 'Cancelar';
         
         const notifElement = document.createElement('div');
-        notifElement.className = `notification-professional info`;
+        notifElement.className = 'notification-professional info';
         notifElement.style.cssText = `
             background: linear-gradient(135deg, #1976d2, #0d47a1);
             border-radius: 16px;
@@ -306,7 +296,7 @@ class NotificationSystem {
 // Inicializar sistema de notificações
 const notificationSystem = new NotificationSystem();
 
-// Função de atalho global para usar em qualquer lugar
+// Função de atalho global
 function showNotification(message, type = 'success', duration = 4000) {
     notificationSystem.show(message, type, duration);
 }
@@ -333,7 +323,6 @@ style.textContent = `
         animation: none;
     }
     
-    /* Responsividade */
     @media (max-width: 480px) {
         #notification-container {
             top: 10px;
@@ -342,15 +331,12 @@ style.textContent = `
             max-width: none;
             width: auto;
         }
-        
         .notification-professional {
             padding: 12px 16px !important;
         }
-        
         .notification-title {
             font-size: 13px !important;
         }
-        
         .notification-message {
             font-size: 11px !important;
         }
@@ -358,6 +344,5 @@ style.textContent = `
 `;
 document.head.appendChild(style);
 
-// Expor globalmente
 window.notificationSystem = notificationSystem;
 window.showNotification = showNotification;

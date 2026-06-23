@@ -3,387 +3,402 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Assistir Vídeo | SmartClass</title>
+    <title>Assistir Aula | SmartClass</title>
+    <script src="js/theme-loader.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/darkmode-padrao.css">
+    <link rel="stylesheet" href="css/sidebar.css">
     <style>
         * { margin:0; padding:0; box-sizing:border-box; }
-        body { font-family:'Poppins',sans-serif; background:#0f172a; display:flex; }
-        textarea { resize:none !important; }
-
-        .content { margin-left:260px; padding:25px; flex:1; background:#0f172a; min-height:100vh; }
+        body { 
+            font-family:'Poppins',sans-serif; 
+            background: #f0f2f5;
+            display: flex;
+            min-height: 100vh;
+        }
         
-        .btn-voltar {
-            display:inline-flex;
-            align-items:center;
-            gap:8px;
-            background:rgba(255,255,255,0.1);
-            border:none;
-            padding:10px 20px;
-            border-radius:30px;
-            color:white;
-            cursor:pointer;
-            font-weight:500;
-            font-size:13px;
-            transition:all 0.3s;
-            font-family:'Poppins',sans-serif;
-            margin-bottom:20px;
-            backdrop-filter:blur(4px);
-            border:1px solid rgba(255,255,255,0.05);
+        /* ===== CONTEÚDO PRINCIPAL ===== */
+        .content {
+            margin-left: 260px;
+            padding: 30px;
+            flex: 1;
+            background: #f0f2f5;
+            min-height: 100vh;
+            transition: margin-left 0.3s ease, background 0.3s ease;
+            width: calc(100% - 260px);
         }
-        .btn-voltar:hover { background:rgba(255,255,255,0.2); transform:translateX(-3px); }
 
+        /* ===== PLAYER CONTAINER ===== */
         .player-container {
-            background:#1e293b;
-            border-radius:24px;
-            overflow:hidden;
-            border:1px solid #334155;
-            box-shadow:0 20px 60px rgba(0,0,0,0.5);
+            max-width: 1100px;
+            margin: 0 auto;
+            width: 100%;
         }
 
+        /* ===== BOTÃO VOLTAR ===== */
+        .btn-voltar-player {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: #00796b;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 25px;
+            transition: all 0.3s ease;
+            font-family: 'Poppins', sans-serif;
+            text-decoration: none;
+            box-shadow: 0 2px 10px rgba(0,121,107,0.2);
+        }
+        
+        .btn-voltar-player:hover {
+            background: #004d47;
+            transform: translateX(-4px);
+            box-shadow: 0 4px 20px rgba(0,121,107,0.3);
+        }
+
+        .btn-voltar-player i {
+            font-size: 16px;
+        }
+
+        /* ===== WRAPPER DO VÍDEO ===== */
         .video-wrapper {
-            background:#0a0a0a;
-            position:relative;
-            width:100%;
-            padding-top:56.25%; /* 16:9 */
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+            background: #0f0f1a;
+            transition: all 0.3s ease;
         }
-        .video-wrapper video {
-            position:absolute;
-            top:0;
-            left:0;
-            width:100%;
-            height:100%;
-            background:#000;
-        }
-        .video-wrapper .placeholder {
-            position:absolute;
-            top:0;
-            left:0;
-            width:100%;
-            height:100%;
-            display:flex;
-            flex-direction:column;
-            align-items:center;
-            justify-content:center;
-            color:white;
-            background:linear-gradient(135deg,#1a1a2e,#16213e);
-        }
-        .video-wrapper .placeholder i {
-            font-size:80px;
-            opacity:0.3;
-            margin-bottom:20px;
-        }
-        .video-wrapper .placeholder p {
-            opacity:0.6;
-            font-size:14px;
+        
+        .video-wrapper iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
         }
 
-        .player-info {
-            padding:24px 28px;
-            color:#f1f5f9;
+        /* ===== INFORMAÇÕES DO VÍDEO ===== */
+        .video-info-player {
+            background: white;
+            border-radius: 16px;
+            padding: 25px 30px;
+            margin-top: 20px;
+            border: 1px solid #eef2f6;
+            transition: all 0.3s ease;
         }
-        .player-info h2 {
-            font-size:22px;
-            font-weight:700;
-            margin-bottom:6px;
-            color:#fbbf24;
+        
+        .video-info-player h2 {
+            font-size: 24px;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 12px;
+            line-height: 1.3;
         }
-        .player-info .sub-info {
-            display:flex;
-            gap:20px;
-            flex-wrap:wrap;
-            font-size:13px;
-            color:#94a3b8;
-            margin-bottom:16px;
+        
+        .video-info-player .meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            font-size: 14px;
+            color: #64748b;
+            padding-top: 15px;
+            border-top: 1px solid #eef2f6;
         }
-        .player-info .sub-info i { color:#fbbf24; width:18px; }
-        .player-info .descricao {
-            background:#334155;
-            padding:16px 20px;
-            border-radius:12px;
-            font-size:14px;
-            line-height:1.6;
-            color:#cbd5e1;
-            margin-bottom:16px;
-            border-left:3px solid #fbbf24;
+        
+        .video-info-player .meta i {
+            color: #00796b;
+            margin-right: 8px;
+            width: 18px;
         }
-        .player-actions {
-            display:flex;
-            gap:12px;
-            flex-wrap:wrap;
-        }
-        .btn-marcar {
-            background:linear-gradient(135deg,#fbbf24,#f59e0b);
-            color:#0f172a;
-            border:none;
-            padding:10px 24px;
-            border-radius:30px;
-            cursor:pointer;
-            font-weight:600;
-            font-size:13px;
-            transition:all 0.3s;
-            font-family:'Poppins',sans-serif;
-            display:flex;
-            align-items:center;
-            gap:8px;
-        }
-        .btn-marcar:hover { transform:translateY(-2px); box-shadow:0 8px 20px rgba(251,191,36,0.3); }
-        .btn-marcar.assistido { background:#4caf50; color:white; }
-        .btn-marcar.assistido:hover { background:#2e7d32; }
 
-        .btn-download {
-            background:rgba(255,255,255,0.08);
-            color:#f1f5f9;
-            border:1px solid #334155;
-            padding:10px 20px;
-            border-radius:30px;
-            cursor:pointer;
-            font-weight:500;
-            font-size:13px;
-            transition:all 0.3s;
-            font-family:'Poppins',sans-serif;
-            display:flex;
-            align-items:center;
-            gap:8px;
+        .video-info-player .meta span {
+            display: inline-flex;
+            align-items: center;
         }
-        .btn-download:hover { background:rgba(255,255,255,0.15); }
 
-        .status-tag {
-            display:inline-block;
-            padding:4px 14px;
-            border-radius:20px;
-            font-size:11px;
-            font-weight:600;
-            margin-left:10px;
+        /* ===== LOADING ===== */
+        .loading-placeholder {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 400px;
+            flex-direction: column;
+            gap: 20px;
+            color: #94a3b8;
         }
-        .status-tag.disponivel { background:#e8f5e9; color:#2e7d32; }
-        .status-tag.aguardando { background:#fff3e0; color:#e65100; }
-        .status-tag.assistido { background:#e3f2fd; color:#1565c0; }
+        .loading-placeholder i {
+            font-size: 48px;
+            color: #00796b;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
 
         /* ===== DARK MODE ===== */
-        body.dark-mode .content { background:#0f172a; }
-        body.dark-mode .player-container { background:#1e293b; border-color:#334155; }
-        body.dark-mode .player-info h2 { color:#fbbf24; }
-        body.dark-mode .player-info .sub-info { color:#94a3b8; }
-        body.dark-mode .player-info .descricao { background:#334155; color:#cbd5e1; border-left-color:#fbbf24; }
+        body.dark-mode .content {
+            background: #0f172a;
+        }
 
-        @media (max-width:768px) {
-            .content { margin-left:0; padding:15px; }
-            .player-info { padding:16px; }
-            .player-info h2 { font-size:18px; }
-            .player-info .sub-info { font-size:12px; gap:10px; }
+        body.dark-mode .video-info-player {
+            background: #1e293b;
+            border-color: #334155;
+        }
+
+        body.dark-mode .video-info-player h2 {
+            color: #f1f5f9;
+        }
+
+        body.dark-mode .video-info-player .meta {
+            color: #94a3b8;
+            border-top-color: #334155;
+        }
+
+        body.dark-mode .video-info-player .meta i {
+            color: #fbbf24;
+        }
+
+        body.dark-mode .btn-voltar-player {
+            background: #0d4a47;
+        }
+
+        body.dark-mode .btn-voltar-player:hover {
+            background: #fbbf24;
+            color: #0f172a;
+        }
+
+        body.dark-mode .video-wrapper {
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        /* ===== RESPONSIVIDADE ===== */
+        @media (max-width: 1000px) {
+            .content {
+                margin-left: 0;
+                padding: 20px;
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .content {
+                padding: 15px;
+            }
+
+            .video-info-player {
+                padding: 18px 20px;
+            }
+
+            .video-info-player h2 {
+                font-size: 18px;
+            }
+
+            .video-info-player .meta {
+                font-size: 12px;
+                gap: 12px;
+                flex-direction: column;
+            }
+
+            .btn-voltar-player {
+                padding: 10px 18px;
+                font-size: 13px;
+                margin-bottom: 15px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .content {
+                padding: 10px;
+            }
+
+            .video-info-player h2 {
+                font-size: 16px;
+            }
+
+            .video-info-player .meta {
+                font-size: 11px;
+                gap: 8px;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="content">
-        <button class="btn-voltar" onclick="window.history.back()">
+
+<div class="content">
+    <div class="player-container">
+        <!-- BOTÃO VOLTAR -->
+        <a href="#" class="btn-voltar-player" id="btnVoltar">
             <i class="fas fa-arrow-left"></i> Voltar para videoaulas
-        </button>
+        </a>
 
-        <div class="player-container">
-            <div class="video-wrapper" id="videoWrapper">
-                <!-- O vídeo será inserido via JavaScript -->
-                <div class="placeholder" id="placeholder">
-                    <i class="fas fa-film"></i>
-                    <p>Carregando vídeo...</p>
-                </div>
+        <!-- WRAPPER DO VÍDEO -->
+        <div class="video-wrapper" id="videoWrapper">
+            <div id="loadingPlaceholder" class="loading-placeholder">
+                <i class="fas fa-spinner"></i>
+                <p>Carregando vídeo...</p>
             </div>
+            <iframe id="videoIframe" src="" allowfullscreen allow="autoplay; encrypted-media" style="display: none;"></iframe>
+        </div>
 
-            <div class="player-info" id="playerInfo">
-                <div style="display:flex; align-items:center; flex-wrap:wrap; gap:8px;">
-                    <h2 id="videoTitulo">Título do Vídeo</h2>
-                    <span class="status-tag" id="videoStatus">Disponível</span>
-                </div>
-                <div class="sub-info" id="videoMeta">
-                    <span><i class="fas fa-chalkboard-user"></i> <span id="videoProfessor">Professor</span></span>
-                    <span><i class="fas fa-calendar-alt"></i> <span id="videoData">00/00/0000</span></span>
-                    <span><i class="fas fa-book"></i> <span id="videoDisciplina">Disciplina</span></span>
-                    <span><i class="fas fa-layer-group"></i> <span id="videoModulo">Módulo</span></span>
-                    <span><i class="fas fa-clock"></i> <span id="videoDuracao">00min</span></span>
-                </div>
-                <div class="descricao" id="videoDescricao">
-                    Esta é uma gravação da aula. Assista ao vídeo e marque como assistido quando terminar.
-                </div>
-                <div class="player-actions">
-                    <button class="btn-marcar" id="btnMarcar" onclick="marcarAssistido()">
-                        <i class="fas fa-check-circle"></i> Marcar como assistido
-                    </button>
-                    <button class="btn-download" onclick="alert('⬇️ Download iniciado! (Simulação)')">
-                        <i class="fas fa-download"></i> Baixar
-                    </button>
-                    <button class="btn-download" onclick="alert('📤 Compartilhar link (Simulação)')">
-                        <i class="fas fa-share-alt"></i> Compartilhar
-                    </button>
-                </div>
+        <!-- INFORMAÇÕES DO VÍDEO -->
+        <div class="video-info-player" id="videoInfo">
+            <h2 id="videoTitulo">Carregando vídeo...</h2>
+            <div class="meta">
+                <span><i class="fas fa-chalkboard-user"></i> <span id="videoProfessor">Professor</span></span>
+                <span><i class="fas fa-calendar-alt"></i> <span id="videoData">--/--/----</span></span>
+                <span><i class="fas fa-book"></i> <span id="videoDisciplina">Disciplina</span></span>
+                <span><i class="fas fa-layer-group"></i> <span id="videoModulo">Módulo</span></span>
             </div>
         </div>
     </div>
+</div>
 
-    <script src="js/sidebar.js"></script>
-    <script src="js/notifications.js"></script>
-    <script>
-        // =============================================
-        // DADOS DOS VÍDEOS (MESMO DO videoaulas_aluno.html)
-        // =============================================
-        const VIDEOS = [
-            // 1º Módulo - TI1
-            { id:1, titulo:'OCA1 - Operação de Computadores I - Aula 01', modulo:'TI1', disciplina:'OCA1', professor:'Carlos Silva', duracao:'45min', data:'15/06/2026', status:'disponivel', descricao:'Introdução à operação de computadores, componentes principais e primeiros passos com sistemas operacionais.' },
-            { id:2, titulo:'OCA1 - Operação de Computadores I - Aula 02', modulo:'TI1', disciplina:'OCA1', professor:'Carlos Silva', duracao:'50min', data:'17/06/2026', status:'disponivel', descricao:'Continuação dos conceitos de operação de computadores, explorando periféricos e configurações básicas.' },
-            { id:3, titulo:'LTT - Linguagem e Tecnologia - Aula 01', modulo:'TI1', disciplina:'LTT', professor:'Mariana Santos', duracao:'40min', data:'14/06/2026', status:'disponivel', descricao:'A relação entre linguagem, trabalho e tecnologia. Análise de discursos e impacto da tecnologia na comunicação.' },
-            { id:4, titulo:'IMC - Instalação e Manutenção - Aula 01', modulo:'TI1', disciplina:'IMC', professor:'Roberto Almeida', duracao:'55min', data:'16/06/2026', status:'aguardando', descricao:'Conceitos de instalação de hardware, montagem de computadores e manutenção preventiva.' },
-            { id:5, titulo:'PC1 - Programação I - Aula 01', modulo:'TI1', disciplina:'PC1', professor:'Carlos Silva', duracao:'60min', data:'13/06/2026', status:'disponivel', descricao:'Introdução à lógica de programação, variáveis, tipos de dados e estruturas condicionais.' },
-            { id:6, titulo:'PC1 - Programação I - Aula 02', modulo:'TI1', disciplina:'PC1', professor:'Carlos Silva', duracao:'55min', data:'18/06/2026', status:'disponivel', descricao:'Estruturas de repetição (for, while) e resolução de exercícios práticos.' },
-            { id:7, titulo:'GSO1 - Sistemas Operacionais I - Aula 01', modulo:'TI1', disciplina:'GSO1', professor:'Fernanda Lima', duracao:'50min', data:'12/06/2026', status:'disponivel', descricao:'História e evolução dos sistemas operacionais, principais funções e gerenciamento de processos.' },
-            // 2º Módulo - TI2
-            { id:8, titulo:'MBD - Modelagem de Banco de Dados - Aula 01', modulo:'TI2', disciplina:'MBD', professor:'Mariana Santos', duracao:'45min', data:'20/06/2026', status:'disponivel', descricao:'Introdução a banco de dados, modelagem conceitual, entidades, atributos e relacionamentos.' },
-            { id:9, titulo:'MBD - Modelagem de Banco de Dados - Aula 02', modulo:'TI2', disciplina:'MBD', professor:'Mariana Santos', duracao:'50min', data:'22/06/2026', status:'aguardando', descricao:'Modelagem lógica e física, normalização e criação de tabelas no SQL.' },
-            { id:10, titulo:'SU - Segurança da Informação - Aula 01', modulo:'TI2', disciplina:'SU', professor:'Paulo Oliveira', duracao:'40min', data:'19/06/2026', status:'disponivel', descricao:'Princípios de segurança da informação, criptografia, firewalls e boas práticas.' },
-            { id:11, titulo:'STIC - Tecnologia da Informação - Aula 01', modulo:'TI2', disciplina:'STIC', professor:'Roberto Almeida', duracao:'55min', data:'21/06/2026', status:'disponivel', descricao:'Sistemas de Tecnologia da Informação e Comunicação, infraestrutura e redes.' },
-            { id:12, titulo:'SBD - Sistemas de Banco de Dados - Aula 01', modulo:'TI2', disciplina:'SBD', professor:'Mariana Santos', duracao:'60min', data:'23/06/2026', status:'disponivel', descricao:'Implementação de banco de dados com SQL, consultas, joins e subconsultas.' },
-            { id:13, titulo:'SBD - Sistemas de Banco de Dados - Aula 02', modulo:'TI2', disciplina:'SBD', professor:'Mariana Santos', duracao:'50min', data:'25/06/2026', status:'disponivel', descricao:'Transações, views, stored procedures e otimização de consultas.' },
-            { id:14, titulo:'RCD1 - Redes de Dados I - Aula 01', modulo:'TI2', disciplina:'RCD1', professor:'Roberto Almeida', duracao:'45min', data:'24/06/2026', status:'aguardando', descricao:'Modelo OSI e TCP/IP, cabeamento, switches e roteadores básicos.' },
-            // 3º Módulo - TI3
-            { id:15, titulo:'PC2 - Programação II - Aula 01', modulo:'TI3', disciplina:'PC2', professor:'Carlos Silva', duracao:'55min', data:'26/06/2026', status:'disponivel', descricao:'Programação orientada a objetos, classes, objetos, herança e polimorfismo.' },
-            { id:16, titulo:'PC2 - Programação II - Aula 02', modulo:'TI3', disciplina:'PC2', professor:'Carlos Silva', duracao:'60min', data:'28/06/2026', status:'disponivel', descricao:'Interfaces, classes abstratas e tratamento de exceções em Java.' },
-            { id:17, titulo:'SD - Sistemas Distribuídos - Aula 01', modulo:'TI3', disciplina:'SD', professor:'Fernanda Lima', duracao:'50min', data:'27/06/2026', status:'disponivel', descricao:'Conceitos de sistemas distribuídos, comunicação remota, RPC e SOAP.' },
-            { id:18, titulo:'DTCC - TCC - Aula 01', modulo:'TI3', disciplina:'DTCC', professor:'Paulo Oliveira', duracao:'45min', data:'29/06/2026', status:'aguardando', descricao:'Planejamento do Trabalho de Conclusão de Curso, metodologia e estrutura do documento.' },
-            { id:19, titulo:'CNM - Computação em Nuvem - Aula 01', modulo:'TI3', disciplina:'CNM', professor:'Paulo Oliveira', duracao:'40min', data:'30/06/2026', status:'disponivel', descricao:'Introdução à computação em nuvem, modelos IaaS, PaaS e SaaS, AWS e Azure.' },
-            { id:20, titulo:'CNM - Computação em Nuvem - Aula 02', modulo:'TI3', disciplina:'CNM', professor:'Paulo Oliveira', duracao:'50min', data:'01/07/2026', status:'disponivel', descricao:'Segurança na nuvem, implantação de aplicações e gerenciamento de recursos.' }
+<script src="js/sidebar.js"></script>
+<script src="js/darkmode.js"></script>
+<script src="js/notifications.js"></script>
+<script>
+    // =============================================
+    // BANCO DE VÍDEOS (MESMO DA PÁGINA PRINCIPAL)
+    // =============================================
+    function getVideos() {
+        const saved = localStorage.getItem('videoaulas_professor');
+        if (saved) {
+            try {
+                return JSON.parse(saved);
+            } catch(e) {}
+        }
+        // Fallback: vídeos padrão
+        return [
+            {
+                id: 1,
+                titulo: '🎬 Curso de JavaScript - Introdução',
+                professor: 'Gustavo Guanabara',
+                disciplina: 'Programação Web',
+                modulo: '1º Módulo',
+                data: '21/06/2026',
+                videoId: '1-w1RfGIov4',
+                thumb: 'https://img.youtube.com/vi/1-w1RfGIov4/hqdefault.jpg',
+                status: 'aguardando',
+                visualizacoes: 0
+            },
+            {
+                id: 2,
+                titulo: 'Curso de Java - Introdução à POO',
+                professor: 'Carlos Silva',
+                disciplina: 'Programação Orientada a Objetos',
+                modulo: '2º Módulo',
+                data: '21/06/2026',
+                videoId: '1-w1RfGIov4',
+                thumb: 'https://img.youtube.com/vi/1-w1RfGIov4/hqdefault.jpg',
+                status: 'aguardando',
+                visualizacoes: 0
+            }
         ];
+    }
 
-        // =============================================
-        // CARREGAR VÍDEO
-        // =============================================
-        function carregarVideo() {
-            // Tentar pegar da sessionStorage (vindo da página anterior)
-            let video = null;
-            const stored = sessionStorage.getItem('video_playing');
-            if (stored) {
-                video = JSON.parse(stored);
+    // =============================================
+    // CARREGAR VÍDEO
+    // =============================================
+    function carregarVideo(id) {
+        const videos = getVideos();
+        const video = videos.find(v => v.id == id);
+        if (!video) {
+            showNotification('Vídeo não encontrado!', 'error');
+            return;
+        }
+
+        const embedUrl = `https://www.youtube.com/embed/${video.videoId}?autoplay=1&rel=0`;
+
+        // Atualizar título
+        document.getElementById('videoTitulo').textContent = video.titulo || 'Vídeo sem título';
+        document.getElementById('videoProfessor').textContent = video.professor || 'Professor';
+        document.getElementById('videoData').textContent = video.data || '--/--/----';
+        document.getElementById('videoDisciplina').textContent = video.disciplina || 'Disciplina';
+        document.getElementById('videoModulo').textContent = video.modulo || 'Módulo';
+
+        // Configurar iframe
+        const iframe = document.getElementById('videoIframe');
+        const loading = document.getElementById('loadingPlaceholder');
+        
+        iframe.src = embedUrl;
+        iframe.style.display = 'block';
+        loading.style.display = 'none';
+
+        // Configurar botão voltar
+        const voltarBtn = document.getElementById('btnVoltar');
+        const origem = sessionStorage.getItem('origem_video') || 'videoaulas_aluno.html';
+        voltarBtn.href = origem;
+    }
+
+    // =============================================
+    // NOTIFICAÇÕES
+    // =============================================
+    function showNotification(msg, tipo) {
+        if (window.notificationSystem) {
+            window.notificationSystem.show(msg, tipo);
+        } else {
+            console.log(`${tipo}: ${msg}`);
+        }
+    }
+
+    // =============================================
+    // INICIALIZAR
+    // =============================================
+    document.addEventListener('DOMContentLoaded', () => {
+        // Aplicar dark mode
+        if (localStorage.getItem('darkMode') === 'enabled') {
+            document.body.classList.add('dark-mode');
+        }
+
+        const params = new URLSearchParams(window.location.search);
+        const id = params.get('id');
+        const savedVideo = sessionStorage.getItem('video_playing');
+
+        let videoId = null;
+        if (id) {
+            videoId = id;
+        } else if (savedVideo) {
+            const video = JSON.parse(savedVideo);
+            videoId = video.id;
+        }
+
+        if (videoId) {
+            carregarVideo(videoId);
+        } else {
+            // Fallback: carregar primeiro vídeo disponível
+            const videos = getVideos();
+            if (videos.length > 0) {
+                carregarVideo(videos[0].id);
             } else {
-                // Fallback: buscar da URL (caso o link venha direto)
-                const params = new URLSearchParams(window.location.search);
-                const id = params.get('id');
-                if (id) {
-                    video = VIDEOS.find(v => v.id == id);
-                }
-                // Se ainda não tiver, pegar o primeiro disponível
-                if (!video) {
-                    video = VIDEOS.find(v => v.status === 'disponivel') || VIDEOS[0];
-                }
-            }
-
-            if (!video) {
-                document.getElementById('placeholder').innerHTML = `
-                    <i class="fas fa-exclamation-triangle"></i>
-                    <p>Vídeo não encontrado</p>
+                document.getElementById('videoTitulo').textContent = 'Nenhum vídeo disponível';
+                document.getElementById('loadingPlaceholder').innerHTML = `
+                    <i class="fas fa-video-slash" style="font-size:48px; color:#64748b;"></i>
+                    <p>Nenhum vídeo encontrado</p>
                 `;
-                return;
-            }
-
-            // Limpar placeholder e inserir vídeo
-            const wrapper = document.getElementById('videoWrapper');
-            const placeholder = document.getElementById('placeholder');
-            placeholder.style.display = 'none';
-
-            // Criar elemento de vídeo
-            const videoEl = document.createElement('video');
-            videoEl.controls = true;
-            videoEl.autoplay = false;
-            videoEl.style.width = '100%';
-            videoEl.style.height = '100%';
-            videoEl.style.background = '#000';
-
-            // Fonte de vídeo de exemplo (Big Buck Bunny - domínio público)
-            // Como não temos um vídeo real, usamos um link de exemplo que realmente funciona
-            const source = document.createElement('source');
-            source.src = 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4';
-            source.type = 'video/mp4';
-            videoEl.appendChild(source);
-
-            // Mensagem de fallback
-            videoEl.innerHTML = 'Seu navegador não suporta vídeos HTML5.';
-
-            wrapper.insertBefore(videoEl, placeholder);
-
-            // Atualizar informações
-            document.getElementById('videoTitulo').textContent = video.titulo;
-            document.getElementById('videoProfessor').textContent = video.professor;
-            document.getElementById('videoData').textContent = video.data;
-            document.getElementById('videoDisciplina').textContent = video.disciplina;
-            document.getElementById('videoModulo').textContent = video.modulo;
-            document.getElementById('videoDuracao').textContent = video.duracao;
-
-            const statusTag = document.getElementById('videoStatus');
-            const statusMap = {
-                'disponivel': { class: 'disponivel', text: 'Disponível' },
-                'aguardando': { class: 'aguardando', text: 'Aguardando liberação' },
-                'assistido': { class: 'assistido', text: 'Já assistido' }
-            };
-            const s = statusMap[video.status] || statusMap['disponivel'];
-            statusTag.className = `status-tag ${s.class}`;
-            statusTag.textContent = s.text;
-
-            // Se já estiver assistido, mudar o botão
-            const btnMarcar = document.getElementById('btnMarcar');
-            if (video.status === 'assistido') {
-                btnMarcar.classList.add('assistido');
-                btnMarcar.innerHTML = '<i class="fas fa-check-circle"></i> Já assistido';
-            } else {
-                btnMarcar.classList.remove('assistido');
-                btnMarcar.innerHTML = '<i class="fas fa-check-circle"></i> Marcar como assistido';
-            }
-
-            // Descrição
-            const desc = video.descricao || 'Esta é uma gravação da aula. Assista ao vídeo e marque como assistido quando terminar.';
-            document.getElementById('videoDescricao').textContent = desc;
-
-            // Salvar o vídeo atual na sessionStorage para referência
-            sessionStorage.setItem('video_playing', JSON.stringify(video));
-        }
-
-        // =============================================
-        // MARCAR COMO ASSISTIDO
-        // =============================================
-        function marcarAssistido() {
-            const stored = sessionStorage.getItem('video_playing');
-            if (!stored) {
-                showNotification('Erro: vídeo não encontrado', 'error');
-                return;
-            }
-            const video = JSON.parse(stored);
-            
-            // Atualizar status localmente (na memória)
-            video.status = 'assistido';
-            sessionStorage.setItem('video_playing', JSON.stringify(video));
-
-            // Atualizar interface
-            const btnMarcar = document.getElementById('btnMarcar');
-            btnMarcar.classList.add('assistido');
-            btnMarcar.innerHTML = '<i class="fas fa-check-circle"></i> Já assistido';
-
-            const statusTag = document.getElementById('videoStatus');
-            statusTag.className = 'status-tag assistido';
-            statusTag.textContent = 'Já assistido';
-
-            showNotification('✅ Vídeo marcado como assistido!', 'success');
-        }
-
-        function showNotification(msg, tipo) {
-            if (window.notificationSystem) {
-                window.notificationSystem.show(msg, tipo);
-            } else {
-                alert(msg);
             }
         }
+    });
 
-        // =============================================
-        // INICIALIZAR
-        // =============================================
-        document.addEventListener('DOMContentLoaded', () => {
-            carregarVideo();
-        });
-    </script>
+    // Expor função global
+    window.carregarVideo = carregarVideo;
+</script>
+
+<!-- ===== SCRIPTS GLOBAIS ===== -->
+<script src="js/validacoes.js"></script>
+<script src="js/app.js"></script>
+<script src="js/global.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/js/all.min.js"></script>
 </body>
 </html>

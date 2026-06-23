@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mural - Aluno | SmartClass</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+     <script src="js/theme-loader.js"></script>
+    <link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/darkmode-padrao.css">
+    <link rel="stylesheet" href="css/sidebar.css">   <!-- NOVO -->
+    <!-- ... -->
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { display: flex; background: #f0f2f5; font-family: 'Poppins', sans-serif; }
+
+        .content {
+            margin-left: 260px;
+            padding: 25px;
+            flex: 1;
+            background: #f0f2f5;
+            min-height: 100vh;
+            transition: margin-left 0.3s ease;
+        }
+
+        .page-header { margin-bottom: 25px; }
+        .page-header h1 {
+            color: #00796b;
+            font-size: 28px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .page-header p { color: #666; font-size: 14px; }
+
+        .avisos-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 25px;
+        }
+        .aviso-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            border: 1px solid #eef2f6;
+            transition: 0.3s;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.04);
+        }
+        .aviso-card:hover { transform: translateY(-5px); box-shadow: 0 12px 30px rgba(0,121,107,0.1); }
+        .aviso-img {
+            width: 100%;
+            max-height: 200px;
+            object-fit: cover;
+            background: #f0f2f5;
+        }
+        .aviso-body { padding: 18px 20px; }
+        .aviso-titulo {
+            font-size: 18px;
+            font-weight: 700;
+            color: #2d3436;
+            margin-bottom: 8px;
+        }
+        .aviso-mensagem {
+            font-size: 14px;
+            color: #636e72;
+            line-height: 1.5;
+            margin-bottom: 12px;
+            display: -webkit-box;
+            -webkit-line-clamp: 4;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        .aviso-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            font-size: 12px;
+            color: #999;
+            padding-top: 12px;
+            border-top: 1px solid #eef2f6;
+        }
+        .aviso-meta i { color: #00796b; width: 16px; }
+        .aviso-turma {
+            background: #e8f5e9;
+            padding: 2px 12px;
+            border-radius: 30px;
+            color: #00796b;
+            font-weight: 600;
+            font-size: 11px;
+        }
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            background: white;
+            border-radius: 20px;
+            grid-column: 1/-1;
+        }
+        .empty-state i { font-size: 64px; color: #b2bec3; margin-bottom: 15px; }
+
+        /* Dark mode */
+        body.dark-mode .content { background: #0f172a; }
+        body.dark-mode .aviso-card, body.dark-mode .empty-state {
+            background: #1e293b;
+            border-color: #334155;
+        }
+        body.dark-mode .page-header h1, body.dark-mode .aviso-titulo { color: #fbbf24; }
+        body.dark-mode .page-header p, body.dark-mode .aviso-mensagem,
+        body.dark-mode .aviso-meta { color: #94a3b8; }
+        body.dark-mode .aviso-turma { background: #334155; color: #fbbf24; }
+
+        @media (max-width: 900px) {
+            .content { margin-left: 0; padding: 15px; }
+            .avisos-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="content">
+    <div class="page-header">
+        <h1><i class="fas fa-bullhorn"></i> Mural da Turma</h1>
+        <p>Fique por dentro dos avisos e lembretes dos seus professores</p>
+    </div>
+
+    <div class="avisos-grid" id="avisosGrid"></div>
+</div>
+
+<script src="js/sidebar.js"></script>
+<script src="js/darkmode.js"></script>
+
+<script>
+    const STORAGE_KEY = 'avisos_mural';
+    const user = JSON.parse(localStorage.getItem('loggedUser') || '{}');
+
+    if (!user || user.tipo !== 'aluno') {
+        window.location.href = 'login_aluno.html';
+    }
+
+    // Determinar a turma do aluno (procurar nas chaves de turmas)
+    function obterTurmaAluno(email) {
+        const chaves = Object.keys(localStorage);
+        for (let chave of chaves) {
+            if (chave.startsWith('alunos_turma_')) {
+                const alunos = JSON.parse(localStorage.getItem(chave) || '[]');
+                const encontrado = alunos.find(a => a.email === email);
+                if (encontrado) {
+                    // Extrair turma da chave: alunos_turma_1anoEM_1A -> 1A
+                    const partes = chave.split('_');
+                    return partes[partes.length - 1]; // ex: 1A
+                }
+            }
+        }
+        return null;
+    }
+
+    function carregarAvisos() {
+        const data = localStorage.getItem(STORAGE_KEY);
+        const todos = data ? JSON.parse(data) : [];
+        const turmaAluno = obterTurmaAluno(user.email);
+
+        let avisos = todos;
+        if (turmaAluno) {
+            avisos = todos.filter(a => a.turma === turmaAluno);
+        } else {
+            // Se não encontrou turma, mostra todos (fallback)
+            avisos = todos;
+        }
+
+        // Ordenar do mais recente
+        avisos.sort((a, b) => new Date(b.data) - new Date(a.data));
+
+        const grid = document.getElementById('avisosGrid');
+        if (avisos.length === 0) {
+            grid.innerHTML = `<div class="empty-state">
+                <i class="fas fa-bullhorn"></i>
+                <h3>Nenhum aviso para sua turma</h3>
+                <p>Seus professores ainda não publicaram avisos aqui.</p>
+            </div>`;
+            return;
+        }
+
+        grid.innerHTML = avisos.map(aviso => `
+            <div class="aviso-card">
+                ${aviso.imagem ? `<img src="${aviso.imagem}" class="aviso-img" alt="Imagem do aviso">` : ''}
+                <div class="aviso-body">
+                    <div class="aviso-titulo">${aviso.titulo}</div>
+                    <div class="aviso-mensagem">${aviso.mensagem}</div>
+                    <div class="aviso-meta">
+                        <span><i class="fas fa-calendar-alt"></i> ${new Date(aviso.data).toLocaleDateString('pt-BR')} ${new Date(aviso.data).toLocaleTimeString('pt-BR', {hour:'2-digit', minute:'2-digit'})}</span>
+                        <span class="aviso-turma"><i class="fas fa-user"></i> ${aviso.autor}</span>
+                    </div>
+                </div>
+            </div>
+        `).join('');
+    }
+
+    document.addEventListener('DOMContentLoaded', carregarAvisos);
+</script>
+    <!-- ===== SCRIPTS GLOBAIS (carregar ao final do body) ===== -->
+    
+    <!-- 1. Validações de campos (máximo de caracteres, contadores, resize) -->
+    <script src="js/validacoes.js"></script>
+    
+    <!-- 2. Sistema de notificações (showNotification, NotificationSystem) -->
+    <script src="js/notifications.js"></script>
+    
+    <!-- 3. Aplicativo principal (login, localStorage, pet, atividades, seed) -->
+    <script src="js/app.js"></script>
+    
+    <!-- 4. Controle do modo escuro (dark mode global) -->
+    <script src="js/darkmode.js"></script>
+    
+    <!-- 5. Barra lateral universal (sidebar fixa) -->
+    <script src="js/sidebar.js"></script>
+    
+    <!-- 6. Utilitários globais (funções auxiliares, fallbacks) -->
+    <script src="js/global.js"></script>
+    
+    <!-- 7. Ícones Font Awesome (renderização dos ícones) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/js/all.min.js"></script>
+
+    <!-- (Opcional) Scripts específicos da página podem vir depois -->
+    <!-- <script src="js/meu-script-especifico.js"></script> -->
+</body>
+</html>

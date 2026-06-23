@@ -4,23 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Meu Perfil - Professor | SmartClass</title>
-    
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/darkmode-padrao.css">
+    <link rel="stylesheet" href="css/sidebar.css">
+    <script src="js/theme-loader.js"></script>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            display: flex;
-            background: #f0f2f5;
-            font-family: 'Poppins', sans-serif;
-            transition: background 0.3s ease;
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { display: flex; background: #f0f2f5; font-family: 'Poppins', sans-serif; transition: background 0.3s ease; }
+        
         .content {
             margin-left: 260px;
             padding: 30px;
@@ -31,59 +24,31 @@
             min-height: 100vh;
         }
 
-        .perfil-container {
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-
-        .page-header {
-            margin-bottom: 30px;
-        }
-
-        .page-header h1 {
-            color: #00796b;
-            font-size: 28px;
-            margin-bottom: 8px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .page-header p {
-            color: #5a6e6a;
-            font-size: 14px;
-        }
+        .perfil-container { max-width: 1400px; margin: 0 auto; }
+        .page-header { margin-bottom: 30px; }
+        .page-header h1 { color: #00796b; font-size: 28px; margin-bottom: 8px; display: flex; align-items: center; gap: 12px; }
+        .page-header p { color: #5a6e6a; font-size: 14px; }
 
         .perfil-grid {
             display: grid;
             grid-template-columns: 1fr 1.5fr;
             gap: 25px;
         }
-
-        .perfil-coluna {
-            display: flex;
-            flex-direction: column;
-            gap: 25px;
-        }
-
+        .perfil-coluna { display: flex; flex-direction: column; gap: 25px; }
         .perfil-card {
             background: white;
             border-radius: 20px;
             padding: 25px;
-            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+            box-shadow: 0 2px 12px rgba(0,0,0,0.06);
             border: 1px solid #eef2f6;
             transition: all 0.3s ease;
         }
-
         .perfil-card:hover {
             transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(0, 121, 107, 0.1);
+            box-shadow: 0 8px 25px rgba(0,121,107,0.1);
         }
 
-        .foto-card {
-            text-align: center;
-        }
-
+        .foto-card { text-align: center; }
         .foto-container {
             position: relative;
             width: 150px;
@@ -92,22 +57,14 @@
             border-radius: 50%;
             overflow: hidden;
             cursor: pointer;
-            box-shadow: 0 5px 20px rgba(0, 121, 107, 0.3);
+            box-shadow: 0 5px 20px rgba(0,121,107,0.3);
         }
-
-        .foto-container img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
+        .foto-container img { width: 100%; height: 100%; object-fit: cover; }
         .foto-overlay {
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.6);
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0,0,0,0.6);
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -117,83 +74,21 @@
             transition: opacity 0.3s ease;
             color: white;
         }
+        .foto-overlay i { font-size: 28px; }
+        .foto-overlay span { font-size: 11px; }
+        .foto-container:hover .foto-overlay { opacity: 1; }
 
-        .foto-overlay i {
-            font-size: 28px;
-        }
+        .nome-usuario { font-size: 22px; color: #2d3436; margin-bottom: 5px; }
+        .email-usuario { color: #5a6e6a; font-size: 13px; margin-bottom: 20px; }
+        .info-extra { display: flex; flex-direction: column; gap: 10px; padding-top: 15px; border-top: 1px solid #eef2f6; }
+        .info-item { display: flex; align-items: center; gap: 10px; font-size: 13px; color: #5a6e6a; }
+        .info-item i { width: 20px; color: #00796b; }
 
-        .foto-overlay span {
-            font-size: 11px;
-        }
-
-        .foto-container:hover .foto-overlay {
-            opacity: 1;
-        }
-
-        .nome-usuario {
-            font-size: 22px;
-            color: #2d3436;
-            margin-bottom: 5px;
-        }
-
-        .email-usuario {
-            color: #5a6e6a;
-            font-size: 13px;
-            margin-bottom: 20px;
-        }
-
-        .info-extra {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            padding-top: 15px;
-            border-top: 1px solid #eef2f6;
-        }
-
-        .info-item {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 13px;
-            color: #5a6e6a;
-        }
-
-        .info-item i {
-            width: 20px;
-            color: #00796b;
-        }
-
-        .stats-mini-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 15px;
-            margin-top: 15px;
-        }
-
-        .stat-mini {
-            text-align: center;
-            padding: 15px;
-            background: #f8f9fa;
-            border-radius: 15px;
-            transition: all 0.3s ease;
-        }
-
-        .stat-mini:hover {
-            background: #e8f5e9;
-            transform: translateY(-2px);
-        }
-
-        .stat-mini-value {
-            font-size: 28px;
-            font-weight: 700;
-            color: #00796b;
-        }
-
-        .stat-mini-label {
-            font-size: 11px;
-            color: #5a6e6a;
-            margin-top: 5px;
-        }
+        .stats-mini-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-top: 15px; }
+        .stat-mini { text-align: center; padding: 15px; background: #f8f9fa; border-radius: 15px; transition: all 0.3s ease; }
+        .stat-mini:hover { background: #e8f5e9; transform: translateY(-2px); }
+        .stat-mini-value { font-size: 28px; font-weight: 700; color: #00796b; }
+        .stat-mini-label { font-size: 11px; color: #5a6e6a; margin-top: 5px; }
 
         .card-header {
             display: flex;
@@ -203,14 +98,7 @@
             padding-bottom: 15px;
             border-bottom: 2px solid #eef2f6;
         }
-
-        .card-header h3 {
-            color: #00796b;
-            font-size: 18px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
+        .card-header h3 { color: #00796b; font-size: 18px; display: flex; align-items: center; gap: 8px; }
 
         .btn-editar {
             background: #f0f7f5;
@@ -226,26 +114,11 @@
             align-items: center;
             gap: 6px;
         }
+        .btn-editar:hover { background: #00796b; color: white; transform: translateY(-2px); }
 
-        .btn-editar:hover {
-            background: #00796b;
-            color: white;
-            transform: translateY(-2px);
-        }
+        .descricao-texto { font-size: 14px; line-height: 1.6; color: #2d3436; text-align: justify; }
 
-        .descricao-texto {
-            font-size: 14px;
-            line-height: 1.6;
-            color: #2d3436;
-            text-align: justify;
-        }
-
-        .materias-container {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 12px;
-        }
-
+        .materias-container { display: flex; flex-wrap: wrap; gap: 12px; }
         .materia-item {
             display: inline-flex;
             align-items: center;
@@ -257,25 +130,9 @@
             background: #e8f5e9;
             border-left: 3px solid #fbbf24;
         }
-
-        .materia-item i {
-            font-size: 14px;
-            color: #fbbf24;
-        }
-
-        .remove-materia {
-            background: none;
-            border: none;
-            font-size: 18px;
-            cursor: pointer;
-            color: #999;
-            margin-left: 5px;
-            transition: color 0.2s;
-        }
-
-        .remove-materia:hover {
-            color: #f44336;
-        }
+        .materia-item i { font-size: 14px; color: #fbbf24; }
+        .remove-materia { background: none; border: none; font-size: 18px; cursor: pointer; color: #999; margin-left: 5px; transition: color 0.2s; }
+        .remove-materia:hover { color: #f44336; }
 
         .empty-materias, .empty-metas, .empty-historico, .empty-disciplinas {
             text-align: center;
@@ -283,19 +140,9 @@
             background: #f8f9fa;
             border-radius: 15px;
         }
+        .empty-materias i, .empty-metas i, .empty-historico i, .empty-disciplinas i { font-size: 48px; color: #b2bec3; margin-bottom: 10px; }
+        .empty-materias p, .empty-metas p, .empty-historico p, .empty-disciplinas p { color: #5a6e6a; font-size: 13px; }
 
-        .empty-materias i, .empty-metas i, .empty-historico i, .empty-disciplinas i {
-            font-size: 48px;
-            color: #b2bec3;
-            margin-bottom: 10px;
-        }
-
-        .empty-materias p, .empty-metas p, .empty-historico p, .empty-disciplinas p {
-            color: #5a6e6a;
-            font-size: 13px;
-        }
-
-        /* Disciplinas Alocadas */
         .disciplina-alocada {
             background: #f8f9fa;
             border-radius: 12px;
@@ -304,162 +151,33 @@
             border-left: 4px solid #4caf50;
             transition: all 0.2s;
         }
+        .disciplina-alocada:hover { transform: translateX(3px); background: #e8f5e9; }
+        .disciplina-header { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; margin-bottom: 8px; }
+        .disciplina-sigla { font-weight: 700; color: #00796b; font-size: 14px; }
+        .disciplina-nome { font-size: 12px; color: #666; }
+        .disciplina-detalhes { font-size: 11px; color: #888; margin-top: 8px; display: flex; gap: 15px; flex-wrap: wrap; }
+        .disciplina-horario { display: flex; align-items: center; gap: 5px; }
+        .disciplina-horario i { color: #f39c12; }
 
-        .disciplina-alocada:hover {
-            transform: translateX(3px);
-            background: #e8f5e9;
-        }
+        .metas-container { display: flex; flex-direction: column; gap: 12px; }
+        .meta-item { background: #f8f9fa; border-radius: 12px; padding: 15px; transition: all 0.2s ease; }
+        .meta-item.concluida { background: #e8f5e9; opacity: 0.8; }
+        .meta-item.concluida .meta-titulo span { text-decoration: line-through; color: #666; }
+        .meta-header { display: flex; justify-content: space-between; align-items: center; }
+        .meta-titulo { display: flex; align-items: center; gap: 10px; }
+        .meta-titulo input[type="checkbox"] { width: 18px; height: 18px; cursor: pointer; accent-color: #00796b; }
+        .meta-titulo span { font-weight: 600; font-size: 14px; color: #2d3436; }
+        .remove-meta { background: none; border: none; font-size: 20px; cursor: pointer; color: #999; padding: 0 5px; transition: color 0.2s; }
+        .remove-meta:hover { color: #f44336; }
+        .meta-data { font-size: 11px; color: #00796b; margin-top: 8px; display: flex; align-items: center; gap: 5px; }
+        .meta-descricao { font-size: 12px; color: #5a6e6a; margin-top: 8px; padding-top: 8px; border-top: 1px solid #e0e0e0; }
 
-        .disciplina-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 8px;
-            margin-bottom: 8px;
-        }
+        .progress-graph { margin-top: 10px; }
+        .graph-bar { margin-bottom: 15px; }
+        .graph-label { display: flex; justify-content: space-between; font-size: 12px; margin-bottom: 5px; color: #5a6e6a; }
+        .graph-bar-fill { height: 10px; background: #00796b; border-radius: 10px; width: 0%; transition: width 0.5s ease; }
 
-        .disciplina-sigla {
-            font-weight: 700;
-            color: #00796b;
-            font-size: 14px;
-        }
-
-        .disciplina-nome {
-            font-size: 12px;
-            color: #666;
-        }
-
-        .disciplina-detalhes {
-            font-size: 11px;
-            color: #888;
-            margin-top: 8px;
-            display: flex;
-            gap: 15px;
-            flex-wrap: wrap;
-        }
-
-        .disciplina-horario {
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
-
-        .disciplina-horario i {
-            color: #f39c12;
-        }
-
-        /* Metas */
-        .metas-container {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-
-        .meta-item {
-            background: #f8f9fa;
-            border-radius: 12px;
-            padding: 15px;
-            transition: all 0.2s ease;
-        }
-
-        .meta-item.concluida {
-            background: #e8f5e9;
-            opacity: 0.8;
-        }
-
-        .meta-item.concluida .meta-titulo span {
-            text-decoration: line-through;
-            color: #666;
-        }
-
-        .meta-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .meta-titulo {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .meta-titulo input[type="checkbox"] {
-            width: 18px;
-            height: 18px;
-            cursor: pointer;
-            accent-color: #00796b;
-        }
-
-        .meta-titulo span {
-            font-weight: 600;
-            font-size: 14px;
-            color: #2d3436;
-        }
-
-        .remove-meta {
-            background: none;
-            border: none;
-            font-size: 20px;
-            cursor: pointer;
-            color: #999;
-            padding: 0 5px;
-            transition: color 0.2s;
-        }
-
-        .remove-meta:hover {
-            color: #f44336;
-        }
-
-        .meta-data {
-            font-size: 11px;
-            color: #00796b;
-            margin-top: 8px;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
-
-        .meta-descricao {
-            font-size: 12px;
-            color: #5a6e6a;
-            margin-top: 8px;
-            padding-top: 8px;
-            border-top: 1px solid #e0e0e0;
-        }
-
-        /* Progresso */
-        .progress-graph {
-            margin-top: 10px;
-        }
-
-        .graph-bar {
-            margin-bottom: 15px;
-        }
-
-        .graph-label {
-            display: flex;
-            justify-content: space-between;
-            font-size: 12px;
-            margin-bottom: 5px;
-            color: #5a6e6a;
-        }
-
-        .graph-bar-fill {
-            height: 10px;
-            background: #00796b;
-            border-radius: 10px;
-            width: 0%;
-            transition: width 0.5s ease;
-        }
-
-        /* Histórico */
-        .historico-container {
-            max-height: 300px;
-            overflow-y: auto;
-        }
-
+        .historico-container { max-height: 300px; overflow-y: auto; }
         .atividade-historico-item {
             display: flex;
             justify-content: space-between;
@@ -469,55 +187,24 @@
             border-radius: 12px;
             margin-bottom: 8px;
         }
+        .atividade-info h4 { font-size: 13px; margin-bottom: 3px; color: #2d3436; }
+        .atividade-info p { font-size: 10px; color: #5a6e6a; }
+        .atividade-status { font-size: 11px; font-weight: 600; padding: 4px 12px; border-radius: 20px; }
+        .atividade-status.aberta { background: #e8f5e9; color: #2e7d32; }
+        .atividade-status.entregue { background: #e3f2fd; color: #1565c0; }
+        .atividade-status.corrigida { background: #e8f5e9; color: #2e7d32; }
 
-        .atividade-info h4 {
-            font-size: 13px;
-            margin-bottom: 3px;
-            color: #2d3436;
-        }
-
-        .atividade-info p {
-            font-size: 10px;
-            color: #5a6e6a;
-        }
-
-        .atividade-status {
-            font-size: 11px;
-            font-weight: 600;
-            padding: 4px 12px;
-            border-radius: 20px;
-        }
-
-        .atividade-status.aberta {
-            background: #e8f5e9;
-            color: #2e7d32;
-        }
-
-        .atividade-status.entregue {
-            background: #e3f2fd;
-            color: #1565c0;
-        }
-
-        .atividade-status.corrigida {
-            background: #e8f5e9;
-            color: #2e7d32;
-        }
-
-        /* Modal */
         .modal-overlay {
             display: none;
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.5);
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0,0,0,0.5);
             backdrop-filter: blur(4px);
             z-index: 2000;
             align-items: center;
             justify-content: center;
         }
-
         .modal-container {
             background: white;
             border-radius: 24px;
@@ -527,12 +214,7 @@
             overflow-y: auto;
             animation: slideIn 0.3s ease;
         }
-
-        @keyframes slideIn {
-            from { opacity: 0; transform: translateY(-30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
+        @keyframes slideIn { from { opacity: 0; transform: translateY(-30px); } to { opacity: 1; transform: translateY(0); } }
         .modal-header {
             padding: 20px 25px;
             border-bottom: 1px solid #eef2f6;
@@ -544,52 +226,15 @@
             background: white;
             border-radius: 24px 24px 0 0;
         }
+        .modal-header h3 { color: #00796b; font-size: 20px; display: flex; align-items: center; gap: 10px; }
+        .modal-close { font-size: 28px; cursor: pointer; color: #b2bec3; transition: all 0.2s; line-height: 1; }
+        .modal-close:hover { color: #c62828; transform: scale(1.1); }
+        .modal-body { padding: 25px; }
 
-        .modal-header h3 {
-            color: #00796b;
-            font-size: 20px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .modal-close {
-            font-size: 28px;
-            cursor: pointer;
-            color: #b2bec3;
-            transition: all 0.2s;
-            line-height: 1;
-        }
-
-        .modal-close:hover {
-            color: #c62828;
-            transform: scale(1.1);
-        }
-
-        .modal-body {
-            padding: 25px;
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 600;
-            font-size: 13px;
-            color: #2d3436;
-        }
-
-        .form-group label i {
-            color: #00796b;
-            margin-right: 6px;
-        }
-
-        .form-group input,
-        .form-group textarea,
-        .form-group select {
+        .form-group { margin-bottom: 20px; }
+        .form-group label { display: block; margin-bottom: 8px; font-weight: 600; font-size: 13px; color: #2d3436; }
+        .form-group label i { color: #00796b; margin-right: 6px; }
+        .form-group input, .form-group textarea, .form-group select {
             width: 100%;
             padding: 12px 15px;
             border: 1px solid #e0e0e0;
@@ -598,16 +243,12 @@
             font-family: 'Poppins', sans-serif;
             background: #f8f9fa;
         }
-
-        .form-group input:focus,
-        .form-group textarea:focus,
-        .form-group select:focus {
+        .form-group input:focus, .form-group textarea:focus, .form-group select:focus {
             outline: none;
             border-color: #00796b;
-            box-shadow: 0 0 0 3px rgba(0, 121, 107, 0.1);
+            box-shadow: 0 0 0 3px rgba(0,121,107,0.1);
             background: white;
         }
-
         .btn-submit {
             background: linear-gradient(135deg, #00796b, #004d47);
             color: white;
@@ -621,11 +262,7 @@
             transition: all 0.3s;
             font-family: 'Poppins', sans-serif;
         }
-
-        .btn-submit:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 20px rgba(0, 121, 107, 0.3);
-        }
+        .btn-submit:hover { transform: translateY(-2px); box-shadow: 0 5px 20px rgba(0,121,107,0.3); }
 
         .materias-opcoes {
             display: grid;
@@ -633,7 +270,6 @@
             gap: 12px;
             margin-bottom: 25px;
         }
-
         .materia-opcao {
             padding: 12px;
             background: #f8f9fa;
@@ -647,28 +283,11 @@
             font-weight: 500;
             border: 2px solid transparent;
         }
+        .materia-opcao:hover { background: #e8f5e9; transform: translateX(3px); }
+        .materia-opcao.selected { background: #00796b; color: white; border-color: #004d47; }
+        .materia-opcao.selected i { color: white; }
+        .materia-opcao i { width: 24px; color: #00796b; }
 
-        .materia-opcao:hover {
-            background: #e8f5e9;
-            transform: translateX(3px);
-        }
-
-        .materia-opcao.selected {
-            background: #00796b;
-            color: white;
-            border-color: #004d47;
-        }
-
-        .materia-opcao.selected i {
-            color: white;
-        }
-
-        .materia-opcao i {
-            width: 24px;
-            color: #00796b;
-        }
-
-        /* Notificações */
         .custom-notification {
             position: fixed;
             top: 20px;
@@ -682,149 +301,49 @@
             transition: right 0.3s ease;
             font-size: 13px;
             font-weight: 500;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
         }
-
         .custom-notification.show { right: 20px; }
         .custom-notification.success { background: #00796b; color: white; }
         .custom-notification.error { background: #f44336; color: white; }
         .custom-notification.info { background: #2196f3; color: white; }
 
         /* Dark Mode */
-        body.dark-mode {
-            background: #0f172a;
-        }
-
-        body.dark-mode .content {
-            background: #0f172a;
-        }
-
-        body.dark-mode .perfil-card {
-            background: #1e293b;
-            border-color: #334155;
-        }
-
-        body.dark-mode .page-header h1 {
-            color: #fbbf24;
-        }
-
-        body.dark-mode .page-header p,
-        body.dark-mode .info-item,
-        body.dark-mode .stat-mini-label,
-        body.dark-mode .descricao-texto,
-        body.dark-mode .graph-label,
-        body.dark-mode .atividade-info p,
-        body.dark-mode .disciplina-nome,
-        body.dark-mode .disciplina-detalhes {
-            color: #94a3b8;
-        }
-
-        body.dark-mode .nome-usuario,
-        body.dark-mode .card-header h3,
-        body.dark-mode .meta-titulo span,
-        body.dark-mode .atividade-info h4,
-        body.dark-mode .disciplina-sigla {
-            color: #f1f5f9;
-        }
-
-        body.dark-mode .info-extra,
-        body.dark-mode .card-header {
-            border-top-color: #334155;
-            border-bottom-color: #334155;
-        }
-
-        body.dark-mode .stat-mini,
-        body.dark-mode .empty-materias,
-        body.dark-mode .empty-metas,
-        body.dark-mode .empty-historico,
-        body.dark-mode .empty-disciplinas,
-        body.dark-mode .meta-item,
-        body.dark-mode .atividade-historico-item,
-        body.dark-mode .disciplina-alocada {
-            background: #334155;
-        }
-
-        body.dark-mode .stat-mini-value {
-            color: #fbbf24;
-        }
-
-        body.dark-mode .materia-item {
-            background: #334155;
-        }
-
-        body.dark-mode .meta-item.concluida,
-        body.dark-mode .disciplina-alocada:hover {
-            background: #1e3a2e;
-        }
-
-        body.dark-mode .graph-bar-fill {
-            background: #fbbf24;
-        }
-
-        body.dark-mode .btn-editar {
-            background: #334155;
-            color: #fbbf24;
-        }
-
-        body.dark-mode .btn-editar:hover {
-            background: #fbbf24;
-            color: #0f172a;
-        }
-
-        body.dark-mode .modal-container,
-        body.dark-mode .modal-header {
-            background: #1e293b;
-        }
-
-        body.dark-mode .modal-header {
-            border-bottom-color: #334155;
-        }
-
-        body.dark-mode .modal-header h3 {
-            color: #fbbf24;
-        }
-
-        body.dark-mode .form-group label {
-            color: #cbd5e1;
-        }
-
-        body.dark-mode .form-group input,
-        body.dark-mode .form-group textarea,
-        body.dark-mode .form-group select,
-        body.dark-mode .materia-opcao {
-            background: #334155;
-            border-color: #475569;
-            color: #f1f5f9;
-        }
-
-        body.dark-mode .materia-opcao.selected {
-            background: #fbbf24;
-            color: #0f172a;
-        }
+        body.dark-mode { background: #0f172a; }
+        body.dark-mode .content { background: #0f172a; }
+        body.dark-mode .perfil-card { background: #1e293b; border-color: #334155; }
+        body.dark-mode .page-header h1 { color: #fbbf24; }
+        body.dark-mode .page-header p, body.dark-mode .info-item, body.dark-mode .stat-mini-label,
+        body.dark-mode .descricao-texto, body.dark-mode .graph-label, body.dark-mode .atividade-info p,
+        body.dark-mode .disciplina-nome, body.dark-mode .disciplina-detalhes { color: #94a3b8; }
+        body.dark-mode .nome-usuario, body.dark-mode .card-header h3, body.dark-mode .meta-titulo span,
+        body.dark-mode .atividade-info h4, body.dark-mode .disciplina-sigla { color: #f1f5f9; }
+        body.dark-mode .info-extra, body.dark-mode .card-header { border-top-color: #334155; border-bottom-color: #334155; }
+        body.dark-mode .stat-mini, body.dark-mode .empty-materias, body.dark-mode .empty-metas,
+        body.dark-mode .empty-historico, body.dark-mode .empty-disciplinas, body.dark-mode .meta-item,
+        body.dark-mode .atividade-historico-item, body.dark-mode .disciplina-alocada { background: #334155; }
+        body.dark-mode .stat-mini-value { color: #fbbf24; }
+        body.dark-mode .materia-item { background: #334155; }
+        body.dark-mode .meta-item.concluida, body.dark-mode .disciplina-alocada:hover { background: #1e3a2e; }
+        body.dark-mode .graph-bar-fill { background: #fbbf24; }
+        body.dark-mode .btn-editar { background: #334155; color: #fbbf24; }
+        body.dark-mode .btn-editar:hover { background: #fbbf24; color: #0f172a; }
+        body.dark-mode .modal-container, body.dark-mode .modal-header { background: #1e293b; }
+        body.dark-mode .modal-header { border-bottom-color: #334155; }
+        body.dark-mode .modal-header h3 { color: #fbbf24; }
+        body.dark-mode .form-group label { color: #cbd5e1; }
+        body.dark-mode .form-group input, body.dark-mode .form-group textarea, body.dark-mode .form-group select,
+        body.dark-mode .materia-opcao { background: #334155; border-color: #475569; color: #f1f5f9; }
+        body.dark-mode .materia-opcao.selected { background: #fbbf24; color: #0f172a; }
 
         @media (max-width: 900px) {
-            .content {
-                margin-left: 0;
-                padding: 20px;
-                width: 100%;
-            }
-            .perfil-grid {
-                grid-template-columns: 1fr;
-            }
-            .materias-opcoes {
-                grid-template-columns: 1fr;
-            }
+            .content { margin-left: 0; padding: 20px; width: 100%; }
+            .perfil-grid { grid-template-columns: 1fr; }
+            .materias-opcoes { grid-template-columns: 1fr; }
         }
-
         @media (max-width: 480px) {
-            .stats-mini-grid {
-                grid-template-columns: 1fr;
-            }
-            .card-header {
-                flex-direction: column;
-                gap: 10px;
-                align-items: flex-start;
-            }
+            .stats-mini-grid { grid-template-columns: 1fr; }
+            .card-header { flex-direction: column; gap: 10px; align-items: flex-start; }
         }
     </style>
 </head>
@@ -867,7 +386,7 @@
                     </div>
                 </div>
 
-                <!-- Matérias Dominantes -->
+                <!-- Matérias de Interesse -->
                 <div class="perfil-card">
                     <div class="card-header">
                         <h3><i class="fas fa-star"></i> Matérias de Interesse</h3>
@@ -893,11 +412,11 @@
                     <p id="descricaoTexto" class="descricao-texto">Clique em editar para adicionar uma descrição!</p>
                 </div>
 
-                <!-- Disciplinas Alocadas (NOVO) -->
+                <!-- Disciplinas Alocadas -->
                 <div class="perfil-card">
                     <div class="card-header">
                         <h3><i class="fas fa-chalkboard-user"></i> Minhas Disciplinas Alocadas</h3>
-                        <button class="btn-editar" onclick="window.location.href='admin_disciplinas_professor.html'"><i class="fas fa-plus"></i> Solicitar nova</button>
+                        <button class="btn-editar" onclick="solicitarDisciplina()"><i class="fas fa-plus"></i> Solicitar nova</button>
                     </div>
                     <div id="minhasDisciplinasContainer"></div>
                 </div>
@@ -964,26 +483,80 @@
     </div>
 </div>
 
+<!-- Modal Solicitar Disciplina -->
+<div id="modalSolicitarDisciplina" class="modal-overlay">
+    <div class="modal-container">
+        <div class="modal-header"><h3><i class="fas fa-plus-circle"></i> Solicitar Nova Disciplina</h3><span class="modal-close" onclick="fecharModal('modalSolicitarDisciplina')">&times;</span></div>
+        <div class="modal-body">
+            <form id="formSolicitarDisciplina">
+                <div class="form-group">
+                    <label><i class="fas fa-book"></i> Disciplina *</label>
+                    <select id="solicitarDisciplina" required>
+                        <option value="">Selecione a disciplina</option>
+                        <optgroup label="1º Módulo - Técnico em Informática">
+                            <option value="OCA1">OCA 1 - Operação de Computadores e Aplicativos I</option>
+                            <option value="LTT">LTT - Linguagem, Trabalho e Tecnologia</option>
+                            <option value="IMC">IMC - Instalação e Manutenção de Computadores</option>
+                            <option value="PC1">PC 1 - Programação de Computadores I</option>
+                            <option value="GSO1">GSO 1 - Gestão de Sistemas Operacionais I</option>
+                            <option value="MBD">MBD - Modelagem de Banco de Dados</option>
+                            <option value="SU">SU - Sistemas Ubíquos</option>
+                            <option value="STIC">STIC - Segurança em Tecnologia da Informação</option>
+                        </optgroup>
+                        <optgroup label="2º Módulo - Técnico em Informática">
+                            <option value="SI">SI - Sistemas de Informação</option>
+                            <option value="PTCC">PTCC - Planejamento do TCC</option>
+                            <option value="SBD">SBD - Sistemas de Banco de Dados</option>
+                            <option value="DSE">DSE - Desenvolvimento de Sistemas Embarcados</option>
+                            <option value="RCD1">RCD 1 - Redes de Comunicação de Dados I</option>
+                            <option value="PC2">PC 2 - Programação de Computadores II</option>
+                            <option value="GSO2">GSO 2 - Gestão de Sistemas Operacionais II</option>
+                        </optgroup>
+                        <optgroup label="3º Módulo - Técnico em Informática">
+                            <option value="INGLES">Inglês - Inglês Instrumental</option>
+                            <option value="SD">SD - Segurança Digital</option>
+                            <option value="DTCC">DTCC - Desenvolvimento do TCC</option>
+                            <option value="CNM">CNM - Computação em Nuvem</option>
+                            <option value="ECO">ECO - Empreendedorismo</option>
+                            <option value="IOT">IOT - Internet das Coisas</option>
+                            <option value="RCD2">RCD 2 - Redes de Comunicação de Dados II</option>
+                            <option value="GSO3">GSO 3 - Gestão de Sistemas Operacionais III</option>
+                        </optgroup>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label><i class="fas fa-layer-group"></i> Módulo *</label>
+                    <select id="solicitarModulo" required>
+                        <option value="">Selecione o módulo</option>
+                        <option value="1modulo">1º Módulo</option>
+                        <option value="2modulo">2º Módulo</option>
+                        <option value="3modulo">3º Módulo</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label><i class="fas fa-align-left"></i> Observação</label>
+                    <textarea id="solicitarObs" rows="3" placeholder="Informações adicionais..."></textarea>
+                </div>
+                <button type="submit" class="btn-submit"><i class="fas fa-paper-plane"></i> Enviar Solicitação</button>
+            </form>
+        </div>
+    </div>
+</div>
+
 <input type="file" id="uploadFoto" accept="image/*" style="display:none" onchange="processarFoto(this)">
 
 <script>
     // ========== MATÉRIAS DO SISTEMA ==========
     const MATERIAS_SISTEMA = {
-        DS: {
-            nome: "Desenvolvimento de Sistemas",
-            materias: ["PW1", "PW2", "PW3", "PA", "BD1", "BD2", "PAM1", "PAM2", "PTCC", "ECO", "IPSS", "QTS", "DSE"]
-        },
-        TI: {
-            nome: "Técnico em Informática",
-            materias: ["OCA1", "LTT", "IMC", "PC1", "GSO1", "MBD", "SU", "STIC", "SI", "SBD", "RCD1", "PC2", "SD", "DTCC", "CNM", "ECO", "IoT", "RCD2", "GSO2", "GSO3", "PTCC"]
-        }
+        DS: { nome: "Desenvolvimento de Sistemas", materias: ["PW1", "PW2", "PW3", "PA", "BD1", "BD2", "PAM1", "PAM2", "PTCC", "ECO", "IPSS", "QTS", "DSE"] },
+        TI: { nome: "Técnico em Informática", materias: ["OCA1", "LTT", "IMC", "PC1", "GSO1", "MBD", "SU", "STIC", "SI", "SBD", "RCD1", "PC2", "SD", "DTCC", "CNM", "ECO", "IoT", "RCD2", "GSO2", "GSO3", "PTCC"] }
     };
 
     const NOMES_MATERIAS = {
         "PW1": "Programação Web I", "PW2": "Programação Web II", "PW3": "Programação Web III",
         "PA": "Projeto de Aprendizagem", "BD1": "Banco de Dados I", "BD2": "Banco de Dados II",
         "PAM1": "Programação de Aplicativos Mobile I", "PAM2": "Programação de Aplicativos Mobile II",
-        "PTCC": "Planejamento do Trabalho de Conclusão de Curso", "ECO": "Ética e Cidadania Organizacional",
+        "PTCC": "Planejamento do TCC", "ECO": "Ética e Cidadania Organizacional",
         "IPSS": "Internet, Protocolos e Segurança de Sistemas", "QTS": "Qualidade e Testes de Software",
         "DSE": "Desenvolvimento de Sistemas Empresariais", "OCA1": "Operação de Computadores e Aplicativos I",
         "LTT": "Linguagem, Trabalho e Tecnologia", "IMC": "Instalação e Manutenção de Computadores",
@@ -992,25 +565,31 @@
         "STIC": "Sistemas de Tecnologia da Informação e Comunicação", "SI": "Sistemas de Informação",
         "SBD": "Sistemas de Banco de Dados", "RCD1": "Redes de Comunicação de Dados I",
         "PC2": "Programação de Computadores II", "SD": "Sistemas Distribuídos",
-        "DTCC": "Desenvolvimento do Trabalho de Conclusão de Curso", "CNM": "Computação em Nuvem",
+        "DTCC": "Desenvolvimento do TCC", "CNM": "Computação em Nuvem",
         "IoT": "Internet das Coisas", "RCD2": "Redes de Comunicação de Dados II",
         "GSO2": "Gestão de Sistemas Operacionais II", "GSO3": "Gestão de Sistemas Operacionais III"
     };
 
     // ========== FUNÇÕES AUXILIARES ==========
-    function getAlocacoes() {
-        return JSON.parse(localStorage.getItem("alocacoes_professores") || "[]");
-    }
+    function getAlocacoes() { return JSON.parse(localStorage.getItem("alocacoes_professores") || "[]"); }
+    function saveAlocacoes(alocacoes) { localStorage.setItem("alocacoes_professores", JSON.stringify(alocacoes)); }
+    function getFilaEspera() { return JSON.parse(localStorage.getItem("fila_espera_disciplinas") || "[]"); }
+    function saveFilaEspera(fila) { localStorage.setItem("fila_espera_disciplinas", JSON.stringify(fila)); }
 
     function showNotification(msg, type) {
-    if (window.notificationSystem) {
-        window.notificationSystem.show(msg, type === 'success' ? 'success' : 'error');
+        if (window.notificationSystem) {
+            window.notificationSystem.show(msg, type === 'success' ? 'success' : 'error');
+        } else {
+            const notif = document.createElement('div');
+            notif.className = `custom-notification ${type}`;
+            notif.innerHTML = `<i class="fas ${type === 'success' ? 'fa-check-circle' : 'fa-exclamation-circle'}"></i> ${msg}`;
+            document.body.appendChild(notif);
+            setTimeout(() => notif.classList.add('show'), 10);
+            setTimeout(() => { notif.classList.remove('show'); setTimeout(() => notif.remove(), 300); }, 3000);
+        }
     }
-}
 
-    function fecharModal(modalId) {
-        document.getElementById(modalId).style.display = 'none';
-    }
+    function fecharModal(modalId) { document.getElementById(modalId).style.display = 'none'; }
 
     // ========== USUÁRIO ==========
     let usuarioAtual = null;
@@ -1019,10 +598,7 @@
 
     function carregarUsuario() {
         const userStr = localStorage.getItem("loggedUser");
-        if (!userStr) {
-            window.location.href = "login_professor.html";
-            return;
-        }
+        if (!userStr) { window.location.href = "login_professor.html"; return; }
         usuarioAtual = JSON.parse(userStr);
         document.getElementById("nomeUsuario").textContent = usuarioAtual.name;
         document.getElementById("emailUsuario").textContent = usuarioAtual.identifier || usuarioAtual.email;
@@ -1120,12 +696,12 @@
     function carregarMinhasDisciplinas() {
         const alocacoes = getAlocacoes();
         const emailUsuario = usuarioAtual?.identifier || usuarioAtual?.email;
-        const minhasAlocacoes = alocacoes.filter(a => a.professorEmail === emailUsuario);
+        const minhasAlocacoes = alocacoes.filter(a => a.professorEmail === emailUsuario && a.status === 'aprovada');
         const container = document.getElementById("minhasDisciplinasContainer");
         if (!container) return;
         
         if (minhasAlocacoes.length === 0) {
-            container.innerHTML = `<div class="empty-disciplinas"><i class="fas fa-clock"></i><p>Você ainda não possui disciplinas alocadas. Solicite no menu "Minhas Disciplinas".</p></div>`;
+            container.innerHTML = `<div class="empty-disciplinas"><i class="fas fa-clock"></i><p>Você ainda não possui disciplinas alocadas. Clique em "Solicitar nova".</p></div>`;
             return;
         }
         
@@ -1137,14 +713,57 @@
                 </div>
                 <div class="disciplina-nome">${a.materiaNome}</div>
                 <div class="disciplina-detalhes">
-                    <span class="disciplina-horario"><i class="fas fa-graduation-cap"></i> ${a.cursoNome}</span>
-                    <span class="disciplina-horario"><i class="fas fa-layer-group"></i> ${a.moduloNome}</span>
+                    <span class="disciplina-horario"><i class="fas fa-graduation-cap"></i> ${a.cursoNome || 'Técnico em Informática'}</span>
+                    <span class="disciplina-horario"><i class="fas fa-layer-group"></i> ${a.moduloNome || getModuloNome(a.modulo)}</span>
                     <span class="disciplina-horario"><i class="fas fa-clock"></i> ${a.horarioDescricao || "Horário a definir"}</span>
-                    <span class="disciplina-horario"><i class="fas fa-calendar-week"></i> ${a.dias || "Dias a definir"}</span>
                 </div>
             </div>
         `).join('');
     }
+
+    function getModuloNome(moduloKey) {
+        const modulos = { '1modulo': '1º Módulo', '2modulo': '2º Módulo', '3modulo': '3º Módulo' };
+        return modulos[moduloKey] || moduloKey;
+    }
+
+    // ===== SOLICITAR DISCIPLINA =====
+    function solicitarDisciplina() {
+        document.getElementById("modalSolicitarDisciplina").style.display = "flex";
+    }
+
+    document.getElementById('formSolicitarDisciplina').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const disciplina = document.getElementById('solicitarDisciplina').value;
+        const modulo = document.getElementById('solicitarModulo').value;
+        const obs = document.getElementById('solicitarObs').value.trim();
+
+        if (!disciplina || !modulo) {
+            showNotification('Preencha todos os campos obrigatórios!', 'error');
+            return;
+        }
+
+        const fila = getFilaEspera();
+        const novaSolicitacao = {
+            id: Date.now().toString(),
+            professorEmail: usuarioAtual.identifier || usuarioAtual.email,
+            professorNome: usuarioAtual.name,
+            materiaSigla: disciplina,
+            materiaNome: NOMES_MATERIAS[disciplina] || disciplina,
+            modulo: modulo,
+            moduloNome: getModuloNome(modulo),
+            cursoNome: 'Técnico em Informática',
+            observacao: obs,
+            dataSolicitacao: new Date().toISOString(),
+            status: 'pendente'
+        };
+        fila.push(novaSolicitacao);
+        saveFilaEspera(fila);
+        fecharModal('modalSolicitarDisciplina');
+        document.getElementById('solicitarDisciplina').value = '';
+        document.getElementById('solicitarModulo').value = '';
+        document.getElementById('solicitarObs').value = '';
+        showNotification('✅ Solicitação enviada com sucesso! Aguarde aprovação.', 'success');
+    });
 
     // ========== METAS ==========
     function carregarMetas() {
@@ -1175,16 +794,11 @@
         `).join('');
     }
 
-    function adicionarMeta() {
-        document.getElementById("modalMeta").style.display = "flex";
-    }
+    function adicionarMeta() { document.getElementById("modalMeta").style.display = "flex"; }
 
     function salvarMeta() {
         const titulo = document.getElementById("metaTitulo").value.trim();
-        if (!titulo) {
-            showNotification("Digite um título!", "error");
-            return;
-        }
+        if (!titulo) { showNotification("Digite um título!", "error"); return; }
         metas.push({
             titulo: titulo,
             data: document.getElementById("metaData").value,
@@ -1274,7 +888,6 @@
             if (a.status === "encerrada") { statusClass = "corrigida"; statusTexto = "Encerrada"; }
             else if (entregas > 0 && entregas === corrigidas) { statusClass = "corrigida"; statusTexto = "Corrigida"; }
             else if (entregas > 0) { statusClass = "entregue"; statusTexto = "Entregue"; }
-
             return `
                 <div class="atividade-historico-item">
                     <div class="atividade-info">
@@ -1349,17 +962,16 @@
         window.salvarDescricao = salvarDescricao;
         window.salvarMaterias = salvarMaterias;
         window.salvarMeta = salvarMeta;
+        window.solicitarDisciplina = solicitarDisciplina;
     });
 </script>
 
-    <script src="js/darkmode.js"></script>
-    <script src="js/sidebar.js"></script>
-    <script src="js/validacoes.js"></script>
-    <script src="js/notifications.js"></script>
-    <script src="js/app.js"></script>
-
-    <!-- Scripts -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/js/all.min.js"></script>
+<script src="js/validacoes.js"></script>
+<script src="js/notifications.js"></script>
+<script src="js/app.js"></script>
+<script src="js/darkmode.js"></script>
 <script src="js/sidebar.js"></script>
+<script src="js/global.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/js/all.min.js"></script>
 </body>
 </html>

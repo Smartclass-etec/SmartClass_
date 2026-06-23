@@ -4,429 +4,125 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Atividades - Aluno | SmartClass</title>
+    <script src="js/theme-loader.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/darkmode-padrao.css">
+    <link rel="stylesheet" href="css/sidebar.css">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            display: flex;
-            background: #f0f2f5;
-            font-family: 'Poppins', sans-serif;
-            transition: background 0.3s ease;
-        }
-
-        .content {
-            margin-left: 260px;
-            padding: 25px;
-            flex: 1;
-            background: #f0f2f5;
-            min-height: 100vh;
-            transition: margin-left 0.3s ease;
-        }
-
-        .page-header {
-            margin-bottom: 30px;
-        }
-
-        .page-header h1 {
-            color: #00796b;
-            font-size: 28px;
-            margin-bottom: 8px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .page-header p {
-            color: #666;
-            font-size: 14px;
-        }
-
-        .stats-row {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 20px;
-            margin-bottom: 30px;
-        }
-
-        .stat-card {
-            background: white;
-            border-radius: 20px;
-            padding: 20px;
-            display: flex;
-            align-items: center;
-            gap: 18px;
-            box-shadow: 0 2px 12px rgba(0,0,0,0.06);
-            border: 1px solid #eef2f6;
-        }
-
-        .stat-icon {
-            width: 55px;
-            height: 55px;
-            background: #e8f5e9;
-            border-radius: 16px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 26px;
-            color: #00796b;
-        }
-
-        .stat-info h3 {
-            font-size: 28px;
-            font-weight: 700;
-            color: #00796b;
-        }
-
-        .stat-info p {
-            font-size: 13px;
-            color: #666;
-            margin-top: 4px;
-        }
-
-        .toolbar {
-            background: white;
-            border-radius: 16px;
-            padding: 15px 20px;
-            margin-bottom: 25px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 15px;
-            border: 1px solid #eef2f6;
-        }
-
-        .search-wrapper {
-            flex: 1;
-            min-width: 250px;
-            position: relative;
-        }
-
-        .search-wrapper i {
-            position: absolute;
-            left: 15px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: #00796b;
-        }
-
-        .search-wrapper input {
-            width: 100%;
-            padding: 12px 15px 12px 45px;
-            border: 1px solid #e0e0e0;
-            border-radius: 30px;
-            font-size: 14px;
-            background: #f8f9fa;
-            font-family: 'Poppins', sans-serif;
-        }
-
-        .filters {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-        }
-
-        .filter-btn {
-            padding: 8px 18px;
-            border: 1px solid #e0e0e0;
-            background: white;
-            border-radius: 30px;
-            cursor: pointer;
-            font-size: 13px;
-            font-weight: 500;
-            color: #555;
-        }
-
-        .filter-btn.active {
-            background: linear-gradient(135deg, #00796b, #004d47);
-            color: white;
-            border-color: transparent;
-        }
-
-        .atividades-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
-            gap: 25px;
-        }
-
-        .atividade-card {
-            background: white;
-            border-radius: 20px;
-            overflow: hidden;
-            box-shadow: 0 2px 12px rgba(0,0,0,0.06);
-            cursor: pointer;
-            border: 1px solid #eef2f6;
-            transition: all 0.3s ease;
-        }
-
-        .atividade-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 35px rgba(0,121,107,0.12);
-        }
-
-        .card-top {
-            padding: 18px 20px 10px 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-
-        .materia-tag {
-            padding: 5px 14px;
-            border-radius: 20px;
-            font-size: 11px;
-            font-weight: 600;
-        }
-
-        .materia-tag.matematica { background: #e3f2fd; color: #1565c0; }
-        .materia-tag.portugues { background: #fce4ec; color: #c62828; }
-        .materia-tag.ciencias { background: #e8f5e9; color: #2e7d32; }
-        .materia-tag.historia { background: #fff3e0; color: #e65100; }
-        .materia-tag.geografia { background: #e0f2f1; color: #00695c; }
-        .materia-tag.ingles { background: #f3e5f5; color: #6a1b9a; }
-
-        .status-tag {
-            padding: 5px 14px;
-            border-radius: 20px;
-            font-size: 11px;
-            font-weight: 600;
-        }
-
+        /* MESMO ESTILO DA VERSÃO ANTERIOR - MANTER */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { display: flex; background: #f0f2f5; font-family: 'Poppins', sans-serif; transition: background 0.3s ease; }
+        .content { margin-left: 260px; padding: 25px; flex: 1; background: #f0f2f5; min-height: 100vh; transition: margin-left 0.3s ease; }
+        .page-header { margin-bottom: 30px; }
+        .page-header h1 { color: #00796b; font-size: 28px; margin-bottom: 8px; display: flex; align-items: center; gap: 12px; }
+        .page-header p { color: #666; font-size: 14px; }
+        .stats-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin-bottom: 30px; }
+        .stat-card { background: white; border-radius: 20px; padding: 20px; display: flex; align-items: center; gap: 18px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); border: 1px solid #eef2f6; }
+        .stat-icon { width: 55px; height: 55px; background: #e8f5e9; border-radius: 16px; display: flex; align-items: center; justify-content: center; font-size: 26px; color: #00796b; }
+        .stat-info h3 { font-size: 28px; font-weight: 700; color: #00796b; }
+        .stat-info p { font-size: 13px; color: #666; margin-top: 4px; }
+        .toolbar { background: white; border-radius: 16px; padding: 15px 20px; margin-bottom: 25px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; border: 1px solid #eef2f6; }
+        .search-wrapper { flex: 1; min-width: 250px; position: relative; }
+        .search-wrapper i { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: #00796b; }
+        .search-wrapper input { width: 100%; padding: 12px 15px 12px 45px; border: 1px solid #e0e0e0; border-radius: 30px; font-size: 14px; background: #f8f9fa; font-family: 'Poppins', sans-serif; }
+        .filters { display: flex; gap: 10px; flex-wrap: wrap; }
+        .filter-btn { padding: 8px 24px; border: 2px solid #e0e0e0; background: white; border-radius: 30px; cursor: pointer; font-size: 13px; font-weight: 600; color: #555; transition: all 0.3s ease; font-family: 'Poppins', sans-serif; }
+        .filter-btn:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+        .filter-btn.active { background: linear-gradient(135deg, #00796b, #004d47); color: white; border-color: transparent; box-shadow: 0 4px 15px rgba(0,121,107,0.3); }
+        .atividades-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(360px, 1fr)); gap: 25px; }
+        .atividade-card { background: white; border-radius: 20px; overflow: hidden; box-shadow: 0 2px 12px rgba(0,0,0,0.06); cursor: pointer; border: 1px solid #eef2f6; transition: all 0.3s ease; }
+        .atividade-card:hover { transform: translateY(-5px); box-shadow: 0 15px 35px rgba(0,121,107,0.12); }
+        .atividade-card:active { transform: scale(0.98); }
+        .card-top { padding: 18px 20px 10px 20px; display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 10px; }
+        .materia-tag { padding: 5px 14px; border-radius: 20px; font-size: 11px; font-weight: 600; }
+        .materia-tag.OCA1 { background: #e3f2fd; color: #1565c0; }
+        .materia-tag.LTT { background: #fce4ec; color: #c62828; }
+        .materia-tag.IMC { background: #e8f5e9; color: #2e7d32; }
+        .materia-tag.PC1 { background: #fff3e0; color: #e65100; }
+        .materia-tag.GSO1 { background: #e0f2f1; color: #00695c; }
+        .materia-tag.MBD { background: #f3e5f5; color: #6a1b9a; }
+        .materia-tag.SU { background: #e8f5e9; color: #2e7d32; }
+        .materia-tag.STIC { background: #ffebee; color: #c62828; }
+        .materia-tag.SI { background: #e3f2fd; color: #1565c0; }
+        .materia-tag.PTCC { background: #fce4ec; color: #c62828; }
+        .materia-tag.SBD { background: #e8f5e9; color: #2e7d32; }
+        .materia-tag.DSE { background: #fff3e0; color: #e65100; }
+        .materia-tag.RCD1 { background: #e0f2f1; color: #00695c; }
+        .materia-tag.PC2 { background: #f3e5f5; color: #6a1b9a; }
+        .materia-tag.GSO2 { background: #e8f5e9; color: #2e7d32; }
+        .materia-tag.INGLES { background: #fce4ec; color: #c62828; }
+        .materia-tag.SD { background: #e8f5e9; color: #2e7d32; }
+        .materia-tag.DTCC { background: #fff3e0; color: #e65100; }
+        .materia-tag.CNM { background: #e0f2f1; color: #00695c; }
+        .materia-tag.ECO { background: #f3e5f5; color: #6a1b9a; }
+        .materia-tag.IOT { background: #e8f5e9; color: #2e7d32; }
+        .materia-tag.RCD2 { background: #e0f2f1; color: #00695c; }
+        .materia-tag.GSO3 { background: #e8f5e9; color: #2e7d32; }
+        .status-tag { padding: 5px 14px; border-radius: 20px; font-size: 11px; font-weight: 600; }
         .status-tag.aberta { background: #e8f5e9; color: #2e7d32; }
         .status-tag.entregue { background: #e3f2fd; color: #1565c0; }
         .status-tag.corrigida { background: #e8f5e9; color: #2e7d32; }
-
-        .card-content {
-            padding: 0 20px 15px 20px;
-        }
-
-        .card-content h3 {
-            font-size: 18px;
-            color: #2d3436;
-            margin-bottom: 10px;
-        }
-
-        .card-content .descricao {
-            font-size: 13px;
-            color: #636e72;
-            line-height: 1.5;
-            margin-bottom: 10px;
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-        }
-
-        .card-footer {
-            padding: 14px 20px;
-            background: #f8f9fa;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 10px;
-            border-top: 1px solid #eef2f6;
-        }
-
-        .date-info {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            font-size: 12px;
-            color: #636e72;
-        }
-
-        .points-info {
-            background: #fff8e7;
-            padding: 4px 12px;
-            border-radius: 20px;
-            color: #f39c12;
-            font-size: 12px;
-            font-weight: 600;
-        }
-
-        .empty-state {
-            text-align: center;
-            padding: 60px 20px;
-            background: white;
-            border-radius: 20px;
-            grid-column: 1/-1;
-        }
-
-        .modal-overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.5);
-            backdrop-filter: blur(4px);
-            z-index: 2000;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .modal-container {
-            background: white;
-            border-radius: 24px;
-            width: 90%;
-            max-width: 650px;
-            max-height: 85vh;
-            overflow-y: auto;
-        }
-
-        .modal-header {
-            padding: 20px 25px;
-            border-bottom: 1px solid #eef2f6;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: sticky;
-            top: 0;
-            background: white;
-        }
-
-        .modal-header h3 {
-            color: #00796b;
-            font-size: 20px;
-        }
-
-        .modal-close {
-            font-size: 28px;
-            cursor: pointer;
-            color: #b2bec3;
-        }
-
-        .modal-body {
-            padding: 25px;
-        }
-
-        .btn-entregar {
-            background: linear-gradient(135deg, #4caf50, #2e7d32);
-            color: white;
-            border: none;
-            padding: 14px;
-            border-radius: 30px;
-            font-size: 14px;
-            font-weight: 600;
-            width: 100%;
-            cursor: pointer;
-            margin-top: 15px;
-        }
-
-        .feedback-card {
-            background: linear-gradient(135deg, #e8f5e9, #c8e6d9);
-            border-radius: 16px;
-            padding: 20px;
-            margin-top: 20px;
-            border-left: 4px solid #4caf50;
-        }
-
-        .custom-notification {
-            position: fixed;
-            top: 20px;
-            right: -300px;
-            padding: 14px 24px;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            z-index: 10000;
-            transition: right 0.3s ease;
-            font-size: 13px;
-            font-weight: 500;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
-        }
-
+        .status-tag.encerrada { background: #f5f5f5; color: #757575; }
+        .card-content { padding: 0 20px 15px 20px; }
+        .card-content h3 { font-size: 18px; color: #2d3436; margin-bottom: 10px; }
+        .card-content .descricao { font-size: 13px; color: #636e72; line-height: 1.5; margin-bottom: 10px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+        .card-footer { padding: 14px 20px; background: #f8f9fa; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; border-top: 1px solid #eef2f6; }
+        .date-info { display: flex; align-items: center; gap: 6px; font-size: 12px; color: #636e72; }
+        .points-info { background: #fff8e7; padding: 4px 12px; border-radius: 20px; color: #f39c12; font-size: 12px; font-weight: 600; }
+        .empty-state { text-align: center; padding: 60px 20px; background: white; border-radius: 20px; grid-column: 1/-1; }
+        .empty-state i { font-size: 48px; color: #ccc; margin-bottom: 15px; }
+        .empty-state h3 { color: #636e72; margin-bottom: 8px; }
+        .empty-state p { color: #b2bec3; font-size: 14px; }
+        .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); backdrop-filter: blur(4px); z-index: 2000; align-items: center; justify-content: center; }
+        .modal-overlay.active { display: flex; }
+        .modal-container { background: white; border-radius: 24px; width: 90%; max-width: 650px; max-height: 85vh; overflow-y: auto; animation: modalIn 0.3s ease; }
+        @keyframes modalIn { from { opacity: 0; transform: scale(0.95) translateY(-20px); } to { opacity: 1; transform: scale(1) translateY(0); } }
+        .modal-header { padding: 20px 25px; border-bottom: 1px solid #eef2f6; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; background: white; border-radius: 24px 24px 0 0; z-index: 10; }
+        .modal-header h3 { color: #00796b; font-size: 20px; display: flex; align-items: center; gap: 10px; }
+        .modal-close { font-size: 32px; cursor: pointer; color: #b2bec3; transition: all 0.2s; line-height: 1; background: none; border: none; }
+        .modal-close:hover { color: #c62828; transform: rotate(90deg); }
+        .modal-body { padding: 25px; }
+        .modal-body .info-row { margin-bottom: 12px; font-size: 14px; }
+        .modal-body .info-row strong { color: #2d3436; display: inline-block; min-width: 120px; }
+        .resposta-area { margin-top: 20px; }
+        .resposta-area label { font-weight: 600; font-size: 14px; color: #2d3436; display: block; margin-bottom: 8px; }
+        .resposta-area label i { color: #00796b; margin-right: 6px; }
+        .resposta-area textarea { width: 100%; padding: 12px 15px; border: 1px solid #e0e0e0; border-radius: 12px; font-family: 'Poppins', sans-serif; font-size: 14px; resize: vertical; min-height: 120px; background: #f8f9fa; }
+        .resposta-area textarea:focus { outline: none; border-color: #00796b; box-shadow: 0 0 0 3px rgba(0,121,107,0.1); background: white; }
+        .btn-entregar { background: linear-gradient(135deg, #4caf50, #2e7d32); color: white; border: none; padding: 14px; border-radius: 30px; font-size: 14px; font-weight: 600; width: 100%; cursor: pointer; margin-top: 15px; transition: all 0.3s ease; font-family: 'Poppins', sans-serif; }
+        .btn-entregar:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(76,175,80,0.3); }
+        .btn-entregar:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+        .feedback-card { background: linear-gradient(135deg, #e8f5e9, #c8e6d9); border-radius: 16px; padding: 20px; margin-top: 20px; border-left: 4px solid #4caf50; }
+        .feedback-card h4 { color: #2e7d32; margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
+        .feedback-card .nota { font-size: 24px; font-weight: 700; color: #f39c12; }
+        .custom-notification { position: fixed; top: 20px; right: -300px; padding: 14px 24px; border-radius: 12px; display: flex; align-items: center; gap: 12px; z-index: 10000; transition: right 0.3s ease; font-size: 13px; font-weight: 500; box-shadow: 0 5px 20px rgba(0,0,0,0.2); }
         .custom-notification.show { right: 20px; }
         .custom-notification.success { background: #00796b; color: white; }
         .custom-notification.error { background: #f44336; color: white; }
+        .custom-notification.info { background: #2196f3; color: white; }
 
-        body.dark-mode {
-            background: #0f172a;
-        }
+        /* Dark Mode */
+        body.dark-mode { background: #0f172a; }
+        body.dark-mode .content { background: #0f172a; }
+        body.dark-mode .stat-card, body.dark-mode .toolbar, body.dark-mode .atividade-card, body.dark-mode .empty-state { background: #1e293b; border-color: #334155; }
+        body.dark-mode .page-header h1, body.dark-mode .stat-card .stat-info h3, body.dark-mode .card-content h3 { color: #fbbf24; }
+        body.dark-mode .page-header p, body.dark-mode .stat-card .stat-info p, body.dark-mode .descricao, body.dark-mode .date-info { color: #94a3b8; }
+        body.dark-mode .card-footer { background: #0f172a; border-top-color: #334155; }
+        body.dark-mode .search-wrapper input { background: #334155; border-color: #475569; color: #f1f5f9; }
+        body.dark-mode .filter-btn { background: #334155; border-color: #475569; color: #94a3b8; }
+        body.dark-mode .filter-btn.active { background: #fbbf24; color: #0f172a; border-color: #fbbf24; }
+        body.dark-mode .modal-container, body.dark-mode .modal-header { background: #1e293b; }
+        body.dark-mode .modal-header h3 { color: #fbbf24; }
+        body.dark-mode .feedback-card { background: #334155; border-left-color: #fbbf24; }
+        body.dark-mode .feedback-card h4 { color: #fbbf24; }
+        body.dark-mode .resposta-area textarea { background: #334155; border-color: #475569; color: #f1f5f9; }
+        body.dark-mode .modal-body .info-row strong { color: #f1f5f9; }
+        body.dark-mode .modal-body .info-row { color: #94a3b8; }
 
-        body.dark-mode .content {
-            background: #0f172a;
-        }
-
-        body.dark-mode .stat-card,
-        body.dark-mode .toolbar,
-        body.dark-mode .atividade-card,
-        body.dark-mode .empty-state {
-            background: #1e293b;
-            border-color: #334155;
-        }
-
-        body.dark-mode .page-header h1,
-        body.dark-mode .stat-card .stat-info h3,
-        body.dark-mode .card-content h3 {
-            color: #fbbf24;
-        }
-
-        body.dark-mode .page-header p,
-        body.dark-mode .stat-card .stat-info p,
-        body.dark-mode .descricao,
-        body.dark-mode .date-info {
-            color: #94a3b8;
-        }
-
-        body.dark-mode .card-footer {
-            background: #0f172a;
-            border-top-color: #334155;
-        }
-
-        body.dark-mode .search-wrapper input {
-            background: #334155;
-            border-color: #475569;
-            color: #f1f5f9;
-        }
-
-        body.dark-mode .filter-btn {
-            background: #334155;
-            border-color: #475569;
-            color: #94a3b8;
-        }
-
-        body.dark-mode .filter-btn.active {
-            background: #fbbf24;
-            color: #0f172a;
-        }
-
-        body.dark-mode .modal-container,
-        body.dark-mode .modal-header {
-            background: #1e293b;
-        }
-
-        body.dark-mode .modal-header h3 {
-            color: #fbbf24;
-        }
-
-        body.dark-mode .feedback-card {
-            background: #334155;
-        }
-
-        @media (max-width: 768px) {
-            .content {
-                margin-left: 0;
-                padding: 15px;
-            }
-            .stats-row {
-                grid-template-columns: repeat(2, 1fr);
-            }
-            .atividades-grid {
-                grid-template-columns: 1fr;
-            }
-        }
+        @media (max-width: 768px) { .content { margin-left: 0; padding: 15px; } .stats-row { grid-template-columns: repeat(2, 1fr); } .atividades-grid { grid-template-columns: 1fr; } }
+        @media (max-width: 480px) { .stats-row { grid-template-columns: 1fr; } .filters { width: 100%; justify-content: center; } .filter-btn { flex: 1; text-align: center; padding: 8px 12px; font-size: 12px; } }
     </style>
 </head>
 <body>
@@ -439,22 +135,10 @@
         </div>
 
         <div class="stats-row">
-            <div class="stat-card">
-                <div class="stat-icon"><i class="fas fa-tasks"></i></div>
-                <div class="stat-info"><h3 id="totalAtividades">0</h3><p>Total</p></div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-icon"><i class="fas fa-clock"></i></div>
-                <div class="stat-info"><h3 id="pendentesAtividades">0</h3><p>Pendentes</p></div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-icon"><i class="fas fa-check-circle"></i></div>
-                <div class="stat-info"><h3 id="entreguesAtividades">0</h3><p>Entregues</p></div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-icon"><i class="fas fa-star"></i></div>
-                <div class="stat-info"><h3 id="corrigidasAtividades">0</h3><p>Corrigidas</p></div>
-            </div>
+            <div class="stat-card"><div class="stat-icon"><i class="fas fa-tasks"></i></div><div class="stat-info"><h3 id="totalAtividades">0</h3><p>Total</p></div></div>
+            <div class="stat-card"><div class="stat-icon"><i class="fas fa-clock"></i></div><div class="stat-info"><h3 id="pendentesAtividades">0</h3><p>Pendentes</p></div></div>
+            <div class="stat-card"><div class="stat-icon"><i class="fas fa-check-circle"></i></div><div class="stat-info"><h3 id="entreguesAtividades">0</h3><p>Entregues</p></div></div>
+            <div class="stat-card"><div class="stat-icon"><i class="fas fa-star"></i></div><div class="stat-info"><h3 id="corrigidasAtividades">0</h3><p>Corrigidas</p></div></div>
         </div>
 
         <div class="toolbar">
@@ -463,9 +147,8 @@
                 <input type="text" id="searchInput" placeholder="Buscar atividade...">
             </div>
             <div class="filters">
-                <button class="filter-btn active" data-filter="todas">Todas</button>
-                <button class="filter-btn" data-filter="abertas">Abertas</button>
-                <button class="filter-btn" data-filter="entregues">Entregues</button>
+                <button class="filter-btn active" data-filter="abertas">📝 Abertas</button>
+                <button class="filter-btn" data-filter="entregues">✅ Entregues</button>
             </div>
         </div>
 
@@ -473,216 +156,569 @@
     </div>
 </div>
 
+<!-- MODAL DETALHES -->
 <div id="modalDetalhes" class="modal-overlay">
     <div class="modal-container">
-        <div class="modal-header"><h3><i class="fas fa-file-alt"></i> Detalhes da Atividade</h3><span class="modal-close close-detalhes">&times;</span></div>
-        <div class="modal-body" id="detalhesContent"></div>
+        <div class="modal-header">
+            <h3><i class="fas fa-file-alt"></i> Detalhes da Atividade</h3>
+            <button class="modal-close close-detalhes">&times;</button>
+        </div>
+        <div class="modal-body" id="detalhesContent">
+            <div style="text-align:center; padding:20px;">
+                <i class="fas fa-spinner fa-spin" style="font-size:32px; color:#00796b;"></i>
+                <p style="margin-top:10px; color:#666;">Carregando...</p>
+            </div>
+        </div>
     </div>
 </div>
 
 <script>
-    const user = JSON.parse(localStorage.getItem("loggedUser"));
-    let atividades = [];
-    let filtroAtual = "todas";
-    let searchTerm = "";
+// ============================================================
+//  CONFIGURAÇÃO
+// ============================================================
+const user = JSON.parse(localStorage.getItem("loggedUser"));
+if (!user || user.tipo !== 'aluno') {
+    window.location.href = 'login_aluno.html';
+}
 
-    function formatarData(dataStr) {
-        if(!dataStr) return "Sem data";
-        try {
-            return new Date(dataStr).toLocaleDateString('pt-BR');
-        } catch(e) { return dataStr; }
-    }
+let atividades = [];
+let filtroAtual = "abertas";
+let searchTerm = "";
+const STORAGE_KEY = "atividades_professor";
 
-    function loadAtividades() {
-        const todasAtividades = JSON.parse(localStorage.getItem("atividades_professor") || "[]");
-        atividades = todasAtividades.filter(a => a.status !== "encerrada");
-        atualizarStats();
-        renderAtividades();
-    }
+// ============================================================
+//  FUNÇÕES AUXILIARES
+// ============================================================
+function formatarData(dataStr) {
+    if (!dataStr) return "Sem data";
+    try { return new Date(dataStr).toLocaleDateString('pt-BR'); } 
+    catch(e) { return dataStr; }
+}
 
-    function atualizarStats() {
-        const hoje = new Date().toISOString().split('T')[0];
-        const pendentes = atividades.filter(a => a.status === "aberta" && a.dataEntrega >= hoje).length;
-        const entregues = atividades.filter(a => a.entregas?.some(e => e.email === user?.email && (e.status === "entregue" || e.status === "corrigida"))).length;
-        const corrigidas = atividades.filter(a => a.entregas?.some(e => e.email === user?.email && e.status === "corrigida")).length;
+function getMateriaNome(materiaKey) {
+    const materias = {
+        'OCA1': 'OCA 1 - Operação de Computadores e Aplicativos I',
+        'LTT': 'LTT - Linguagem, Trabalho e Tecnologia',
+        'IMC': 'IMC - Instalação e Manutenção de Computadores',
+        'PC1': 'PC 1 - Programação de Computadores I',
+        'GSO1': 'GSO 1 - Gestão de Sistemas Operacionais I',
+        'MBD': 'MBD - Modelagem de Banco de Dados',
+        'SU': 'SU - Sistemas Ubíquos',
+        'STIC': 'STIC - Segurança em Tecnologia da Informação',
+        'SI': 'SI - Sistemas de Informação',
+        'PTCC': 'PTCC - Planejamento do TCC',
+        'SBD': 'SBD - Sistemas de Banco de Dados',
+        'DSE': 'DSE - Desenvolvimento de Sistemas Embarcados',
+        'RCD1': 'RCD 1 - Redes de Comunicação de Dados I',
+        'PC2': 'PC 2 - Programação de Computadores II',
+        'GSO2': 'GSO 2 - Gestão de Sistemas Operacionais II',
+        'INGLES': 'Inglês - Inglês Instrumental',
+        'SD': 'SD - Segurança Digital',
+        'DTCC': 'DTCC - Desenvolvimento do TCC',
+        'CNM': 'CNM - Computação em Nuvem',
+        'ECO': 'ECO - Empreendedorismo e Comunicação Organizacional',
+        'IOT': 'IOT - Internet das Coisas (IoT)',
+        'RCD2': 'RCD 2 - Redes de Comunicação de Dados II',
+        'GSO3': 'GSO 3 - Gestão de Sistemas Operacionais III'
+    };
+    return materias[materiaKey] || materiaKey;
+}
+
+// ============================================================
+//  NOTIFICAÇÕES
+// ============================================================
+function showNotification(msg, type = 'success') {
+    const notif = document.createElement('div');
+    notif.className = `custom-notification ${type}`;
+    const icon = type === 'success' ? 'fa-check-circle' : 
+                 type === 'error' ? 'fa-exclamation-circle' : 'fa-info-circle';
+    notif.innerHTML = `<i class="fas ${icon}"></i> ${msg}`;
+    document.body.appendChild(notif);
+    setTimeout(() => notif.classList.add('show'), 10);
+    setTimeout(() => {
+        notif.classList.remove('show');
+        setTimeout(() => notif.remove(), 300);
+    }, 3000);
+}
+
+// ============================================================
+//  CARREGAR ATIVIDADES - MOSTRA TODAS AS ATIVIDADES
+// ============================================================
+function loadAtividades() {
+    try {
+        const todas = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
         
-        document.getElementById("totalAtividades").textContent = atividades.length;
-        document.getElementById("pendentesAtividades").textContent = pendentes;
-        document.getElementById("entreguesAtividades").textContent = entregues;
-        document.getElementById("corrigidasAtividades").textContent = corrigidas;
-    }
-
-    function filtrarAtividades() {
-        let filtradas = [...atividades];
-        const hoje = new Date().toISOString().split('T')[0];
+        console.log('📚 Todas as atividades:', todas);
+        console.log('👤 Usuário:', user.email);
         
-        if(filtroAtual === "abertas") {
-            filtradas = filtradas.filter(a => a.status === "aberta");
-        } else if(filtroAtual === "entregues") {
-            filtradas = filtradas.filter(a => a.entregas?.some(e => e.email === user?.email));
+        // ===== MOSTRA TODAS AS ATIVIDADES (SEM FILTRO DE MÓDULO) =====
+        atividades = todas.filter(a => {
+            // Mostra apenas atividades abertas ou encerradas
+            const statusValido = a.status === 'aberta' || a.status === 'encerrada';
+            return statusValido;
+        });
+        
+        console.log(`✅ ${atividades.length} atividades carregadas para o aluno ${user.name}`);
+        console.log('📋 Atividades:', atividades);
+        
+        if (atividades.length === 0) {
+            console.log('⚠️ NENHUMA ATIVIDADE ENCONTRADA! Verifique se o professor criou atividades.');
         }
         
-        if(searchTerm) {
-            const term = searchTerm.toLowerCase();
-            filtradas = filtradas.filter(a => a.titulo.toLowerCase().includes(term) || (a.descricao && a.descricao.toLowerCase().includes(term)));
-        }
-        
-        filtradas.sort((a, b) => new Date(a.dataEntrega) - new Date(b.dataEntrega));
-        return filtradas;
+    } catch (e) {
+        console.error('Erro ao carregar atividades:', e);
+        atividades = [];
     }
+    atualizarStats();
+    renderAtividades();
+}
 
-    function renderAtividades() {
-        const grid = document.getElementById("atividadesGrid");
-        const filtradas = filtrarAtividades();
+// ============================================================
+//  ESTATÍSTICAS
+// ============================================================
+function atualizarStats() {
+    const hoje = new Date().toISOString().split('T')[0];
+    
+    const pendentes = atividades.filter(a => {
+        const isAberta = a.status === 'aberta';
+        const dataValida = a.dataEntrega >= hoje;
+        const jaEntregue = a.entregas?.some(e => e.email === user.email && 
+            (e.status === 'entregue' || e.status === 'corrigida'));
+        return isAberta && dataValida && !jaEntregue;
+    });
+    
+    const entregues = atividades.filter(a => 
+        a.entregas?.some(e => e.email === user.email && (e.status === 'entregue' || e.status === 'corrigida'))
+    );
+    
+    const corrigidas = atividades.filter(a => 
+        a.entregas?.some(e => e.email === user.email && e.status === 'corrigida')
+    );
+    
+    document.getElementById("totalAtividades").textContent = atividades.length;
+    document.getElementById("pendentesAtividades").textContent = pendentes.length;
+    document.getElementById("entreguesAtividades").textContent = entregues.length;
+    document.getElementById("corrigidasAtividades").textContent = corrigidas.length;
+}
+
+// ============================================================
+//  FILTRAR E RENDERIZAR
+// ============================================================
+function filtrarAtividades() {
+    let filtradas = [...atividades];
+    const hoje = new Date().toISOString().split('T')[0];
+    
+    if (filtroAtual === "abertas") {
+        filtradas = filtradas.filter(a => {
+            const isAberta = a.status === 'aberta';
+            const dataValida = a.dataEntrega >= hoje;
+            const jaEntregue = a.entregas?.some(e => e.email === user.email && 
+                (e.status === 'entregue' || e.status === 'corrigida'));
+            return isAberta && dataValida && !jaEntregue;
+        });
+    } else if (filtroAtual === "entregues") {
+        filtradas = filtradas.filter(a => 
+            a.entregas?.some(e => e.email === user.email && 
+                (e.status === 'entregue' || e.status === 'corrigida'))
+        );
+    }
+    
+    if (searchTerm) {
+        const term = searchTerm.toLowerCase();
+        filtradas = filtradas.filter(a => 
+            a.titulo.toLowerCase().includes(term) || 
+            (a.descricao && a.descricao.toLowerCase().includes(term))
+        );
+    }
+    
+    filtradas.sort((a, b) => new Date(a.dataEntrega) - new Date(b.dataEntrega));
+    return filtradas;
+}
+
+function renderAtividades() {
+    const grid = document.getElementById("atividadesGrid");
+    const filtradas = filtrarAtividades();
+    
+    console.log(`📊 Renderizando ${filtradas.length} atividades (filtro: ${filtroAtual})`);
+    
+    if (filtradas.length === 0) {
+        const mensagem = filtroAtual === "abertas" ? 
+            '🎉 Nenhuma atividade pendente!' : 
+            '📭 Você ainda não entregou nenhuma atividade.';
+        const subMsg = filtroAtual === "abertas" ? 
+            'Aproveite para descansar ou estudar para as próximas.' : 
+            'Acesse a aba "Abertas" para ver as atividades disponíveis.';
+        grid.innerHTML = `
+            <div class="empty-state">
+                <i class="fas ${filtroAtual === 'abertas' ? 'fa-check-circle' : 'fa-inbox'}"></i>
+                <h3>${mensagem}</h3>
+                <p>${subMsg}</p>
+            </div>
+        `;
+        return;
+    }
+    
+    grid.innerHTML = filtradas.map(atividade => {
+        const entrega = atividade.entregas?.find(e => e.email === user.email);
         
-        if(filtradas.length === 0) {
-            grid.innerHTML = `<div class="empty-state"><i class="fas fa-folder-open"></i><h3>Nenhuma atividade</h3><p>Aguarde novas atividades do seu professor.</p></div>`;
-            return;
-        }
+        let statusClass = "aberta";
+        let statusTexto = "Aberta";
+        let statusIcon = "📝";
         
-        grid.innerHTML = filtradas.map(atividade => {
-            const entrega = atividade.entregas?.find(e => e.email === user?.email);
-            let statusClass = "aberta", statusTexto = "Aberta";
-            
-            if(entrega) {
-                if(entrega.status === "entregue") {
-                    statusClass = "entregue";
-                    statusTexto = "Entregue";
-                } else if(entrega.status === "corrigida") {
-                    statusClass = "corrigida";
-                    statusTexto = "Corrigida";
-                }
+        if (entrega) {
+            if (entrega.status === "entregue") {
+                statusClass = "entregue";
+                statusTexto = "Entregue";
+                statusIcon = "⏳";
+            } else if (entrega.status === "corrigida") {
+                statusClass = "corrigida";
+                statusTexto = `Corrigida (${entrega.nota || 0}/10)`;
+                statusIcon = "✅";
             }
-            
-            const materiaClass = atividade.materia;
-            const materiaNome = { matematica: "Matemática", portugues: "Português", ciencias: "Ciências", historia: "História", geografia: "Geografia", ingles: "Inglês" }[atividade.materia] || "Matéria";
-            
-            return `<div class="atividade-card" data-id="${atividade.id}">
+        } else if (atividade.status === "encerrada") {
+            statusClass = "encerrada";
+            statusTexto = "Encerrada";
+            statusIcon = "🔒";
+        }
+        
+        const materiaClass = atividade.materia;
+        const materiaNome = getMateriaNome(atividade.materia) || atividade.materia || "Matéria";
+        
+        return `
+            <div class="atividade-card" data-id="${atividade.id}">
                 <div class="card-top">
                     <span class="materia-tag ${materiaClass}"><i class="fas fa-book"></i> ${materiaNome}</span>
-                    <span class="status-tag ${statusClass}">${statusTexto}</span>
+                    <span class="status-tag ${statusClass}">${statusIcon} ${statusTexto}</span>
                 </div>
                 <div class="card-content">
                     <h3>${atividade.titulo}</h3>
                     <p class="descricao">${atividade.descricao || "Sem descrição"}</p>
                 </div>
                 <div class="card-footer">
-                    <div class="date-info"><i class="fas fa-calendar-alt"></i> ${formatarData(atividade.dataEntrega)}</div>
-                    <div class="points-info"><i class="fas fa-star"></i> ${atividade.pontuacao} pts</div>
+                    <div class="date-info">
+                        <i class="fas fa-calendar-alt"></i> 
+                        ${formatarData(atividade.dataEntrega)}
+                        ${new Date(atividade.dataEntrega) < new Date() ? ' ⚠️ Atrasada' : ''}
+                    </div>
+                    <div class="points-info">
+                        <i class="fas fa-star"></i> ${atividade.pontuacao} pts
+                    </div>
                 </div>
-            </div>`;
-        }).join('');
-        
-        document.querySelectorAll('.atividade-card').forEach(card => {
-            card.onclick = () => {
-                const id = card.dataset.id;
-                const atividade = atividades.find(a => a.id === id);
-                if(atividade) abrirDetalhes(atividade);
-            };
-        });
-    }
-
-    function abrirDetalhes(atividade) {
-        const entrega = atividade.entregas?.find(e => e.email === user?.email);
-        const content = document.getElementById("detalhesContent");
-        
-        let html = `<div><h3 style="color:#00796b;">${atividade.titulo}</h3>
-            <p><strong>Descrição:</strong> ${atividade.descricao || "Sem descrição"}</p>
-            <p><strong>Matéria:</strong> ${atividade.materia}</p>
-            <p><strong>Data de Entrega:</strong> ${formatarData(atividade.dataEntrega)}</p>
-            <p><strong>Pontuação:</strong> ${atividade.pontuacao} pts</p>`;
-        
-        if(entrega) {
-            if(entrega.status === "entregue") {
-                html += `<div class="feedback-card"><h4><i class="fas fa-check-circle"></i> Entregue!</h4>
-                    <p>Sua atividade foi entregue e aguarda correção.</p></div>`;
-            } else if(entrega.status === "corrigida") {
-                html += `<div class="feedback-card"><h4><i class="fas fa-check-circle"></i> Corrigida!</h4>
-                    <p>Nota: <strong>${entrega.nota || 0}/10</strong></p>
-                    ${entrega.feedback ? `<p>Feedback: ${entrega.feedback}</p>` : ''}</div>`;
+            </div>
+        `;
+    }).join('');
+    
+    // Event listeners para abrir detalhes
+    document.querySelectorAll('.atividade-card').forEach(card => {
+        card.addEventListener('click', function(e) {
+            const id = this.dataset.id;
+            console.log('🖱️ Clique na atividade:', id);
+            const atividade = atividades.find(a => a.id === id);
+            if (atividade) {
+                abrirDetalhes(atividade);
+            } else {
+                console.error('❌ Atividade não encontrada:', id);
+                showNotification('Erro ao abrir atividade!', 'error');
             }
-        } else {
-            html += `<div class="resposta-area"><label><i class="fas fa-pen"></i> Sua resposta</label>
-                <textarea id="respostaAluno" rows="4" placeholder="Digite sua resposta aqui..."></textarea>
-                <button class="btn-entregar" onclick="entregarAtividade('${atividade.id}')">Entregar Atividade</button></div>`;
-        }
-        
-        html += `</div>`;
-        content.innerHTML = html;
-        document.getElementById("modalDetalhes").style.display = "flex";
-    }
-
-    function entregarAtividade(atividadeId) {
-        const atividade = atividades.find(a => a.id === atividadeId);
-        if(!atividade) return;
-        
-        const todasAtividades = JSON.parse(localStorage.getItem("atividades_professor") || "[]");
-        const atividadeIndex = todasAtividades.findIndex(a => a.id === atividadeId);
-        
-        if(atividadeIndex !== -1) {
-            if(!todasAtividades[atividadeIndex].entregas) todasAtividades[atividadeIndex].entregas = [];
-            
-            const resposta = document.getElementById("respostaAluno")?.value || "Atividade entregue";
-            
-            todasAtividades[atividadeIndex].entregas.push({
-                email: user.email,
-                nome: user.name,
-                resposta: resposta,
-                status: "entregue",
-                dataEntregaAluno: new Date().toISOString()
-            });
-            
-            localStorage.setItem("atividades_professor", JSON.stringify(todasAtividades));
-            loadAtividades();
-            fecharModal();
-            showNotification("Atividade entregue com sucesso!", "success");
-            
-            if(window.adicionarPontosAtividade) window.adicionarPontosAtividade();
-        }
-    }
-
-    function fecharModal() {
-        document.getElementById("modalDetalhes").style.display = "none";
-    }
-
-   function showNotification(msg, type) {
-    if (window.notificationSystem) {
-        window.notificationSystem.show(msg, type === 'success' ? 'success' : 'error');
-    }
+        });
+    });
 }
 
-    document.addEventListener('DOMContentLoaded', () => {
-        loadAtividades();
+// ============================================================
+//  ABRIR DETALHES
+// ============================================================
+function abrirDetalhes(atividade) {
+    console.log('📂 Abrindo detalhes da atividade:', atividade.titulo);
+    const content = document.getElementById("detalhesContent");
+    const entrega = atividade.entregas?.find(e => e.email === user.email);
+    
+    const isAtrasada = new Date(atividade.dataEntrega) < new Date();
+    const podeEntregar = atividade.status === 'aberta' && !entrega && !isAtrasada;
+    
+    let html = `
+        <div style="margin-bottom:20px;">
+            <h3 style="color:#00796b; font-size:22px; margin-bottom:8px;">${atividade.titulo}</h3>
+            <div style="display:flex; flex-wrap:wrap; gap:8px; margin-bottom:15px;">
+                <span class="status-tag ${atividade.status}">${atividade.status === 'aberta' ? '📝 Aberta' : '🔒 Encerrada'}</span>
+                ${entrega ? `<span class="status-tag ${entrega.status}">${entrega.status === 'entregue' ? '⏳ Entregue' : '✅ Corrigida'}</span>` : ''}
+                ${isAtrasada && !entrega ? '<span style="background:#ffebee; color:#c62828; padding:4px 14px; border-radius:20px; font-size:12px; font-weight:600;">⚠️ Atrasada</span>' : ''}
+            </div>
+        </div>
         
-        document.querySelectorAll('.filter-btn').forEach(btn => {
-            btn.onclick = () => {
-                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-                filtroAtual = btn.dataset.filter;
-                renderAtividades();
-            };
-        });
-        
-        document.getElementById("searchInput")?.addEventListener('input', (e) => {
-            searchTerm = e.target.value;
+        <div class="info-row"><strong>📖 Disciplina:</strong> ${getMateriaNome(atividade.materia) || atividade.materia}</div>
+        <div class="info-row"><strong>📅 Data de Entrega:</strong> ${formatarData(atividade.dataEntrega)}</div>
+        <div class="info-row"><strong>⭐ Pontuação:</strong> ${atividade.pontuacao} pontos</div>
+        <div class="info-row"><strong>📝 Descrição:</strong></div>
+        <div style="background:#f8f9fa; padding:12px 15px; border-radius:12px; margin:8px 0 15px 0; font-size:14px; line-height:1.6;">
+            ${atividade.descricao || "Sem descrição detalhada."}
+        </div>
+    `;
+    
+    // Anexos
+    if (atividade.anexos && atividade.anexos.length > 0) {
+        html += `
+            <div style="margin:15px 0; padding:12px; background:#f8f9fa; border-radius:12px;">
+                <strong><i class="fas fa-paperclip"></i> Materiais de apoio:</strong>
+                <div style="margin-top:8px; display:flex; flex-wrap:wrap; gap:8px;">
+                    ${atividade.anexos.map(a => {
+                        const isImage = a.tipo?.startsWith('image/');
+                        if (isImage) {
+                            return `<a href="${a.dados}" target="_blank" style="display:inline-block; padding:6px 14px; background:#e3f2fd; border-radius:20px; color:#1565c0; text-decoration:none; font-size:12px;">
+                                <i class="fas fa-image"></i> ${a.nome}
+                            </a>`;
+                        } else {
+                            return `<a href="${a.dados}" download="${a.nome}" style="display:inline-block; padding:6px 14px; background:#e3f2fd; border-radius:20px; color:#1565c0; text-decoration:none; font-size:12px;">
+                                <i class="fas fa-file"></i> ${a.nome}
+                            </a>`;
+                        }
+                    }).join('')}
+                </div>
+            </div>
+        `;
+    }
+    
+    // Área de entrega
+    if (entrega) {
+        if (entrega.status === "entregue") {
+            html += `
+                <div class="feedback-card" style="border-left-color:#2196f3;">
+                    <h4 style="color:#1565c0;"><i class="fas fa-clock"></i> Aguardando Correção</h4>
+                    <p style="font-size:13px;">Sua atividade foi entregue em ${new Date(entrega.dataEntregaAluno).toLocaleString('pt-BR')}.</p>
+                    <p style="font-size:13px; margin-top:5px;">O professor irá corrigir em breve.</p>
+                    ${entrega.resposta ? `
+                        <div style="margin-top:10px; background:white; padding:12px; border-radius:8px; font-size:13px;">
+                            <strong>Sua resposta:</strong>
+                            <div style="margin-top:5px; white-space:pre-wrap;">${entrega.resposta}</div>
+                        </div>
+                    ` : ''}
+                </div>
+            `;
+        } else if (entrega.status === "corrigida") {
+            html += `
+                <div class="feedback-card">
+                    <h4><i class="fas fa-check-circle"></i> Atividade Corrigida!</h4>
+                    <div style="display:flex; align-items:center; gap:20px; flex-wrap:wrap; margin-top:8px;">
+                        <div>
+                            <span style="font-size:13px; color:#666;">Nota:</span>
+                            <span class="nota">${entrega.nota || 0}/10</span>
+                        </div>
+                        ${entrega.feedback ? `
+                            <div>
+                                <span style="font-size:13px; color:#666;">Feedback:</span>
+                                <span style="font-size:14px;">${entrega.feedback}</span>
+                            </div>
+                        ` : ''}
+                    </div>
+                    ${entrega.resposta ? `
+                        <div style="margin-top:10px; background:white; padding:12px; border-radius:8px; font-size:13px;">
+                            <strong>Sua resposta:</strong>
+                            <div style="margin-top:5px; white-space:pre-wrap;">${entrega.resposta}</div>
+                        </div>
+                    ` : ''}
+                    <div style="font-size:11px; color:#666; margin-top:8px;">
+                        <i class="fas fa-clock"></i> Corrigida em ${new Date(entrega.corrigidaEm).toLocaleString('pt-BR')}
+                    </div>
+                </div>
+            `;
+        }
+    } else if (podeEntregar) {
+        html += `
+            <div class="resposta-area">
+                <label><i class="fas fa-pen"></i> Sua Resposta</label>
+                <textarea id="respostaAluno" rows="5" placeholder="Digite sua resposta aqui..."></textarea>
+                <button class="btn-entregar" onclick="entregarAtividade('${atividade.id}')">
+                    <i class="fas fa-paper-plane"></i> Entregar Atividade
+                </button>
+                <div style="font-size:11px; color:#999; margin-top:8px; text-align:center;">
+                    <i class="fas fa-info-circle"></i> Certifique-se de que sua resposta está completa antes de entregar.
+                </div>
+            </div>
+        `;
+    } else if (isAtrasada && !entrega) {
+        html += `
+            <div class="feedback-card" style="border-left-color:#f44336; background:#ffebee;">
+                <h4 style="color:#c62828;"><i class="fas fa-exclamation-triangle"></i> Prazo Expirado</h4>
+                <p style="font-size:13px;">O prazo para entrega desta atividade já passou.</p>
+                <p style="font-size:13px;">Entre em contato com o professor para saber se há possibilidade de entrega.</p>
+            </div>
+        `;
+    } else if (atividade.status === "encerrada") {
+        html += `
+            <div class="feedback-card" style="border-left-color:#757575; background:#f5f5f5;">
+                <h4 style="color:#757575;"><i class="fas fa-lock"></i> Atividade Encerrada</h4>
+                <p style="font-size:13px;">Esta atividade foi encerrada pelo professor e não aceita mais entregas.</p>
+            </div>
+        `;
+    }
+    
+    content.innerHTML = html;
+    document.getElementById("modalDetalhes").classList.add('active');
+}
+
+// ============================================================
+//  ENTREGAR ATIVIDADE
+// ============================================================
+function entregarAtividade(atividadeId) {
+    const resposta = document.getElementById("respostaAluno");
+    if (!resposta) {
+        showNotification('Erro ao encontrar campo de resposta!', 'error');
+        return;
+    }
+    
+    const textoResposta = resposta.value.trim();
+    if (!textoResposta) {
+        showNotification('Digite sua resposta antes de entregar!', 'error');
+        resposta.focus();
+        return;
+    }
+    
+    if (textoResposta.length < 10) {
+        showNotification('Sua resposta é muito curta. Escreva pelo menos 10 caracteres.', 'error');
+        resposta.focus();
+        return;
+    }
+    
+    if (!confirm(`Tem certeza que deseja entregar esta atividade?\n\nResposta: "${textoResposta.substring(0, 50)}${textoResposta.length > 50 ? '...' : ''}"`)) {
+        return;
+    }
+    
+    // Buscar atividade no localStorage
+    const todasAtividades = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+    const atividadeIndex = todasAtividades.findIndex(a => a.id === atividadeId);
+    
+    if (atividadeIndex === -1) {
+        showNotification('Erro: Atividade não encontrada!', 'error');
+        return;
+    }
+    
+    const atividade = todasAtividades[atividadeIndex];
+    
+    // Verificar se já entregou
+    if (atividade.entregas?.some(e => e.email === user.email)) {
+        showNotification('Você já entregou esta atividade!', 'info');
+        return;
+    }
+    
+    // Verificar se está aberta
+    if (atividade.status !== 'aberta') {
+        showNotification('Esta atividade não está mais aberta para entregas.', 'error');
+        return;
+    }
+    
+    // Verificar prazo
+    if (new Date(atividade.dataEntrega) < new Date()) {
+        showNotification('O prazo para entrega já expirou!', 'error');
+        return;
+    }
+    
+    // Criar entrega
+    if (!atividade.entregas) atividade.entregas = [];
+    
+    atividade.entregas.push({
+        email: user.email,
+        nome: user.name || 'Aluno',
+        resposta: textoResposta,
+        status: 'entregue',
+        dataEntregaAluno: new Date().toISOString()
+    });
+    
+    // Salvar
+    todasAtividades[atividadeIndex] = atividade;
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(todasAtividades));
+    
+    // Atualizar lista local
+    const localIndex = atividades.findIndex(a => a.id === atividadeId);
+    if (localIndex !== -1) {
+        atividades[localIndex] = atividade;
+    }
+    
+    // Fechar modal e recarregar
+    fecharModal();
+    showNotification('✅ Atividade entregue com sucesso!', 'success');
+    
+    // Atualizar stats e lista
+    atualizarStats();
+    renderAtividades();
+    
+    // Adicionar pontos ao pet do aluno
+    try {
+        const petKey = `pet_${user.email}`;
+        const petData = JSON.parse(localStorage.getItem(petKey) || '{}');
+        if (petData.totalPoints !== undefined) {
+            petData.totalPoints = (petData.totalPoints || 0) + 10;
+            localStorage.setItem(petKey, JSON.stringify(petData));
+        }
+    } catch(e) { /* ignora */ }
+}
+
+// ============================================================
+//  FECHAR MODAL
+// ============================================================
+function fecharModal() {
+    document.getElementById("modalDetalhes").classList.remove('active');
+}
+
+// ============================================================
+//  INICIALIZAÇÃO
+// ============================================================
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('🚀 Inicializando página de atividades do aluno...');
+    
+    // Verificar login
+    if (!user || user.tipo !== 'aluno') {
+        window.location.href = 'login_aluno.html';
+        return;
+    }
+    
+    // Carregar atividades
+    loadAtividades();
+    
+    // Filtros
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            this.classList.add('active');
+            filtroAtual = this.dataset.filter;
             renderAtividades();
         });
-        
-        document.querySelectorAll('.modal-close').forEach(btn => {
-            btn.onclick = fecharModal;
-        });
-        
-        window.entregarAtividade = entregarAtividade;
     });
+    
+    // Busca
+    document.getElementById('searchInput')?.addEventListener('input', function(e) {
+        searchTerm = e.target.value;
+        renderAtividades();
+    });
+    
+    // Fechar modal
+    document.querySelectorAll('.modal-close').forEach(btn => {
+        btn.addEventListener('click', fecharModal);
+    });
+    
+    // Fechar modal clicando fora
+    document.getElementById('modalDetalhes').addEventListener('click', function(e) {
+        if (e.target === this) fecharModal();
+    });
+    
+    // Fechar com ESC
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') fecharModal();
+    });
+    
+    console.log('✅ Página de atividades do aluno inicializada com sucesso!');
+});
+
+// Expor funções globalmente
+window.entregarAtividade = entregarAtividade;
+window.fecharModal = fecharModal;
+window.abrirDetalhes = abrirDetalhes;
 </script>
 
-    <script src="js/darkmode.js"></script>
-    <script src="js/sidebar.js"></script>
-    <script src="js/validacoes.js"></script>
-    <script src="js/notifications.js"></script>
-    <script src="js/app.js"></script>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/js/all.min.js"></script>
-    <script src="js/sidebar.js"></script>
+<script src="js/validacoes.js"></script>
+<script src="js/notifications.js"></script>
+<script src="js/app.js"></script>
+<script src="js/darkmode.js"></script>
+<script src="js/sidebar.js"></script>
+<script src="js/global.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/js/all.min.js"></script>
 </body>
 </html>
