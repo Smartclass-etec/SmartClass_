@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="css/sidebar.css">
     
     <style>
+        /* Estilos simplificados */
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: 'Poppins', sans-serif; background: #f0f2f5; display: flex; }
         
@@ -88,10 +89,12 @@
         .date-info { display: flex; align-items: center; gap: 6px; font-size: 12px; color: #636e72; }
         .points-info { background: #fff8e7; padding: 4px 12px; border-radius: 20px; color: #f39c12; font-size: 12px; font-weight: 600; }
         .entregas-count { background: #e3f2fd; padding: 4px 12px; border-radius: 20px; color: #1565c0; font-size: 12px; font-weight: 600; }
+        .btn-download { background: none; border: none; color: #00796b; cursor: pointer; font-size: 12px; padding: 4px 8px; }
+        .btn-download:hover { text-decoration: underline; }
         
         .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); backdrop-filter: blur(4px); z-index: 2000; align-items: center; justify-content: center; }
-        .modal-container { background: white; border-radius: 24px; width: 90%; max-width: 800px; max-height: 85vh; overflow-y: auto; }
-        .modal-header { padding: 20px 25px; border-bottom: 1px solid #eef2f6; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; background: white; border-radius: 24px 24px 0 0; }
+        .modal-container { background: white; border-radius: 24px; width: 90%; max-width: 650px; max-height: 85vh; overflow-y: auto; }
+        .modal-header { padding: 20px 25px; border-bottom: 1px solid #eef2f6; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; background: white; }
         .modal-header h3 { color: #00796b; font-size: 20px; display: flex; align-items: center; gap: 10px; }
         .modal-close { font-size: 28px; cursor: pointer; color: #b2bec3; transition: all 0.2s; }
         .modal-close:hover { color: #c62828; }
@@ -115,61 +118,6 @@
         .btn-submit { background: linear-gradient(135deg, #00796b, #004d47); color: white; border: none; padding: 14px; border-radius: 30px; font-size: 14px; font-weight: 600; width: 100%; cursor: pointer; margin-top: 10px; transition: all 0.3s; }
         .btn-submit:hover { transform: translateY(-2px); box-shadow: 0 5px 20px rgba(0,121,107,0.3); }
         
-        /* Estilos para correção */
-        .entrega-item {
-            background: #f8f9fa;
-            border-radius: 12px;
-            padding: 15px;
-            margin-bottom: 12px;
-            border-left: 4px solid #00796b;
-        }
-        .entrega-item .aluno-nome { font-weight: 600; color: #2d3436; }
-        .entrega-item .aluno-email { font-size: 12px; color: #666; }
-        .entrega-item .resposta { 
-            background: white; 
-            padding: 12px; 
-            border-radius: 8px; 
-            margin: 10px 0;
-            font-size: 13px;
-            border: 1px solid #e0e0e0;
-            max-height: 150px;
-            overflow-y: auto;
-            white-space: pre-wrap;
-        }
-        .entrega-item .nota-input {
-            width: 80px;
-            padding: 6px 10px;
-            border: 1px solid #e0e0e0;
-            border-radius: 8px;
-            font-size: 14px;
-            font-family: 'Poppins', sans-serif;
-        }
-        .entrega-item .feedback-input {
-            flex: 1;
-            padding: 6px 10px;
-            border: 1px solid #e0e0e0;
-            border-radius: 8px;
-            font-size: 13px;
-            font-family: 'Poppins', sans-serif;
-            min-width: 150px;
-        }
-        .btn-corrigir {
-            background: linear-gradient(135deg, #4caf50, #2e7d32);
-            color: white;
-            border: none;
-            padding: 8px 20px;
-            border-radius: 20px;
-            cursor: pointer;
-            font-size: 12px;
-            font-weight: 600;
-            transition: all 0.3s;
-            font-family: 'Poppins', sans-serif;
-        }
-        .btn-corrigir:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(76,175,80,0.3); }
-        .status-corrigida { color: #2e7d32; font-weight: 600; }
-        .status-entregue { color: #1565c0; font-weight: 600; }
-        .nota-exibida { font-size: 18px; font-weight: 700; color: #f39c12; }
-        
         /* Dark Mode */
         body.dark-mode .content { background: #0f172a; }
         body.dark-mode .stat-card, body.dark-mode .toolbar, body.dark-mode .atividade-card { background: #1e293b; border-color: #334155; }
@@ -180,10 +128,6 @@
         body.dark-mode .modal-header h3 { color: #fbbf24; }
         body.dark-mode .form-group label { color: #cbd5e1; }
         body.dark-mode .form-group input, body.dark-mode .form-group textarea, body.dark-mode .form-group select { background: #334155; border-color: #475569; color: #f1f5f9; }
-        body.dark-mode .entrega-item { background: #334155; }
-        body.dark-mode .entrega-item .resposta { background: #1e293b; border-color: #475569; color: #f1f5f9; }
-        body.dark-mode .entrega-item .aluno-nome { color: #f1f5f9; }
-        body.dark-mode .entrega-item .aluno-email { color: #94a3b8; }
         
         @media (max-width: 1000px) {
             .content { margin-left: 0; padding: 20px; width: 100%; }
@@ -321,7 +265,7 @@
         </div>
     </div>
 
-    <!-- MODAL DETALHES (com correção) -->
+    <!-- MODAL DETALHES -->
     <div id="modalDetalhes" class="modal-overlay">
         <div class="modal-container">
             <div class="modal-header">
@@ -493,7 +437,7 @@
         };
 
         // ============================================================
-        //  CRUD ATIVIDADES
+        //  CRUD ATIVIDADES - FLUXO SIMPLIFICADO (PUBLICAÇÃO IMEDIATA)
         // ============================================================
         function loadAtividades() {
             try {
@@ -522,6 +466,7 @@
         }
 
         function atualizarStats() {
+            // Dados reais
             const total = atividades.length;
             const abertas = atividades.filter(a => a.status === "aberta").length;
             const entregues = atividades.reduce((acc, a) => acc + (a.entregas?.filter(e => e.status === "entregue").length || 0), 0);
@@ -578,6 +523,7 @@
                 return;
             }
 
+            // Status sempre "aberta" (publicação imediata)
             const atividadeData = {
                 titulo: titulo,
                 descricao: descricao || "Sem descrição",
@@ -585,7 +531,7 @@
                 materiaNome: getMateriaNome(materia),
                 dataEntrega: dataEntrega,
                 pontuacao: pontuacao,
-                status: "aberta",
+                status: "aberta", // <-- PUBLICADO IMEDIATAMENTE
                 moduloDestino: moduloDestino,
                 anexos: arquivosSelecionados.map(a => ({ nome: a.nome, tipo: a.tipo, dados: a.dados })),
                 entregas: [],
@@ -622,11 +568,9 @@
 
                 const salvou = saveAtividades();
                 if (salvou) {
-                    // Fechar modal e resetar
+                    loadAtividades();
                     fecharModais();
                     resetarFormulario();
-                    // Recarregar lista
-                    loadAtividades();
                 }
             } catch (err) {
                 console.error('❌ Erro ao salvar atividade:', err);
@@ -699,10 +643,7 @@
                 return;
             }
 
-            grid.innerHTML = filtradas.map(atividade => {
-                const totalEntregas = atividade.entregas?.length || 0;
-                const corrigidas = atividade.entregas?.filter(e => e.status === "corrigida").length || 0;
-                return `
+            grid.innerHTML = filtradas.map(atividade => `
                 <div class="atividade-card" data-id="${atividade.id}">
                     <div class="card-top">
                         <span class="materia-tag ${atividade.materia}">${atividade.materia}</span>
@@ -729,12 +670,11 @@
                         </div>
                         <div class="entregas-count">
                             <i class="fas fa-users"></i>
-                            ${totalEntregas} entrega(s) 
-                            ${corrigidas > 0 ? `(${corrigidas} corrigidas)` : ''}
+                            ${atividade.entregas?.length || 0} entrega(s)
                         </div>
                     </div>
                 </div>
-            `}).join('');
+            `).join('');
 
             document.querySelectorAll('.atividade-card').forEach(card => {
                 card.onclick = () => {
@@ -746,11 +686,10 @@
         }
 
         // ============================================================
-        //  DETALHES COM CORREÇÃO
+        //  DETALHES, EDIÇÃO E EXCLUSÃO
         // ============================================================
         function abrirDetalhes(atividade) {
             const content = document.getElementById("detalhesContent");
-            
             let anexosHtml = '';
             if (atividade.anexos && atividade.anexos.length > 0) {
                 anexosHtml = `
@@ -770,85 +709,8 @@
                 `;
             }
 
-            let entregasHtml = '';
-            if (atividade.entregas && atividade.entregas.length > 0) {
-                entregasHtml = `
-                    <div style="margin-top:20px;">
-                        <h4 style="color:#00796b; margin-bottom:15px;"><i class="fas fa-check-circle"></i> Entregas dos Alunos</h4>
-                        ${atividade.entregas.map((entrega, index) => {
-                            const isCorrigida = entrega.status === 'corrigida';
-                            const isEntregue = entrega.status === 'entregue';
-                            return `
-                            <div class="entrega-item" data-entrega-index="${index}">
-                                <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;">
-                                    <div>
-                                        <div class="aluno-nome">${entrega.nome || entrega.email}</div>
-                                        <div class="aluno-email">${entrega.email}</div>
-                                    </div>
-                                    <div>
-                                        ${isCorrigida ? 
-                                            `<span class="status-corrigida"><i class="fas fa-check-circle"></i> Corrigida</span>` : 
-                                            isEntregue ? 
-                                            `<span class="status-entregue"><i class="fas fa-clock"></i> Aguardando correção</span>` :
-                                            `<span style="color:#f39c12;">Pendente</span>`
-                                        }
-                                    </div>
-                                </div>
-                                ${entrega.resposta ? `
-                                    <div style="margin-top:8px;">
-                                        <strong style="font-size:12px; color:#666;">Resposta do aluno:</strong>
-                                        <div class="resposta">${entrega.resposta}</div>
-                                    </div>
-                                ` : ''}
-                                ${entrega.dataEntregaAluno ? `
-                                    <div style="font-size:11px; color:#999; margin-top:5px;">
-                                        <i class="fas fa-clock"></i> Entregue em: ${new Date(entrega.dataEntregaAluno).toLocaleString('pt-BR')}
-                                    </div>
-                                ` : ''}
-                                ${isCorrigida ? `
-                                    <div style="margin-top:10px; background:#e8f5e9; padding:12px; border-radius:8px;">
-                                        <div style="display:flex; align-items:center; gap:20px; flex-wrap:wrap;">
-                                            <div>
-                                                <strong>Nota:</strong> 
-                                                <span class="nota-exibida">${entrega.nota || 0}/10</span>
-                                            </div>
-                                            ${entrega.feedback ? `
-                                                <div>
-                                                    <strong>Feedback:</strong>
-                                                    <span style="font-size:13px;">${entrega.feedback}</span>
-                                                </div>
-                                            ` : ''}
-                                        </div>
-                                    </div>
-                                ` : isEntregue ? `
-                                    <div style="margin-top:10px; display:flex; gap:10px; flex-wrap:wrap; align-items:center;">
-                                        <input type="number" class="nota-input" id="nota_${index}" placeholder="Nota" min="0" max="10" step="0.5" value="10">
-                                        <input type="text" class="feedback-input" id="feedback_${index}" placeholder="Feedback para o aluno...">
-                                        <button class="btn-corrigir" onclick="corrigirEntrega('${atividade.id}', ${index})">
-                                            <i class="fas fa-check"></i> Corrigir
-                                        </button>
-                                    </div>
-                                ` : ''}
-                            </div>
-                        `}).join('')}
-                    </div>
-                `;
-            } else {
-                entregasHtml = `
-                    <div style="margin-top:20px; padding:20px; background:#f8f9fa; border-radius:12px; text-align:center; color:#999;">
-                        <i class="fas fa-inbox" style="font-size:32px; display:block; margin-bottom:10px;"></i>
-                        Nenhuma entrega ainda. Aguarde os alunos enviarem suas respostas.
-                    </div>
-                `;
-            }
-
             content.innerHTML = `
-                <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; margin-bottom:15px;">
-                    <h3 style="color:#00796b; font-size:20px; margin:0;">${atividade.titulo}</h3>
-                    <span class="status-tag ${atividade.status}" style="font-size:13px;">
-                        ${atividade.status === "aberta" ? "✅ Aberta" : "🔒 Encerrada"}
-                    </span>
-                </div>
+                <h3 style="color:#00796b;">${atividade.titulo}</h3>
                 <p><strong>Descrição:</strong> ${atividade.descricao || "Sem descrição"}</p>
                 <p><strong>Disciplina:</strong> ${atividade.materiaNome || atividade.materia}</p>
                 <p><strong>Módulo:</strong> ${getModuloNome(atividade.moduloDestino)}</p>
@@ -856,110 +718,17 @@
                 <p><strong>Pontuação:</strong> ${atividade.pontuacao} pts</p>
                 ${anexosHtml}
                 <div style="margin-top:15px; display:flex; gap:10px; flex-wrap:wrap;">
-                    <button class="btn-submit" onclick="editarAtividade('${atividade.id}')" style="margin-top:0; flex:1; max-width:200px;">
+                    <button class="btn-submit" onclick="editarAtividade('${atividade.id}')" style="margin-top:0; flex:1;">
                         <i class="fas fa-edit"></i> Editar
                     </button>
-                    <button class="btn-submit" onclick="excluirAtividade('${atividade.id}')" style="margin-top:0; flex:1; max-width:200px; background:linear-gradient(135deg,#c62828,#b71c1c);">
+                    <button class="btn-submit" onclick="excluirAtividade('${atividade.id}')" style="margin-top:0; flex:1; background:linear-gradient(135deg,#c62828,#b71c1c);">
                         <i class="fas fa-trash"></i> Excluir
                     </button>
-                    ${atividade.status === "aberta" ? `
-                        <button class="btn-submit" onclick="encerrarAtividade('${atividade.id}')" style="margin-top:0; flex:1; max-width:200px; background:linear-gradient(135deg,#f39c12,#e65100);">
-                            <i class="fas fa-lock"></i> Encerrar
-                        </button>
-                    ` : ''}
                 </div>
-                ${entregasHtml}
             `;
             document.getElementById("modalDetalhes").style.display = "flex";
         }
 
-        // ===== CORRIGIR ENTREGA =====
-        function corrigirEntrega(atividadeId, entregaIndex) {
-            const atividade = atividades.find(a => a.id === atividadeId);
-            if (!atividade) return;
-
-            const notaInput = document.getElementById(`nota_${entregaIndex}`);
-            const feedbackInput = document.getElementById(`feedback_${entregaIndex}`);
-            
-            if (!notaInput) return;
-
-            const nota = parseFloat(notaInput.value);
-            if (isNaN(nota) || nota < 0 || nota > 10) {
-                showNotification('Digite uma nota válida (0 a 10)!', 'error');
-                return;
-            }
-
-            const feedback = feedbackInput ? feedbackInput.value.trim() : '';
-
-            if (!atividade.entregas || !atividade.entregas[entregaIndex]) {
-                showNotification('Entrega não encontrada!', 'error');
-                return;
-            }
-
-            atividade.entregas[entregaIndex].status = 'corrigida';
-            atividade.entregas[entregaIndex].nota = nota;
-            atividade.entregas[entregaIndex].feedback = feedback || 'Sem feedback adicional';
-            atividade.entregas[entregaIndex].corrigidaEm = new Date().toISOString();
-
-            // Salvar
-            const todas = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
-            const indexGlobal = todas.findIndex(a => a.id === atividadeId);
-            if (indexGlobal !== -1) {
-                todas[indexGlobal] = atividade;
-                localStorage.setItem(STORAGE_KEY, JSON.stringify(todas));
-            }
-
-            // Atualizar lista local
-            const localIndex = atividades.findIndex(a => a.id === atividadeId);
-            if (localIndex !== -1) {
-                atividades[localIndex] = atividade;
-            }
-
-            showNotification(`✅ Entrega corrigida! Nota: ${nota}/10`, 'success');
-            
-            // Adicionar pontos ao aluno (se tiver pet)
-            const alunoEmail = atividade.entregas[entregaIndex].email;
-            if (alunoEmail) {
-                try {
-                    const petKey = `pet_${alunoEmail}`;
-                    const petData = JSON.parse(localStorage.getItem(petKey) || '{}');
-                    if (petData.totalPoints !== undefined) {
-                        petData.totalPoints = (petData.totalPoints || 0) + 5;
-                        localStorage.setItem(petKey, JSON.stringify(petData));
-                    }
-                } catch(e) { /* ignora */ }
-            }
-
-            // Recarregar detalhes
-            abrirDetalhes(atividade);
-            atualizarStats();
-            renderAtividades();
-        }
-
-        // ===== ENCERRAR ATIVIDADE =====
-        function encerrarAtividade(id) {
-            if (!confirm('Tem certeza que deseja encerrar esta atividade? Os alunos não poderão mais entregar.')) return;
-            
-            const atividade = atividades.find(a => a.id === id);
-            if (!atividade) return;
-
-            atividade.status = 'encerrada';
-            
-            const todas = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
-            const index = todas.findIndex(a => a.id === id);
-            if (index !== -1) {
-                todas[index] = atividade;
-                localStorage.setItem(STORAGE_KEY, JSON.stringify(todas));
-            }
-
-            loadAtividades();
-            fecharModais();
-            showNotification(`🔒 Atividade "${atividade.titulo}" encerrada!`, 'success');
-        }
-
-        // ============================================================
-        //  EDIÇÃO E EXCLUSÃO
-        // ============================================================
         function editarAtividade(id) {
             const atividade = atividades.find(a => a.id === id);
             if (!atividade) return;
@@ -1057,8 +826,6 @@
 
             window.editarAtividade = editarAtividade;
             window.excluirAtividade = excluirAtividade;
-            window.encerrarAtividade = encerrarAtividade;
-            window.corrigirEntrega = corrigirEntrega;
             window.fecharModais = fecharModais;
             window.salvarAtividade = salvarAtividade;
 

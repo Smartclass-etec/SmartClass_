@@ -308,7 +308,6 @@
                 { icone: "fa-bullhorn", nome: "Mural", link: "mural_professor.html" },
                 { icone: "fa-video", nome: "Gravações", link: "videoaulas_professor.html" },
                 { icone: "fa-cube", nome: "Modelo 3D", link: "modelo3d.html" },
-                { icone: "fa-user-circle", nome: "Perfil", link: "perfil_professor.html" }
             ],
             aluno: [
                 { icone: "fa-home", nome: "Início", link: "home_aluno.html" },
@@ -316,7 +315,6 @@
                 { icone: "fa-bullhorn", nome: "Mural", link: "mural_aluno.html" },
                 { icone: "fa-video", nome: "Videoaulas", link: "videoaulas_aluno.html" },
                 { icone: "fa-cube", nome: "Modelo 3D", link: "modelo3d.html" },
-                { icone: "fa-user-circle", nome: "Perfil", link: "perfil_aluno.html" }
             ]
         };
         
@@ -368,6 +366,8 @@
                     </a>
                 `).join('')}
             </nav>
+            
+            <div class="sidebar-footer-universal">
             </div>
         </div>
         <div id="mobileMenuBtnUniversal" class="mobile-menu-btn-universal">

@@ -3,96 +3,605 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Política de Privacidade | SmartClass</title>
+    <title>Termos de Uso | SmartClass</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link rel="stylesheet" href="css/global.css">
     <link rel="stylesheet" href="css/darkmode-padrao.css">
-    <link rel="stylesheet" href="css/sidebar.css">   <!-- NOVO -->
-    <!-- ... -->
     <script src="js/theme-loader.js"></script>
     <style>
-        * { margin:0; padding:0; box-sizing:border-box; }
-        body { font-family:'Poppins',sans-serif; background:#f0f2f5; display:flex; }
-        .content { margin-left:260px; padding:25px; flex:1; background:#f0f2f5; min-height:100vh; }
-        .page-header { margin-bottom:30px; }
-        .page-header h1 { color:#00796b; font-size:28px; display:flex; align-items:center; gap:12px; }
-        .page-header p { color:#666; font-size:14px; }
-        .termos-box { background:white; border-radius:20px; padding:30px; border:1px solid #eef2f6; line-height:1.8; }
-        .termos-box h2 { color:#00796b; font-size:20px; margin-top:25px; }
-        .termos-box p { color:#333; margin-bottom:10px; }
-        .termos-box ul { padding-left:25px; margin-bottom:15px; }
-        .termos-box ul li { margin-bottom:5px; }
-        .termos-box .atualizacao { margin-top:20px; font-size:13px; color:#888; border-top:1px solid #eef2f6; padding-top:15px; }
-        @media (max-width:768px) { .content { margin-left:0; padding:15px; } }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #f0f2f5;
+            padding: 20px;
+            transition: background 0.3s ease;
+        }
+
+        /* ===== CONTAINER PRINCIPAL ===== */
+        .terms-wrapper {
+            width: 100%;
+            max-width: 720px;
+            margin: 0 auto;
+        }
+
+        .terms-modal {
+            background: #ffffff;
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.10);
+            border: 1px solid #eef2f6;
+            transition: all 0.3s ease;
+        }
+
+        .terms-modal:hover {
+            box-shadow: 0 25px 70px rgba(0, 121, 107, 0.12);
+        }
+
+        /* ===== HEADER ===== */
+        .terms-header {
+            padding: 28px 32px 20px;
+            text-align: center;
+            border-bottom: 1px solid #eef2f6;
+            background: #fafbfc;
+        }
+
+        .terms-header .brand-icon {
+            width: 64px;
+            height: 64px;
+            background: linear-gradient(135deg, #e8f5e9, #c8e6d9);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 12px;
+            font-size: 28px;
+            color: #00796b;
+        }
+
+        .terms-header h1 {
+            font-size: 22px;
+            font-weight: 700;
+            color: #1e293b;
+            letter-spacing: -0.3px;
+        }
+
+        .terms-header .subtitle {
+            font-size: 13px;
+            color: #64748b;
+            margin-top: 4px;
+            font-weight: 400;
+        }
+
+        .terms-header .version-badge {
+            display: inline-block;
+            background: #eef2f6;
+            color: #475569;
+            font-size: 10px;
+            font-weight: 500;
+            padding: 2px 14px;
+            border-radius: 20px;
+            margin-top: 8px;
+            letter-spacing: 0.3px;
+        }
+
+        /* ===== BODY ===== */
+        .terms-body {
+            padding: 20px 32px 12px;
+            max-height: 380px;
+            overflow-y: auto;
+            scroll-behavior: smooth;
+        }
+
+        .terms-body::-webkit-scrollbar {
+            width: 5px;
+        }
+        .terms-body::-webkit-scrollbar-track {
+            background: #f1f5f9;
+            border-radius: 10px;
+        }
+        .terms-body::-webkit-scrollbar-thumb {
+            background: #00796b;
+            border-radius: 10px;
+        }
+
+        .terms-body .section {
+            margin-bottom: 16px;
+        }
+
+        .terms-body .section:last-child {
+            margin-bottom: 0;
+        }
+
+        .terms-body .section-title {
+            font-size: 13px;
+            font-weight: 600;
+            color: #00796b;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 4px;
+        }
+
+        .terms-body .section-title i {
+            font-size: 14px;
+            color: #fbbf24;
+            width: 20px;
+        }
+
+        .terms-body .section-text {
+            font-size: 12.5px;
+            line-height: 1.6;
+            color: #475569;
+            padding-left: 28px;
+        }
+
+        .terms-body .section-text ul {
+            list-style: none;
+            padding-left: 0;
+            margin-top: 2px;
+        }
+
+        .terms-body .section-text ul li {
+            padding: 2px 0;
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+            font-size: 12px;
+        }
+
+        .terms-body .section-text ul li i {
+            color: #00796b;
+            font-size: 11px;
+            margin-top: 3px;
+            flex-shrink: 0;
+        }
+
+        .terms-body .highlight-box {
+            background: #f8fafc;
+            border-radius: 10px;
+            padding: 12px 16px;
+            margin: 10px 0 6px 28px;
+            border-left: 3px solid #00796b;
+            font-size: 12px;
+            color: #475569;
+            line-height: 1.5;
+        }
+
+        .terms-body .highlight-box i {
+            color: #00796b;
+            margin-right: 6px;
+        }
+
+        .terms-body .highlight-box strong {
+            color: #1e293b;
+        }
+
+        /* ===== FOOTER ===== */
+        .terms-footer {
+            padding: 16px 32px 24px;
+            border-top: 1px solid #eef2f6;
+            background: #fafbfc;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .terms-footer .agree-row {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 10px 14px;
+            background: #ffffff;
+            border-radius: 10px;
+            border: 1px solid #eef2f6;
+            transition: 0.2s;
+            cursor: pointer;
+        }
+
+        .terms-footer .agree-row:hover {
+            border-color: #00796b;
+            background: #f8fafc;
+        }
+
+        .terms-footer .agree-row input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            accent-color: #00796b;
+            cursor: pointer;
+            flex-shrink: 0;
+            margin-top: 1px;
+        }
+
+        .terms-footer .agree-row label {
+            font-size: 12.5px;
+            color: #334155;
+            cursor: pointer;
+            line-height: 1.5;
+        }
+
+        .terms-footer .agree-row label strong {
+            color: #00796b;
+            font-weight: 600;
+        }
+
+        .terms-footer .agree-row label .link-term {
+            color: #00796b;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 12px;
+        }
+
+        .terms-footer .agree-row label .link-term:hover {
+            text-decoration: underline;
+        }
+
+        .btn-accept {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            padding: 14px 24px;
+            border: none;
+            border-radius: 30px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            opacity: 0.4;
+            pointer-events: none;
+            background: #00796b;
+            color: #ffffff;
+            letter-spacing: 0.3px;
+        }
+
+        .btn-accept.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .btn-accept.active:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 24px rgba(0, 121, 107, 0.30);
+            background: #004d47;
+        }
+
+        .btn-accept .timer-badge {
+            background: rgba(255, 255, 255, 0.18);
+            padding: 2px 14px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        /* ===== DARK MODE ===== */
+        body.dark-mode {
+            background: #0f172a;
+        }
+
+        body.dark-mode .terms-modal {
+            background: #1e293b;
+            border-color: #334155;
+        }
+
+        body.dark-mode .terms-header {
+            background: #1a2538;
+            border-bottom-color: #334155;
+        }
+
+        body.dark-mode .terms-header h1 {
+            color: #f1f5f9;
+        }
+
+        body.dark-mode .terms-header .subtitle {
+            color: #94a3b8;
+        }
+
+        body.dark-mode .terms-header .version-badge {
+            background: #334155;
+            color: #94a3b8;
+        }
+
+        body.dark-mode .terms-body .section-title {
+            color: #fbbf24;
+        }
+
+        body.dark-mode .terms-body .section-title i {
+            color: #fbbf24;
+        }
+
+        body.dark-mode .terms-body .section-text {
+            color: #cbd5e1;
+        }
+
+        body.dark-mode .terms-body .section-text ul li {
+            color: #cbd5e1;
+        }
+
+        body.dark-mode .terms-body .highlight-box {
+            background: #334155;
+            color: #cbd5e1;
+            border-left-color: #fbbf24;
+        }
+
+        body.dark-mode .terms-body .highlight-box strong {
+            color: #f1f5f9;
+        }
+
+        body.dark-mode .terms-footer {
+            background: #1a2538;
+            border-top-color: #334155;
+        }
+
+        body.dark-mode .terms-footer .agree-row {
+            background: #1e293b;
+            border-color: #334155;
+        }
+
+        body.dark-mode .terms-footer .agree-row:hover {
+            border-color: #fbbf24;
+            background: #1e3a2e;
+        }
+
+        body.dark-mode .terms-footer .agree-row label {
+            color: #cbd5e1;
+        }
+
+        body.dark-mode .btn-accept {
+            background: #0d4a47;
+        }
+
+        body.dark-mode .btn-accept.active:hover {
+            background: #fbbf24;
+            color: #0f172a;
+            box-shadow: 0 6px 24px rgba(251, 191, 36, 0.25);
+        }
+
+        /* ===== RESPONSIVO ===== */
+        @media (max-width: 560px) {
+            .terms-modal { border-radius: 16px; }
+            .terms-header { padding: 20px 18px 14px; }
+            .terms-header h1 { font-size: 18px; }
+            .terms-body { padding: 14px 18px 8px; max-height: 320px; }
+            .terms-footer { padding: 14px 18px 18px; }
+            .terms-body .section-text { padding-left: 0; }
+            .terms-body .highlight-box { margin-left: 0; }
+            .terms-footer .agree-row { flex-wrap: wrap; padding: 8px 12px; }
+            .terms-footer .agree-row label { font-size: 12px; }
+            .btn-accept { font-size: 13px; padding: 12px 18px; }
+        }
+
+        @media (max-width: 380px) {
+            .terms-header .brand-icon { width: 48px; height: 48px; font-size: 20px; }
+            .terms-header h1 { font-size: 16px; }
+            .terms-body .section-title { font-size: 12px; }
+            .terms-body .section-text { font-size: 11.5px; }
+            .btn-accept { font-size: 12px; padding: 10px 14px; }
+        }
     </style>
 </head>
 <body>
-    <div class="content">
-        <div class="page-header">
-            <h1><i class="fas fa-shield-alt"></i> Política de Privacidade</h1>
-            <p>Como a SmartClass protege seus dados em conformidade com a LGPD</p>
+
+<div class="terms-wrapper">
+    <div class="terms-modal">
+        <!-- HEADER -->
+        <div class="terms-header">
+            <div class="brand-icon">
+                <i class="fas fa-shield-alt"></i>
+            </div>
+            <h1>Termos de Uso</h1>
+            <p class="subtitle">Leia e aceite os termos para continuar utilizando a plataforma</p>
+            <span class="version-badge">Versão 2.0 · Junho 2026</span>
         </div>
-        <div class="termos-box">
-            <h2>1. Coleta de Dados</h2>
-            <p>A SmartClass coleta apenas o e-mail institucional, nome completo e dados de frequência escolar, estritamente para fins pedagógicos e de gestão da instituição.</p>
 
-            <h2>2. Uso dos Dados</h2>
-            <p>Os dados são utilizados para:</p>
-            <ul>
-                <li>Controle de presença e emissão de relatórios de frequência.</li>
-                <li>Disponibilização de videoaulas gravadas para alunos ausentes.</li>
-                <li>Funcionamento do sistema gamificado (pet virtual) como estímulo à assiduidade.</li>
-                <li>Comunicação institucional via mural de tarefas.</li>
-            </ul>
-            <p>Não compartilhamos dados com terceiros sem consentimento explícito.</p>
+        <!-- BODY -->
+        <div class="terms-body" id="termsBody">
+            <!-- 1. Coleta de Dados -->
+            <div class="section">
+                <div class="section-title">
+                    <i class="fas fa-database"></i> Coleta de Dados
+                </div>
+                <div class="section-text">
+                    A SmartClass coleta exclusivamente o e-mail institucional, nome completo e registros de frequência escolar, estritamente para fins pedagógicos e de gestão acadêmica, em conformidade com a Lei Geral de Proteção de Dados (LGPD).
+                </div>
+            </div>
 
-            <h2>3. Gravações de Aulas</h2>
-            <p>As aulas gravadas ficam armazenadas por até <strong>30 dias</strong> e são acessíveis apenas a alunos da respectiva turma, mediante autenticação por e-mail institucional. O professor pode liberar ou restringir o acesso a cada gravação.</p>
+            <!-- 2. Uso dos Dados -->
+            <div class="section">
+                <div class="section-title">
+                    <i class="fas fa-cogs"></i> Uso dos Dados
+                </div>
+                <div class="section-text">
+                    Os dados coletados são utilizados para:
+                    <ul>
+                        <li><i class="fas fa-check-circle"></i> Controle de presença e emissão de relatórios de frequência</li>
+                        <li><i class="fas fa-check-circle"></i> Disponibilização de videoaulas gravadas para alunos ausentes</li>
+                        <li><i class="fas fa-check-circle"></i> Funcionamento do sistema de engajamento acadêmico</li>
+                        <li><i class="fas fa-check-circle"></i> Comunicação institucional via mural de avisos</li>
+                    </ul>
+                    <span style="font-size: 11.5px; color: #64748b; display: block; margin-top: 4px;">Nenhum dado é compartilhado com terceiros sem consentimento explícito.</span>
+                </div>
+            </div>
 
-            <h2>4. Direitos do Usuário (LGPD)</h2>
-            <ul>
-                <li><strong>Acesso:</strong> você pode solicitar uma cópia de todos os seus dados armazenados.</li>
-                <li><strong>Correção:</strong> pode corrigir dados incompletos ou desatualizados.</li>
-                <li><strong>Exclusão:</strong> pode solicitar a remoção de seus dados, exceto quando houver obrigação legal de retenção.</li>
-                <li><strong>Revogação de consentimento:</strong> pode revogar o consentimento para uso de dados a qualquer momento.</li>
-            </ul>
+            <!-- 3. Gravações de Aulas -->
+            <div class="section">
+                <div class="section-title">
+                    <i class="fas fa-video"></i> Gravações de Aulas
+                </div>
+                <div class="section-text">
+                    As gravações das aulas ficam armazenadas por até <strong>30 (trinta) dias</strong> e são acessíveis exclusivamente aos alunos matriculados na respectiva turma, mediante autenticação por e-mail institucional. O professor responsável pode liberar ou restringir o acesso a cada gravação individualmente.
+                </div>
+            </div>
 
-            <h2>5. Segurança</h2>
-            <p>Todos os dados são criptografados em trânsito e em repouso. O acesso é restrito exclusivamente a e-mails institucionais (@cps.sp.gov.br, @aluno.cps.sp.gov.br, @professor.cps.sp.gov.br).</p>
+            <!-- 4. Direitos do Usuário (LGPD) -->
+            <div class="section">
+                <div class="section-title">
+                    <i class="fas fa-user-shield"></i> Direitos do Usuário (LGPD)
+                </div>
+                <div class="section-text">
+                    <ul>
+                        <li><i class="fas fa-check-circle"></i> <strong>Acesso:</strong> solicitar cópia de todos os dados armazenados</li>
+                        <li><i class="fas fa-check-circle"></i> <strong>Correção:</strong> retificar dados incompletos ou desatualizados</li>
+                        <li><i class="fas fa-check-circle"></i> <strong>Exclusão:</strong> requerer a remoção de dados pessoais</li>
+                        <li><i class="fas fa-check-circle"></i> <strong>Revogação:</strong> cancelar o consentimento a qualquer momento</li>
+                    </ul>
+                </div>
+            </div>
 
-            <h2>6. Contato</h2>
-            <p>Para exercer seus direitos ou tirar dúvidas, entre em contato com a coordenação da sua escola ou envie um e-mail para <strong>suporte@smartclass.etec</strong>.</p>
+            <!-- 5. Segurança -->
+            <div class="section">
+                <div class="section-title">
+                    <i class="fas fa-lock"></i> Segurança da Informação
+                </div>
+                <div class="section-text">
+                    Todos os dados são criptografados em trânsito e em repouso. O acesso é restrito exclusivamente a e-mails institucionais (domínios @cps.sp.gov.br, @aluno.cps.sp.gov.br e @professor.cps.sp.gov.br), garantindo a integridade e confidencialidade das informações.
+                </div>
+            </div>
 
-            <div class="atualizacao">
-                <i class="fas fa-calendar-alt"></i> Última atualização: junho de 2026
+            <!-- 6. Contato -->
+            <div class="section">
+                <div class="section-title">
+                    <i class="fas fa-envelope"></i> Contato
+                </div>
+                <div class="section-text">
+                    Para exercer seus direitos ou esclarecer dúvidas, entre em contato com a coordenação da sua unidade escolar ou envie um e-mail para <strong>suporte@smartclass.etec</strong>.
+                </div>
+            </div>
+
+            <!-- DESTAQUE FINAL -->
+            <div class="highlight-box">
+                <i class="fas fa-info-circle"></i>
+                <strong>Importante:</strong> Ao aceitar os termos, você concorda com o tratamento dos seus dados conforme descrito acima. O consentimento pode ser revogado a qualquer momento mediante solicitação formal à instituição.
             </div>
         </div>
-    </div>
-        <!-- ===== SCRIPTS GLOBAIS (carregar ao final do body) ===== -->
-    
-    <!-- 1. Validações de campos (máximo de caracteres, contadores, resize) -->
-    <script src="js/validacoes.js"></script>
-    
-    <!-- 2. Sistema de notificações (showNotification, NotificationSystem) -->
-    <script src="js/notifications.js"></script>
-    
-    <!-- 3. Aplicativo principal (login, localStorage, pet, atividades, seed) -->
-    <script src="js/app.js"></script>
-    
-    <!-- 4. Controle do modo escuro (dark mode global) -->
-    <script src="js/darkmode.js"></script>
-    
-    <!-- 5. Barra lateral universal (sidebar fixa) -->
-    <script src="js/sidebar.js"></script>
-    
-    <!-- 6. Utilitários globais (funções auxiliares, fallbacks) -->
-    <script src="js/global.js"></script>
-    
-    <!-- 7. Ícones Font Awesome (renderização dos ícones) -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/js/all.min.js"></script>
 
-    <!-- (Opcional) Scripts específicos da página podem vir depois -->
-    <!-- <script src="js/meu-script-especifico.js"></script> -->
+        <!-- FOOTER -->
+        <div class="terms-footer">
+            <div class="agree-row" onclick="document.getElementById('acceptTerms').click()">
+                <input type="checkbox" id="acceptTerms">
+                <label for="acceptTerms">
+                    <i class="fas fa-check-circle" style="color: #00796b; margin-right: 4px;"></i>
+                    Declaro que li e concordo com os <strong>Termos de Uso</strong> e a <strong>Política de Privacidade</strong> da SmartClass.
+                    <a href="#" class="link-term" onclick="event.preventDefault(); document.getElementById('termsBody').scrollTop = 0;">(reler)</a>
+                </label>
+            </div>
+
+            <button class="btn-accept" id="btnAccept">
+                <i class="fas fa-check"></i> Aceitar e Continuar
+                <span class="timer-badge" id="timerBadge">5s</span>
+            </button>
+        </div>
+    </div>
+</div>
+
+<script>
+    // =============================================
+    // PARÂMETROS DA URL
+    // =============================================
+    const params = new URLSearchParams(window.location.search);
+    const returnTo = params.get('returnTo') || 'index.html';
+    const userEmail = params.get('user') || '';
+    const userType = params.get('type') || '';
+
+    // =============================================
+    // CONTROLE DO BOTÃO
+    // =============================================
+    const checkbox = document.getElementById('acceptTerms');
+    const btnAccept = document.getElementById('btnAccept');
+    const timerBadge = document.getElementById('timerBadge');
+
+    let countdown = 5;
+    let canAccept = false;
+
+    function updateButton() {
+        if (checkbox.checked && canAccept) {
+            btnAccept.classList.add('active');
+            btnAccept.disabled = false;
+        } else {
+            btnAccept.classList.remove('active');
+            btnAccept.disabled = true;
+        }
+    }
+
+    // TIMER DE SEGURANÇA
+    function startTimer() {
+        countdown = 5;
+        timerBadge.textContent = countdown + 's';
+        canAccept = false;
+
+        const interval = setInterval(() => {
+            countdown--;
+            if (countdown > 0) {
+                timerBadge.textContent = countdown + 's';
+            } else {
+                clearInterval(interval);
+                timerBadge.textContent = '✓';
+                canAccept = true;
+                updateButton();
+            }
+        }, 1000);
+    }
+
+    checkbox.addEventListener('change', updateButton);
+
+    // =============================================
+    // ACEITAR TERMOS
+    // =============================================
+    btnAccept.addEventListener('click', function() {
+        if (!checkbox.checked) {
+            checkbox.focus();
+            checkbox.style.outline = '2px solid #e53935';
+            setTimeout(() => checkbox.style.outline = 'none', 1500);
+            return;
+        }
+
+        // Salvar no localStorage
+        const storageKey = `terms_accepted_${userEmail}`;
+        localStorage.setItem(storageKey, 'true');
+        localStorage.setItem('terms_accepted_date', new Date().toISOString());
+
+        // Redirecionar
+        const target = returnTo || (userType === 'aluno' ? 'home_aluno.html' : 'home_professor.html');
+        window.location.href = target;
+    });
+
+    // =============================================
+    // INICIALIZAÇÃO
+    // =============================================
+    document.addEventListener('DOMContentLoaded', function() {
+        // Dark mode
+        if (localStorage.getItem('darkMode') === 'enabled') {
+            document.body.classList.add('dark-mode');
+        }
+
+        startTimer();
+
+        // Verificar se já aceitou os termos
+        if (userEmail) {
+            const key = `terms_accepted_${userEmail}`;
+            if (localStorage.getItem(key) === 'true') {
+                const target = returnTo || (userType === 'aluno' ? 'home_aluno.html' : 'home_professor.html');
+                window.location.href = target;
+            }
+        }
+    });
+
+    console.log('📋 SmartClass - Termos de Uso carregados');
+    console.log(`👤 Usuário: ${userEmail || 'não autenticado'}`);
+    console.log(`🔄 Redirecionar para: ${returnTo}`);
+</script>
+
+<script src="js/validacoes.js"></script>
+<script src="js/notifications.js"></script>
+<script src="js/app.js"></script>
+<script src="js/darkmode.js"></script>
+<script src="js/global.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/js/all.min.js"></script>
 </body>
 </html>

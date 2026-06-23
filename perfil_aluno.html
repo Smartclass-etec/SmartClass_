@@ -21,6 +21,7 @@
             background: #f0f2f5;
             min-height: 100vh;
             transition: margin-left 0.3s ease;
+            width: calc(100% - 260px);
         }
 
         .page-header { margin-bottom: 30px; }
@@ -288,8 +289,8 @@
         body.dark-mode .materia-opcao.selected { background: #fbbf24; color: #0f172a; }
 
         @media (max-width: 900px) {
+            .content { margin-left: 0; padding: 15px; width: 100%; }
             .perfil-grid { grid-template-columns: 1fr; }
-            .content { margin-left: 0; padding: 15px; }
             .materias-opcoes { grid-template-columns: 1fr; }
         }
         @media (max-width: 480px) {
@@ -400,26 +401,47 @@
 <input type="file" id="uploadFoto" accept="image/*" style="display:none" onchange="processarFoto(this)">
 
 <script>
+    // ========== MATÉRIAS DO SISTEMA ==========
+    const MATERIAS_SISTEMA = {
+        'OCA1': 'OCA 1 - Operação de Computadores e Aplicativos I',
+        'LTT': 'LTT - Linguagem, Trabalho e Tecnologia',
+        'IMC': 'IMC - Instalação e Manutenção de Computadores',
+        'PC1': 'PC 1 - Programação de Computadores I',
+        'GSO1': 'GSO 1 - Gestão de Sistemas Operacionais I',
+        'MBD': 'MBD - Modelagem de Banco de Dados',
+        'SU': 'SU - Sistemas Ubíquos',
+        'STIC': 'STIC - Segurança em Tecnologia da Informação e Comunicação',
+        'SI': 'SI - Sistemas de Informação',
+        'PTCC': 'PTCC - Planejamento do Trabalho de Conclusão de Curso',
+        'SBD': 'SBD - Sistemas de Banco de Dados',
+        'DSE': 'DSE - Desenvolvimento de Sistemas Embarcados',
+        'RCD1': 'RCD 1 - Redes de Comunicação de Dados I',
+        'PC2': 'PC 2 - Programação de Computadores II',
+        'GSO2': 'GSO 2 - Gestão de Sistemas Operacionais II',
+        'INGLES': 'Inglês - Inglês Instrumental',
+        'SD': 'SD - Segurança Digital',
+        'DTCC': 'DTCC - Desenvolvimento do Trabalho de Conclusão de Curso',
+        'CNM': 'CNM - Computação em Nuvem',
+        'ECO': 'ECO - Empreendedorismo e Comunicação Organizacional',
+        'IOT': 'IOT - Internet das Coisas (IoT)',
+        'RCD2': 'RCD 2 - Redes de Comunicação de Dados II',
+        'GSO3': 'GSO 3 - Gestão de Sistemas Operacionais III',
+        'PW1': 'Programação Web I',
+        'PW2': 'Programação Web II',
+        'PW3': 'Programação Web III',
+        'PA': 'Projeto de Aprendizagem',
+        'BD1': 'Banco de Dados I',
+        'BD2': 'Banco de Dados II',
+        'PAM1': 'Programação de Aplicativos Mobile I',
+        'PAM2': 'Programação de Aplicativos Mobile II',
+        'QTS': 'Qualidade e Testes de Software',
+        'IPSS': 'Internet, Protocolos e Segurança de Sistemas'
+    };
+
     // ========== DADOS DO USUÁRIO ==========
     let usuarioAtual = null;
     let materiasSelecionadas = [];
     let metas = [];
-
-    const nomesMaterias = {
-        matematica: "Matemática",
-        portugues: "Português",
-        ciencias: "Ciências",
-        historia: "História",
-        geografia: "Geografia",
-        ingles: "Inglês",
-        fisica: "Física",
-        quimica: "Química",
-        biologia: "Biologia",
-        programacao: "Programação",
-        redes: "Redes de Computadores",
-        banco_dados: "Banco de Dados",
-        sistemas: "Sistemas Operacionais"
-    };
 
     // ========== FUNÇÕES AUXILIARES ==========
     function showNotification(msg, type) {
@@ -496,21 +518,23 @@
             container.innerHTML = `<div class="empty-materias"><i class="fas fa-graduation-cap"></i><p>Adicione matérias dominantes</p></div>`; 
             return; 
         }
-        container.innerHTML = materiasSelecionadas.map(m => `
+        container.innerHTML = materiasSelecionadas.map(sigla => `
             <div class="materia-item">
                 <i class="fas fa-star"></i>
-                <span>${nomesMaterias[m] || m}</span>
-                <button class="remove-materia" onclick="removerMateria('${m}')">&times;</button>
+                <span><strong>${sigla}</strong> - ${MATERIAS_SISTEMA[sigla] || sigla}</span>
+                <button class="remove-materia" onclick="removerMateria('${sigla}')">&times;</button>
             </div>
         `).join('');
     }
     
     function abrirModalMaterias() {
-        const opcoes = Object.keys(nomesMaterias).map(m => `
-            <div class="materia-opcao" data-materia="${m}" onclick="this.classList.toggle('selected')">
-                <i class="fas fa-star"></i> ${nomesMaterias[m]}
+        const opcoes = Object.keys(MATERIAS_SISTEMA).map(sigla => `
+            <div class="materia-opcao" data-materia="${sigla}" onclick="this.classList.toggle('selected')">
+                <i class="fas fa-book"></i> 
+                <span><strong>${sigla}</strong> - ${MATERIAS_SISTEMA[sigla]}</span>
             </div>
         `).join('');
+        
         document.getElementById("materiasOpcoes").innerHTML = opcoes;
         document.querySelectorAll('.materia-opcao').forEach(opt => { 
             if (materiasSelecionadas.includes(opt.dataset.materia)) opt.classList.add('selected'); 
@@ -530,7 +554,7 @@
         materiasSelecionadas = materiasSelecionadas.filter(m => m !== materia);
         localStorage.setItem(`materias_${usuarioAtual.email}`, JSON.stringify(materiasSelecionadas));
         renderizarMaterias();
-        showNotification(`${nomesMaterias[materia]} removida!`, "info");
+        showNotification(`${MATERIAS_SISTEMA[materia] || materia} removida!`, "info");
     }
 
     // ========== METAS ==========
@@ -616,8 +640,7 @@
         const media = countNotas > 0 ? (somaNotas / countNotas).toFixed(1) : "0.0";
         document.getElementById("mediaGeralStat").textContent = media;
         
-        // Atividades concluídas
-        const concluidas = atividades.filter(a => a.entregas?.some(e => e.email === usuarioAtual?.email && e.status === "corrigida"));
+        // Atividades concluídas        const concluidas = atividades.filter(a => a.entregas?.some(e => e.email === usuarioAtual?.email && e.status === "corrigida"));
         document.getElementById("totalConcluidas").textContent = concluidas.length;
     }
 

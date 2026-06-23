@@ -304,7 +304,7 @@
 .sidebar-universal .footer-btn-universal i {
     width: 20px !important;
     height: 20px !important;
-    font-size: 16px !important;
+    font-size: 14px !important;
     color: rgba(255, 255, 255, 0.65) !important;
     flex-shrink: 0 !important;
     text-align: center !important;
@@ -370,7 +370,7 @@
 .sidebar-universal.minimizada .nav-link-universal i {
     width: 22px !important;
     height: 22px !important;
-    font-size: 14px !important;
+    font-size: 20px !important;
     line-height: 22px !important;
 }
 

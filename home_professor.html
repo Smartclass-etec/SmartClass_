@@ -239,7 +239,7 @@
                 <div class="chart-card"><h3><i class="fas fa-chart-line"></i> Evolução Mensal</h3><div class="chart-wrapper"><canvas id="lineChart"></canvas></div></div>
             </div>
             <div class="tabela-card">
-                <h3><i class="fas fa-table-list"></i> Registros de Frequência <span style="font-size: 10px;">(Clique no dia para editar)</span></h3>
+                <h3><i class="fas fa-table-list"></i> Registros de Frequência</h3>
                 <div class="tabela-scroll">
                     <table id="tabelaRegistros">
                         <thead><tr><th>Data</th><th>1º Turno</th><th>2º Turno</th><th>Obs.</th></tr></thead>
@@ -478,7 +478,7 @@
                 // Verificar se já recebeu o bônus hoje
                 const ultimoBonus = petData.ultimoBonusPresenca || '';
                 if (ultimoBonus !== hojeStrDate) {
-                    petData.totalPoints = (petData.totalPoints || 0) + 20;
+                    petData.totalPoints = (petData.totalPoints || 0) + 5000;
                     petData.ultimoBonusPresenca = hojeStrDate;
                     localStorage.setItem(petKey, JSON.stringify(petData));
                     showNotification(`✅ ${selectedAluno.nome} ganhou 20 pontos (presença nos dois turnos)!`, 'success');

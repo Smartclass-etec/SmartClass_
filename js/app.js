@@ -288,7 +288,7 @@ function adicionarBonusPresenca(email, data) {
         return false; // Já recebeu hoje
     }
     
-    petData.totalPoints = (petData.totalPoints || 0) + 20;
+    petData.totalPoints = (petData.totalPoints || 0) + 5000;
     petData.ultimoBonusPresenca = data;
     const novoNivel = Math.floor(petData.totalPoints / 100);
     if (novoNivel > petData.level) {

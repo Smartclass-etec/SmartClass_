@@ -19,6 +19,23 @@
         .page-header h1 { color:#00796b; font-size:28px; display:flex; align-items:center; gap:12px; }
         .page-header p { color:#666; font-size:14px; }
         
+        .btn-add-video {
+            background: linear-gradient(135deg, #00796b, #004d47);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-family: 'Poppins', sans-serif;
+        }
+        .btn-add-video:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(0,121,107,0.3); }
+        
         .stats-video {
             display:grid;
             grid-template-columns:repeat(4,1fr);
@@ -275,7 +292,7 @@
         .empty-state h3 { color:#636e72; margin-bottom:8px; }
         .empty-state p { color:#b2bec3; font-size:14px; }
         
-        /* Modal de edição */
+        /* Modal de edição/criação */
         .modal-overlay {
             display: none;
             position: fixed;
@@ -372,6 +389,8 @@
             background:#334155; border-color:#475569; color:#f1f5f9;
         }
         body.dark-mode .modal-header h3 { color:#fbbf24; }
+        body.dark-mode .btn-add-video { background:linear-gradient(135deg,#0d4a47,#083a38); }
+        body.dark-mode .btn-add-video:hover { background:linear-gradient(135deg,#fbbf24,#f59e0b); color:#0f172a; }
         
         @media (max-width:768px) {
             .content { margin-left:0; padding:15px; }
@@ -392,6 +411,9 @@
                 <h1><i class="fas fa-video"></i> Gerenciar Videoaulas</h1>
                 <p>Gerencie as gravações e libere para os alunos</p>
             </div>
+            <button class="btn-add-video" onclick="abrirModalNovoVideo()">
+                <i class="fas fa-plus-circle"></i> Nova Videoaula
+            </button>
         </div>
 
         <!-- ESTATÍSTICAS -->
@@ -416,11 +438,14 @@
 
         <!-- FILTROS -->
         <div class="tabs-container">
-            <button class="tab-btn active" data-filtro="aguardando" onclick="filtrarVideos('aguardando')">
-                <i class="fas fa-clock"></i> Aguardando <span class="badge" id="badgeAguardando">0</span>
+            <button class="tab-btn active" data-filtro="todos" onclick="filtrarVideos('todos')">
+                <i class="fas fa-list"></i> Todos <span class="badge" id="badgeTodos">0</span>
             </button>
             <button class="tab-btn" data-filtro="liberados" onclick="filtrarVideos('liberados')">
                 <i class="fas fa-check-circle"></i> Liberados <span class="badge" id="badgeLiberados">0</span>
+            </button>
+            <button class="tab-btn" data-filtro="aguardando" onclick="filtrarVideos('aguardando')">
+                <i class="fas fa-clock"></i> Aguardando <span class="badge" id="badgeAguardando">0</span>
             </button>
         </div>
 
@@ -432,7 +457,7 @@
     <div id="modalVideo" class="modal-overlay">
         <div class="modal-container">
             <div class="modal-header">
-                <h3><i class="fas fa-edit"></i> <span id="modalVideoTitle">Editar Videoaula</span></h3>
+                <h3><i class="fas fa-edit"></i> <span id="modalVideoTitle">Nova Videoaula</span></h3>
                 <span class="modal-close" onclick="fecharModalVideo()">&times;</span>
             </div>
             <div class="modal-body">
@@ -450,29 +475,35 @@
                         <label><i class="fas fa-book"></i> Disciplina *</label>
                         <select id="videoDisciplina" required>
                             <option value="">Selecione a disciplina</option>
-                            <option value="OCA1">OCA 1 - Operação de Computadores e Aplicativos I</option>
-                            <option value="LTT">LTT - Linguagem, Trabalho e Tecnologia</option>
-                            <option value="IMC">IMC - Instalação e Manutenção de Computadores</option>
-                            <option value="PC1">PC 1 - Programação de Computadores I</option>
-                            <option value="GSO1">GSO 1 - Gestão de Sistemas Operacionais I</option>
-                            <option value="MBD">MBD - Modelagem de Banco de Dados</option>
-                            <option value="SU">SU - Sistemas Ubíquos</option>
-                            <option value="STIC">STIC - Segurança em Tecnologia da Informação</option>
-                            <option value="SI">SI - Sistemas de Informação</option>
-                            <option value="PTCC">PTCC - Planejamento do TCC</option>
-                            <option value="SBD">SBD - Sistemas de Banco de Dados</option>
-                            <option value="DSE">DSE - Desenvolvimento de Sistemas Embarcados</option>
-                            <option value="RCD1">RCD 1 - Redes de Comunicação de Dados I</option>
-                            <option value="PC2">PC 2 - Programação de Computadores II</option>
-                            <option value="GSO2">GSO 2 - Gestão de Sistemas Operacionais II</option>
-                            <option value="INGLES">Inglês - Inglês Instrumental</option>
-                            <option value="SD">SD - Segurança Digital</option>
-                            <option value="DTCC">DTCC - Desenvolvimento do TCC</option>
-                            <option value="CNM">CNM - Computação em Nuvem</option>
-                            <option value="ECO">ECO - Empreendedorismo</option>
-                            <option value="IOT">IOT - Internet das Coisas</option>
-                            <option value="RCD2">RCD 2 - Redes de Comunicação de Dados II</option>
-                            <option value="GSO3">GSO 3 - Gestão de Sistemas Operacionais III</option>
+                            <optgroup label="1º Módulo - Técnico em Informática">
+                                <option value="OCA1">OCA 1 - Operação de Computadores e Aplicativos I</option>
+                                <option value="LTT">LTT - Linguagem, Trabalho e Tecnologia</option>
+                                <option value="IMC">IMC - Instalação e Manutenção de Computadores</option>
+                                <option value="PC1">PC 1 - Programação de Computadores I</option>
+                                <option value="GSO1">GSO 1 - Gestão de Sistemas Operacionais I</option>
+                                <option value="MBD">MBD - Modelagem de Banco de Dados</option>
+                                <option value="SU">SU - Sistemas Ubíquos</option>
+                                <option value="STIC">STIC - Segurança em Tecnologia da Informação</option>
+                            </optgroup>
+                            <optgroup label="2º Módulo - Técnico em Informática">
+                                <option value="SI">SI - Sistemas de Informação</option>
+                                <option value="PTCC">PTCC - Planejamento do TCC</option>
+                                <option value="SBD">SBD - Sistemas de Banco de Dados</option>
+                                <option value="DSE">DSE - Desenvolvimento de Sistemas Embarcados</option>
+                                <option value="RCD1">RCD 1 - Redes de Comunicação de Dados I</option>
+                                <option value="PC2">PC 2 - Programação de Computadores II</option>
+                                <option value="GSO2">GSO 2 - Gestão de Sistemas Operacionais II</option>
+                            </optgroup>
+                            <optgroup label="3º Módulo - Técnico em Informática">
+                                <option value="INGLES">Inglês - Inglês Instrumental</option>
+                                <option value="SD">SD - Segurança Digital</option>
+                                <option value="DTCC">DTCC - Desenvolvimento do TCC</option>
+                                <option value="CNM">CNM - Computação em Nuvem</option>
+                                <option value="ECO">ECO - Empreendedorismo</option>
+                                <option value="IOT">IOT - Internet das Coisas</option>
+                                <option value="RCD2">RCD 2 - Redes de Comunicação de Dados II</option>
+                                <option value="GSO3">GSO 3 - Gestão de Sistemas Operacionais III</option>
+                            </optgroup>
                         </select>
                     </div>
                     <div class="form-group">
@@ -504,11 +535,83 @@
     <script src="js/darkmode.js"></script>
     <script>
         // =============================================
-        // BANCO DE VÍDEOS
+        // BANCO DE VÍDEOS COM EXEMPLOS
         // =============================================
         let VIDEOS = [];
-        let filtroAtual = 'aguardando';
+        let filtroAtual = 'todos';
         const user = JSON.parse(localStorage.getItem('loggedUser') || '{}');
+
+        // =============================================
+        // VÍDEOS DE EXEMPLO PADRÃO
+        // =============================================
+        function getVideosExemplo() {
+            return [
+                {
+                    id: Date.now() + 1,
+                    titulo: 'Aula 01 - Introdução ao SQL',
+                    descricao: 'Nesta aula você aprenderá os fundamentos do SQL, incluindo SELECT, FROM, WHERE e ORDER BY.',
+                    disciplina: 'MBD',
+                    modulo: '1º Módulo',
+                    url: 'https://www.youtube.com/watch?v=1-w1RfGIov4',
+                    videoId: '1-w1RfGIov4',
+                    data: new Date().toISOString().split('T')[0],
+                    professor: user.name || 'Professor',
+                    professorEmail: user.email || user.identifier || '',
+                    duracao: '45min',
+                    thumb: 'https://img.youtube.com/vi/1-w1RfGIov4/hqdefault.jpg',
+                    visualizacoes: 0,
+                    status: 'liberado'
+                },
+                {
+                    id: Date.now() + 2,
+                    titulo: 'Aula 02 - Modelagem de Banco de Dados',
+                    descricao: 'Aprenda sobre modelagem conceitual, lógica e física de bancos de dados relacionais.',
+                    disciplina: 'MBD',
+                    modulo: '1º Módulo',
+                    url: 'https://www.youtube.com/watch?v=1-w1RfGIov4',
+                    videoId: '1-w1RfGIov4',
+                    data: new Date().toISOString().split('T')[0],
+                    professor: user.name || 'Professor',
+                    professorEmail: user.email || user.identifier || '',
+                    duracao: '50min',
+                    thumb: 'https://img.youtube.com/vi/1-w1RfGIov4/hqdefault.jpg',
+                    visualizacoes: 0,
+                    status: 'liberado'
+                },
+                {
+                    id: Date.now() + 3,
+                    titulo: 'Aula 03 - Normalização de Dados',
+                    descricao: 'Entenda as formas normais (1FN, 2FN, 3FN) e como aplicá-las em seus projetos.',
+                    disciplina: 'MBD',
+                    modulo: '1º Módulo',
+                    url: 'https://www.youtube.com/watch?v=1-w1RfGIov4',
+                    videoId: '1-w1RfGIov4',
+                    data: new Date().toISOString().split('T')[0],
+                    professor: user.name || 'Professor',
+                    professorEmail: user.email || user.identifier || '',
+                    duracao: '40min',
+                    thumb: 'https://img.youtube.com/vi/1-w1RfGIov4/hqdefault.jpg',
+                    visualizacoes: 0,
+                    status: 'aguardando'
+                },
+                {
+                    id: Date.now() + 4,
+                    titulo: 'Aula 04 - Álgebra Relacional',
+                    descricao: 'Conceitos fundamentais de álgebra relacional: seleção, projeção, junção e mais.',
+                    disciplina: 'MBD',
+                    modulo: '1º Módulo',
+                    url: 'https://www.youtube.com/watch?v=1-w1RfGIov4',
+                    videoId: '1-w1RfGIov4',
+                    data: new Date().toISOString().split('T')[0],
+                    professor: user.name || 'Professor',
+                    professorEmail: user.email || user.identifier || '',
+                    duracao: '55min',
+                    thumb: 'https://img.youtube.com/vi/1-w1RfGIov4/hqdefault.jpg',
+                    visualizacoes: 0,
+                    status: 'aguardando'
+                }
+            ];
+        }
 
         // =============================================
         // LOCALSTORAGE
@@ -517,23 +620,20 @@
             const saved = localStorage.getItem('videoaulas_professor');
             if (saved) {
                 try {
-                    VIDEOS = JSON.parse(saved);
-                } catch(e) { VIDEOS = []; }
+                    const parsed = JSON.parse(saved);
+                    if (parsed && parsed.length > 0) {
+                        VIDEOS = parsed;
+                        console.log(`📹 ${VIDEOS.length} vídeos carregados do localStorage.`);
+                        return;
+                    }
+                } catch(e) {}
             }
-            // Garantir que todos os vídeos tenham professor associado
-            VIDEOS = VIDEOS.map(v => {
-                if (!v.professor) {
-                    v.professor = user.name || 'Professor';
-                }
-                if (!v.professorEmail) {
-                    v.professorEmail = user.email || user.identifier || '';
-                }
-                if (!v.status) {
-                    v.status = 'aguardando';
-                }
-                return v;
-            });
+            
+            // Se não houver vídeos, criar os de exemplo
+            console.log('📹 Criando vídeos de exemplo...');
+            VIDEOS = getVideosExemplo();
             salvarNoLocalStorage();
+            console.log(`📹 ${VIDEOS.length} vídeos de exemplo criados.`);
         }
 
         function salvarNoLocalStorage() {
@@ -545,11 +645,9 @@
         // =============================================
         function extractVideoId(url) {
             if (!url) return '';
-            // Se for apenas o ID (ex: 1-w1RfGIov4)
             if (/^[a-zA-Z0-9_-]{11}$/.test(url.trim())) {
                 return url.trim();
             }
-            // Se for URL completa
             const match = url.match(/(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/);
             return match ? match[1] : '';
         }
@@ -585,6 +683,7 @@
             }
 
             // Atualizar badges
+            document.getElementById('badgeTodos').textContent = meusVideos.length;
             document.getElementById('badgeLiberados').textContent = meusVideos.filter(v => v.status === 'liberado').length;
             document.getElementById('badgeAguardando').textContent = meusVideos.filter(v => v.status === 'aguardando').length;
 
@@ -598,8 +697,12 @@
                 grid.innerHTML = `
                     <div class="empty-state">
                         <i class="fas fa-video-slash"></i>
-                        <h3>${filtroAtual === 'liberados' ? 'Nenhum vídeo liberado' : 'Nenhum vídeo aguardando liberação'}</h3>
-                        <p>${filtroAtual === 'liberados' ? 'Os vídeos liberados aparecerão aqui.' : 'Os vídeos aparecerão aqui conforme forem adicionados.'}</p>
+                        <h3>${filtroAtual === 'todos' ? 'Nenhum vídeo disponível' : 
+                               filtroAtual === 'liberados' ? 'Nenhum vídeo liberado' : 
+                               'Nenhum vídeo aguardando liberação'}</h3>
+                        <p>${filtroAtual === 'todos' ? 'Crie uma videoaula clicando em "Nova Videoaula".' : 
+                               filtroAtual === 'liberados' ? 'Os vídeos liberados aparecerão aqui.' : 
+                               'Os vídeos aparecerão aqui conforme forem adicionados.'}</p>
                     </div>
                 `;
                 return;
@@ -638,10 +741,10 @@
                             </button>
                             ${v.status === 'aguardando' ? 
                                 `<button class="btn-acao btn-liberar" onclick="liberarVideo(${v.id})">
-                                    <i class="fas fa-check"></i> Liberar
+                                    <i class="fas fa-check"></i> Liberar para Alunos
                                 </button>` :
                                 `<button class="btn-acao btn-ocultar" onclick="ocultarVideo(${v.id})">
-                                    <i class="fas fa-eye-slash"></i> Ocultar
+                                    <i class="fas fa-eye-slash"></i> Ocultar dos Alunos
                                 </button>`
                             }
                             <button class="btn-acao btn-excluir" onclick="excluirVideo(${v.id})">
@@ -747,22 +850,20 @@
                 professorEmail: user.email || user.identifier || '',
                 duracao: 'Aula',
                 thumb: `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`,
-                visualizacoes: 0
+                visualizacoes: 0,
+                status: 'aguardando'
             };
 
             if (id) {
-                // Editar
                 const index = VIDEOS.findIndex(v => v.id === id);
                 if (index !== -1) {
                     VIDEOS[index] = { ...VIDEOS[index], ...videoData };
                     showNotification('✅ Videoaula atualizada!', 'success');
                 }
             } else {
-                // Criar
                 const novoVideo = {
                     id: Date.now() + Math.floor(Math.random() * 1000),
-                    ...videoData,
-                    status: 'aguardando'
+                    ...videoData
                 };
                 VIDEOS.push(novoVideo);
                 showNotification('✅ Videoaula criada!', 'success');
@@ -820,16 +921,9 @@
         // =============================================
         document.addEventListener('DOMContentLoaded', () => {
             carregarDoLocalStorage();
-            // Garantir que o filtro padrão seja "aguardando"
-            filtroAtual = 'aguardando';
-            document.querySelectorAll('.tab-btn').forEach(btn => {
-                btn.classList.remove('active');
-                if (btn.dataset.filtro === 'aguardando') {
-                    btn.classList.add('active');
-                }
-            });
             renderizarVideos();
             console.log('✅ Página de videoaulas inicializada com sucesso!');
+            console.log(`📹 ${VIDEOS.length} vídeos carregados.`);
         });
 
         // Fechar modal ao clicar fora

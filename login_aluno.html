@@ -510,6 +510,46 @@
         setTimeout(() => {
             window.location.href = "home_aluno.html";
         }, 800);
+
+        // ===== VERIFICAR SE JÁ ACEITOU OS TERMOS =====
+function checkTermsAccepted(email) {
+    if (!email) return false;
+    const termsKey = `terms_accepted_${email}`;
+    return localStorage.getItem(termsKey) === 'true';
+}
+
+// DENTRO DO SUBMIT, APÓS SALVAR O loggedUser:
+loginForm.addEventListener("submit", function(e){
+    e.preventDefault();
+
+    const email = document.getElementById('loginEmail').value.trim();
+    const password = document.getElementById('loginSenha').value;
+
+    if(!email.endsWith("@aluno.cps.sp.gov.br")){
+        showNotification("Use um e-mail institucional @aluno.cps.sp.gov.br");
+        return;
+    }
+    if(password.length < 1){
+        showNotification("Digite sua senha");
+        return;
+    }
+
+    const nome = extrairNomeDoEmail(email);
+    // ... resto do código de login ...
+
+    loadingScreen.style.display = "flex";
+
+    // ===== VERIFICAR SE JÁ ACEITOU OS TERMOS =====
+    setTimeout(() => {
+        const termosAceitos = checkTermsAccepted(email);
+        if (termosAceitos) {
+            window.location.href = "home_aluno.html";
+        } else {
+            const termsUrl = `termos.html?returnTo=home_aluno.html&user=${encodeURIComponent(email)}&type=aluno`;
+            window.location.href = termsUrl;
+        }
+    }, 800);
+});
     });
 
     createBubbles();
